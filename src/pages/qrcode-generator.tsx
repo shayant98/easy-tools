@@ -1,8 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import BaseLayout from "../layout/BaseLayout";
 import QRCode from "qrcode";
 import Image from "next/image";
-import { findDOMNode } from "react-dom";
 import { AiOutlineLink } from "react-icons/ai";
 const QrCodeGenerator = () => {
   const [input, setinput] = useState("");

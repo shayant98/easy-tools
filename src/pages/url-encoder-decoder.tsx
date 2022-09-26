@@ -25,7 +25,7 @@ const UrlEncoderDecoder = () => {
           impedit recusandae ducimus nihil? Voluptate, quidem? Incidunt quae autem velit esse placeat, in voluptatum nihil corporis nulla recusandae labore deserunt, hic earum.
           Dolorum rerum earum nobis blanditiis eveniet! Ipsam, dolorum obcaecati nulla vero autem corporis commodi? Mollitia fugiat saepe eius ut. Minus iste, accusamus corporis"
     >
-      <div className="px-20">
+      <div className="px-20 h-full">
         <div className="flex gap-x-2 h-1/2">
           <TextArea value={inputArea} setValue={setinputArea} />
           <TextArea readOnly value={outputArea} />
