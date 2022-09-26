@@ -27,8 +27,12 @@ const UrlEncoderDecoder = () => {
     >
       <div className="px-20 h-full">
         <div className="flex gap-x-2 h-1/2">
-          <TextArea value={inputArea} setValue={setinputArea} />
-          <TextArea readOnly value={outputArea} />
+          <div className=" grow">
+            <TextArea value={inputArea} setValue={setinputArea} />
+          </div>
+          <div className=" grow">
+            <TextArea readOnly value={outputArea} />
+          </div>
         </div>
         <div className="flex gap-x-3 justify-end pt-3">
           <button className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200" onClick={handleEncode}>
