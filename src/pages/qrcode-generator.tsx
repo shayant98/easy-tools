@@ -24,13 +24,7 @@ const QrCodeGenerator = () => {
     { name: "contact", icon: <AiOutlineLink /> },
   ];
   return (
-    <BaseLayout
-      showBackButton
-      title="QR-Code Generator"
-      desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere deserunt quis assumenda beatae placeat dolores, voluptas consequatur sunt totam ut error cum veniam vel,
-          impedit recusandae ducimus nihil? Voluptate, quidem? Incidunt quae autem velit esse placeat, in voluptatum nihil corporis nulla recusandae labore deserunt, hic earum.
-          Dolorum rerum earum nobis blanditiis eveniet! Ipsam, dolorum obcaecati nulla vero autem corporis commodi? Mollitia fugiat saepe eius ut. Minus iste, accusamus corporis"
-    >
+    <BaseLayout showBackButton title="QR-Code Generator">
       <div className=" px-20 h-full w-full">
         <div className="flex gap-x-2 mb-5 w-full">
           {dataTypes.map(({ name, icon }) => (

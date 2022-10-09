@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
 import { ToastContainer } from "react-toast";
 
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
@@ -19,6 +19,15 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
         <p>{desc}</p>
       </div>
       <div className="grow w-full h-4/6">{children}</div>
+      <footer className="flex  justify-center items-center gap-x-1 bg-gray-900 py-5 w-full text-center text-sm text-gray-400 ">
+        Built by{" "}
+        <a href="https://www.shayantsital.com" target={"_blank"} rel="noreferrer" className="hover:text-gray-100">
+          Shayant Sital
+        </a>
+        <a href="https://www.github.com/shayant98" target={"_blank"} rel="noreferrer">
+          <AiOutlineGithub className="hover:text-gray-100" />
+        </a>
+      </footer>
       <ToastContainer position="bottom-right" delay={2000} />
     </div>
   );
