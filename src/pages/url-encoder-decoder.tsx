@@ -1,8 +1,9 @@
 import { useState } from "react";
-import TextArea from "../components/TextArea";
 import BaseLayout from "../layout/BaseLayout";
 import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs";
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -27,11 +28,35 @@ const UrlEncoderDecoder = () => {
     >
       <div className="px-20 h-full">
         <div className="flex gap-x-2 h-1/2">
-          <div className=" grow">
-            <TextArea value={inputArea} setValue={setinputArea} />
+          <div className="w-1/2 ">
+            <Editor
+              placeholder="Enter URL here"
+              value={inputArea}
+              onValueChange={(value: string) => setinputArea(value)}
+              highlight={(code: string) => highlight(code, languages.js!, "js")}
+              padding={10}
+              className="bg-gray-900 rounded h-full "
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 12,
+              }}
+            />
           </div>
-          <div className=" grow">
-            <TextArea readOnly value={outputArea} />
+          <div className=" w-1/2">
+            <Editor
+              readOnly
+              value={outputArea}
+              onValueChange={(value: string) => {
+                return;
+              }}
+              highlight={(code: string) => highlight(code, languages.js!, "js")}
+              padding={10}
+              className="bg-gray-900 rounded h-full "
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 12,
+              }}
+            />
           </div>
         </div>
         <div className="flex gap-x-3 justify-end pt-3">

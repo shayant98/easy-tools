@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import TextArea from "../components/TextArea";
 import BaseLayout from "../layout/BaseLayout";
 import "github-markdown-css";
 import { AiOutlineClear, AiOutlineCopy, AiOutlineUndo } from "react-icons/ai";
 import { toast } from "react-toast";
 import presets from "../data/markdown-presets";
+import Editor from "react-simple-code-editor";
+import { languages, highlight } from "prismjs";
+import "prismjs/components/prism-markdown";
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
   const [showFullMd, setshowFullMd] = useState(false);
@@ -52,8 +54,26 @@ const ReadmeGenerator = () => {
     toast.success("Copied Markdown");
   };
 
-  const handlePresetEdit = (preset: { title: string; value: string }, newValue: string) => {
-    preset.value = newValue;
+  const handlePresetEdit = (newValue: string, preset?: { title: string; value: string }) => {
+    if (preset === undefined) {
+      return;
+    }
+    setCurrentlySelectedPreset({ ...preset, value: newValue });
+    setSelectedPresets(
+      selectedPresets.map((presets) => {
+        if (presets.title === preset.title) {
+          presets.value = newValue;
+        }
+        return presets;
+      })
+    );
+    console.log(preset);
+
+    // setSelectedPresets(Array.from(new Set([...selectedPresets, preset])));
+  };
+
+  const removeselectedPreset = (preset: { title: string; value: string }) => {
+    setSelectedPresets((arr) => arr.filter((el) => el.title !== preset.title));
   };
 
   useEffect(() => {
@@ -64,6 +84,10 @@ const ReadmeGenerator = () => {
       setavailablePresets(presets);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(123);
+  }, [currentlySelectedPreset]);
 
   return (
     <BaseLayout title="Markdown" showBackButton>
@@ -81,7 +105,7 @@ const ReadmeGenerator = () => {
         </div>
       </div>
       <div className="flex px-20 gap-x-2 h-5/6 pb-4">
-        <div className="border rounded w-1/4  px-4 py-2">
+        <div className="border rounded w-1/4  px-4 py-2 overflow-scroll">
           {availablePresets.map((preset, i) => (
             <div key={preset.title} className="flex items-center justify-center gap-x-2">
               <div
@@ -90,16 +114,26 @@ const ReadmeGenerator = () => {
               >
                 {preset.title}
               </div>
-              {/* {new Set(selectedPresets).has(preset) && (
-                <div className="bg-red-500 text-sm rounded h-max px-4 py-2 mb-1 cursor-pointer">
-                  <AiOutlineClear className="" onClick={(e) => removeselectedPreset(i)} />
+              {new Set(selectedPresets).has(preset) && (
+                <div className="bg-red-500 text-sm rounded h-max px-4 py-2 mb-1 cursor-pointer" onClick={() => removeselectedPreset(preset)}>
+                  <AiOutlineClear className="" />
                 </div>
-              )} */}
+              )}
             </div>
           ))}
         </div>
         <div className=" w-1/3 overflow-scroll break-words">
-          <TextArea language="MD" value={currentlySelectedPreset?.value ?? ""} setValue={(value: string) => handlePresetEdit(currentlySelectedPreset!, value)} />
+          <Editor
+            value={currentlySelectedPreset?.value ?? ""}
+            onValueChange={(value: string) => handlePresetEdit(value, currentlySelectedPreset)}
+            highlight={(code) => highlight(code, languages.md!, "md")}
+            padding={10}
+            className="bg-gray-900 rounded h-full "
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 12,
+            }}
+          />
         </div>
         <div className="grow w-1/3 overflow-y-scroll">
           <div className="rounded   markdown-body px-4 py-2 overflow-y-scroll ">

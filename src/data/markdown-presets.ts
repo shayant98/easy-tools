@@ -102,11 +102,49 @@ Takes two numbers and returns the sum.
 `,
   },
   {
-    title: "Title4",
+    title: "FAQ",
     value: `
-# Project Title
 
-A brief description of what this project does and who it's for
+## FAQ
+
+#### Question 1
+
+Answer 1
+
+#### Question 2
+
+Answer 2
+
+
+`,
+  },
+  {
+    title: "Features",
+    value: `
+
+## Features
+
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
+
+`,
+  },
+
+  {
+    title: "Installation",
+    value: `
+
+
+## Installation
+
+Install my-project with npm
+
+\`\`\`bash
+  npm install my-project
+  cd my-project
+\`\`\`
 
 `,
   },

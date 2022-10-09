@@ -1,7 +1,8 @@
 import BaseLayout from "../layout/BaseLayout";
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
-import TextArea from "../components/TextArea";
+import { highlight, languages } from "prismjs";
+import Editor from "react-simple-code-editor";
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -24,20 +25,38 @@ const JsonToTs = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <BaseLayout
-      showBackButton
-      title="JSON to Typescript"
-      desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere deserunt quis assumenda beatae placeat dolores, voluptas consequatur sunt totam ut error cum veniam vel,
-          impedit recusandae ducimus nihil? Voluptate, quidem? Incidunt quae autem velit esse placeat, in voluptatum nihil corporis nulla recusandae labore deserunt, hic earum.
-          Dolorum rerum earum nobis blanditiis eveniet! Ipsam, dolorum obcaecati nulla vero autem corporis commodi? Mollitia fugiat saepe eius ut. Minus iste, accusamus corporis"
-    >
+    <BaseLayout showBackButton title="JSON to Typescript">
       <div className="px-20 h-full w-full">
         <div className="flex gap-x-2 h-1/2 w-full">
-          <div className=" grow">
-            <TextArea value={inputArea} setValue={setinputArea} />
+          <div className="w-1/2 ">
+            <Editor
+              placeholder="Enter JSON here"
+              value={inputArea}
+              onValueChange={(value: string) => setinputArea(value)}
+              highlight={(code: string) => highlight(code, languages.js!, "js")}
+              padding={10}
+              className="bg-gray-900 rounded h-full overflow-visible"
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 12,
+              }}
+            />
           </div>
           <div className=" grow">
-            <TextArea readOnly value={outputArea} />
+            <Editor
+              readOnly
+              value={outputArea}
+              onValueChange={(value: string) => {
+                return;
+              }}
+              highlight={(code: string) => highlight(code, languages.js!, "js")}
+              padding={10}
+              className="bg-gray-900 rounded h-full "
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 12,
+              }}
+            />
           </div>
         </div>
       </div>

@@ -8,9 +8,7 @@ const Home: NextPage = () => {
   return (
     <BaseLayout>
       <main className="mt-10">
-        <div className="flex items-center justify-center w-full">
-          <input className="bg-gray-300 h-10 w-1/2 rounded px-2 py-4" placeholder="Search" />
-        </div>
+        <div className="flex items-center justify-center w-full">{/* <input className="bg-gray-300 h-10 w-1/2 rounded px-2 py-4" placeholder="Search" /> */}</div>
         <div className="mt-10 flex justify-center flex-wrap gap-4">
           <Link href="/json-to-ts">
             <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
