@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toast";
 
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
   return (
-    <div className="bg-gray-800 text-gray-200 min-h-screen min-w-screen h-full flex flex-col items-start">
+    <div className="bg-gray-800 text-gray-200 min-h-screen min-w-screen  flex flex-col items-start">
       {showBackButton && (
         <div className="px-20 py-5">
           <Link href="/">
@@ -15,7 +15,7 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
         </div>
       )}
       <div className="px-20 pb-5">
-        <h1 className="text-7xl mb-3">{title}</h1>
+        <h1 className="text-4xl mb-3">{title}</h1>
         <p>{desc}</p>
       </div>
       <div className="grow w-full mb-5 px-20">{children}</div>

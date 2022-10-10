@@ -65,23 +65,29 @@ const DockerCompose = () => {
     volumes.map((volume) => {
       if (volume.external === "" || volume.internal === "") {
         toast.error("Volume format invalid");
+        return;
       }
     });
     ports.map((port) => {
       if (port.external === "" || port.internal === "") {
         toast.error("Port format invalid");
+        return;
       }
     });
     env.map((env) => {
       if (env.label === "" || env.value === "") {
         toast.error("ENV format invalid");
+        return;
       }
     });
     labels.map((label) => {
       if (label.label === "" || label.value === "") {
         toast.error("Label format invalid");
+        return;
       }
     });
+    toast.success("Generating docker-compose.yaml");
+
     const template = {
       services: {
         [service]: {
@@ -146,11 +152,12 @@ const DockerCompose = () => {
     element.download = "docker-compose.yaml";
     document.body.appendChild(element);
     element.click();
+    toast.success("Downloading docker-compose.yaml");
   };
 
   return (
     <BaseLayout showBackButton title="Docker compose generator">
-      <div className="flex gap-x-2">
+      <div className="flex gap-x-2 mb-2">
         <div className="flex justify-end gap-x-1 w-full ">
           <div className="flex text-xs items-center gap-1 bg-gray-900 rounded px-4 py-2 cursor-pointer" onClick={handleGenerateDockerFile}>
             <AiOutlinePlus /> Generate

@@ -91,20 +91,20 @@ const ReadmeGenerator = () => {
 
   return (
     <BaseLayout title="Markdown" showBackButton>
-      <div className="flex gap-x-1 self-end">
-        <div className="flex gap-x-1  ">
+      <div className="flex gap-x-1 mb-2 ">
+        <div className="flex gap-x-1  w-1/4">
           <div className="bg-gray-900 rounded px-4 py-2 cursor-pointer" onClick={handleOnClear}>
             <AiOutlineUndo />
           </div>
         </div>
-        <div className="flex gap-x-1  "></div>
-        <div className="flex gap-x-1  ">
+        <div className="flex gap-x-1  w-1/3"></div>
+        <div className="flex gap-x-1  w-1/3 self-end">
           <div className="flex items-center gap-1 bg-gray-900 rounded px-4 py-2 cursor-pointer  " onClick={handleCopy}>
             <AiOutlineCopy />
           </div>
         </div>
       </div>
-      <div className="flex  gap-x-2 h-5/6">
+      <div className="flex  gap-x-1 ">
         <div className="border rounded w-1/4  px-4 py-2 overflow-auto">
           {availablePresets.map((preset, i) => (
             <div key={preset.title} className="flex items-center justify-center gap-x-2">
