@@ -26,38 +26,36 @@ const JsonToTs = () => {
 
   return (
     <BaseLayout showBackButton title="JSON to Typescript">
-      <div className="px-20 h-full w-full">
-        <div className="flex gap-x-2 h-1/2 w-full">
-          <div className="w-1/2 ">
-            <Editor
-              placeholder="Enter JSON here"
-              value={inputArea}
-              onValueChange={(value: string) => setinputArea(value)}
-              highlight={(code: string) => highlight(code, languages.js!, "js")}
-              padding={10}
-              className="bg-gray-900 rounded h-full overflow-visible"
-              style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 12,
-              }}
-            />
-          </div>
-          <div className=" grow">
-            <Editor
-              readOnly
-              value={outputArea}
-              onValueChange={(value: string) => {
-                return;
-              }}
-              highlight={(code: string) => highlight(code, languages.js!, "js")}
-              padding={10}
-              className="bg-gray-900 rounded h-full "
-              style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 12,
-              }}
-            />
-          </div>
+      <div className="flex gap-x-2 ">
+        <div className="w-1/2 ">
+          <Editor
+            placeholder="Enter JSON here"
+            value={inputArea}
+            onValueChange={(value: string) => setinputArea(value)}
+            highlight={(code: string) => highlight(code, languages.js!, "js")}
+            padding={10}
+            className="bg-gray-900 rounded h-full overflow-visible"
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 12,
+            }}
+          />
+        </div>
+        <div className=" grow">
+          <Editor
+            readOnly
+            value={outputArea}
+            onValueChange={(value: string) => {
+              return;
+            }}
+            highlight={(code: string) => highlight(code, languages.js!, "js")}
+            padding={10}
+            className="bg-gray-900 rounded h-full "
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 12,
+            }}
+          />
         </div>
       </div>
     </BaseLayout>

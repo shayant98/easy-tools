@@ -91,21 +91,21 @@ const ReadmeGenerator = () => {
 
   return (
     <BaseLayout title="Markdown" showBackButton>
-      <div className="flex gap-x-2 px-20 mb-3">
-        <div className="flex gap-x-1 w-1/4 ">
+      <div className="flex gap-x-1 self-end">
+        <div className="flex gap-x-1  ">
           <div className="bg-gray-900 rounded px-4 py-2 cursor-pointer" onClick={handleOnClear}>
             <AiOutlineUndo />
           </div>
         </div>
-        <div className="flex gap-x-1 w-1/3 "></div>
-        <div className="flex gap-x-1 w-1/3 ">
+        <div className="flex gap-x-1  "></div>
+        <div className="flex gap-x-1  ">
           <div className="flex items-center gap-1 bg-gray-900 rounded px-4 py-2 cursor-pointer  " onClick={handleCopy}>
             <AiOutlineCopy />
           </div>
         </div>
       </div>
-      <div className="flex px-20 gap-x-2 h-5/6 pb-4">
-        <div className="border rounded w-1/4  px-4 py-2 overflow-scroll">
+      <div className="flex  gap-x-2 h-5/6">
+        <div className="border rounded w-1/4  px-4 py-2 overflow-auto">
           {availablePresets.map((preset, i) => (
             <div key={preset.title} className="flex items-center justify-center gap-x-2">
               <div
@@ -122,7 +122,7 @@ const ReadmeGenerator = () => {
             </div>
           ))}
         </div>
-        <div className=" w-1/3 overflow-scroll break-words">
+        <div className=" w-1/3 overflow-auto break-words">
           <Editor
             value={currentlySelectedPreset?.value ?? ""}
             onValueChange={(value: string) => handlePresetEdit(value, currentlySelectedPreset)}
@@ -135,8 +135,8 @@ const ReadmeGenerator = () => {
             }}
           />
         </div>
-        <div className="grow w-1/3 overflow-y-scroll">
-          <div className="rounded   markdown-body px-4 py-2 overflow-y-scroll ">
+        <div className="grow w-1/3 h-5/6 overflow-y-auto">
+          <div className="rounded   markdown-body px-4 py-2 overflow-y-auto ">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}</ReactMarkdown>
           </div>
         </div>

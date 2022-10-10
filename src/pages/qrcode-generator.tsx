@@ -25,26 +25,24 @@ const QrCodeGenerator = () => {
   ];
   return (
     <BaseLayout showBackButton title="QR-Code Generator">
-      <div className=" px-20 h-full w-full">
-        <div className="flex gap-x-2 mb-5 w-full">
-          {dataTypes.map(({ name, icon }) => (
-            <div
-              key={name}
-              className={` flex items-center gap-1 ${selectedDataType === name && "bg-gray-900"} px-4 py-2 rounded hover:shadow hover:scale-105 duration-200 cursor-pointer`}
-              onClick={() => setselectedDataType(name)}
-            >
-              {icon} {name}
-            </div>
-          ))}
-        </div>
-        <input className="bg-gray-300 h-10 rounded px-2 py-4 mb-5 text-black" placeholder="Value" value={input} onChange={(e) => setinput(e.target.value)} />
-        <button className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200 " onClick={handleGeneration}>
-          Generate
-        </button>
+      <div className="flex gap-x-2 mb-5 w-full">
+        {dataTypes.map(({ name, icon }) => (
+          <div
+            key={name}
+            className={` flex items-center gap-1 ${selectedDataType === name && "bg-gray-900"} px-4 py-2 rounded hover:shadow hover:scale-105 duration-200 cursor-pointer`}
+            onClick={() => setselectedDataType(name)}
+          >
+            {icon} {name}
+          </div>
+        ))}
+      </div>
+      <input className="bg-gray-300 h-10 rounded px-2 py-4 mb-5 text-black" placeholder="Value" value={input} onChange={(e) => setinput(e.target.value)} />
+      <button className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200 " onClick={handleGeneration}>
+        Generate
+      </button>
 
-        <div className="flex h-32 w-32  items-center justify-center relative">
-          <div className="w-32 h-32">{qrCode && <Image src={qrCode} alt="QRCode" layout="fill" />}</div>
-        </div>
+      <div className="flex h-32 w-32  items-center justify-center relative">
+        <div className="w-32 h-32">{qrCode && <Image src={qrCode} alt="QRCode" layout="fill" />}</div>
       </div>
     </BaseLayout>
   );
