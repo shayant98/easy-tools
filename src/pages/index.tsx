@@ -34,9 +34,9 @@ const Home: NextPage = () => {
       },
       {
         title: "Readme Generator",
-        subtitle: "Generate standardised readme&apos;s for your projects",
+        subtitle: "Generate standardised readme's for your projects",
         icon: AiOutlineFileMarkdown,
-        link: "/json-to-ts",
+        link: "/readme-generator",
       },
       {
         title: "Docker Compose Generator",
@@ -87,7 +87,7 @@ const Home: NextPage = () => {
     <BaseLayout>
       <main className="mt-10">
         <div className="flex items-center justify-center w-full">
-          <div className="w-full items-end flex gap-2">
+          <div className="w-full max-w-lg items-end flex gap-2">
             <div className="grow">
               <Input value={search} onChange={(e) => setSearch(e.target.value)} title="Search" />
             </div>

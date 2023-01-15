@@ -1,7 +1,9 @@
 import BaseLayout from "../layout/BaseLayout";
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
-import { highlight, languages } from "prismjs";
+import { highlight, languages, highlightElement } from "prismjs";
+import "node_modules/prismjs/components/prism-javascript";
+import "node_modules/prismjs/components/prism-typescript";
 import Editor from "react-simple-code-editor";
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
@@ -32,7 +34,7 @@ const JsonToTs = () => {
             placeholder="Enter JSON here"
             value={inputArea}
             onValueChange={(value: string) => setinputArea(value)}
-            highlight={(code: string) => highlight(code, languages.js!, "js")}
+            highlight={(code: string) => highlight(code, languages.javascript!, "javascript")}
             padding={10}
             className="bg-gray-900 rounded h-full overflow-visible"
             style={{
@@ -48,7 +50,7 @@ const JsonToTs = () => {
             onValueChange={(value: string) => {
               return;
             }}
-            highlight={(code: string) => highlight(code, languages.js!, "js")}
+            highlight={(code) => highlight(code, languages.ts!, "ts")}
             padding={10}
             className="bg-gray-900 rounded h-full "
             style={{
