@@ -6,6 +6,7 @@ import * as bcrypt from "bcryptjs";
 import Input from "../components/Input/Input";
 import { AiOutlineCopy } from "react-icons/ai";
 import { toast } from "react-toast";
+import Button from "../components/Button/Button";
 const UrlEncoderDecoder = () => {
   const [hash, sethash] = useState("");
   const [string, setstring] = useState("");
@@ -42,10 +43,10 @@ const UrlEncoderDecoder = () => {
           <Input title="String to check against" value={string} onChange={(e) => setstring(e.target.value)} />
         </div>
         <div className="flex gap-x-3 justify-end pt-3">
-          <button onClick={handleCheck} className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200">
+          <Button onClick={handleCheck}>
             <IoArrowForwardOutline />
-            Validate
-          </button>
+            <span>Validate</span>
+          </Button>
           <button className="flex  items-center gap-1 px-4 py-2 ml-4 rounded " onClick={handleClear}>
             <MdClear />
             Clear

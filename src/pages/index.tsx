@@ -5,62 +5,102 @@ import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-ico
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import Link from "next/link";
 import BaseLayout from "../layout/BaseLayout";
-import { MdEnhancedEncryption } from "react-icons/md";
+import { MdClear, MdEnhancedEncryption } from "react-icons/md";
+import Input from "../components/Input/Input";
+import { useEffect, useMemo, useState } from "react";
+import { IconType } from "react-icons";
+import ToolCard from "../components/ToolCard";
+import Button from "../components/Button/Button";
 const Home: NextPage = () => {
+  const menuItems = useMemo(
+    () => [
+      {
+        title: "JSON To Typescript",
+        subtitle: "Generate Typescript classes from JSON",
+        icon: SiTypescript,
+        link: "/json-to-ts",
+      },
+      {
+        title: "QR Code Generator",
+        subtitle: "Generate QR Codes",
+        icon: AiOutlineQrcode,
+        link: "/qrcode-generator",
+      },
+      {
+        title: "URL Encoder/Decoder",
+        subtitle: "Decode/Ecode URLs",
+        icon: AiOutlineLink,
+        link: "/url-encoder-decoder",
+      },
+      {
+        title: "Readme Generator",
+        subtitle: "Generate standardised readme&apos;s for your projects",
+        icon: AiOutlineFileMarkdown,
+        link: "/json-to-ts",
+      },
+      {
+        title: "Docker Compose Generator",
+        subtitle: "Generate docker compose files",
+        icon: SiDocker,
+        link: "/docker-compose",
+      },
+      {
+        title: "Bcrypt generator",
+        subtitle: "Generate BCrypt hashes",
+        icon: MdEnhancedEncryption,
+        link: "/bcrypt-generator",
+      },
+      {
+        title: "Bcrypt validator",
+        subtitle: "Validate generated BCrypt Hashes",
+        icon: HiOutlineShieldCheck,
+        link: "/bcrypt-validator",
+      },
+    ],
+    []
+  );
+  const [search, setSearch] = useState("");
+  const [fitleredItems, setfitleredItems] = useState<
+    {
+      title: string;
+      subtitle: string;
+      icon: IconType;
+      link: string;
+    }[]
+  >(menuItems);
+
+  useEffect(() => {
+    if (search.trim().length > 0) {
+      setfitleredItems((prev) => menuItems.filter((items) => items.title.toLowerCase().includes(search) || items.subtitle.toLowerCase().includes(search)));
+    } else {
+      setfitleredItems(menuItems);
+    }
+
+    return () => {
+      setfitleredItems([]);
+    };
+  }, [menuItems, search]);
+  const handleClear = () => {
+    setSearch("");
+  };
   return (
     <BaseLayout>
       <main className="mt-10">
-        <div className="flex items-center justify-center w-full">{/* <input className="bg-gray-300 h-10 w-1/2 rounded px-2 py-4" placeholder="Search" /> */}</div>
+        <div className="flex items-center justify-center w-full">
+          <div className="w-full items-end flex gap-2">
+            <div className="grow">
+              <Input value={search} onChange={(e) => setSearch(e.target.value)} title="Search" />
+            </div>
+            <Button onClick={handleClear}>
+              <MdClear />
+              <span>Clear</span>
+            </Button>
+          </div>
+        </div>
         <div className="mt-10 flex justify-center flex-wrap gap-10">
-          <Link href="/json-to-ts">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <SiTypescript className="text-7xl" />
-              <h3 className="text-2xl mt-5">JSON To Typescript</h3>
-              <span className="text-sm">Generate Typescript classes from JSON</span>
-            </div>
-          </Link>
-          <Link href="/qrcode-generator">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <AiOutlineQrcode className="text-7xl" />
-              <h3 className="text-2xl mt-5">QR Code Generator</h3>
-              <span className="text-sm">Generate QR Codes</span>
-            </div>
-          </Link>
-          <Link href="/url-encoder-decoder">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <AiOutlineLink className="text-7xl" />
-              <h3 className="text-2xl mt-5">URL Encoder/Decoder</h3>
-              <span className="text-sm">Decode/Ecode URLs</span>
-            </div>
-          </Link>
-          <Link href="/readme-generator">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <AiOutlineFileMarkdown className="text-7xl" />
-              <h3 className="text-2xl mt-5">Readme Generator</h3>
-              <span className="text-sm">Generate standardised readme&apos;s for your projects</span>
-            </div>
-          </Link>
-          <Link href="/docker-compose">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <SiDocker className="text-7xl" />
-              <h3 className="text-2xl mt-5">Docker Compose Generator</h3>
-              <span className="text-sm">Generate docker compose files</span>
-            </div>
-          </Link>
-          <Link href="/bcrypt-generator">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <MdEnhancedEncryption className="text-7xl" />
-              <h3 className="text-2xl mt-5">Bcrypt generator</h3>
-              <span className="text-sm">Generate Bcrypt hashes</span>
-            </div>
-          </Link>
-          <Link href="/bcrypt-validator">
-            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
-              <HiOutlineShieldCheck className="text-7xl" />
-              <h3 className="text-2xl mt-5">Bcrypt Hash validator</h3>
-              <span className="text-sm">Validate generated Bcrypt hashes</span>
-            </div>
-          </Link>
+          {fitleredItems.map(({ icon: Icon, title, subtitle, link }) => (
+            <ToolCard key={title} icon={Icon} title={title} subtitle={subtitle} link={link} />
+          ))}
         </div>
       </main>
     </BaseLayout>
