@@ -105,7 +105,7 @@ const ReadmeGenerator = () => {
         </div>
       </div>
       <div className="flex  gap-x-1 ">
-        <div className="border rounded w-1/4  px-4 py-2 overflow-auto">
+        <div className="border rounded w-1/4 max-h-96  px-4 py-2 overflow-auto">
           {availablePresets.map((preset, i) => (
             <div key={preset.title} className="flex items-center justify-center gap-x-2">
               <div
@@ -122,13 +122,13 @@ const ReadmeGenerator = () => {
             </div>
           ))}
         </div>
-        <div className=" w-1/3 overflow-auto break-words">
+        <div className=" w-1/3 max-h-max  break-words">
           <Editor
             value={currentlySelectedPreset?.value ?? ""}
             onValueChange={(value: string) => handlePresetEdit(value, currentlySelectedPreset)}
             highlight={(code) => highlight(code, languages.md!, "md")}
             padding={10}
-            className="bg-gray-900 rounded h-full "
+            className="bg-gray-900 rounded h-max "
             style={{
               fontFamily: '"Fira code", "Fira Mono", monospace',
               fontSize: 12,

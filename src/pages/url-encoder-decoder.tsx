@@ -36,7 +36,7 @@ const UrlEncoderDecoder = () => {
               }}
             />
           </div>
-          <div className=" w-1/2">
+          <div className="h-32 w-1/2">
             <Editor
               readOnly
               value={outputArea}

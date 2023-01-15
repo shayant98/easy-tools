@@ -4,6 +4,7 @@ import { SiDocker, SiTypescript } from "react-icons/si";
 import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import Link from "next/link";
 import BaseLayout from "../layout/BaseLayout";
+import { MdEnhancedEncryption } from "react-icons/md";
 const Home: NextPage = () => {
   return (
     <BaseLayout>
@@ -43,6 +44,13 @@ const Home: NextPage = () => {
               <SiDocker className="text-7xl" />
               <h3 className="text-2xl mt-5">Docker Compose Generator</h3>
               <span className="text-sm">Generate docker compose files</span>
+            </div>
+          </Link>
+          <Link href="/bcrypt-generator">
+            <div className="flex flex-col items-center rounded bg-gray-900   p-5 w-72 text-center hover:scale-105 transition duration-200 cursor-pointer">
+              <MdEnhancedEncryption className="text-7xl" />
+              <h3 className="text-2xl mt-5">Bcrypt generator</h3>
+              <span className="text-sm">Generate Bcrypt hashes</span>
             </div>
           </Link>
         </div>

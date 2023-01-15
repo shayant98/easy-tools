@@ -26,7 +26,7 @@ const JsonToTs = () => {
 
   return (
     <BaseLayout showBackButton title="JSON to Typescript">
-      <div className="flex gap-x-2 ">
+      <div className="flex gap-x-2 h-30">
         <div className="w-1/2 ">
           <Editor
             placeholder="Enter JSON here"
@@ -41,7 +41,7 @@ const JsonToTs = () => {
             }}
           />
         </div>
-        <div className=" grow">
+        <div className=" h-32  grow">
           <Editor
             readOnly
             value={outputArea}
