@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { SiDocker, SiTypescript } from "react-icons/si";
+import { SiDocker, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
+import { TbApi } from "react-icons/tb";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import Link from "next/link";
 import BaseLayout from "../layout/BaseLayout";
@@ -11,6 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import { IconType } from "react-icons";
 import ToolCard from "../components/ToolCard";
 import Button from "../components/Button/Button";
+import { VscJson } from "react-icons/vsc";
 const Home: NextPage = () => {
   const menuItems = useMemo(
     () => [
@@ -55,6 +57,19 @@ const Home: NextPage = () => {
         subtitle: "Validate generated BCrypt Hashes",
         icon: HiOutlineShieldCheck,
         link: "/bcrypt-validator",
+      },
+
+      {
+        title: "CSS to Tailwind",
+        subtitle: "Generate Tailwind classes based on CSS",
+        icon: SiTailwindcss,
+        link: "/css-to-tailwind",
+      },
+      {
+        title: "JSON to ZOD",
+        subtitle: "generate ZOD validation based on JSON model",
+        icon: VscJson,
+        link: "/json-to-zod",
       },
     ],
     []

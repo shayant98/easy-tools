@@ -40,12 +40,14 @@ const UrlEncoderDecoder = () => {
   };
   return (
     <BaseLayout showBackButton title="Bcrypt Generator">
-      <div className="px-20 h-full">
-        <div className="mt-3 min-w-fit w-32 flex flex-col gap-y-2">
-          <Input type="number" title="Rounds" value={rounds} onChange={(e) => setrounds(e.target.value)} />
-        </div>
-        <div className="mt-3">
-          <Input title="String" value={inputArea} onChange={(e) => setinputArea(e.target.value)} />
+      <div className="flex-col justify-center items-center h-full   ">
+        <div className="bg-gray-900 px-4 py-8 rounded">
+          <div className=" min-w-fit w-32 flex flex-col gap-y-2">
+            <Input type="number" title="Rounds" value={rounds} onChange={(e) => setrounds(e.target.value)} />
+          </div>
+          <div className="mt-3">
+            <Input title="String" value={inputArea} onChange={(e) => setinputArea(e.target.value)} />
+          </div>
         </div>
         <div className="flex gap-x-3 justify-end pt-3">
           <button onClick={handleGenerate} className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200">

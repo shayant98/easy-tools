@@ -1,11 +1,11 @@
 import BaseLayout from "../layout/BaseLayout";
-import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
 import { highlight, languages, highlightElement } from "prismjs";
 import "node_modules/prismjs/components/prism-javascript";
 import "node_modules/prismjs/components/prism-typescript";
 import Editor from "react-simple-code-editor";
-const JsonToTs = () => {
+import { jsonToZod } from "json-to-zod";
+const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
 
@@ -15,8 +15,8 @@ const JsonToTs = () => {
         return;
       }
       const obj = JSON.parse(inputArea.trim());
-      const tsObj = JsonToTS(obj);
-      setoutputArea(tsObj.join("\n\n"));
+      const zod = jsonToZod(obj);
+      setoutputArea(zod);
     } catch (error) {
       console.error(error);
     }
@@ -64,4 +64,4 @@ const JsonToTs = () => {
   );
 };
 
-export default JsonToTs;
+export default JsonToZod;

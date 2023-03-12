@@ -10,19 +10,23 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "css-to-tailwindcss": "^1.0.4",
     "github-markdown-css": "^5.1.0",
     "json-to-pretty-yaml": "^1.2.2",
     "json-to-ts": "^1.7.0",
+    "json-to-zod": "^1.1.2",
     "next": "13.1.2",
     "prismjs": "^1.29.0",
     "qrcode": "^1.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.2",
     "react-icons": "^4.7.1",
     "react-markdown": "^8.0.4",
     "react-simple-code-editor": "^0.13.1",
     "react-toast": "^1.0.3",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "ts-to-zod": "^2.0.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
