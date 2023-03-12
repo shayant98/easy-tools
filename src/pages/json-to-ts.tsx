@@ -5,6 +5,7 @@ import { highlight, languages, highlightElement } from "prismjs";
 import "node_modules/prismjs/components/prism-javascript";
 import "node_modules/prismjs/components/prism-typescript";
 import Editor from "react-simple-code-editor";
+import { toast } from "react-toastify";
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -17,8 +18,15 @@ const JsonToTs = () => {
       const obj = JSON.parse(inputArea.trim());
       const tsObj = JsonToTS(obj);
       setoutputArea(tsObj.join("\n\n"));
+      toast("TS successfully generated", {
+        toastId: "json-error",
+        type: "error",
+      });
     } catch (error) {
-      console.error(error);
+      toast("JSON is invalid", {
+        toastId: "json-error",
+        type: "error",
+      });
     }
   }, [inputArea]);
 
@@ -28,8 +36,8 @@ const JsonToTs = () => {
 
   return (
     <BaseLayout showBackButton title="JSON to Typescript">
-      <div className="flex gap-x-2 h-30">
-        <div className="w-1/2 ">
+      <div className="flex gap-x-2 ">
+        <div className="w-1/2 min-h-32">
           <Editor
             placeholder="Enter JSON here"
             value={inputArea}
@@ -43,7 +51,7 @@ const JsonToTs = () => {
             }}
           />
         </div>
-        <div className=" min-h-32 h-min grow">
+        <div className=" min-h-32 grow">
           <Editor
             readOnly
             value={outputArea}
