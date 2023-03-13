@@ -9,13 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.26.1",
+    "@trpc/client": "^10.15.0",
+    "@trpc/next": "^10.15.0",
+    "@trpc/react-query": "^10.15.0",
+    "@trpc/server": "^10.15.0",
     "bcryptjs": "^2.4.3",
     "css-to-tailwindcss": "^1.0.4",
     "github-markdown-css": "^5.1.0",
     "json-to-pretty-yaml": "^1.2.2",
     "json-to-ts": "^1.7.0",
     "json-to-zod": "^1.1.2",
-    "next": "13.1.2",
+    "next": "^13.2.4",
+    "openai": "^3.2.1",
     "prismjs": "^1.29.0",
     "qrcode": "^1.5.1",
     "react": "18.2.0",
@@ -23,10 +29,12 @@
     "react-hook-form": "^7.43.2",
     "react-icons": "^4.7.1",
     "react-markdown": "^8.0.4",
+    "react-query": "^3.39.3",
     "react-simple-code-editor": "^0.13.1",
     "react-toast": "^1.0.3",
     "react-toastify": "^9.1.1",
     "remark-gfm": "^3.0.1",
+    "superjson": "^1.12.2",
     "ts-to-zod": "^2.0.1"
   },
   "devDependencies": {
