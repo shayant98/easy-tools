@@ -27,7 +27,11 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
         <a href="https://www.github.com/shayant98" target={"_blank"} rel="noreferrer">
           <AiOutlineGithub className="hover:text-gray-100" />
         </a>
-        - <span className="text-red-500 font-bold">BETA</span>
+        - <span className="text-red-500 font-bold">BETA </span> -
+        <Link className="hover:text-green-600 duration-200" target={"_blank"} href={`https://www.buymeacoffee.com/shayant`}>
+          {" "}
+          Support the development 🍵
+        </Link>
       </footer>
       <ToastContainer position="bottom-right" delay={2000} />
     </div>

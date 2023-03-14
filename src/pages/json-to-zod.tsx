@@ -1,10 +1,8 @@
 import BaseLayout from "../layout/BaseLayout";
-import { useCallback, useEffect, useState } from "react";
-import { highlight, languages, highlightElement } from "prismjs";
-import "node_modules/prismjs/components/prism-javascript";
-import "node_modules/prismjs/components/prism-typescript";
-import Editor from "react-simple-code-editor";
+import { MouseEvent, useCallback, useEffect, useState } from "react";
+
 import { jsonToZod } from "json-to-zod";
+import Editor from "../components/Editor/Editor";
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -30,34 +28,10 @@ const JsonToZod = () => {
     <BaseLayout showBackButton title="JSON to Typescript">
       <div className="flex gap-x-2 h-30">
         <div className="w-1/2 ">
-          <Editor
-            placeholder="Enter JSON here"
-            value={inputArea}
-            onValueChange={(value: string) => setinputArea(value)}
-            highlight={(code: string) => highlight(code, languages.javascript!, "javascript")}
-            padding={10}
-            className="bg-gray-900 rounded h-full overflow-visible"
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 12,
-            }}
-          />
+          <Editor placeholder="Enter JSON here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" />
         </div>
-        <div className=" min-h-32 h-min grow">
-          <Editor
-            readOnly
-            value={outputArea}
-            onValueChange={(value: string) => {
-              return;
-            }}
-            highlight={(code) => highlight(code, languages.ts!, "ts")}
-            padding={10}
-            className="bg-gray-900 rounded h-full overflow-visible"
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 12,
-            }}
-          />
+        <div className=" w-1/2">
+          <Editor placeholder="Enter ZOD here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="js" />
         </div>
       </div>
     </BaseLayout>

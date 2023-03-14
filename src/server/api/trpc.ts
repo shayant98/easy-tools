@@ -62,6 +62,8 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
  */
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { Configuration, OpenAIApi } from "openai";
+import { env } from "../../env/server.mjs";
 
 const t = initTRPC
   .context<Awaited<ReturnType<typeof createTRPCContext>>>()
@@ -85,6 +87,27 @@ const t = initTRPC
  */
 export const createTRPCRouter = t.router;
 
+
+
+/**
+ * Reusable middleware that configures OpenAI
+ * procedure
+ */
+const configureOpenAI = t.middleware(({ ctx, next }) => {
+
+  const configuration = new Configuration({
+  apiKey: env.OPENAI_KEY
+  });
+
+  const openai = new OpenAIApi(configuration);
+
+  return next({
+    ctx: {
+      openai
+    },
+  });
+});
+
 /**
  * Public (unauthed) procedure
  *
@@ -93,3 +116,4 @@ export const createTRPCRouter = t.router;
  * can still access user session data if they are logged in
  */
 export const publicProcedure = t.procedure;
+export const aiProcedure = t.procedure.use(configureOpenAI);

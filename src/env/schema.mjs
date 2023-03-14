@@ -8,6 +8,8 @@ import { z } from "zod";
 export const serverSchema = z.object({
   OPENAI_KEY: z.string(),
   ENVIRONMENT: z.string(),
+  UPSTASH_REDIS_REST_URL: z.string(),
+  UPSTASH_REDIS_REST_TOKEN: z.string(),
 });
 
 /**

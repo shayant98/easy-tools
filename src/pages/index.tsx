@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { SiDocker, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiDocker, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { TbApi } from "react-icons/tb";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
@@ -21,42 +21,49 @@ const Home: NextPage = () => {
         subtitle: "Generate Typescript classes from JSON",
         icon: SiTypescript,
         link: "/json-to-ts",
+        tags: ["TRANSFORMER", "JSON", "TYPESCRIPT"],
       },
       {
         title: "QR Code Generator",
         subtitle: "Generate QR Codes",
         icon: AiOutlineQrcode,
         link: "/qrcode-generator",
+        tags: ["GENERATOR"],
       },
       {
         title: "URL Encoder/Decoder",
         subtitle: "Decode/Ecode URLs",
         icon: AiOutlineLink,
         link: "/url-encoder-decoder",
+        tags: ["TRANSFORMER"],
       },
       {
         title: "Readme Generator",
         subtitle: "Generate standardised readme's for your projects",
         icon: AiOutlineFileMarkdown,
         link: "/readme-generator",
+        tags: ["MD", "GENERATOR"],
       },
       {
         title: "Docker Compose Generator",
         subtitle: "Generate docker compose files",
         icon: SiDocker,
         link: "/docker-compose",
+        tags: ["DEVOPS", "DOCKER", "GENERATOR"],
       },
       {
         title: "Bcrypt generator",
         subtitle: "Generate BCrypt hashes",
         icon: MdEnhancedEncryption,
         link: "/bcrypt-generator",
+        tags: ["ENCRYPTION", "GENERATOR"],
       },
       {
         title: "Bcrypt validator",
         subtitle: "Validate generated BCrypt Hashes",
         icon: HiOutlineShieldCheck,
         link: "/bcrypt-validator",
+        tags: ["ENCRYPTION"],
       },
 
       {
@@ -64,12 +71,21 @@ const Home: NextPage = () => {
         subtitle: "Generate Tailwind classes based on CSS",
         icon: SiTailwindcss,
         link: "/css-to-tailwind",
+        tags: ["CSS", "GENERATOR"],
       },
       {
         title: "JSON to ZOD",
         subtitle: "generate ZOD validation based on JSON model",
         icon: VscJson,
         link: "/json-to-zod",
+        tags: ["JSON", "TS", "TRPC", "TRANSFORMER"],
+      },
+      {
+        title: "SQL Translator",
+        subtitle: "use AI to translate natural language into a usable SQL query",
+        icon: SiMysql,
+        link: "/sql-translator",
+        tags: ["AI", "SQL", "GENERATOR"],
       },
     ],
     []
@@ -81,6 +97,7 @@ const Home: NextPage = () => {
       subtitle: string;
       icon: IconType;
       link: string;
+      tags?: string[];
     }[]
   >(menuItems);
 
@@ -113,8 +130,8 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="mt-10 flex justify-center flex-wrap gap-10">
-          {fitleredItems.map(({ icon: Icon, title, subtitle, link }) => (
-            <ToolCard key={title} icon={Icon} title={title} subtitle={subtitle} link={link} />
+          {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }) => (
+            <ToolCard key={title} icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
           ))}
         </div>
       </main>

@@ -1,11 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { AiOutlineClear, AiOutlineCloudDownload, AiOutlineCopy, AiOutlineExpand, AiOutlinePlus } from "react-icons/ai";
-import Editor from "react-simple-code-editor";
+import { AiOutlineClear, AiOutlineCloudDownload, AiOutlinePlus } from "react-icons/ai";
 import Input from "../components/Input/Input";
 import BaseLayout from "../layout/BaseLayout";
 import json2yaml from "json-to-pretty-yaml";
-import { highlight, languages } from "prismjs";
 import { toast } from "react-toast";
+import Editor from "../components/Editor/Editor";
 
 const DockerCompose = () => {
   const [name, setname] = useState("");
@@ -263,18 +262,12 @@ const DockerCompose = () => {
 
             <div className="flex flex-col p-8 w-full bg-gray-900">
               <Editor
-                readOnly
+                disabled
                 value={yaml}
-                onValueChange={(value: string) => {
+                setValue={(e) => {
                   return;
                 }}
-                highlight={(code) => highlight(code, languages.js!, "js")}
-                padding={10}
-                className="bg-gray-900 rounded h-full "
-                style={{
-                  fontFamily: '"Fira code", "Fira Mono", monospace',
-                  fontSize: 12,
-                }}
+                language="dockerfile"
               />
             </div>
           </div>

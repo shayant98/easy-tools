@@ -1,11 +1,10 @@
 import BaseLayout from "../layout/BaseLayout";
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
-import { highlight, languages, highlightElement } from "prismjs";
-import "node_modules/prismjs/components/prism-javascript";
-import "node_modules/prismjs/components/prism-typescript";
-import Editor from "react-simple-code-editor";
+
+import CodeEditor from "@uiw/react-textarea-code-editor";
 import { toast } from "react-toastify";
+import Editor from "../components/Editor/Editor";
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -38,34 +37,10 @@ const JsonToTs = () => {
     <BaseLayout showBackButton title="JSON to Typescript">
       <div className="flex gap-x-2 ">
         <div className="w-1/2 min-h-32">
-          <Editor
-            placeholder="Enter JSON here"
-            value={inputArea}
-            onValueChange={(value: string) => setinputArea(value)}
-            highlight={(code: string) => highlight(code, languages.javascript!, "javascript")}
-            padding={10}
-            className="bg-gray-900 rounded h-full overflow-visible"
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 12,
-            }}
-          />
+          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
         </div>
-        <div className=" min-h-32 grow">
-          <Editor
-            readOnly
-            value={outputArea}
-            onValueChange={(value: string) => {
-              return;
-            }}
-            highlight={(code) => highlight(code, languages.ts!, "ts")}
-            padding={10}
-            className="bg-gray-900 rounded h-full overflow-visible"
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 12,
-            }}
-          />
+        <div className=" w-1/2 grow">
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
         </div>
       </div>
     </BaseLayout>
