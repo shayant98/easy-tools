@@ -6,7 +6,7 @@ import * as bcrypt from "bcryptjs";
 import Input from "../components/Input/Input";
 import { AiOutlineCopy } from "react-icons/ai";
 import { toast } from "react-toast";
-import Button from "../components/Button/Button";
+import Button from "../components/ui/Button";
 const UrlEncoderDecoder = () => {
   const [hash, sethash] = useState("");
   const [string, setstring] = useState("");

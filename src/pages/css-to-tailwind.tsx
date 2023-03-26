@@ -65,7 +65,7 @@ const OdataGenerator = () => {
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="css" />
         </div>
         <div className="w-1/2 min-h-32 h-min">
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="css" />
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="css" disabled />
         </div>
       </div>
     </BaseLayout>

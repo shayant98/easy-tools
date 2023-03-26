@@ -1,19 +1,19 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { SiDocker, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
-import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
-import { TbApi } from "react-icons/tb";
+import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode, AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
-import Link from "next/link";
+import { BsSlash, BsStack } from "react-icons/bs";
 import BaseLayout from "../layout/BaseLayout";
-import { MdClear, MdEnhancedEncryption } from "react-icons/md";
+import { MdEnhancedEncryption } from "react-icons/md";
 import Input from "../components/Input/Input";
 import { useEffect, useMemo, useState } from "react";
 import { IconType } from "react-icons";
 import ToolCard from "../components/ToolCard";
-import Button from "../components/Button/Button";
 import { VscJson } from "react-icons/vsc";
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from "@components/ui/Command";
+import Link from "next/link";
 const Home: NextPage = () => {
+  const [open, setOpen] = useState(false);
   const menuItems = useMemo(
     () => [
       {
@@ -102,6 +102,19 @@ const Home: NextPage = () => {
   >(menuItems);
 
   useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "/" && e.metaKey) {
+        console.log(123);
+
+        setOpen((open) => !open);
+      }
+    };
+
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
+  useEffect(() => {
     if (search.trim().length > 0) {
       setfitleredItems((prev) => menuItems.filter((items) => items.title.toLowerCase().includes(search) || items.subtitle.toLowerCase().includes(search)));
     } else {
@@ -112,29 +125,48 @@ const Home: NextPage = () => {
       setfitleredItems([]);
     };
   }, [menuItems, search]);
-  const handleClear = () => {
-    setSearch("");
-  };
+
   return (
     <BaseLayout>
-      <main className="mt-10">
+      <main className="">
         <div className="flex items-center justify-center w-full">
           <div className="w-full max-w-lg items-end flex gap-2">
             <div className="grow">
-              <Input value={search} onChange={(e) => setSearch(e.target.value)} title="Search" />
+              <Input value={search} onChange={(e) => setSearch(e.target.value)} title="Search" icon={AiOutlineSearch} showClear shortcutIcon={BsSlash} />
             </div>
-            <Button onClick={handleClear}>
-              <MdClear />
-              <span>Clear</span>
-            </Button>
           </div>
         </div>
-        <div className="mt-10 flex justify-center flex-wrap gap-10">
-          {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }) => (
-            <ToolCard key={title} icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
-          ))}
-        </div>
+        {fitleredItems.length > 0 ? (
+          <div className="mt-10 flex justify-center flex-wrap gap-10">
+            {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }) => (
+              <ToolCard key={title} icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center h-96">
+            <h1 className="text-2xl">No results found for &apos;{search}&apos;</h1>
+          </div>
+        )}
       </main>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty className="text-slate-200 opacity-40 text-xs text-center py-5">No results found.</CommandEmpty>
+          <CommandGroup heading="Tools">
+            {menuItems.map(({ icon: Icon, title, subtitle, link, tags }) => (
+              <Link key={`tool-${title}`} href={link}>
+                <CommandItem>
+                  <Icon className="mr-2 h-4 w-4 " />
+                  <div className="flex flex-col">
+                    <span>{title}</span>
+                    <span className="text-xs mt-px font-thin">{subtitle}</span>
+                  </div>
+                </CommandItem>
+              </Link>
+            ))}
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </BaseLayout>
   );
 };

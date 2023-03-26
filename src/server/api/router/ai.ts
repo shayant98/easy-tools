@@ -5,7 +5,11 @@ import { aiProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 
 export const aiRouter = createTRPCRouter({
-  hello: aiProcedure.input(z.object({ query: z.string() })).query(async ({ input, ctx }) => {
+  // The following function is used to translate natural language queries into SQL queries.
+  // The function is passed a string containing a natural language query.
+  // The function returns a string containing the SQL query.
+
+  sqlTranslator: aiProcedure.input(z.object({ query: z.string() })).query(async ({ input, ctx }) => {
     ctx.openai;
 
     try {

@@ -1,6 +1,7 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { env } from "./env/server.mjs";
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -10,11 +11,12 @@ const ratelimit = new Ratelimit({
 });
 
 export default async function middleware(request: NextRequest, event: NextFetchEvent): Promise<Response | undefined> {
+  return NextResponse.next();
+
   const ip = request.ip ?? "127.0.0.1";
 
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(`ratelimit_middleware_${ip}`);
   event.waitUntil(pending);
-  console.log("allowed: ", success);
 
   const res = success ? NextResponse.next() : NextResponse.redirect(new URL("/api/blocked", request.url));
 
