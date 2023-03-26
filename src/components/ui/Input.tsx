@@ -23,9 +23,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
   return (
     <div className="flex flex-col gap-y-2">
       {props.showTitle && <label htmlFor={props.title}>{props.title}</label>}
-      <div onClick={setInputFocus} className="flex text-xs  bg-gray-500 rounded items-center">
-        {props.icon && <props.icon size={16} className="ml-2" />}
-        <input ref={ref} {...props} className={cn(className, "bg-gray-500   h-10 outline-none px-2 rounded  text-white w-full")} />
+      <div onClick={setInputFocus} className="flex text-xs text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-500  rounded items-center">
+        {props.icon && <props.icon size={16} className="ml-2 " />}
+        <input ref={ref} {...props} className={cn(className, "bg-white dark:bg-slate-500  h-10 outline-none px-2 rounded  text-slate-900 dark:text-slate-100  w-full")} />
         {props.value && showClear && (
           <AiOutlineClose onClick={handleClearInput} size={32} className="mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-full px-2 py-2" />
         )}

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { SiDocker, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode, AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
-import { BsSlash, BsStack } from "react-icons/bs";
+import { BsSlash } from "react-icons/bs";
 import BaseLayout from "@layout/BaseLayout";
 import { MdEnhancedEncryption } from "react-icons/md";
 import Input from "@components/ui/Input";
@@ -10,7 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { IconType } from "react-icons";
 import ToolCard from "@components/ToolCard";
 import { VscJson } from "react-icons/vsc";
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from "@components/ui/Command";
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/Command";
 import Link from "next/link";
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
