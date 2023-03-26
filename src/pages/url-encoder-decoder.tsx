@@ -2,7 +2,6 @@ import { useState } from "react";
 import BaseLayout from "../layout/BaseLayout";
 import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
-import { highlight, languages } from "prismjs";
 import Editor from "@components/Editor/Editor";
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");

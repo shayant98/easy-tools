@@ -5,7 +5,7 @@ const CodeEditor = dynamic(() => import("@uiw/react-textarea-code-editor").then(
 const Editor = ({ value, setValue, language = "js", disabled = false, placeholder = "Enter code here" }: EditorProps) => {
   return (
     <>
-      <CodeEditor disabled={disabled} value={value} language={language} placeholder={disabled ? "" : placeholder} onChange={setValue} padding={15} className="bg-gray-900 h-full" />
+      <CodeEditor className="bg-gray-700 h-full" disabled={disabled} value={value} language={language} placeholder={disabled ? "" : placeholder} onChange={setValue} padding={15} />
     </>
   );
 };

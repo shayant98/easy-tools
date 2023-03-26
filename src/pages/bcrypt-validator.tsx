@@ -5,7 +5,7 @@ import { MdClear } from "react-icons/md";
 import * as bcrypt from "bcryptjs";
 import Input from "@components/ui/Input";
 import { AiOutlineCopy } from "react-icons/ai";
-import { toast } from "react-toast";
+import { toast } from "react-toastify";
 import { Button } from "@components/ui/Button";
 const UrlEncoderDecoder = () => {
   const [hash, sethash] = useState("");
@@ -27,10 +27,10 @@ const UrlEncoderDecoder = () => {
     const match = await bcrypt.compare(string, hash);
 
     if (match) {
-      toast.success("Hash is valid");
+      toast("Hash is valid", { type: "success" });
       return;
     }
-    toast.error("hash is invalid");
+    toast("hash is invalid", { type: "error" });
   };
 
   return (

@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
 import BaseLayout from "../layout/BaseLayout";
-// import "node_modules/prismjs/components/prism-css";
 import { TailwindConverter } from "css-to-tailwindcss";
 import Editor from "../components/Editor/Editor";
+import TwoEditorLayout from "@layout/TwoEditorLayout";
 
 const OdataGenerator = () => {
   const [inputArea, setinputArea] = useState("");
@@ -47,7 +46,7 @@ const OdataGenerator = () => {
       if (inputArea.trim().length < 1) {
         return;
       }
-      const { convertedRoot, nodes } = await converter.convertCSS(inputArea);
+      const { convertedRoot } = await converter.convertCSS(inputArea);
       setoutputArea(convertedRoot.toString());
     } catch (error) {
       console.error(error);
@@ -60,14 +59,10 @@ const OdataGenerator = () => {
 
   return (
     <BaseLayout showBackButton title="CSS to Tailwind">
-      <div className="flex gap-x-2 h-30">
-        <div className="w-1/2 flex-1">
-          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="css" />
-        </div>
-        <div className="w-1/2 min-h-32 h-min">
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="css" disabled />
-        </div>
-      </div>
+      <TwoEditorLayout>
+        <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
+        <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
+      </TwoEditorLayout>
     </BaseLayout>
   );
 };

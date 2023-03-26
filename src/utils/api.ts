@@ -8,7 +8,7 @@
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
-import { QueryClient } from "react-query";
+import { QueryClient } from "@tanstack/react-query";
 import superjson from "superjson";
 
 import { type AppRouter } from "../server/api/root";
@@ -44,9 +44,7 @@ export const api = createTRPCNext<AppRouter>({
        * */
       links: [
         loggerLink({
-          enabled: (opts) =>
-            process.env.NODE_ENV === "development" ||
-            (opts.direction === "down" && opts.result instanceof Error),
+          enabled: (opts) => process.env.NODE_ENV === "development" || (opts.direction === "down" && opts.result instanceof Error),
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,

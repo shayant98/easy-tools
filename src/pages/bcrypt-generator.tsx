@@ -5,7 +5,7 @@ import { MdClear } from "react-icons/md";
 import * as bcrypt from "bcryptjs";
 import Input from "@components/ui/Input";
 import { AiOutlineCopy } from "react-icons/ai";
-import { toast } from "react-toast";
+import { toast } from "react-toastify";
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
   const [rounds, setrounds] = useState("10");
@@ -32,11 +32,11 @@ const UrlEncoderDecoder = () => {
 
   const handleCopy = () => {
     if (hash == "") {
-      toast.error("Noting to copy!");
+      toast("Noting to copy!", { type: "error" });
       return;
     }
     navigator.clipboard.writeText(hash);
-    toast.success("Copied Hash... Be careful!");
+    toast("Copied Hash... Be careful!", { type: "success" });
   };
   return (
     <BaseLayout showBackButton title="Bcrypt Generator">

@@ -1,10 +1,10 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import BaseLayout from "../layout/BaseLayout";
 import "github-markdown-css";
 import { AiOutlineClear, AiOutlineCopy, AiOutlineUndo } from "react-icons/ai";
-import { toast } from "react-toast";
+import { toast } from "react-toastify";
 import presets from "../data/markdown-presets";
 import Editor from "../components/Editor/Editor";
 const ReadmeGenerator = () => {
@@ -45,11 +45,11 @@ const ReadmeGenerator = () => {
 
   const handleCopy = () => {
     if (value == "") {
-      toast.error("Noting to copy!");
+      toast("Noting to copy!", { type: "error" });
       return;
     }
     navigator.clipboard.writeText(value);
-    toast.success("Copied Markdown");
+    toast("Copied Markdown", { type: "success" });
   };
 
   const handlePresetEdit = (newValue: string, preset?: { title: string; value: string }) => {
@@ -65,9 +65,6 @@ const ReadmeGenerator = () => {
         return presets;
       })
     );
-    console.log(preset);
-
-    // setSelectedPresets(Array.from(new Set([...selectedPresets, preset])));
   };
 
   const removeselectedPreset = (preset: { title: string; value: string }) => {

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
-import { ToastContainer } from "react-toast";
 
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
   return (
@@ -33,7 +32,6 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
           Support the development 🍵
         </Link>
       </footer>
-      <ToastContainer position="bottom-right" delay={2000} />
     </div>
   );
 };

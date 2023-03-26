@@ -3,7 +3,7 @@ import { AiOutlineClear, AiOutlineCloudDownload, AiOutlinePlus } from "react-ico
 import Input from "@components/ui/Input";
 import BaseLayout from "@layout/BaseLayout";
 import json2yaml from "json-to-pretty-yaml";
-import { toast } from "react-toast";
+import { toast } from "react-toastify";
 import Editor from "@components/Editor/Editor";
 
 const DockerCompose = () => {
@@ -54,38 +54,38 @@ const DockerCompose = () => {
 
   const handleGenerateDockerFile = () => {
     if (service === "") {
-      toast.error("A service name is required");
+      toast("A service name is required", { type: "error" });
       return;
     }
     if (image === "") {
-      toast.error("An image is required");
+      toast("An image is required", { type: "error" });
       return;
     }
     volumes.map((volume) => {
       if (volume.external === "" || volume.internal === "") {
-        toast.error("Volume format invalid");
+        toast("Volume format invalid", { type: "error" });
         return;
       }
     });
     ports.map((port) => {
       if (port.external === "" || port.internal === "") {
-        toast.error("Port format invalid");
+        toast("Port format invalid", { type: "error" });
         return;
       }
     });
     env.map((env) => {
       if (env.label === "" || env.value === "") {
-        toast.error("ENV format invalid");
+        toast("ENV format invalid", { type: "error" });
         return;
       }
     });
     labels.map((label) => {
       if (label.label === "" || label.value === "") {
-        toast.error("Label format invalid");
+        toast("Label format invalid", { type: "error" });
         return;
       }
     });
-    toast.success("Generating docker-compose.yaml");
+    toast("Generating docker-compose.yaml", { type: "success" });
 
     const template = {
       services: {
@@ -264,7 +264,7 @@ const DockerCompose = () => {
               <Editor
                 disabled
                 value={yaml}
-                setValue={(e) => {
+                setValue={() => {
                   return;
                 }}
                 language="dockerfile"
