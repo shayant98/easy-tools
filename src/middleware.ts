@@ -2,6 +2,7 @@ import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { env } from "./env/server.mjs";
+import { withClerkMiddleware } from "@clerk/nextjs/server";
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -10,9 +11,7 @@ const ratelimit = new Ratelimit({
   analytics: true,
 });
 
-export default async function middleware(request: NextRequest, event: NextFetchEvent): Promise<Response | undefined> {
-  return NextResponse.next();
-
+async function middleware(request: NextRequest, event: NextFetchEvent): Promise<Response | undefined> {
   const ip = request.ip ?? "127.0.0.1";
 
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(`ratelimit_middleware_${ip}`);
@@ -25,6 +24,11 @@ export default async function middleware(request: NextRequest, event: NextFetchE
   res.headers.set("X-RateLimit-Reset", reset.toString());
   return res;
 }
+
+export default withClerkMiddleware((req: NextRequest, event: NextFetchEvent) => {
+  return middleware(req, event);
+  // return NextResponse.next();
+});
 
 export const config = {
   matcher: "/api/trpc/:path*",

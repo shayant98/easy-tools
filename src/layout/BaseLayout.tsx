@@ -1,24 +1,54 @@
+import { Button } from "@components/ui/Button";
 import Link from "next/link";
-import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
+import { AiOutlineGithub, AiOutlineHome, AiOutlineLogin, AiOutlineUserAdd } from "react-icons/ai";
+import { BsSun } from "react-icons/bs";
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"] });
 
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
   return (
     <div className="bg-gray-800 text-gray-200 min-h-screen min-w-screen h-full  flex flex-col items-start">
-      {showBackButton && (
-        <div className="px-20 py-5">
-          <Link href="/">
-            <button className="flex gap-2 items-center bg-gray-900 px-4 py-2 rounded hover:shadow hover:scale-105 transition duration-200">
-              <AiOutlineHome /> Home
-            </button>
-          </Link>
+      <div className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-700">
+        <div className="">
+          {showBackButton && (
+            <div className="">
+              <Link href="/">
+                <Button variant="subtle">
+                  <AiOutlineHome /> Home
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
-      )}
+        <div className=""></div>
+        <div className="inline-flex items-center gap-4">
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonPopoverCard: `${inter.className} bg-gray-100 text-white`,
+                },
+
+                userProfile: { elements: { modalContent: `${inter.className}`, userPreview: `${inter.className}` } },
+              }}
+            />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton redirectUrl="/login" />
+          </SignedOut>
+          <Button variant={"outline"}>
+            <BsSun />
+          </Button>
+        </div>
+      </div>
+      <div className=""></div>
       <div className="px-20 pb-5">
         <h1 className="text-4xl mb-3">{title}</h1>
         <p>{desc}</p>
       </div>
       <div className="flex flex-col grow w-full mb-5  px-20">{children}</div>
-      <footer className="flex  justify-center items-center gap-x-1 bg-gray-900 py-5 w-full text-center text-sm text-gray-400 ">
+      <footer className="flex  justify-center items-center gap-x-1 bg-gray-700 py-5 w-full text-center text-sm text-gray-400 ">
         Built by{" "}
         <a href="https://www.shayantsital.com" target={"_blank"} rel="noreferrer" className="hover:text-gray-100">
           Shayant Sital
