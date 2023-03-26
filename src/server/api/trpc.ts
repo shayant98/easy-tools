@@ -19,8 +19,8 @@
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 
 type CreateContextOptions = {
-  host: string;
-
+  auth: SignedInAuthObject | SignedOutAuthObject;
+  prisma: PrismaClient;
 };
 
 /**
@@ -32,10 +32,10 @@ type CreateContextOptions = {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = async (opts: CreateContextOptions) => {
+const createInnerTRPCContext = async ({ auth, prisma }: CreateContextOptions) => {
   return {
-    host: opts.host,
-
+    auth,
+    prisma,
   };
 };
 
@@ -49,9 +49,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 
   // Get the session from the server using the unstable_getServerSession wrapper function
 
-  return await createInnerTRPCContext({
-    host: req.headers.host ?? "",
-  });
+  return await createInnerTRPCContext({ auth: getAuth(opts.req), prisma });
 };
 
 /**
@@ -64,15 +62,17 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { Configuration, OpenAIApi } from "openai";
 import { env } from "../../env/server.mjs";
+import { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/dist/server/clerk.js";
+import { getAuth } from "@clerk/nextjs/server.js";
+import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db";
 
-const t = initTRPC
-  .context<Awaited<ReturnType<typeof createTRPCContext>>>()
-  .create({
-    transformer: superjson,
-    errorFormatter({ shape }) {
-      return shape;
-    },
-  });
+const t = initTRPC.context<Awaited<ReturnType<typeof createTRPCContext>>>().create({
+  transformer: superjson,
+  errorFormatter({ shape }) {
+    return shape;
+  },
+});
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
@@ -87,23 +87,20 @@ const t = initTRPC
  */
 export const createTRPCRouter = t.router;
 
-
-
 /**
  * Reusable middleware that configures OpenAI
  * procedure
  */
 const configureOpenAI = t.middleware(({ ctx, next }) => {
-
   const configuration = new Configuration({
-  apiKey: env.OPENAI_KEY
+    apiKey: env.OPENAI_KEY,
   });
 
   const openai = new OpenAIApi(configuration);
 
   return next({
     ctx: {
-      openai
+      openai,
     },
   });
 });

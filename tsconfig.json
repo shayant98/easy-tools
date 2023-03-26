@@ -19,7 +19,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@layout/*": ["layout/*"]
+      "@layout/*": ["layout/*"],
+      "@env/*": ["env/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "tailwind.config.cjs"],
