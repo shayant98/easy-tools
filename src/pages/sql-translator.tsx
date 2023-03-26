@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Button from "../components/ui/Button";
+import { Button } from "@components/ui/Button";
 
-import BaseLayout from "../layout/BaseLayout";
-import { api } from "../utils/api";
-import Editor from "../components/Editor/Editor";
-import TwoEditorLayout from "../layout/TwoEditorLayout";
+import BaseLayout from "@layout/BaseLayout";
+import { api } from "@utils/api";
+import Editor from "@components/Editor/Editor";
+import TwoEditorLayout from "@layout/TwoEditorLayout";
 
 const SqlTranslator = () => {
   const [naturalLanguage, setnaturalLanguage] = useState("");

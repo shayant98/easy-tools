@@ -1,9 +1,9 @@
 import { useState } from "react";
-import BaseLayout from "../layout/BaseLayout";
+import BaseLayout from "@layout/BaseLayout";
 import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
 import * as bcrypt from "bcryptjs";
-import Input from "../components/Input/Input";
+import Input from "@components/ui/Input";
 import { AiOutlineCopy } from "react-icons/ai";
 import { toast } from "react-toast";
 const UrlEncoderDecoder = () => {

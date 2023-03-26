@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineClear, AiOutlineCloudDownload, AiOutlinePlus } from "react-icons/ai";
-import Input from "../components/Input/Input";
-import BaseLayout from "../layout/BaseLayout";
+import Input from "@components/ui/Input";
+import BaseLayout from "@layout/BaseLayout";
 import json2yaml from "json-to-pretty-yaml";
 import { toast } from "react-toast";
-import Editor from "../components/Editor/Editor";
+import Editor from "@components/Editor/Editor";
 
 const DockerCompose = () => {
   const [name, setname] = useState("");
