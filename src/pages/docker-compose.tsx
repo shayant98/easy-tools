@@ -185,8 +185,8 @@ const DockerCompose = () => {
               <div className="flex flex-col gap-2 ">
                 {volumes.map((volume, i) => (
                   <div key={i} className="flex items-center w-full gap-x-2">
-                    <Input value={volume.internal} onChange={(e) => updateVolume(e, i, "internal")} showTitle={false} title={"Internal"} />
-                    <Input value={volume.external} onChange={(e) => updateVolume(e, i, "external")} showTitle={false} title={"internal"} />
+                    <Input value={volume.internal} onChange={(e) => updateVolume(e, i, "internal")} />
+                    <Input value={volume.external} onChange={(e) => updateVolume(e, i, "external")} />
                     <div className="flex bg-red-500 text-sm rounded h-full items-center px-4 py-2  cursor-pointer" onClick={() => handleRemoveVolume(i)}>
                       <AiOutlineClear className="" />
                     </div>
@@ -207,16 +207,12 @@ const DockerCompose = () => {
                       onChange={() => {
                         return;
                       }}
-                      showTitle={false}
-                      title={"Host"}
                     />
                     <Input
                       value={""}
                       onChange={() => {
                         return;
                       }}
-                      showTitle={false}
-                      title={"Container"}
                     />
                     <div className="flex bg-red-500 text-sm rounded h-full items-center px-4 py-2  cursor-pointer" onClick={() => handleRemovePort(i)}>
                       <AiOutlineClear className="" />
@@ -233,8 +229,8 @@ const DockerCompose = () => {
               <div className="flex flex-col gap-2 ">
                 {env.map((env, i) => (
                   <div key={i} className="flex items-center w-full gap-x-2">
-                    <Input value={env.label} onChange={(e) => updateEnv(e, i, "label")} showTitle={false} title={"Name"} />
-                    <Input value={env.value} onChange={(e) => updateEnv(e, i, "value")} showTitle={false} title={"Value"} />
+                    <Input value={env.label} onChange={(e) => updateEnv(e, i, "label")} />
+                    <Input value={env.value} onChange={(e) => updateEnv(e, i, "value")} />
                     <div className="flex bg-red-500 text-sm rounded h-full items-center px-4 py-2  cursor-pointer" onClick={() => handleRemoveEnv(i)}>
                       <AiOutlineClear className="" />
                     </div>
@@ -250,8 +246,8 @@ const DockerCompose = () => {
               <div className="flex flex-col gap-2 ">
                 {labels.map((label, i) => (
                   <div key={i} className="flex items-center w-full gap-x-2">
-                    <Input value={label.label} onChange={(e) => updateLabel(e, i, "label")} showTitle={false} title={"Name"} />
-                    <Input value={label.value} onChange={(e) => updateLabel(e, i, "value")} showTitle={false} title={"Value"} />
+                    <Input value={label.label} onChange={(e) => updateLabel(e, i, "label")} title={"Name"} />
+                    <Input value={label.value} onChange={(e) => updateLabel(e, i, "value")} title={"Value"} />
                     <div className="flex bg-red-500 text-sm rounded h-full items-center px-4 py-2  cursor-pointer" onClick={() => handleRemoveLabel(i)}>
                       <AiOutlineClear className="" />
                     </div>

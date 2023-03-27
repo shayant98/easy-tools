@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ["latin"] });
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="bg-slate-100 dark:bg-slate-800 text-gray-200 min-h-screen min-w-screen h-full  flex flex-col items-start">
-      <div className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-100 dark:bg-slate-800">
+    <div className="bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen h-full  flex flex-col items-start">
+      <div className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800">
         <div className="">
           {showBackButton && (
             <div className="">
@@ -42,11 +42,23 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
           </SignedOut>
 
           {theme === "dark" ? (
-            <Button onClick={() => setTheme("light")} variant={"outline"}>
+            <Button
+              onClick={() => {
+                setTheme("light");
+                document.documentElement.setAttribute("data-color-mode", "light");
+              }}
+              variant={"outline"}
+            >
               <BsSun />
             </Button>
           ) : (
-            <Button onClick={() => setTheme("dark")} variant={"outline"}>
+            <Button
+              onClick={() => {
+                setTheme("dark");
+                document.documentElement.setAttribute("data-color-mode", "dark");
+              }}
+              variant={"outline"}
+            >
               <BsMoon />
             </Button>
           )}
@@ -66,11 +78,11 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
       </div>
       <div className=""></div>
       <div className="px-20 pb-5">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
-        <p className="leading-7 [&:not(:first-child)]:mt-6">{desc}</p>
+        <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
+        <p className="text-slate-800 dark:text-slate-100 leading-7 [&:not(:first-child)]:mt-6">{desc}</p>
       </div>
       <div className="flex flex-col grow w-full mb-5  px-20">{children}</div>
-      <footer className="flex  justify-center items-center gap-x-1 bg-slate-100 dark:bg-slate-800 py-5 w-full text-center text-sm text-gray-400 ">
+      <footer className="flex  justify-center items-center gap-x-1 bg-slate-200 dark:bg-slate-800 py-5 w-full text-center text-sm text-gray-400 ">
         Built by{" "}
         <a href="https://www.shayantsital.com" target={"_blank"} rel="noreferrer" className="hover:text-gray-100">
           Shayant Sital
