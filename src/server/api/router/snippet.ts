@@ -21,6 +21,8 @@ export const snippetRouter = createTRPCRouter({
 
       return snippets;
     } catch (error) {
+      console.log(error);
+
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "An error occurred while fetching your snippets." });
     }
   }),
