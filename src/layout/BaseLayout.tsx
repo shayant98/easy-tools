@@ -1,10 +1,11 @@
 import { Button } from "@components/ui/Button";
 import Link from "next/link";
 import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
-import { BsMoon, BsSun } from "react-icons/bs";
+import { BsMoon, BsSun, BsThreeDotsVertical } from "react-icons/bs";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import { useTheme } from "next-themes";
+import { DropdownMenuTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@components/ui/Dropdown";
 const inter = Inter({ subsets: ["latin"] });
 
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
@@ -39,6 +40,7 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
           <SignedOut>
             <SignInButton redirectUrl="/login" />
           </SignedOut>
+
           {theme === "dark" ? (
             <Button onClick={() => setTheme("light")} variant={"outline"}>
               <BsSun />
@@ -48,12 +50,24 @@ const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) 
               <BsMoon />
             </Button>
           )}
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <BsThreeDotsVertical />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className={inter.className}>
+              <SignedIn>
+                <Link href="/snippets">
+                  <DropdownMenuItem>Snippets</DropdownMenuItem>
+                </Link>
+              </SignedIn>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
       <div className=""></div>
       <div className="px-20 pb-5">
-        <h1 className="text-4xl mb-3">{title}</h1>
-        <p>{desc}</p>
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">{desc}</p>
       </div>
       <div className="flex flex-col grow w-full mb-5  px-20">{children}</div>
       <footer className="flex  justify-center items-center gap-x-1 bg-slate-100 dark:bg-slate-800 py-5 w-full text-center text-sm text-gray-400 ">

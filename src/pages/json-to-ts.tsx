@@ -6,6 +6,10 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { toast } from "react-toastify";
 import Editor from "../components/Editor/Editor";
 import TwoEditorLayout from "../layout/TwoEditorLayout";
+import { api } from "@utils/api";
+import { SignedIn } from "@clerk/nextjs";
+import SnippetDialog from "@components/SnippetDialog";
+
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -36,6 +40,11 @@ const JsonToTs = () => {
 
   return (
     <BaseLayout showBackButton title="JSON to Typescript">
+      <div className="self-end mb-4">
+        <SignedIn>
+          <SnippetDialog value={outputArea} language="TS" />
+        </SignedIn>
+      </div>
       <TwoEditorLayout>
         <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
         <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />

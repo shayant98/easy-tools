@@ -12,6 +12,7 @@ import ToolCard from "@components/ToolCard";
 import { VscJson } from "react-icons/vsc";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/Command";
 import Link from "next/link";
+import { api } from "@utils/api";
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
   const menuItems = useMemo(

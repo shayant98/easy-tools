@@ -1,4 +1,5 @@
 import { aiRouter } from "./router/ai";
+import { snippetRouter } from "./router/snippet";
 import { createTRPCRouter } from "./trpc";
 
 /**
@@ -8,6 +9,7 @@ import { createTRPCRouter } from "./trpc";
  */
 export const appRouter = createTRPCRouter({
   ai: aiRouter,
+  snippet: snippetRouter,
 });
 
 // export type definition of API
