@@ -1,82 +1,11 @@
-import { Button } from "@components/ui/Button";
 import Link from "next/link";
-import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
-import { BsMoon, BsSun, BsThreeDotsVertical } from "react-icons/bs";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Inter } from "next/font/google";
-import { useTheme } from "next-themes";
-import { DropdownMenuTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@components/ui/Dropdown";
-const inter = Inter({ subsets: ["latin"] });
+import { AiOutlineGithub } from "react-icons/ai";
+import Navbar from "@components/Navbar/Navbar";
 
 const BaseLayout = ({ children, showBackButton, title, desc }: BaseLayoutProps) => {
-  const { theme, setTheme } = useTheme();
   return (
     <div className="bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen h-full  flex flex-col items-start">
-      <div className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800">
-        <div className="">
-          {showBackButton && (
-            <div className="">
-              <Link href="/">
-                <Button variant="subtle">
-                  <AiOutlineHome /> Home
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
-        <div className=""></div>
-        <div className="inline-flex items-center gap-4">
-          <SignedIn>
-            <UserButton
-              appearance={{
-                elements: {
-                  userButtonPopoverCard: `${inter.className} bg-gray-100 text-white`,
-                },
-
-                userProfile: { elements: { modalContent: `${inter.className}`, userPreview: `${inter.className}` } },
-              }}
-            />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton redirectUrl="/login" />
-          </SignedOut>
-
-          {theme === "dark" ? (
-            <Button
-              onClick={() => {
-                setTheme("light");
-                document.documentElement.setAttribute("data-color-mode", "light");
-              }}
-              variant={"outline"}
-            >
-              <BsSun />
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                setTheme("dark");
-                document.documentElement.setAttribute("data-color-mode", "dark");
-              }}
-              variant={"outline"}
-            >
-              <BsMoon />
-            </Button>
-          )}
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <BsThreeDotsVertical />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className={inter.className}>
-              <SignedIn>
-                <Link href="/snippets">
-                  <DropdownMenuItem>Snippets</DropdownMenuItem>
-                </Link>
-              </SignedIn>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      <div className=""></div>
+      <Navbar showBackButton={showBackButton} />
       <div className="px-20 pb-5">
         <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
         <p className="text-slate-800 dark:text-slate-100 leading-7 [&:not(:first-child)]:mt-6">{desc}</p>
