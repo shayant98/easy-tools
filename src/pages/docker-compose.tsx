@@ -22,7 +22,13 @@ interface DockerServices {
   labels: { id: string; label: string; value: string }[];
 }
 
+type ObtainKeys<Obj, Type> = {
+  [Prop in keyof Obj]: Obj[Prop] extends Type ? Prop : never;
+}[keyof Obj];
+
 type DockerServiceKeys = keyof DockerServices;
+
+type GetStringKeys = ObtainKeys<DockerServices, string>; //  "string1" | "string2"
 
 const DockerCompose = () => {
   const [services, setServices] = useState<DockerServices[]>([]);
@@ -101,20 +107,23 @@ const DockerCompose = () => {
     setServices([...services, newService]);
   };
 
-  const getValueOfService = (name: string, key: DockerServiceKeys) => {
+  const getValueOfService = (name: string, key: GetStringKeys) => {
     const service = services.find((service) => service[key] === name);
     if (service === undefined) {
       return "";
     }
-    return service.name;
+    return service[key];
   };
 
-  const handleNameOfServiceChange = (e: ChangeEvent<HTMLInputElement>, name: string, key: DockerServiceKeys) => {
+  const handleNameOfServiceChange = (e: ChangeEvent<HTMLInputElement>, name: string, key: GetStringKeys) => {
     const service = services.find((service) => service[key] === name);
     if (service === undefined) {
       return;
     }
-    service.name = e.target.value;
+
+    if (typeof service[key] === "string") {
+      service[key] = e.target.value;
+    }
     setServices([...services]);
   };
 
@@ -281,14 +290,14 @@ const DockerCompose = () => {
                     </div>
                     <div className="grow">
                       <Label>Image</Label>
-                      <Input placeholder="Image" value={getValueOfService(service.name, "image")} onChange={(e) => handleNameOfServiceChange(e, service.name, "image")} />
+                      <Input placeholder="Image" value={getValueOfService(service.image, "image")} onChange={(e) => handleNameOfServiceChange(e, service.image, "image")} />
                     </div>
                     <div className="grow">
                       <Label>Container name</Label>
                       <Input
                         placeholder="Container name"
-                        value={getValueOfService(service.name, "container_name")}
-                        onChange={(e) => handleNameOfServiceChange(e, service.name, "container_name")}
+                        value={getValueOfService(service.container_name, "container_name")}
+                        onChange={(e) => handleNameOfServiceChange(e, service.container_name, "container_name")}
                       />
                     </div>
                   </div>

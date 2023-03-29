@@ -14,7 +14,6 @@ const Navbar = ({ showBackButton }: NavbarProps) => {
 
   return (
     <nav className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800">
-      nav
       <div className="">
         {showBackButton && (
           <div className="">

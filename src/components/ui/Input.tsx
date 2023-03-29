@@ -21,13 +21,23 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
   };
 
   return (
-    <div onClick={setInputFocus} className="flex text-xs text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-500  rounded items-center">
+    <div
+      onClick={setInputFocus}
+      className="group flex text-xs text-slate-800  bg-transparent border dark:border-slate-700 border-slate-300 group-focus:outline-none group-focus:ring-2 group-focus:ring-slate-400 group-focus:ring-offset-2   rounded items-center dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900"
+    >
       {Icon && <Icon size={16} className="ml-2 " />}
-      <input ref={ref} {...props} className={cn(className, "bg-white dark:bg-slate-500  h-10 outline-none px-2 rounded  text-slate-900 dark:text-slate-100  w-full")} />
+      <input
+        ref={ref}
+        {...props}
+        className={cn(
+          className,
+          "bg-transparent  h-10 outline-none px-2 rounded placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-50 group-focus:bg-white text-slate-900 dark:text-slate-50  w-full"
+        )}
+      />
       {props.value && showClear && (
         <AiOutlineClose onClick={handleClearInput} size={32} className="mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-full px-2 py-2" />
       )}
-      {!props.value && SCIcon && <SCIcon size={36} className="mr-2 border text-gray-400 border-gray-400      rounded h-full px-1 py-1" />}
+      {!props.value && SCIcon && <SCIcon size={36} className="mr-1 border text-gray-400 border-gray-400      rounded-sm h-full px-1 py-1" />}
     </div>
   );
 });
