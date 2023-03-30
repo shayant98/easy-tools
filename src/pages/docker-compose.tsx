@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { AiOutlineClear, AiOutlineCloudDownload, AiOutlineDownload, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineClear, AiOutlineClose, AiOutlineCloudDownload, AiOutlineDownload, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Input from "@components/ui/Input";
 import BaseLayout from "@layout/BaseLayout";
 import json2yaml from "json-to-pretty-yaml";
@@ -264,15 +264,25 @@ const DockerCompose = () => {
 
   return (
     <BaseLayout showBackButton title="Docker compose generator">
-      {services.length > 0 ? (
-        <TwoEditorLayout>
+      <div className="flex justify-end gap-2 mb-2">
+        <Button onClick={generateDockerComposeFromServices}>
+          <BsGear />
+          Generate
+        </Button>
+        <Button onClick={downloadYaml}>
+          <AiOutlineDownload /> Download
+        </Button>
+      </div>
+      <TwoEditorLayout>
+        <Container>
           <Tabs defaultValue={"0"}>
             <div className="flex ">
               <TabsList className="justify-start flex-wrap flex grow">
                 {/* Loop over services and create TabsTrigger with name */}
                 {services.map((service, i) => (
-                  <TabsTrigger key={i} value={service.id}>
+                  <TabsTrigger className="items-center flex gap-2" key={i} value={service.id}>
                     {service.name}
+                    <AiOutlineClose onClick={() => removeService(service.name)} />
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -282,7 +292,7 @@ const DockerCompose = () => {
             </div>
             {/* Loop over services and create TabsContent with name, for inputs use Input component */}
             {services.map((service, i) => (
-              <TabsContent key={i} value={service.id}>
+              <TabsContent className="h-max" key={i} value={service.id}>
                 <div className="flex flex-col space-y-4 ">
                   <div className="flex gap-2">
                     <div className="grow">
@@ -382,30 +392,18 @@ const DockerCompose = () => {
               </TabsContent>
             ))}
           </Tabs>
-          <div className="h-full ">
-            <div className="mb-3 flex gap-2">
-              <Button onClick={generateDockerComposeFromServices}>
-                <BsGear />
-                Generate
-              </Button>
-              <Button onClick={downloadYaml}>
-                <AiOutlineDownload /> Download
-              </Button>
-            </div>
-            <Container >
-              <Editor
-                disabled
-                value={yaml}
-                setValue={() => {
-                  return;
-                }}
-                language="yaml"
-              />
-          </Container>
-        </TwoEditorLayout>
-      ) : (
-        <></>
-      )}
+        </Container>
+        <Container>
+          <Editor
+            disabled
+            value={yaml}
+            setValue={() => {
+              return;
+            }}
+            language="yaml"
+          />
+        </Container>
+      </TwoEditorLayout>
     </BaseLayout>
   );
 };
