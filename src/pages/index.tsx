@@ -6,14 +6,11 @@ import Input from "@components/ui/Input";
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import ToolCard from "@components/ToolCard";
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/Command";
-import Link from "next/link";
+
 import menuItems from "data/menuItems";
 import { Label } from "@components/ui/Label";
 import { motion } from "framer-motion";
 const Home: NextPage = () => {
-  const [open, setOpen] = useState(false);
-
   const [search, setSearch] = useState("");
   const [fitleredItems, setfitleredItems] = useState<
     {
@@ -24,19 +21,6 @@ const Home: NextPage = () => {
       tags?: string[];
     }[]
   >(menuItems);
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "/" && e.metaKey) {
-        console.log(123);
-
-        setOpen((open) => !open);
-      }
-    };
-
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
 
   useEffect(() => {
     if (search.trim().length > 0) {
@@ -88,25 +72,6 @@ const Home: NextPage = () => {
           </div>
         )}
       </main>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty className="text-slate-500 dark:text-slate-200 opacity-40 text-xs text-center py-5">No results found.</CommandEmpty>
-          <CommandGroup heading="Tools">
-            {menuItems.map(({ icon: Icon, title, subtitle, link }) => (
-              <Link key={`tool-${title}`} href={link}>
-                <CommandItem>
-                  <Icon className="mr-2 h-4 w-4 " />
-                  <div className="flex flex-col">
-                    <span>{title}</span>
-                    <span className="text-xs mt-px font-thin">{subtitle}</span>
-                  </div>
-                </CommandItem>
-              </Link>
-            ))}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
     </BaseLayout>
   );
 };
