@@ -1,12 +1,13 @@
-import { DropdownMenuTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@components/ui/Dropdown";
 import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
 import { BsMoon, BsSun, BsThreeDotsVertical } from "react-icons/bs";
+import { BiMenuAltRight } from "react-icons/bi";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@components/ui/Button";
 import { useTheme } from "next-themes";
 
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import Sidebar from "@components/Sidebar/Sidebar";
 const inter = Inter({ subsets: ["latin"] });
 
 const Navbar = ({ showBackButton }: NavbarProps) => {
@@ -63,7 +64,8 @@ const Navbar = ({ showBackButton }: NavbarProps) => {
             <BsMoon />
           </Button>
         )}
-        <DropdownMenu>
+        <Sidebar />
+        {/* <DropdownMenu>
           <DropdownMenuTrigger>
             <BsThreeDotsVertical />
           </DropdownMenuTrigger>
@@ -74,7 +76,7 @@ const Navbar = ({ showBackButton }: NavbarProps) => {
               </Link>
             </SignedIn>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
     </nav>
   );

@@ -9,6 +9,7 @@ import TwoEditorLayout from "../layout/TwoEditorLayout";
 import { api } from "@utils/api";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
+import Container from "@components/Container/Container";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
@@ -50,8 +51,12 @@ const JsonToTs = () => {
         </SignedIn>
       </div>
       <TwoEditorLayout>
-        <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
-        <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
+        <Container>
+          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
+        </Container>
+        <Container>
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
+        </Container>
       </TwoEditorLayout>
     </BaseLayout>
   );

@@ -5,6 +5,7 @@ import { jsonToZod } from "json-to-zod";
 import Editor from "../components/Editor/Editor";
 import { toast } from "react-toastify";
 import TwoEditorLayout from "../layout/TwoEditorLayout";
+import Container from "@components/Container/Container";
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
@@ -33,8 +34,19 @@ const JsonToZod = () => {
   return (
     <BaseLayout showBackButton title="JSON to Typescript">
       <TwoEditorLayout>
-        <Editor placeholder="Enter JSON here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" />
-        <Editor value={outputArea} setValue={(e) => setinputArea(e.target.value)} language="js" disabled />
+        <Container>
+          <Editor placeholder="Enter JSON here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" />
+        </Container>
+        <Container>
+          <Editor
+            placeholder="Output"
+            value={outputArea}
+            setValue={() => {
+              return;
+            }}
+            language="typescript"
+          />
+        </Container>
       </TwoEditorLayout>
     </BaseLayout>
   );

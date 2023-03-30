@@ -20,7 +20,8 @@
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
       "@layout/*": ["layout/*"],
-      "@env/*": ["env/*"]
+      "@env/*": ["env/*"],
+      "@data/*": ["data/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "tailwind.config.cjs"],

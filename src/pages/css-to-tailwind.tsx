@@ -3,6 +3,9 @@ import BaseLayout from "../layout/BaseLayout";
 import { TailwindConverter } from "css-to-tailwindcss";
 import Editor from "../components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
+import Container from "@components/Container/Container";
+import { Button } from "@components/ui/Button";
+import { AiOutlineCopy } from "react-icons/ai";
 
 const OdataGenerator = () => {
   const [inputArea, setinputArea] = useState("");
@@ -58,10 +61,24 @@ const OdataGenerator = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <BaseLayout showBackButton title="CSS to Tailwind">
+    <BaseLayout
+      showBackButton
+      title="CSS to Tailwind"
+      desc="With just your existing CSS, our tool can generate the corresponding Tailwind CSS code, making it easy to switch to the popular utility-first CSS framework. Save time and streamline your development process by using our user-friendly tool to automatically generate Tailwind CSS code. Give it a try today and see how our CSS to Tailwind tool can revolutionize your CSS workflow!"
+    >
+      <div className="justify-end flex mb-2">
+        <Button>
+          {" "}
+          <AiOutlineCopy /> Copy
+        </Button>
+      </div>
       <TwoEditorLayout>
-        <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
-        <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
+        <Container>
+          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="css" placeholder="Enter CSS here" />
+        </Container>
+        <Container>
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="css" disabled />
+        </Container>
       </TwoEditorLayout>
     </BaseLayout>
   );
