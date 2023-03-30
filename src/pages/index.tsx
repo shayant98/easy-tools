@@ -12,6 +12,7 @@ import { Label } from "@components/ui/Label";
 import { motion } from "framer-motion";
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
+  const [isWindows, setisWindows] = useState(false);
   const [fitleredItems, setfitleredItems] = useState<
     {
       title: string;
@@ -34,6 +35,17 @@ const Home: NextPage = () => {
     };
   }, [search]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.navigator.userAgent.indexOf("Windows") !== -1) {
+      setisWindows(true);
+    }
+
+    return () => {
+      setisWindows(false);
+    };
+  }, []);
+
   return (
     <BaseLayout>
       <main className="">
@@ -47,7 +59,7 @@ const Home: NextPage = () => {
                 placeholder="Search..."
                 icon={AiOutlineSearch}
                 showClear
-                shortcutIcon={window.navigator.userAgent.includes("Mac") ? "⌘ + /" : "Ctrl + /"}
+                shortcutIcon={!isWindows ? "⌘ + /" : "Ctrl + /"}
               />
             </div>
           </div>
