@@ -40,17 +40,6 @@ const Sidebar = () => {
           <SheetDescription>Find the tool you need...</SheetDescription>
           <div className="flex justify-between">
             <SignedIn>
-              <UserButton
-                appearance={{
-                  elements: {
-                    userButtonPopoverCard: `${inter.className} bg-gray-100 text-white`,
-                  },
-
-                  userProfile: { elements: { modalContent: `${inter.className}`, userPreview: `${inter.className}` } },
-                }}
-              />
-            </SignedIn>
-            <SignedIn>
               <Link href={"/snippets"}>
                 <Button>Snippets</Button>
               </Link>

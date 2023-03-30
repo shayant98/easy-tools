@@ -9,6 +9,8 @@ import ToolCard from "@components/ToolCard";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/Command";
 import Link from "next/link";
 import menuItems from "data/menuItems";
+import { Label } from "@components/ui/Label";
+import { motion } from "framer-motion";
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
 
@@ -38,7 +40,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (search.trim().length > 0) {
-      setfitleredItems((prev) => menuItems.filter((items) => items.title.toLowerCase().includes(search) || items.subtitle.toLowerCase().includes(search)));
+      setfitleredItems(() => menuItems.filter((items) => items.title.toLowerCase().includes(search) || items.subtitle.toLowerCase().includes(search)));
     } else {
       setfitleredItems(menuItems);
     }
@@ -54,14 +56,30 @@ const Home: NextPage = () => {
         <div className="flex items-center justify-center w-full">
           <div className="w-full max-w-lg items-end flex gap-2">
             <div className="grow">
-              <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={AiOutlineSearch} showClear shortcutIcon={BsSlash} />
+              <Label>Search</Label>
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search..."
+                icon={AiOutlineSearch}
+                showClear
+                shortcutIcon={window.navigator.userAgent.includes("Mac") ? "⌘ + /" : "Ctrl + /"}
+              />
             </div>
           </div>
         </div>
         {fitleredItems.length > 0 ? (
           <div className="mt-10 flex justify-center flex-wrap gap-10">
-            {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }) => (
-              <ToolCard key={title} icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
+            {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }, i) => (
+              <motion.div
+                initial={{ opacity: 0, translateX: -50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                key={title}
+                className=""
+              >
+                <ToolCard icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
+              </motion.div>
             ))}
           </div>
         ) : (
@@ -73,9 +91,9 @@ const Home: NextPage = () => {
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
-          <CommandEmpty className="text-slate-200 opacity-40 text-xs text-center py-5">No results found.</CommandEmpty>
+          <CommandEmpty className="text-slate-500 dark:text-slate-200 opacity-40 text-xs text-center py-5">No results found.</CommandEmpty>
           <CommandGroup heading="Tools">
-            {menuItems.map(({ icon: Icon, title, subtitle, link, tags }) => (
+            {menuItems.map(({ icon: Icon, title, subtitle, link }) => (
               <Link key={`tool-${title}`} href={link}>
                 <CommandItem>
                   <Icon className="mr-2 h-4 w-4 " />

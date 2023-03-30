@@ -37,7 +37,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
       {props.value && showClear && (
         <AiOutlineClose onClick={handleClearInput} size={32} className="mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-full px-2 py-2" />
       )}
-      {!props.value && SCIcon && <SCIcon size={36} className="mr-1 border text-gray-400 border-gray-400      rounded-sm h-full px-1 py-1" />}
+      {!props.value && (
+        <div className="whitespace-nowrap px-2 py-1 rounded-sm shadow-lg bg-slate-300 dark:bg-gray-700 mr-1">
+          <small>{SCIcon}</small>
+        </div>
+      )}
     </div>
   );
 });
@@ -47,7 +51,7 @@ Input.displayName = "Input";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   showClear?: boolean;
   icon?: IconType;
-  shortcutIcon?: IconType;
+  shortcutIcon?: string;
 }
 
 export default Input;

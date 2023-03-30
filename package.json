@@ -31,6 +31,7 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "css-to-tailwindcss": "^1.0.4",
+    "framer-motion": "^10.10.0",
     "github-markdown-css": "^5.1.0",
     "json-to-pretty-yaml": "^1.2.2",
     "json-to-ts": "^1.7.0",

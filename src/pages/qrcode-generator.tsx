@@ -5,6 +5,8 @@ import Image from "next/image";
 import TwoEditorLayout from "../layout/TwoEditorLayout";
 import { Button } from "@components/ui/Button";
 import { Textarea } from "@components/ui/Textarea";
+import Container from "@components/Container/Container";
+import { AiOutlineDownload } from "react-icons/ai";
 const QrCodeGenerator = () => {
   const [input, setinput] = useState("");
   const [qrCode, setqrCode] = useState("");
@@ -50,16 +52,20 @@ const QrCodeGenerator = () => {
 
   return (
     <BaseLayout showBackButton title="QR-Code Generator">
+      <div className="mb-2 flex justify-end">
+        <Button onClick={handleDownload}>
+          <AiOutlineDownload /> Download Image
+        </Button>
+      </div>
       <TwoEditorLayout>
-        <div className="grow h-1/2 bg-gray-700 rounded">
+        <Container>
           <Textarea className="h-full  " value={input} onChange={(e) => setinput(e.target.value)} placeholder="Type your message here." />
-        </div>
-        <div className="bg-gray-700  flex items-center h-1/2 justify-center py-5 flex-col gap-y-2 rounded">
-          <div className="relative w-48 h-48">{qrCode && <Image className="rounded" src={qrCode} alt="QRCode" fill sizes="25vw" />}</div>
-          <Button onClick={handleDownload} variant={"outline"}>
-            Download Image
-          </Button>
-        </div>
+        </Container>
+        <Container>
+          <div className="h-full flex flex-col items-center justify-center">
+            <div className="relative w-80 h-80">{qrCode && <Image className="rounded" src={qrCode} alt="QRCode" fill sizes="25vw" />}</div>
+          </div>
+        </Container>
       </TwoEditorLayout>
     </BaseLayout>
   );
