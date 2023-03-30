@@ -10,6 +10,7 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "@components/ui/Button";
 import Editor from "@components/Editor/Editor";
 import { BsGear } from "react-icons/bs";
+import Container from "@components/Container/Container";
 
 interface DockerServices {
   id: string;
@@ -391,7 +392,7 @@ const DockerCompose = () => {
                 <AiOutlineDownload /> Download
               </Button>
             </div>
-            <div className="max-h-96 overflow-scroll">
+            <Container >
               <Editor
                 disabled
                 value={yaml}
@@ -400,8 +401,7 @@ const DockerCompose = () => {
                 }}
                 language="yaml"
               />
-            </div>
-          </div>
+          </Container>
         </TwoEditorLayout>
       ) : (
         <></>
