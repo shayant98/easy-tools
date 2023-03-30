@@ -1,7 +1,7 @@
 import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
-import { SiDocker, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiDocker, SiJavascript, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { VscJson } from "react-icons/vsc";
 
 const menuItems = [
@@ -11,6 +11,13 @@ const menuItems = [
     icon: SiTypescript,
     link: "/json-to-ts",
     tags: ["TRANSFORMER", "JSON", "TYPESCRIPT"],
+  },
+  {
+    title: "Javascript To Typescript",
+    subtitle: "Generate Typescript classes from Javascript Objects",
+    icon: SiJavascript,
+    link: "/js-to-ts",
+    tags: ["TRANSFORMER", "JAVASCRIPT", "TYPESCRIPT"],
   },
   {
     title: "QR Code Generator",

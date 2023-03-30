@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "release": "npm version minor && git push --follow-tags"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.11.13",

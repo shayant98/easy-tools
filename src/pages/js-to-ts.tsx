@@ -10,6 +10,7 @@ import { api } from "@utils/api";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
+import { AiOutlineWarning } from "react-icons/ai";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
@@ -19,18 +20,25 @@ const JsonToTs = () => {
   const handleParsing = useCallback(() => {
     try {
       if (inputArea.trim().length < 1) {
-        seterror("");
         return;
       }
-      const obj = JSON.parse(inputArea.trim());
+      const jsonString = inputArea.replace(/(\w+:)|(\w+ :)/g, function (matchedStr) {
+        return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
+      });
+      const obj = JSON.parse(jsonString.trim());
+      console.log(obj);
+
       const tsObj = JsonToTS(obj);
       setoutputArea(tsObj.join("\n\n"));
+      seterror("");
+
       toast("TS successfully generated", {
         toastId: "json-error",
         type: "error",
       });
     } catch (error: any) {
       seterror(error.message);
+      console.log(error.message);
     }
   }, [inputArea]);
 

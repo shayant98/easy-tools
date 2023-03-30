@@ -59,7 +59,7 @@ const Home: NextPage = () => {
         <div className="flex items-center justify-center w-full">
           <div className="w-full max-w-lg items-end flex gap-2">
             <div className="grow">
-              <Input value={search} onChange={(e) => setSearch(e.target.value)} title="Search" icon={AiOutlineSearch} showClear shortcutIcon={BsSlash} />
+              <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={AiOutlineSearch} showClear shortcutIcon={BsSlash} />
             </div>
           </div>
         </div>
