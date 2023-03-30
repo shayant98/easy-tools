@@ -26,7 +26,6 @@ const JsonToTs = () => {
         return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
       });
       const obj = JSON.parse(jsonString.trim());
-      console.log(obj);
 
       const tsObj = JsonToTS(obj);
       setoutputArea(tsObj.join("\n\n"));
@@ -38,7 +37,6 @@ const JsonToTs = () => {
       });
     } catch (error: any) {
       seterror(error.message);
-      console.log(error.message);
     }
   }, [inputArea]);
 

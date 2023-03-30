@@ -80,10 +80,6 @@ const ReadmeGenerator = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(123);
-  }, [currentlySelectedPreset]);
-
   return (
     <BaseLayout title="Markdown" showBackButton>
       <div className="flex gap-x-1 mb-2 ">
