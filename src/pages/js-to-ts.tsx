@@ -2,15 +2,12 @@ import BaseLayout from "../layout/BaseLayout";
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
 
-import CodeEditor from "@uiw/react-textarea-code-editor";
 import { toast } from "react-toastify";
 import Editor from "../components/Editor/Editor";
 import TwoEditorLayout from "../layout/TwoEditorLayout";
-import { api } from "@utils/api";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
-import { AiOutlineWarning } from "react-icons/ai";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");

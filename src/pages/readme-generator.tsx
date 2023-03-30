@@ -9,7 +9,6 @@ import presets from "../data/markdown-presets";
 import Editor from "../components/Editor/Editor";
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
-  const [showFullMd, setshowFullMd] = useState(false);
   const [availablePresets, setavailablePresets] = useState<
     {
       title: string;
