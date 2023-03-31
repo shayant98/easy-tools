@@ -47,7 +47,7 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="w-full" disabled={isSavingSnippet}>
+        <Button variant="default" className="" disabled={isSavingSnippet}>
           <AiOutlineSave /> Save Snippet
         </Button>
       </DialogTrigger>

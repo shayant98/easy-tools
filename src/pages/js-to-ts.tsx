@@ -44,8 +44,8 @@ const JsonToTs = () => {
   return (
     <BaseLayout
       showBackButton
-      title="JSON to Typescript"
-      desc="Introducing our JSON to TypeScript tool! With just a JSON object, our tool can generate a corresponding TypeScript model for efficient and organized development. Save time and reduce errors by taking advantage of our easy-to-use tool. "
+      title="Javascript to Typescript"
+      desc="Introducing our JS to TypeScript tool! With just a Javascript object, our tool can generate a corresponding TypeScript model for efficient and organized development. Save time and reduce errors by taking advantage of our easy-to-use tool. "
     >
       <div className="self-end mb-4">
         <SignedIn>

@@ -6,7 +6,7 @@ import json2yaml from "json-to-pretty-yaml";
 import { toast } from "react-toastify";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@components/ui/Tabs";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "@components/ui/Label";
 import { Button } from "@components/ui/Button";
 import Editor from "@components/Editor/Editor";
 import { BsGear } from "react-icons/bs";
@@ -292,7 +292,7 @@ const DockerCompose = () => {
             </div>
             {/* Loop over services and create TabsContent with name, for inputs use Input component */}
             {services.map((service, i) => (
-              <TabsContent className="h-max" key={i} value={service.id}>
+              <TabsContent className="border-0 p-0" key={i} value={service.id}>
                 <div className="flex flex-col space-y-4 ">
                   <div className="flex gap-2">
                     <div className="grow">

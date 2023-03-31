@@ -1,7 +1,7 @@
 import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
-import { SiDocker, SiJavascript, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { VscJson } from "react-icons/vsc";
 
 const menuItems = [
@@ -18,6 +18,13 @@ const menuItems = [
     icon: SiJavascript,
     link: "/js-to-ts",
     tags: ["TRANSFORMER", "JAVASCRIPT", "TYPESCRIPT"],
+  },
+  {
+    title: "Javascript To JSON",
+    subtitle: "Generate JSON models from Javascript Objects",
+    icon: SiJson,
+    link: "/js-to-json",
+    tags: ["TRANSFORMER", "JAVASCRIPT", "JSON"],
   },
   {
     title: "QR Code Generator",
@@ -48,20 +55,12 @@ const menuItems = [
     tags: ["DEVOPS", "DOCKER", "GENERATOR"],
   },
   {
-    title: "Bcrypt generator",
-    subtitle: "Generate BCrypt hashes",
+    title: "Bcrypt",
+    subtitle: "Generate or validate BCrypt hashes",
     icon: MdEnhancedEncryption,
     link: "/bcrypt-generator",
     tags: ["ENCRYPTION", "GENERATOR"],
   },
-  {
-    title: "Bcrypt validator",
-    subtitle: "Validate generated BCrypt Hashes",
-    icon: HiOutlineShieldCheck,
-    link: "/bcrypt-validator",
-    tags: ["ENCRYPTION"],
-  },
-
   {
     title: "CSS to Tailwind",
     subtitle: "Generate Tailwind classes based on CSS",

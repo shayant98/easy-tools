@@ -16,7 +16,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const router = useRouter();
   return (
     <>
-      <ThemeProvider attribute="class">
+      <ThemeProvider attribute="class" defaultTheme="dark">
         <ClerkProvider
           {...pageProps}
           appearance={{
@@ -29,9 +29,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
             <motion.div
               key={router.route}
               transition={{ duration: 0.75 }}
-              initial={{ opacity: 0, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
-              animate={{ opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
-              exit={{ opacity: 0, clipPath: "polygon(50% 0, 50% 0, 50% 100%, 50% 100%)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className={`${inter.variable} font-sans`}
             >
               <Component {...pageProps} />

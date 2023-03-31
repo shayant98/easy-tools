@@ -1,5 +1,5 @@
 import { cn } from "@utils/utils";
-import { ChangeEvent, forwardRef, useRef } from "react";
+import { ChangeEvent, forwardRef, InputHTMLAttributes, useRef } from "react";
 import { IconType } from "react-icons";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -37,7 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
       {props.value && showClear && (
         <AiOutlineClose onClick={handleClearInput} size={32} className="mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-full px-2 py-2" />
       )}
-      {!props.value && (
+      {!props.value && SCIcon && (
         <div className="whitespace-nowrap px-2 py-1 rounded-sm shadow-lg bg-slate-300 dark:bg-gray-700 mr-1">
           <small>{SCIcon}</small>
         </div>
@@ -48,7 +48,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
 
 Input.displayName = "Input";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   showClear?: boolean;
   icon?: IconType;
   shortcutIcon?: string;

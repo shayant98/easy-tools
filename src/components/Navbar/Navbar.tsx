@@ -8,10 +8,20 @@ import { useTheme } from "next-themes";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import Sidebar from "@components/Sidebar/Sidebar";
+import { useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 const Navbar = ({ showBackButton }: NavbarProps) => {
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <nav className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800">
