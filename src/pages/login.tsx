@@ -66,14 +66,14 @@ const Login = () => {
                 Choose Personal
               </button>
             </Link>
-            <div>
+            {/* <div>
               <span className="absolute right-0 top-7 z-[-1]">
                 <svg width="77" height="172" viewBox="0 0 77 172" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="86" cy="86" r="86" fill="url(#paint0_linear)" />
                   <defs>
                     <linearGradient id="paint0_linear" x1="86" y1="0" x2="86" y2="172" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#3056D3" stop-opacity="0.09" />
-                      <stop offset="1" stop-color="#C4C4C4" stop-opacity="0" />
+                      <stop stop-color="#3056D3" stopOpacity="0.09" />
+                      <stop offset="1" stop-color="#C4C4C4" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -114,7 +114,7 @@ const Login = () => {
                   <circle cx="1.41963" cy="1.4202" r="1.42021" transform="rotate(180 1.41963 1.4202)" fill="#3056D3" />
                 </svg>
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

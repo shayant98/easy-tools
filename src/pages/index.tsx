@@ -70,6 +70,7 @@ const Home: NextPage = () => {
               <motion.div
                 initial={{ opacity: 0, translateX: -50 }}
                 animate={{ opacity: 1, translateX: 0 }}
+                exit={{ opacity: 0, translateX: -50 }}
                 transition={{ duration: 0.5, delay: i * 0.04 }}
                 key={title}
                 className=""

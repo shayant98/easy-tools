@@ -57,7 +57,7 @@ const JsonToTs = () => {
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
         </Container>
         <Container>
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled placeholder="TS will appear here" />
         </Container>
       </TwoEditorLayout>
     </BaseLayout>

@@ -10,7 +10,7 @@ const Editor = ({ value, setValue, language = "js", disabled = false, placeholde
         disabled={disabled}
         value={value}
         language={language}
-        placeholder={disabled ? "" : placeholder}
+        placeholder={placeholder}
         onChange={setValue}
         padding={15}
         className={cn("font-mono h-full rounded-md bg-gray-50")}

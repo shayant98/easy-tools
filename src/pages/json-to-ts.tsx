@@ -53,7 +53,7 @@ const JsonToTs = () => {
         <div className="flex basis-2/4 justify-end">
           <Popover>
             <PopoverTrigger asChild>
-              <Button size={"sm"} className="w-9 self-end rounded-full p-0">
+              <Button size={"sm"} className="w-9 self-end rounded-md mr-1 p-0">
                 <IoSettings />
               </Button>
             </PopoverTrigger>
@@ -90,7 +90,7 @@ const JsonToTs = () => {
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
         </Container>
         <Container>
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled />
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled placeholder="TS will appear here" />
         </Container>
       </TwoEditorLayout>
     </BaseLayout>

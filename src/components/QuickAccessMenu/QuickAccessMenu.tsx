@@ -38,14 +38,16 @@ const QuickAccessMenu = () => {
         </CommandGroup>
         <CommandGroup heading="Account">
           <SignedIn>
-            <button onClick={() => signOut()} className="flex flex-col">
+            <div onClick={() => signOut()}>
               <CommandItem>
                 <AiOutlineLogout className="mr-2 h-4 w-4 " />
 
-                <span>Sign out</span>
-                <span className="text-xs mt-px font-thin">Sign out</span>
+                <div className="flex flex-col">
+                  <span>Sign out</span>
+                  <span className="text-xs mt-px font-thin">Sign out of your account</span>
+                </div>
               </CommandItem>
-            </button>
+            </div>
             <Link key={`account-snippet`} href={"/snippet"}>
               <CommandItem>
                 <AiOutlineSnippets className="mr-2 h-4 w-4 " />
