@@ -7,6 +7,8 @@ import { AiOutlineClear, AiOutlineCopy, AiOutlineUndo } from "react-icons/ai";
 import { toast } from "react-toastify";
 import presets from "../data/markdown-presets";
 import Editor from "../components/Editor/Editor";
+import { Button } from "@components/ui/Button";
+import Container from "@components/Container/Container";
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
   const [availablePresets, setavailablePresets] = useState<
@@ -32,12 +34,8 @@ const ReadmeGenerator = () => {
   };
 
   const handleOnClear = () => {
-    if (value == "") {
-      toast.error("Noting to clear!");
-      return;
-    }
     setValue("");
-    setSelectedPresets([]);
+    if (presets[0]) setSelectedPresets([presets[0]]);
     setavailablePresets(presets);
     toast.success("Cleared editor");
   };
@@ -83,42 +81,48 @@ const ReadmeGenerator = () => {
     <BaseLayout title="Markdown" showBackButton>
       <div className="flex gap-x-1 mb-2 ">
         <div className="flex gap-x-1  w-1/4">
-          <div className="bg-gray-900 rounded px-4 py-2 cursor-pointer" onClick={handleOnClear}>
-            <AiOutlineUndo />
-          </div>
+          <Button onClick={handleOnClear}>
+            <AiOutlineUndo /> Undo
+          </Button>
         </div>
         <div className="flex gap-x-1  w-1/3"></div>
-        <div className="flex gap-x-1  w-1/3 self-end">
-          <div className="flex items-center gap-1 bg-gray-900 rounded px-4 py-2 cursor-pointer  " onClick={handleCopy}>
-            <AiOutlineCopy />
-          </div>
+        <div className="flex gap-x-1  w-full justify-end">
+          <Button onClick={handleCopy}>
+            <AiOutlineCopy /> Copy
+          </Button>
         </div>
       </div>
-      <div className="flex  gap-x-1 ">
-        <div className="border rounded w-1/4 max-h-96  px-4 py-2 overflow-auto">
-          {availablePresets.map((preset, i) => (
-            <div key={preset.title} className="flex items-center justify-center gap-x-2">
-              <div
-                onClick={() => handlePresetSelection(preset)}
-                className="grow text-sm bg-gray-900 mb-1 flex justify-between rounded px-4 py-2 cursor-pointer hover:scale-105 duration-200"
-              >
-                {preset.title}
-              </div>
-              {new Set(selectedPresets).has(preset) && (
-                <div className="bg-red-500 text-sm rounded h-max px-4 py-2 mb-1 cursor-pointer" onClick={() => removeselectedPreset(preset)}>
-                  <AiOutlineClear className="" />
+      <div className="flex h-full  gap-x-1 ">
+        <div className=" w-1/4 max-h-96 ">
+          <Container>
+            {availablePresets.map((preset, i) => (
+              <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
+                <div
+                  onClick={() => handlePresetSelection(preset)}
+                  className="grow text-sm text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900  flex justify-between rounded px-4 py-3 cursor-pointer hover:scale-105 duration-200"
+                >
+                  {preset.title}
                 </div>
-              )}
-            </div>
-          ))}
+                {new Set(selectedPresets).has(preset) && (
+                  <Button variant={"destructive"} onClick={() => removeselectedPreset(preset)}>
+                    <AiOutlineClear className="" />
+                  </Button>
+                )}
+              </div>
+            ))}
+          </Container>
         </div>
         <div className=" w-1/3 max-h-max  break-words">
-          <Editor value={currentlySelectedPreset?.value ?? ""} setValue={(e) => handlePresetEdit(e.target.value, currentlySelectedPreset)} language="md" />
+          <Container>
+            <Editor value={currentlySelectedPreset?.value ?? ""} setValue={(e) => handlePresetEdit(e.target.value, currentlySelectedPreset)} language="md" />
+          </Container>
         </div>
         <div className="grow w-1/3 h-5/6 overflow-y-auto">
-          <div className="rounded   markdown-body px-4 py-2 overflow-y-auto ">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}</ReactMarkdown>
-          </div>
+          <Container>
+            <ReactMarkdown className="bg-slate-100 dark:bg-slate-900 p-4 rounded markdown-body" remarkPlugins={[remarkGfm]}>
+              {selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}
+            </ReactMarkdown>
+          </Container>
         </div>
       </div>
     </BaseLayout>
