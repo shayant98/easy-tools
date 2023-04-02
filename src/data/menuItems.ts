@@ -83,10 +83,10 @@ const menuItems = [
     tags: ["AI", "SQL", "GENERATOR"],
   },
   {
-    title: "File to Base64",
-    subtitle: "Convert files to base64",
+    title: "Base64",
+    subtitle: "Convert files to base64 or base64 to files",
     icon: VscSymbolString,
-    link: "/image-to-base64",
+    link: "/base64",
     tags: ["TRANSFORMER"],
   },
 ];

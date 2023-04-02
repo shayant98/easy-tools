@@ -17,4 +17,42 @@ const toBase64 = (file: File): Promise<string> => {
   });
 };
 
-export { stringToJsonString, toBase64 };
+const base64toFile = async (dataUrl: string): Promise<File> => {
+  const res: Response = await fetch(dataUrl);
+  const blob: Blob = await res.blob();
+
+  return new File([blob], generateFileNameFromMimeType(blob), { type: blob.type, lastModified: Date.now() });
+};
+
+const generateFileNameFromMimeType = (file: Blob): string => {
+  // get blob type
+  const fileType = file.type;
+  let extension;
+
+  // TODO: find a better way to do this
+  switch (fileType) {
+    case "image/png":
+      extension = "png";
+      break;
+    case "image/jpeg":
+      extension = "jpg";
+      break;
+    case "image/gif":
+      extension = "gif";
+      break;
+    case "text/plain":
+      extension = "txt";
+      break;
+    case "application/pdf":
+      extension = "pdf";
+      break;
+    default:
+      throw new Error("File type not supported");
+  }
+
+  // generate file name
+  const fileName = `${Date.now()}.${extension}`;
+  return fileName;
+};
+
+export { stringToJsonString, toBase64, base64toFile };

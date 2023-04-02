@@ -37,6 +37,7 @@
     "json-to-pretty-yaml": "^1.2.2",
     "json-to-ts": "^1.7.0",
     "json-to-zod": "^1.1.2",
+    "jszip": "^3.10.1",
     "next": "^13.2.4",
     "next-remove-imports": "^1.0.10",
     "next-themes": "^0.2.1",

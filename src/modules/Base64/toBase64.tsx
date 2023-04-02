@@ -1,6 +1,5 @@
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
-import BaseLayout from "@layout/BaseLayout";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { toBase64 } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
@@ -9,8 +8,9 @@ import { AiOutlineClear, AiOutlineClose, AiOutlineCopy, AiOutlineDown, AiOutline
 import { toast } from "react-toastify";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/Dropdown";
 
-const ImageToBase64 = () => {
+const ToBase64 = () => {
   const [files, setFiles] = useState<File[]>([]);
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);
   }, []);
@@ -61,9 +61,8 @@ const ImageToBase64 = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [open]);
-
   return (
-    <BaseLayout showBackButton title="Image to base64">
+    <>
       <div className="flex self-end mb-2 gap-2">
         <Button onClick={handleClear} variant={"outline"}>
           <AiOutlineClear /> Clear
@@ -117,8 +116,8 @@ const ImageToBase64 = () => {
           </div>
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 
-export default ImageToBase64;
+export default ToBase64;
