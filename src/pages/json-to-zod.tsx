@@ -11,6 +11,7 @@ import { BsFlower1 } from "react-icons/bs";
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
+  const [error, seterror] = useState("");
 
   const handleParsing = useCallback(() => {
     try {
@@ -20,12 +21,8 @@ const JsonToZod = () => {
       const obj = JSON.parse(inputArea.trim());
       const zod = jsonToZod(obj);
       setoutputArea(zod);
-    } catch (error) {
-      console.error(error);
-      toast("Invalid JSON", {
-        toastId: "json-to-zod",
-        type: "error",
-      });
+    } catch (error: any) {
+      seterror(error.message);
     }
   }, [inputArea]);
 
@@ -34,6 +31,14 @@ const JsonToZod = () => {
   }, [inputArea, handleParsing]);
 
   const handleBeatify = async () => {
+    if (inputArea.trim().length < 1) {
+      toast.error("Please enter JSON first");
+      return;
+    }
+    if (error !== "") {
+      toast.error("Please fix the error first");
+      return;
+    }
     setinputArea((prev) => JSON.stringify(JSON.parse(prev), null, 2));
   };
 
@@ -47,7 +52,7 @@ const JsonToZod = () => {
         </div>
       </div>
       <TwoEditorLayout>
-        <Container>
+        <Container errorMessage={error}>
           <Editor placeholder="Enter JSON here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" />
         </Container>
         <Container>

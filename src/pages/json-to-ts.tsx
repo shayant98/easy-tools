@@ -45,6 +45,14 @@ const JsonToTs = () => {
   }, [inputArea, handleParsing]);
 
   const handleBeatify = async () => {
+    if (inputArea.trim().length < 1) {
+      toast.error("Please enter JSON first");
+      return;
+    }
+    if (error !== "") {
+      toast.error("Please fix the error first");
+      return;
+    }
     setinputArea((prev) => JSON.stringify(JSON.parse(prev), null, 2));
   };
 
