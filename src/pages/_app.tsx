@@ -34,6 +34,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
               exit={{ opacity: 0 }}
               className={`${inter.variable} font-sans`}
             >
+              <style jsx global>{`
+                html {
+                  font-family: ${inter.style.fontFamily};
+                }
+              `}</style>
               <Component {...pageProps} />
               <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={true} newestOnTop={true} closeOnClick rtl={false} draggable theme="dark" />
             </motion.div>

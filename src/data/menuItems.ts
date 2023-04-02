@@ -2,7 +2,7 @@ import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-ico
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
 import { SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
-import { VscJson } from "react-icons/vsc";
+import { VscJson, VscSymbolString } from "react-icons/vsc";
 
 const menuItems = [
   {
@@ -81,6 +81,13 @@ const menuItems = [
     icon: SiMysql,
     link: "/sql-translator",
     tags: ["AI", "SQL", "GENERATOR"],
+  },
+  {
+    title: "File to Base64",
+    subtitle: "Convert files to base64",
+    icon: VscSymbolString,
+    link: "/image-to-base64",
+    tags: ["TRANSFORMER"],
   },
 ];
 
