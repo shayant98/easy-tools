@@ -1,9 +1,11 @@
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
+import { Button } from "@components/ui/Button";
 import BaseLayout from "@layout/BaseLayout";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { stringToJsonString } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
+import { BsFlower1 } from "react-icons/bs";
 
 const JsToJson = () => {
   const [inputArea, setinputArea] = useState("");
@@ -36,7 +38,7 @@ const JsToJson = () => {
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="js" placeholder="Enter JS here" />
         </Container>
         <Container>
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="json" disabled />
+          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="json" disabled placeholder="JSON will apear here" />
         </Container>
       </TwoEditorLayout>
     </BaseLayout>

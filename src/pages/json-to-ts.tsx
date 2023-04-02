@@ -16,6 +16,7 @@ import { Label } from "@components/ui/Label";
 import Input from "@components/ui/Input";
 import { AiOutlineAccountBook, AiOutlineRadiusSetting } from "react-icons/ai";
 import { IoSettings } from "react-icons/io5";
+import { BsFlower1 } from "react-icons/bs";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
@@ -43,14 +44,21 @@ const JsonToTs = () => {
     handleParsing();
   }, [inputArea, handleParsing]);
 
+  const handleBeatify = async () => {
+    setinputArea((prev) => JSON.stringify(JSON.parse(prev), null, 2));
+  };
+
   return (
     <BaseLayout
       showBackButton
       title="JSON to Typescript"
       desc="Introducing our JSON to TypeScript tool! With just a JSON object, our tool can generate a corresponding TypeScript model for efficient and organized development. Save time and reduce errors by taking advantage of our easy-to-use tool. "
     >
-      <div className="flex mb-2">
-        <div className="flex basis-2/4 justify-end">
+      <div className="flex  mb-2">
+        <div className="flex gap-2 basis-2/4 justify-end">
+          <Button size={"sm"} onClick={handleBeatify}>
+            <BsFlower1 /> Beautify
+          </Button>
           <Popover>
             <PopoverTrigger asChild>
               <Button size={"sm"} className="w-9 self-end rounded-md mr-1 p-0">
