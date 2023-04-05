@@ -4,8 +4,9 @@ import { api } from "@utils/api";
 import { ToolProvider } from "context/ToolContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
+import { ReactNode } from "react-markdown/lib/ast-to-react";
 
-const Providers = ({ children }: { children: any }) => {
+const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <AnimatePresence mode="wait">
@@ -17,4 +18,4 @@ const Providers = ({ children }: { children: any }) => {
   );
 };
 
-export default api.withTRPC(Providers);
+export default Providers;
