@@ -1,11 +1,29 @@
-import { useState } from "react";
-import BaseLayout from "../layout/BaseLayout";
+"use client";
+
+import { useEffect, useState } from "react";
 import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
 import Editor from "@components/Editor/Editor";
+
+import { useTool } from "context/ToolContext";
+
+const NAME = "URL Encoder/Decoder";
+const DESCRIPTION = "Encode and decode URLs";
+
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const handleDecode = () => {
     setoutputArea(decodeURI(inputArea));
@@ -18,7 +36,7 @@ const UrlEncoderDecoder = () => {
     setoutputArea("");
   };
   return (
-    <BaseLayout showBackButton title="URL Encoder/Decoder">
+    <>
       <div className=" h-full">
         <div className="flex gap-x-2 h-1/2">
           <div className="w-1/2 ">
@@ -43,7 +61,7 @@ const UrlEncoderDecoder = () => {
           </button>
         </div>
       </div>
-    </BaseLayout>
+    </>
   );
 };
 

@@ -1,17 +1,34 @@
-import BaseLayout from "../layout/BaseLayout";
-import { MouseEvent, useCallback, useEffect, useState } from "react";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 
 import { jsonToZod } from "json-to-zod";
-import Editor from "../components/Editor/Editor";
+import Editor from "../../../../components/Editor/Editor";
 import { toast } from "react-toastify";
-import TwoEditorLayout from "../layout/TwoEditorLayout";
+import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
 import { BsFlower1 } from "react-icons/bs";
+import { useTool } from "context/ToolContext";
+
+const NAME = "JSON to ZOD";
+const DESCRIPTION = "Convert JSON to Zod";
+
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const handleParsing = useCallback(() => {
     try {
@@ -43,7 +60,7 @@ const JsonToZod = () => {
   };
 
   return (
-    <BaseLayout showBackButton title="JSON to Typescript">
+    <>
       <div className="flex mb-2">
         <div className="flex gap-2  basis-2/4 justify-end">
           <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
@@ -66,7 +83,7 @@ const JsonToZod = () => {
           />
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 

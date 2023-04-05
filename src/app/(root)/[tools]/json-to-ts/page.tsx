@@ -1,12 +1,11 @@
-import BaseLayout from "../layout/BaseLayout";
+"use client";
+
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
 
-import CodeEditor from "@uiw/react-textarea-code-editor";
 import { toast } from "react-toastify";
-import Editor from "../components/Editor/Editor";
-import TwoEditorLayout from "../layout/TwoEditorLayout";
-import { api } from "@utils/api";
+import Editor from "../../../../components/Editor/Editor";
+import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
@@ -14,15 +13,30 @@ import { Button } from "@components/ui/Button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { Label } from "@components/ui/Label";
 import Input from "@components/ui/Input";
-import { AiOutlineAccountBook, AiOutlineRadiusSetting } from "react-icons/ai";
 import { IoSettings } from "react-icons/io5";
 import { BsFlower1 } from "react-icons/bs";
+import { useTool } from "context/ToolContext";
+
+const TOOL_NAME = "JSON to Typescript";
+const TOOL_DESCRIPTION = "Convert JSON to Typescript";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
   const [name, setName] = useState("root");
+
+  const { setName: setToolName, setDescription } = useTool();
+
+  useEffect(() => {
+    setToolName(TOOL_NAME);
+    setDescription(TOOL_DESCRIPTION);
+
+    return () => {
+      setToolName("");
+      setDescription("");
+    };
+  }, [setDescription, setToolName]);
 
   const handleParsing = useCallback(() => {
     try {
@@ -57,19 +71,15 @@ const JsonToTs = () => {
   };
 
   return (
-    <BaseLayout
-      showBackButton
-      title="JSON to Typescript"
-      desc="Introducing our JSON to TypeScript tool! With just a JSON object, our tool can generate a corresponding TypeScript model for efficient and organized development. Save time and reduce errors by taking advantage of our easy-to-use tool. "
-    >
-      <div className="flex  mb-2">
-        <div className="flex gap-2 basis-2/4 justify-end">
+    <>
+      <div className="flex gap-2 mb-2">
+        <div className="flex gap-2 basis-2/4 items-center justify-end">
           <Button size={"sm"} onClick={handleBeatify}>
             <BsFlower1 /> Beautify
           </Button>
           <Popover>
             <PopoverTrigger asChild>
-              <Button size={"sm"} className="w-9 self-end rounded-md mr-1 p-0">
+              <Button size={"sm"} className="w-9">
                 <IoSettings />
               </Button>
             </PopoverTrigger>
@@ -109,7 +119,7 @@ const JsonToTs = () => {
           <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled placeholder="TS will appear here" />
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 

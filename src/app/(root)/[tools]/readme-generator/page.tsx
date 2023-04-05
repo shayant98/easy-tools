@@ -1,14 +1,19 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import BaseLayout from "../layout/BaseLayout";
 import "github-markdown-css";
 import { AiOutlineClear, AiOutlineCopy, AiOutlineUndo } from "react-icons/ai";
 import { toast } from "react-toastify";
-import presets from "../data/markdown-presets";
-import Editor from "../components/Editor/Editor";
+import presets from "../../../../data/markdown-presets";
+import Editor from "../../../../components/Editor/Editor";
 import { Button } from "@components/ui/Button";
 import Container from "@components/Container/Container";
+import { useTool } from "context/ToolContext";
+
+const NAME = "Markdown Generator";
+const DESCRIPTION = "Generate Markdown";
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
   const [availablePresets, setavailablePresets] = useState<
@@ -27,6 +32,18 @@ const ReadmeGenerator = () => {
     title: string;
     value: string;
   }>();
+
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const handlePresetSelection = (preset: { title: string; value: string }) => {
     setCurrentlySelectedPreset(preset);
@@ -78,7 +95,7 @@ const ReadmeGenerator = () => {
   }, []);
 
   return (
-    <BaseLayout title="Markdown" showBackButton>
+    <>
       <div className="flex gap-x-1 mb-2 ">
         <div className="flex gap-x-1  w-1/4">
           <Button onClick={handleOnClear}>
@@ -125,7 +142,7 @@ const ReadmeGenerator = () => {
           </Container>
         </div>
       </div>
-    </BaseLayout>
+    </>
   );
 };
 

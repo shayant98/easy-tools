@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
@@ -7,9 +9,24 @@ import { useDropzone } from "react-dropzone";
 import { AiOutlineClear, AiOutlineClose, AiOutlineCopy, AiOutlineDown, AiOutlineDownload } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/Dropdown";
+import { useTool } from "context/ToolContext";
+
+const NAME = "To Base64";
+const DESCRIPTION = "Convert files to base64";
 
 const ToBase64 = () => {
   const [files, setFiles] = useState<File[]>([]);
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);

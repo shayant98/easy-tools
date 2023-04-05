@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
 import Input from "@components/ui/Input";
@@ -6,16 +8,31 @@ import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
 import { Textarea } from "@components/ui/Textarea";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { base64toFile } from "@utils/formatters";
+import { useTool } from "context/ToolContext";
 import JSZip from "jszip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineArrowRight, AiOutlineDownload, AiOutlineFileZip } from "react-icons/ai";
 import { IoSettings } from "react-icons/io5";
 import { toast } from "react-toastify";
+
+const NAME = "Base64 to File";
+const DESCRIPTION = "Convert Base64 to File";
 
 const FromBase64 = () => {
   const [input, setinput] = useState("");
   const [seperator, setseperator] = useState("");
   const [generatedFiles, setgeneratedFiles] = useState<File[]>([]);
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const handleConversion = async () => {
     if (input == "") {

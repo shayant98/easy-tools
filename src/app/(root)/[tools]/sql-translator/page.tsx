@@ -1,8 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Button } from "@components/ui/Button";
 
-import BaseLayout from "@layout/BaseLayout";
 import { api } from "@utils/api";
 import Editor from "@components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
@@ -33,11 +34,7 @@ const SqlTranslator = () => {
   );
 
   return (
-    <BaseLayout
-      showBackButton
-      title="SQL Translator"
-      desc="With the power of ChatGPT and natural language processing, our tool can translate natural language queries into corresponding SQL queries. Save time and reduce errors by taking advantage of our easy-to-use tool, which is perfect for developers of all levels. "
-    >
+    <>
       <div className="self-end mb-2">
         <Button
           onClick={() => {
@@ -55,7 +52,7 @@ const SqlTranslator = () => {
           <Editor value={query} setValue={(e) => setQuery(e.target.value)} disabled language="sql" />
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 

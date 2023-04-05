@@ -1,15 +1,31 @@
+"use client";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
-import BaseLayout from "../layout/BaseLayout";
 import { TailwindConverter } from "css-to-tailwindcss";
-import Editor from "../components/Editor/Editor";
+import Editor from "../../../../components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
 import { AiOutlineCopy } from "react-icons/ai";
+import { useTool } from "context/ToolContext";
+
+const NAME = "CSS to Tailwind";
+const DESCRIPTION = "Convert CSS to Tailwind";
 
 const OdataGenerator = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const converter = useMemo(
     () =>
@@ -61,11 +77,7 @@ const OdataGenerator = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <BaseLayout
-      showBackButton
-      title="CSS to Tailwind"
-      desc="With just your existing CSS, our tool can generate the corresponding Tailwind CSS code, making it easy to switch to the popular utility-first CSS framework. Save time and streamline your development process by using our user-friendly tool to automatically generate Tailwind CSS code. Give it a try today and see how our CSS to Tailwind tool can revolutionize your CSS workflow!"
-    >
+    <>
       <div className="justify-end flex mb-2">
         <Button>
           {" "}
@@ -80,7 +92,7 @@ const OdataGenerator = () => {
           <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="css" disabled />
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 

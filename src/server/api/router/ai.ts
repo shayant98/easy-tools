@@ -1,18 +1,14 @@
 import { z } from "zod";
-import { env } from "../../../env/server.mjs";
-import { Configuration, OpenAIApi } from "openai";
-import { aiProcedure, createTRPCRouter, publicProcedure } from "../trpc";
+import { aiProcedure, createTRPCRouter } from "../trpc";
 import { TRPCError } from "@trpc/server";
 
 export const aiRouter = createTRPCRouter({
-  // The following function is used to translate natural language queries into SQL queries.
-  // The function is passed a string containing a natural language query.
-  // The function returns a string containing the SQL query.
-
   sqlTranslator: aiProcedure.input(z.object({ query: z.string() })).query(async ({ input, ctx }) => {
-    ctx.openai;
+    console.log(123);
 
     try {
+      console.log("hello");
+
       const response = await ctx.openai.createCompletion({
         model: "text-davinci-003",
         prompt: `Translate this natural language into SQL: \n\n "${input.query}" \n\n SQL Query:`,

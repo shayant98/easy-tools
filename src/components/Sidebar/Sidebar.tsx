@@ -1,15 +1,14 @@
+"use client";
+
 import { Button } from "@components/ui/Button";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@components/ui/Sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@components/ui/Sheet";
 import { BiMenuAltRight } from "react-icons/bi";
 import menuItems from "@data/menuItems";
 import Input from "@components/ui/Input";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const Sidebar = () => {
   const [search, setsearch] = useState("");

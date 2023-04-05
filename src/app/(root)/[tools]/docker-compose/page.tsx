@@ -1,9 +1,9 @@
+"use client";
+
 import { ChangeEvent, useEffect, useState } from "react";
-import { AiOutlineClear, AiOutlineClose, AiOutlineCloudDownload, AiOutlineDownload, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineDownload, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import Input from "@components/ui/Input";
-import BaseLayout from "@layout/BaseLayout";
 import json2yaml from "json-to-pretty-yaml";
-import { toast } from "react-toastify";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@components/ui/Tabs";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Label } from "@components/ui/Label";
@@ -11,6 +11,7 @@ import { Button } from "@components/ui/Button";
 import Editor from "@components/Editor/Editor";
 import { BsGear } from "react-icons/bs";
 import Container from "@components/Container/Container";
+import { useTool } from "context/ToolContext";
 
 interface DockerServices {
   id: string;
@@ -27,13 +28,25 @@ type ObtainKeys<Obj, Type> = {
   [Prop in keyof Obj]: Obj[Prop] extends Type ? Prop : never;
 }[keyof Obj];
 
-type DockerServiceKeys = keyof DockerServices;
-
 type GetStringKeys = ObtainKeys<DockerServices, string>; //  "string1" | "string2"
+
+const NAME = "Docker Compose Generator";
+const DESCRIPTION = "Generate Docker Compose YAML";
 
 const DockerCompose = () => {
   const [services, setServices] = useState<DockerServices[]>([]);
   const [yaml, setYaml] = useState("");
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   useEffect(() => {
     // Initialize service with single demo service
@@ -263,7 +276,7 @@ const DockerCompose = () => {
   };
 
   return (
-    <BaseLayout showBackButton title="Docker compose generator">
+    <>
       <div className="flex justify-end gap-2 mb-2">
         <Button onClick={generateDockerComposeFromServices}>
           <BsGear />
@@ -404,7 +417,7 @@ const DockerCompose = () => {
           />
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 

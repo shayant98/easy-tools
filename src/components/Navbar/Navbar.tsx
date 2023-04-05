@@ -1,32 +1,36 @@
-import { AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
-import { BsMoon, BsSun, BsThreeDotsVertical } from "react-icons/bs";
-import { BiMenuAltRight } from "react-icons/bi";
+"use client";
+
+import { AiOutlineHome } from "react-icons/ai";
+import { BsMoon, BsSun } from "react-icons/bs";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@components/ui/Button";
 import { useTheme } from "next-themes";
 
-import { Inter } from "next/font/google";
 import Link from "next/link";
 import Sidebar from "@components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
-const inter = Inter({ subsets: ["latin"] });
+import { usePathname } from "next/navigation";
+import { useTool } from "context/ToolContext";
 
-const Navbar = ({ showBackButton }: NavbarProps) => {
+const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
+
+  const { name, description } = useTool();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return null;
+    return <nav className="flex w-full h-20 py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800"></nav>;
   }
 
   return (
-    <nav className="flex w-full py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800">
+    <nav className="flex w-full h-20 py-2 px-20 mb-5 justify-between  items-center bg-slate-200 dark:bg-slate-800">
       <div className="">
-        {showBackButton && (
+        {pathname.trim() != "/" && (
           <div className="">
             <Link href="/">
               <Button variant="subtle">
@@ -36,16 +40,16 @@ const Navbar = ({ showBackButton }: NavbarProps) => {
           </div>
         )}
       </div>
-      <div className=""></div>
+      <div className="">
+        <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{name}</h1>
+      </div>
       <div className="inline-flex items-center gap-4">
         <SignedIn>
           <UserButton
             appearance={{
               elements: {
-                userButtonPopoverCard: `${inter.className} bg-gray-100 text-white`,
+                userButtonPopoverCard: ` bg-gray-100 text-white`,
               },
-
-              userProfile: { elements: { modalContent: `${inter.className}`, userPreview: `${inter.className}` } },
             }}
           />
         </SignedIn>

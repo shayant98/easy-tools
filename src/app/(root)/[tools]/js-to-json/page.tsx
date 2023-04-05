@@ -1,16 +1,30 @@
+"use client";
+
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
-import { Button } from "@components/ui/Button";
-import BaseLayout from "@layout/BaseLayout";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { stringToJsonString } from "@utils/formatters";
+import { useTool } from "context/ToolContext";
 import { useCallback, useEffect, useState } from "react";
-import { BsFlower1 } from "react-icons/bs";
+
+const NAME = "JS to JSON";
+const DESCRIPTION = "Convert JS to JSON";
 
 const JsToJson = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const handleParsing = useCallback(() => {
     try {
@@ -32,16 +46,14 @@ const JsToJson = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <BaseLayout title="JS to JSON" showBackButton>
-      <TwoEditorLayout>
-        <Container errorMessage={error}>
-          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="js" placeholder="Enter JS here" />
-        </Container>
-        <Container>
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="json" disabled placeholder="JSON will apear here" />
-        </Container>
-      </TwoEditorLayout>
-    </BaseLayout>
+    <TwoEditorLayout>
+      <Container errorMessage={error}>
+        <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="js" placeholder="Enter JS here" />
+      </Container>
+      <Container>
+        <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="json" disabled placeholder="JSON will apear here" />
+      </Container>
+    </TwoEditorLayout>
   );
 };
 

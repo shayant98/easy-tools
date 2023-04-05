@@ -1,15 +1,33 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import BaseLayout from "../layout/BaseLayout";
 import QRCode from "qrcode";
 import Image from "next/image";
-import TwoEditorLayout from "../layout/TwoEditorLayout";
+import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import { Button } from "@components/ui/Button";
 import { Textarea } from "@components/ui/Textarea";
 import Container from "@components/Container/Container";
 import { AiOutlineDownload } from "react-icons/ai";
+import { useTool } from "context/ToolContext";
+
+const NAME = "QR Code Generator";
+const DESCRIPTION = "Generate QR Code";
+
 const QrCodeGenerator = () => {
   const [input, setinput] = useState("");
   const [qrCode, setqrCode] = useState("");
+
+  const { setName, setDescription } = useTool();
+
+  useEffect(() => {
+    setName(NAME);
+    setDescription(DESCRIPTION);
+
+    return () => {
+      setName("");
+      setDescription("");
+    };
+  }, [setDescription, setName]);
 
   const handleDownload = () => {
     const downloadLink = document.createElement("a");
@@ -51,7 +69,7 @@ const QrCodeGenerator = () => {
   }, [input]);
 
   return (
-    <BaseLayout showBackButton title="QR-Code Generator">
+    <>
       <div className="mb-2 flex justify-end">
         <Button onClick={handleDownload}>
           <AiOutlineDownload /> Download Image
@@ -67,7 +85,7 @@ const QrCodeGenerator = () => {
           </div>
         </Container>
       </TwoEditorLayout>
-    </BaseLayout>
+    </>
   );
 };
 

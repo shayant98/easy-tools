@@ -96,7 +96,11 @@ const configureOpenAI = t.middleware(({ ctx, next }) => {
     apiKey: env.OPENAI_KEY,
   });
 
+  console.log(configuration);
+
   const openai = new OpenAIApi(configuration);
+
+  console.log(openai);
 
   return next({
     ctx: {

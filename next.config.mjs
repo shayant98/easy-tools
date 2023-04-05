@@ -19,6 +19,9 @@ function defineNextConfig(config) {
 export default removeImportsFun(
   defineNextConfig({
     reactStrictMode: true,
+    experimental: {
+      appDir: true,
+    },
     swcMinify: true,
 
     // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing

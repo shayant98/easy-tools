@@ -1,4 +1,4 @@
-import { SignIn, SignUp } from "@clerk/clerk-react";
+import { SignUp } from "@clerk/clerk-react";
 const Login = () => {
   <div className=""></div>;
   return (
