@@ -24,13 +24,13 @@ const Navbar = () => {
   }, []);
 
   if (!mounted) {
-    return <nav className="flex w-full h-20 py-2 px-20 mb-5 justify-between  bg-slate-200 dark:bg-slate-800"></nav>;
+    return <nav className="flex w-full h-14 py-2 px-4 mb-5 justify-between  bg-slate-200 dark:bg-slate-800"></nav>;
   }
 
   return (
-    <nav className="flex w-full h-20 py-2 px-20 mb-5 justify-between  items-center bg-slate-200 dark:bg-slate-800">
+    <nav className="flex w-full h-14 py-2 px-4 md:px-20 mb-5 justify-between  items-center bg-slate-200 dark:bg-slate-800">
       <div className="">
-        {pathname.trim() != "/" && (
+        {pathname?.trim() != "/" && (
           <div className="">
             <Link href="/">
               <Button variant="subtle">
@@ -40,10 +40,10 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      <div className="">
+      <div className="hidden md:visible">
         <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{name}</h1>
       </div>
-      <div className="inline-flex items-center gap-4">
+      <div className="inline-flex items-center justify-end gap-4">
         <SignedIn>
           <UserButton
             appearance={{

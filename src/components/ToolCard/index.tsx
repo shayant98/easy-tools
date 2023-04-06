@@ -6,7 +6,7 @@ const ToolCard = ({ title, icon: Icon, subtitle, link, tags = [] }: { title: str
   return (
     <Link key={title} href={link}>
       <div className="flex flex-col justify-between  items-center  rounded-lg bg-white dark:bg-slate-900 h-full  p-5 w-80 text-center hover:scale-105 transition duration-200 cursor-pointer">
-        <Icon className="text-7xl text-slate-600 dark:text-slate-200" />
+        <Icon className="text-5xl text-slate-600 dark:text-slate-200" />
         <h3 className="text-2xl mt-5 text-slate-800 dark:text-slate-200  ">{title}</h3>
         <span className="text-sm text-slate-800 dark:text-slate-200">{subtitle}</span>
         {tags.length > 0 ? (

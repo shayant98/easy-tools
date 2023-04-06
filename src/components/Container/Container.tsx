@@ -4,7 +4,7 @@ import { AiOutlineWarning } from "react-icons/ai";
 const Container = ({ children, errorMessage }: ContainerProps) => {
   const [showFullError, setshowFullError] = useState(false);
   return (
-    <div className="relative rounded-md flex overflow-auto flex-col border p-6 h-full border-slate-500 dark:border-slate-700">
+    <div className="relative rounded-md flex overflow-auto flex-col border p-1   md:p-6  border-slate-500 dark:border-slate-700">
       {children}
       <div
         onClick={() => setshowFullError(!showFullError)}

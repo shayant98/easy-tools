@@ -33,7 +33,7 @@ const Sidebar = () => {
           <BiMenuAltRight size={24} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="h-screen flex flex-col" size={"sm"}>
+      <SheetContent className="h-screen flex flex-col" size={"full"}>
         <SheetHeader className="border-b pb-3 border-slate-500">
           <SheetTitle>Easy Tools</SheetTitle>
           <SheetDescription>Find the tool you need...</SheetDescription>

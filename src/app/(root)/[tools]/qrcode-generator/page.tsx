@@ -81,7 +81,7 @@ const QrCodeGenerator = () => {
         </Container>
         <Container>
           <div className="h-full flex flex-col items-center justify-center">
-            <div className="relative w-80 h-80">{qrCode && <Image className="rounded" src={qrCode} alt="QRCode" fill sizes="25vw" />}</div>
+            <div className="relative w-32 h-32 md:w-80 md:h-80">{qrCode && <Image className="rounded" src={qrCode} alt="QRCode" fill sizes="1vw" />}</div>
           </div>
         </Container>
       </TwoEditorLayout>

@@ -47,9 +47,9 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <main className="">
+    <main className="w-full h-full mb-10">
       <div className="flex items-center justify-center w-full">
-        <div className="w-full max-w-lg items-end flex gap-2">
+        <div className="w-full px-4 md:px-0 max-w-lg items-end flex gap-2">
           <div className="grow">
             <Label>Search</Label>
             <Input
@@ -64,7 +64,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       {fitleredItems.length > 0 ? (
-        <div className="mt-10 flex justify-center flex-wrap gap-10">
+        <div className="grid mt-10 gap-4 content-center justify-items-center sm:grid-cols-1  md:grid-cols-4">
           {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }, i) => (
             <motion.div
               initial={{ opacity: 0, translateX: -50 }}
@@ -72,15 +72,15 @@ const Home: NextPage = () => {
               exit={{ opacity: 0, translateX: -50 }}
               transition={{ duration: 0.5, delay: i * 0.04 }}
               key={title}
-              className=""
+              className="w-max"
             >
               <ToolCard icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
             </motion.div>
           ))}
         </div>
       ) : (
-        <div className="flex justify-center items-center h-96">
-          <h1 className="text-2xl">No results found for &apos;{search}&apos;</h1>
+        <div className="flex justify-center w-full items-center h-full">
+          <h1 className="text-2xl h-86">No results found for &apos;{search}&apos;</h1>
         </div>
       )}
     </main>

@@ -75,13 +75,13 @@ const menuItems = [
     link: "/json-to-zod",
     tags: ["JSON", "TS", "TRPC", "TRANSFORMER"],
   },
-  // {
-  //   title: "SQL Translator",
-  //   subtitle: "use AI to translate natural language into a usable SQL query",
-  //   icon: SiMysql,
-  //   link: "/sql-translator",
-  //   tags: ["AI", "SQL", "GENERATOR"],
-  // },
+  {
+    title: "SQL Translator",
+    subtitle: "use AI to translate natural language into a usable SQL query",
+    icon: SiMysql,
+    link: "/sql-translator",
+    tags: ["AI", "SQL", "GENERATOR"],
+  },
   {
     title: "Base64",
     subtitle: "Convert files to base64 or base64 to files",
