@@ -13,7 +13,7 @@ const Editor = ({ value, setValue, language = "js", disabled = false, placeholde
         placeholder={placeholder}
         onChange={setValue}
         padding={15}
-        className={cn("font-mono h-full rounded-md bg-gray-50 dark:bg-slate-900")}
+        className={cn("font-mono goe h-full rounded-md bg-gray-50 dark:bg-slate-900")}
       />
     </>
   );
