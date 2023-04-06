@@ -17,7 +17,7 @@ export default withClerkMiddleware(async (_req: NextRequest, event: NextFetchEve
   const ip = _req.ip ?? "127.0.0.1";
 
   // Only run the middleware for api/trpc/ai
-  if (_req.nextUrl.pathname.includes("api/trpc/ai")) {
+  if (!_req.nextUrl.pathname.includes("api/trpc/ai")) {
     return NextResponse.next();
   }
 
