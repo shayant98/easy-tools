@@ -1,3 +1,5 @@
+"use client";
+
 import { SignUp } from "@clerk/clerk-react";
 const Login = () => {
   <div className=""></div>;
