@@ -24,7 +24,7 @@ export default withClerkMiddleware(async (_req: NextRequest, event: NextFetchEve
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(`ratelimit_middleware_${ip}`);
   event.waitUntil(pending);
 
-  const res = true ? NextResponse.next() : NextResponse.redirect(new URL("/api/blocked", _req.url));
+  const res = success ? NextResponse.next() : NextResponse.redirect(new URL("/api/blocked", _req.url));
 
   res.headers.set("X-RateLimit-Limit", limit.toString());
   res.headers.set("X-RateLimit-Remaining", remaining.toString());
