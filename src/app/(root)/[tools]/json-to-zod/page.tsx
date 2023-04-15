@@ -10,25 +10,14 @@ import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
 import { BsFlower1 } from "react-icons/bs";
 import { useTool } from "context/ToolContext";
-
-const NAME = "JSON to ZOD";
-const DESCRIPTION = "Convert JSON to Zod";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
+import { SignedIn } from "@clerk/nextjs";
+import SnippetDialog from "@components/SnippetDialog";
 
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleParsing = useCallback(() => {
     try {
@@ -61,13 +50,18 @@ const JsonToZod = () => {
 
   return (
     <>
-      <div className="flex mb-2">
-        <div className="flex gap-2  basis-2/4 justify-end">
+      <ToolButtons
+        first={
           <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
             <BsFlower1 /> Beautify
           </Button>
-        </div>
-      </div>
+        }
+        second={
+          <SignedIn>
+            <SnippetDialog value={outputArea} language="TS" />
+          </SignedIn>
+        }
+      />
       <TwoEditorLayout>
         <Container errorMessage={error}>
           <Editor placeholder="Enter JSON here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" />

@@ -17,18 +17,6 @@ const QrCodeGenerator = () => {
   const [input, setinput] = useState("");
   const [qrCode, setqrCode] = useState("");
 
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
-
   const handleDownload = () => {
     const downloadLink = document.createElement("a");
     downloadLink.href = qrCode;

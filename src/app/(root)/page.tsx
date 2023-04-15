@@ -4,24 +4,17 @@ import type { NextPage } from "next";
 import { AiOutlineSearch } from "react-icons/ai";
 import Input from "@components/ui/Input";
 import { useEffect, useState } from "react";
-import { IconType } from "react-icons";
 import ToolCard from "@components/ToolCard";
-import menuItems from "data/menuItems";
+import menuItems, { IMenuItem } from "data/menuItems";
 import { Label } from "@components/ui/Label";
 import { motion } from "framer-motion";
+import { useTool } from "context/ToolContext";
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
   const [isWindows, setisWindows] = useState(false);
-  const [fitleredItems, setfitleredItems] = useState<
-    {
-      title: string;
-      subtitle: string;
-      icon: IconType;
-      link: string;
-      tags?: string[];
-    }[]
-  >(menuItems);
+  const [fitleredItems, setfitleredItems] = useState<IMenuItem[]>(menuItems);
+  const { setTool } = useTool();
 
   useEffect(() => {
     if (search.trim().length > 0) {
@@ -40,14 +33,14 @@ const Home: NextPage = () => {
     if (window.navigator.userAgent.indexOf("Windows") !== -1) {
       setisWindows(true);
     }
-
+    setTool(undefined);
     return () => {
       setisWindows(false);
     };
   }, []);
 
   return (
-    <main className="w-full h-full mb-10">
+    <main className="w-full grow h-full">
       <div className="flex items-center justify-center w-full">
         <div className="w-full px-4 md:px-0 max-w-lg items-end flex gap-2">
           <div className="grow">
@@ -64,19 +57,21 @@ const Home: NextPage = () => {
         </div>
       </div>
       {fitleredItems.length > 0 ? (
-        <div className="grid mt-10 gap-4 content-center justify-items-center sm:grid-cols-1  md:grid-cols-4">
-          {fitleredItems.map(({ icon: Icon, title, subtitle, link, tags }, i) => (
-            <motion.div
-              initial={{ opacity: 0, translateX: -50 }}
-              animate={{ opacity: 1, translateX: 0 }}
-              exit={{ opacity: 0, translateX: -50 }}
-              transition={{ duration: 0.5, delay: i * 0.04 }}
-              key={title}
-              className="w-max"
-            >
-              <ToolCard icon={Icon} title={title} subtitle={subtitle} link={link} tags={tags} />
-            </motion.div>
-          ))}
+        <div className="flex flex-col mt-4">
+          <div className="flex grow flex-wrap gap-4 justify-center">
+            {fitleredItems.map((menuItem, i) => (
+              <motion.div
+                initial={{ opacity: 0, translateX: -50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                exit={{ opacity: 0, translateX: -50 }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                key={menuItem.title}
+                className="w-max"
+              >
+                <ToolCard menuItem={menuItem} />
+              </motion.div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="flex justify-center w-full items-center h-full">

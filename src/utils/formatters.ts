@@ -29,6 +29,8 @@ const generateFileNameFromMimeType = (file: Blob): string => {
   const fileType = file.type;
   let extension;
 
+  console.log(fileType);
+
   // TODO: find a better way to do this
   switch (fileType) {
     case "image/png":

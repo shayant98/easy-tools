@@ -11,13 +11,15 @@ import Sidebar from "@components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTool } from "context/ToolContext";
+import { IoThumbsDown, IoThumbsUp } from "react-icons/io5";
+import Feedback from "@components/Feedback/Feedback";
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
 
-  const { name, description } = useTool();
+  const { tool } = useTool();
 
   useEffect(() => {
     setMounted(true);
@@ -40,9 +42,14 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      <div className="hidden md:visible">
-        <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{name}</h1>
-      </div>
+      {pathname?.trim() != "/" && (
+        <div className="flex items-center gap-4 visible">
+          <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{tool?.title}</h1>
+          <SignedIn>
+            <Feedback />
+          </SignedIn>
+        </div>
+      )}
       <div className="inline-flex items-center justify-end gap-4">
         <SignedIn>
           <UserButton
@@ -79,18 +86,6 @@ const Navbar = () => {
           </Button>
         )}
         <Sidebar />
-        {/* <DropdownMenu>
-          <DropdownMenuTrigger>
-            <BsThreeDotsVertical />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className={inter.className}>
-            <SignedIn>
-              <Link href="/snippets">
-                <DropdownMenuItem>Snippets</DropdownMenuItem>
-              </Link>
-            </SignedIn>
-          </DropdownMenuContent>
-        </DropdownMenu> */}
       </div>
     </nav>
   );

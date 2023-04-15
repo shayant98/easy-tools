@@ -15,17 +15,6 @@ const Snippets = () => {
   const { data } = api.snippet.getAllSnippetsByUser.useQuery();
   const { mutateAsync: deleteSnippet } = api.snippet.deleteSnippet.useMutation();
   const context = api.useContext();
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleDelete = (id: number) => {
     toast.promise(deleteSnippet({ id }), {

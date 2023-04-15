@@ -9,23 +9,9 @@ import { Button } from "@components/ui/Button";
 import { AiOutlineCopy } from "react-icons/ai";
 import { useTool } from "context/ToolContext";
 
-const NAME = "CSS to Tailwind";
-const DESCRIPTION = "Convert CSS to Tailwind";
-
-const OdataGenerator = () => {
+const TailwindConverters = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const converter = useMemo(
     () =>
@@ -96,4 +82,4 @@ const OdataGenerator = () => {
   );
 };
 
-export default OdataGenerator;
+export default TailwindConverters;

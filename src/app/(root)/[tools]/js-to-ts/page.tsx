@@ -10,6 +10,7 @@ import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
 import { useTool } from "context/ToolContext";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
 
 const NAME = "JSON to Typescript";
 const DESCRIPTION = "Convert JSON to Typescript";
@@ -18,17 +19,6 @@ const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleParsing = useCallback(() => {
     try {
@@ -59,11 +49,13 @@ const JsonToTs = () => {
 
   return (
     <>
-      <div className="self-end mb-4">
-        <SignedIn>
-          <SnippetDialog value={outputArea} language="TS" />
-        </SignedIn>
-      </div>
+      <ToolButtons
+        second={
+          <SignedIn>
+            <SnippetDialog value={outputArea} language="TS" />
+          </SignedIn>
+        }
+      />
       <TwoEditorLayout>
         <Container errorMessage={error}>
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />

@@ -15,26 +15,12 @@ import TabbedLayout from "@layout/TabbedLayout";
 import { Label } from "@components/ui/Label";
 import { useTool } from "context/ToolContext";
 
-const NAME = "Bcrypt Generator";
-const DESCRIPTION = "Generate Bcrypt Hash";
-
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
   const [rounds, setrounds] = useState("10");
   const [hash, setHash] = useState("");
   const [validateHash, setValidateHash] = useState("");
   const [string, setstring] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleClear = () => {
     setinputArea("");

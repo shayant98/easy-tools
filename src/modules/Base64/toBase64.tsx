@@ -16,17 +16,6 @@ const DESCRIPTION = "Convert files to base64";
 
 const ToBase64 = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);

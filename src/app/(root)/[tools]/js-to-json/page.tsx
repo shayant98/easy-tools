@@ -14,17 +14,6 @@ const JsToJson = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleParsing = useCallback(() => {
     try {

@@ -1,20 +1,15 @@
+import { IMenuItem } from "@data/menuItems";
 import { createContext, useState, ReactNode, useContext } from "react";
 
 interface ToolContextProps {
-  name: string;
-  description: string;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
+  tool?: IMenuItem;
+  setTool: (tool?: IMenuItem) => void;
 }
 
 const ToolContext = createContext<ToolContextProps>({
-  name: "",
-  description: "",
-  setName: () => {
-    return "";
-  },
-  setDescription: () => {
-    return "";
+  tool: undefined,
+  setTool: () => {
+    return;
   },
 });
 
@@ -23,10 +18,9 @@ const useTool = () => {
 };
 
 const ToolProvider = ({ children }: { children: ReactNode }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [tool, setTool] = useState<IMenuItem>();
 
-  return <ToolContext.Provider value={{ name, description, setName, setDescription }}>{children}</ToolContext.Provider>;
+  return <ToolContext.Provider value={{ tool, setTool }}>{children}</ToolContext.Provider>;
 };
 
 export { ToolProvider, useTool };

@@ -6,6 +6,12 @@ import { MdClear } from "react-icons/md";
 import Editor from "@components/Editor/Editor";
 
 import { useTool } from "context/ToolContext";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
+import Container from "@components/Container/Container";
+import TwoEditorLayout from "@layout/TwoEditorLayout";
+import { Button } from "@components/ui/Button";
+import { SignedIn } from "@clerk/nextjs";
+import SnippetDialog from "@components/SnippetDialog";
 
 const NAME = "URL Encoder/Decoder";
 const DESCRIPTION = "Encode and decode URLs";
@@ -13,17 +19,6 @@ const DESCRIPTION = "Encode and decode URLs";
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleDecode = () => {
     setoutputArea(decodeURI(inputArea));
@@ -37,30 +32,39 @@ const UrlEncoderDecoder = () => {
   };
   return (
     <>
-      <div className=" h-full">
-        <div className="flex gap-x-2 h-1/2">
-          <div className="w-1/2 ">
-            <Editor placeholder="Enter encoded URL here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="html" />
-          </div>
-          <div className=" w-1/2">
-            <Editor placeholder="Enter decoded URL here" value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="html" />
-          </div>
-        </div>
-        <div className="flex gap-x-3 justify-end pt-3">
-          <button className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200" onClick={handleEncode}>
-            <IoArrowForwardOutline />
-            Encode
-          </button>
-          <button className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200" onClick={handleDecode}>
-            <IoArrowBackOutline />
-            Decode
-          </button>
-          <button className="flex  items-center gap-1 px-4 py-2 ml-4 rounded " onClick={handleClear}>
-            <MdClear />
-            Clear
-          </button>
-        </div>
-      </div>
+      <ToolButtons
+        first={
+          <>
+            <Button variant={"outline"} onClick={handleClear}>
+              <MdClear />
+              Clear
+            </Button>
+            <Button onClick={handleEncode}>
+              <IoArrowForwardOutline />
+              Encode
+            </Button>
+          </>
+        }
+        second={
+          <>
+            <Button onClick={handleDecode}>
+              <IoArrowBackOutline />
+              Decode
+            </Button>
+            <SignedIn>
+              <SnippetDialog language="html" value={outputArea} />
+            </SignedIn>
+          </>
+        }
+      />
+      <TwoEditorLayout>
+        <Container>
+          <Editor placeholder="Enter encoded URL here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="html" />
+        </Container>
+        <Container>
+          <Editor placeholder="Enter decoded URL here" value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="html" />
+        </Container>
+      </TwoEditorLayout>
     </>
   );
 };

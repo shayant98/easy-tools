@@ -16,27 +16,13 @@ import Input from "@components/ui/Input";
 import { IoSettings } from "react-icons/io5";
 import { BsFlower1 } from "react-icons/bs";
 import { useTool } from "context/ToolContext";
-
-const TOOL_NAME = "JSON to Typescript";
-const TOOL_DESCRIPTION = "Convert JSON to Typescript";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
   const [name, setName] = useState("root");
-
-  const { setName: setToolName, setDescription } = useTool();
-
-  useEffect(() => {
-    setToolName(TOOL_NAME);
-    setDescription(TOOL_DESCRIPTION);
-
-    return () => {
-      setToolName("");
-      setDescription("");
-    };
-  }, [setDescription, setToolName]);
 
   const handleParsing = useCallback(() => {
     try {
@@ -72,7 +58,47 @@ const JsonToTs = () => {
 
   return (
     <>
-      <div className="flex gap-2 mb-2">
+      <ToolButtons
+        first={
+          <>
+            <Button size={"sm"} onClick={handleBeatify}>
+              <BsFlower1 /> Beautify
+            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button size={"sm"} className="w-9">
+                  <IoSettings />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="grid gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-medium leading-none">Settings</h4>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Set properties of on the type object</p>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="type-name">Name</Label>
+                  <Input
+                    id="type-name"
+                    placeholder="Enter name"
+                    className="col-span-1 h-8"
+                    defaultValue={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                </div>
+              </PopoverContent>
+            </Popover>
+          </>
+        }
+        second={
+          <SignedIn>
+            <SnippetDialog value={outputArea} language="TS" />
+          </SignedIn>
+        }
+      />
+
+      {/* <div className="flex gap-2 mb-2">
         <div className="flex gap-2 basis-2/4 items-center justify-end">
           <Button size={"sm"} onClick={handleBeatify}>
             <BsFlower1 /> Beautify
@@ -110,7 +136,7 @@ const JsonToTs = () => {
             </SignedIn>
           </div>
         </div>
-      </div>
+      </div> */}
       <TwoEditorLayout>
         <Container errorMessage={error}>
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />

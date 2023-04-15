@@ -10,8 +10,7 @@ import QuickAccessMenu from "@components/QuickAccessMenu/QuickAccessMenu";
 import Footer from "@components/Footer/Footer";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { api } from "@utils/api";
-export const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

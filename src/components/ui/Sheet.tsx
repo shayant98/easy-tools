@@ -110,7 +110,7 @@ const sheetVariants = cva("fixed z-50 scale-100 gap-4 bg-slate-300 p-6 opacity-1
     {
       position: ["right", "left"],
       size: "sm",
-      class: "w-1/4",
+      class: "w-1/4 ",
     },
     {
       position: ["right", "left"],

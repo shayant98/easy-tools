@@ -2,8 +2,8 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Loading = () => {
   return (
-    <div className="grow items-center  text-center justify-center w-full">
-      <AiOutlineLoading3Quarters className="animate-spin w-full " size={300} />
+    <div className="h-full w-full items-center justify-center grow flex">
+      <AiOutlineLoading3Quarters size={48} className="animate-spin" />
     </div>
   );
 };

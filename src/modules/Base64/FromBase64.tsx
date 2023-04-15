@@ -22,26 +22,19 @@ const FromBase64 = () => {
   const [input, setinput] = useState("");
   const [seperator, setseperator] = useState("");
   const [generatedFiles, setgeneratedFiles] = useState<File[]>([]);
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   const handleConversion = async () => {
     if (input == "") {
       return;
     }
     setgeneratedFiles([]);
-
+    let strings;
+    if (seperator != "") {
+      strings = input.trim().split(seperator);
+    } else {
+      strings = [input];
+    }
     try {
-      const strings = input.trim().split(seperator);
       if (strings.length > 1) {
         for (const item of strings) {
           const file = await base64toFile(item);

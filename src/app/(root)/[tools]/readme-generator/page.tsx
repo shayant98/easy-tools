@@ -33,18 +33,6 @@ const ReadmeGenerator = () => {
     value: string;
   }>();
 
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
-
   const handlePresetSelection = (preset: { title: string; value: string }) => {
     setCurrentlySelectedPreset(preset);
     setSelectedPresets(Array.from(new Set([...selectedPresets, preset])));

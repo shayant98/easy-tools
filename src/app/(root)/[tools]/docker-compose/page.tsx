@@ -36,17 +36,6 @@ const DESCRIPTION = "Generate Docker Compose YAML";
 const DockerCompose = () => {
   const [services, setServices] = useState<DockerServices[]>([]);
   const [yaml, setYaml] = useState("");
-  const { setName, setDescription } = useTool();
-
-  useEffect(() => {
-    setName(NAME);
-    setDescription(DESCRIPTION);
-
-    return () => {
-      setName("");
-      setDescription("");
-    };
-  }, [setDescription, setName]);
 
   useEffect(() => {
     // Initialize service with single demo service

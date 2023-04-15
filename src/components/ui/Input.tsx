@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@utils/utils";
 import { ChangeEvent, forwardRef, InputHTMLAttributes, useRef } from "react";
 import { IconType } from "react-icons";
