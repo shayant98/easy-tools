@@ -22,6 +22,18 @@ const generateFilter = (filters: IFilter[]): string => {
       return `contains(${filter.key}, ${filterValue})`;
     }
 
+    if (filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0) {
+      const optionalComparisons = filter.optionalComparisons.map((optionalComparison) => {
+        if (optionalComparison.valueType == "string") {
+          return `${optionalComparison.key} ${optionalComparison.comparator} '${optionalComparison.value}'`;
+        }
+
+        return `${optionalComparison.key} ${optionalComparison.comparator} ${optionalComparison.value}`;
+      });
+
+      return `(${filter.key} ${filter.comparator} ${filterValue} or ${optionalComparisons.join(" or ")})`;
+    }
+
     return `${filter.key} ${filter.comparator} ${filterValue}`;
   });
 
@@ -55,20 +67,19 @@ const buildUrl = (
   let skipString = "";
   let topString = "";
 
-  const regex = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "i" // fragment locator
-  );
+  // const regex = new RegExp(
+  //   "^(https?:\\/\\/)?" + // protocol
+  //     "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+  //     "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+  //     "i" // fragment locator
+  // );
 
-  if (!regex.test(url)) {
-    toast("Please enter a valid URL", {
-      type: "error",
-    });
-    return "";
-  }
+  // if (!regex.test(url)) {
+  //   toast("Please enter a valid URL", {
+  //     type: "error",
+  //   });
+  //   return "";
+  // }
 
   if (filters != undefined && filters.length > 0) {
     filterString = generateFilter(filters);
