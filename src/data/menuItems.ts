@@ -113,7 +113,7 @@ const menuItems: IMenuItem[] = [
   },
   {
     title: "ODATA Generator",
-    subtitle: "Generate ODATA models from JSON",
+    subtitle: "GUI Based ODATA Generator",
     icon: AiOutlineApi,
     link: "/tools/odata-generator",
     tags: ["GENERATOR"],
