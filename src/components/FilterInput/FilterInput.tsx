@@ -1,10 +1,7 @@
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/Select";
-import { Switch } from "@components/ui/Switch";
 import { IFilter } from "app/(root)/[tools]/odata-generator/page";
-import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-import { TbBracketsContain, TbEqual, TbEqualNot } from "react-icons/tb";
 
 const FilterInput = ({ filter, updateFilter, disabled }: FilterInputProps) => {
   if (filter.type == "default") {
