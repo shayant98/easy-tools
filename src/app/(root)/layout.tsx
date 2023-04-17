@@ -12,6 +12,11 @@ import { Suspense } from "react";
 import Loading from "./loading";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
+export const metadata = {
+  title: "Easy Tools",
+  description: "Easy Tools is a collection of tools for developers.",
+};
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
