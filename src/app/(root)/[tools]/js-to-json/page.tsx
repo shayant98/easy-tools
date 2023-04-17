@@ -4,11 +4,7 @@ import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { stringToJsonString } from "@utils/formatters";
-import { useTool } from "context/ToolContext";
 import { useCallback, useEffect, useState } from "react";
-
-const NAME = "JS to JSON";
-const DESCRIPTION = "Convert JS to JSON";
 
 const JsToJson = () => {
   const [inputArea, setinputArea] = useState("");

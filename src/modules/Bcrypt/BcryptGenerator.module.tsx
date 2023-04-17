@@ -5,7 +5,7 @@ import Editor from "@components/Editor/Editor";
 import { Button } from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "@components/ui/Label";
 import * as bcrypt from "bcryptjs";
 import { useState } from "react";
 import { AiOutlineCopy } from "react-icons/ai";

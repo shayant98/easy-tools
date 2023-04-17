@@ -15,6 +15,10 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata = {
   title: "Easy Tools",
   description: "Easy Tools is a collection of tools for developers.",
+  themeColor: "#0f172a",
+  applicationName: "Easy Tools",
+  keywords:
+    "tools, developer, developer tools, easy tools, easytools, easy tools for developers, easytools for developers, qr code, qr code generator, json, json to js, js to json, docker, docker compose, docker compose generator, docker compose file, docker compose file generator, docker compose file generator",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

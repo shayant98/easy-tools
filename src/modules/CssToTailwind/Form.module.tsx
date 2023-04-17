@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
