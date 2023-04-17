@@ -1,4 +1,5 @@
 import { IFilter } from "app/(root)/[tools]/odata-generator/page";
+import { toast } from "react-toastify";
 
 // Generate OData filter string from string value
 const generateFilter = (filters: IFilter[]): string => {
@@ -6,15 +7,22 @@ const generateFilter = (filters: IFilter[]): string => {
     return "";
   }
 
-  if (filters.every((filter) => filter.value === "" && filter.key === "")) {
+  if (filters.every((filter) => filter.value.every((value) => value === "") && filter.key === "")) {
     return "";
   }
 
   const filterStringArray = filters.map((filter) => {
-    if (filter.value === "") {
+    if (filter.value.every((value) => value === "") && filter.key === "") {
       return "";
     }
-    return `${filter.key} ${filter.comparator} ${filter.isNumber ? filter.value : `'${filter.value}'`}`;
+
+    const filterValue = filter.valueType == "string" ? `'${filter.value}'` : filter.value;
+
+    if (filter.comparator === "contains") {
+      return `contains(${filter.key}, ${filterValue})`;
+    }
+
+    return `${filter.key} ${filter.comparator} ${filterValue}`;
   });
 
   const filterString = filterStringArray.join(" and ");
@@ -38,17 +46,58 @@ const buildUrl = (
     orderByKey?: string;
     orderByDirection?: string;
     top?: number;
+    skip?: number;
   }
 ) => {
   let paramCount = 0;
   let orderBy = "";
   let filterString = "";
+  let skipString = "";
+  let topString = "";
 
-  console.log("filters", filters);
+  const regex = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "i" // fragment locator
+  );
+
+  if (!regex.test(url)) {
+    toast("Please enter a valid URL", {
+      type: "error",
+    });
+    return "";
+  }
 
   if (filters != undefined && filters.length > 0) {
     filterString = generateFilter(filters);
     paramCount++;
+  }
+
+  if (url == "") {
+    toast("Please enter a valid URL", {
+      type: "error",
+    });
+    return "";
+  }
+
+  if (opt.top) {
+    topString = `$top=${opt.top}`;
+    paramCount++;
+
+    if (paramCount > 1) {
+      topString = `&${topString}`;
+    }
+  }
+
+  if (opt.skip) {
+    skipString = `$skip=${opt.skip}`;
+    paramCount++;
+
+    if (paramCount > 1) {
+      skipString = `&${skipString}`;
+    }
   }
 
   if (orderByKey && orderByDirection) {
@@ -59,7 +108,7 @@ const buildUrl = (
     paramCount++;
   }
 
-  return `${url}?${filterString}${orderBy}`;
+  return `${url}?${filterString}${orderBy}${topString}${skipString}`;
 };
 
 export { generateFilter, buildUrl };

@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
+import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
 import { SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
@@ -114,9 +114,9 @@ const menuItems: IMenuItem[] = [
   {
     title: "ODATA Generator",
     subtitle: "Generate ODATA models from JSON",
-    icon: VscSymbolString,
+    icon: AiOutlineApi,
     link: "/tools/odata-generator",
-    tags: ["TRANSFORMER"],
+    tags: ["GENERATOR"],
     description: "Generate ",
   },
 ];

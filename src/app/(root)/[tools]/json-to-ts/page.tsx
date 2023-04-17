@@ -15,7 +15,6 @@ import { Label } from "@components/ui/Label";
 import Input from "@components/ui/Input";
 import { IoSettings } from "react-icons/io5";
 import { BsFlower1 } from "react-icons/bs";
-import { useTool } from "context/ToolContext";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 
 const JsonToTs = () => {
