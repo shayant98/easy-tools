@@ -24,7 +24,7 @@ const ToolProvider = ({ children }: { children: ReactNode }) => {
     const tool = localStorage.getItem("tool");
 
     if (tool) {
-      setTool(JSON.parse(tool));
+      // setTool(JSON.parse(tool));
     }
 
     return () => {

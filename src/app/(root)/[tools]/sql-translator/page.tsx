@@ -8,6 +8,7 @@ import { api } from "@utils/api";
 import Editor from "@components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
 
 const SqlTranslator = () => {
   const [naturalLanguage, setnaturalLanguage] = useState("");
@@ -35,15 +36,21 @@ const SqlTranslator = () => {
 
   return (
     <>
-      <div className="self-end mb-2">
-        <Button
-          onClick={() => {
-            refetch();
-          }}
-        >
-          <p>Translate</p>
-        </Button>
-      </div>
+      <ToolButtons
+        first={
+          <Button
+            onClick={async () => {
+              toast.promise(refetch(), {
+                pending: "Translating...",
+                success: "Translated",
+                error: "Error translating",
+              });
+            }}
+          >
+            <p>Translate</p>
+          </Button>
+        }
+      />
       <TwoEditorLayout>
         <Container>
           <Editor placeholder="Enter question here" value={naturalLanguage} setValue={(e) => setnaturalLanguage(e.target.value)} language="sql" />

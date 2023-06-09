@@ -20,6 +20,7 @@ import { AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineCopy, AiOutlineMinus, Ai
 import { BiDotsVertical } from "react-icons/bi";
 import { BsGear } from "react-icons/bs";
 import { TiFlowChildren } from "react-icons/ti";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@components/ui/Card";
 
 export interface IFilter {
   id: number;
@@ -43,6 +44,7 @@ const OdataGenerator = () => {
   const [orderDirectionValue, setOrderDirectionValue] = useState("asc");
   const [filterValue, setfilterValue] = useState<IFilter[]>();
   const [generatedUrl, setgeneratedUrl] = useState("");
+  const [count, setcount] = useState(false);
 
   useEffect(() => {
     setfilterValue([
@@ -183,6 +185,11 @@ const OdataGenerator = () => {
           <div className="mt-2">
             <Label>Options</Label>
             <div className="grid grid-cols-1 place-items-stretch gap-3">
+              <div className="flex items-center gap-2 mt-2">
+                <Switch checked={count} onCheckedChange={() => setcount((prev) => !prev)} />
+                <Label>Count</Label>
+              </div>
+
               <div className=" ">
                 <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !filterIsActive && "dark:bg-gray-900 opacity-40")}>
                   <div className="flex justify-between   items-center gap-4">
@@ -228,7 +235,7 @@ const OdataGenerator = () => {
                                 <DropdownMenuTrigger>
                                   <BiDotsVertical />
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent className="w-[400px]">
+                                <DropdownMenuContent className="w-full">
                                   <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => copyFilter(filter)}>
                                     <AiOutlineCopy />
                                     Copy filter
@@ -262,25 +269,33 @@ const OdataGenerator = () => {
                             </div>
                           </div>
                           {filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0 && (
-                            <div className="mt-2 px-3 py-4 dark:bg-slate-600 rounded">
-                              {filter.optionalComparisons?.map((optionalFilter) => (
-                                <div key={`filter-optional-${optionalFilter.id}`} className="flex gap-2 justify-between mt-2">
-                                  <FilterInput
-                                    disabled={!filter}
-                                    filter={optionalFilter}
-                                    updateFilter={(newOptionalFilter) =>
-                                      updateFilter({
-                                        ...filter,
-                                        optionalComparisons: [...(filter.optionalComparisons?.filter((of) => of.id !== newOptionalFilter.id) ?? []), newOptionalFilter],
-                                      })
-                                    }
-                                  />
-                                  <div className="flex gap-2">
-                                    <Button onClick={() => deleteOptionalFilter(filter.id, optionalFilter.id)} variant={"default"}>
-                                      <AiOutlineMinus />
-                                    </Button>
-                                  </div>
-                                </div>
+                            <div className="mt-2">
+                              {filter.optionalComparisons?.map((optionalFilter, i) => (
+                                <Card key={`filter-optional-${optionalFilter.id}`} className="flex gap-2">
+                                  <CardHeader>
+                                    <div className="flex justify-between items-center">
+                                      <CardTitle>Optional Comparison {i + 1}</CardTitle>{" "}
+                                      <Button onClick={() => deleteOptionalFilter(filter.id, optionalFilter.id)} variant={"default"}>
+                                        <AiOutlineMinus />
+                                      </Button>
+                                    </div>
+                                    <CardContent>
+                                      <FilterInput
+                                        disabled={!filter}
+                                        filter={optionalFilter}
+                                        updateFilter={(newOptionalFilter) =>
+                                          updateFilter({
+                                            ...filter,
+                                            optionalComparisons: [...(filter.optionalComparisons?.filter((of) => of.id !== newOptionalFilter.id) ?? []), newOptionalFilter],
+                                          })
+                                        }
+                                      />
+                                    </CardContent>
+                                  </CardHeader>
+                                </Card>
+                                // <div  className="flex gap-2 justify-between mt-2">
+
+                                // </div>
                               ))}
                             </div>
                           )}
@@ -290,46 +305,52 @@ const OdataGenerator = () => {
                   )}
                 </div>
 
-                <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !order && "dark:bg-gray-900 opacity-40")}>
-                  <div className="flex justify-between mt-2 items-center gap-4">
-                    <Label>Order</Label>
-                    <Switch checked={order} onCheckedChange={(e) => setOrder(e)} />
-                  </div>
-                  {order && (
-                    <div className="flex gap-2 items-center">
-                      <div className="flex flex-col grow">
-                        <Label className="">Key</Label>
-                        <Input value={orderKeyValue} onChange={(e) => setOrderKeyValue(e.target.value)} disabled={!order} placeholder="eg. id" />
-                      </div>
-                      <div className="flex flex-col">
-                        <Label>Direction</Label>
-                        <Select disabled={!order} defaultValue={orderDirectionValue} onValueChange={(v) => setOrderDirectionValue(v)}>
-                          <SelectTrigger>
-                            <SelectValue className="" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="asc">Ascending</SelectItem>
-                            <SelectItem value="desc">Descending</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
+                {!count && (
+                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !order && "dark:bg-gray-900 opacity-40")}>
+                    <div className="flex justify-between mt-2 items-center gap-4">
+                      <Label>Order</Label>
+                      <Switch checked={order} onCheckedChange={(e) => setOrder(e)} />
                     </div>
-                  )}
-                </div>
-                <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !skip && "dark:bg-gray-900 opacity-40")}>
-                  <div className="flex justify-between mt-2 items-center gap-4">
-                    <Label>Skip</Label>
-                    <Switch checked={skip} onCheckedChange={(e) => setSkip(e)} />
+                    {order && (
+                      <div className="flex gap-2 items-center">
+                        <div className="flex flex-col grow">
+                          <Label className="">Key</Label>
+                          <Input value={orderKeyValue} onChange={(e) => setOrderKeyValue(e.target.value)} disabled={!order} placeholder="eg. id" />
+                        </div>
+                        <div className="flex flex-col">
+                          <Label>Direction</Label>
+                          <Select disabled={!order} defaultValue={orderDirectionValue} onValueChange={(v) => setOrderDirectionValue(v)}>
+                            <SelectTrigger>
+                              <SelectValue className="" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="asc">Ascending</SelectItem>
+                              <SelectItem value="desc">Descending</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  {skip && <Input value={skipValue} onChange={(e) => setskipValue(e.target.valueAsNumber)} disabled={!limit} placeholder="eg. 10" type="number" />}
-                </div>
-                <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !limit && "dark:bg-gray-900 opacity-40")}>
-                  <div className="flex justify-between mt-2 items-center gap-4">
-                    <Label htmlFor="limit-input">Limit</Label>
-                    <Switch id="limit-input" checked={limit} onCheckedChange={(e) => setLimit(e)} />
+                )}
+                {!count && (
+                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !skip && "dark:bg-gray-900 opacity-40")}>
+                    <div className="flex justify-between mt-2 items-center gap-4">
+                      <Label>Skip</Label>
+                      <Switch checked={skip} onCheckedChange={(e) => setSkip(e)} />
+                    </div>
+                    {skip && <Input value={skipValue} onChange={(e) => setskipValue(e.target.valueAsNumber)} disabled={!limit} placeholder="eg. 10" type="number" />}
                   </div>
-                  {limit && <Input value={limitValue} onChange={(e) => setlimitValue(e.target.valueAsNumber)} disabled={!limit} placeholder="eg. 10" type="number" />}
-                </div>
+                )}
+                {!count && (
+                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !limit && "dark:bg-gray-900 opacity-40")}>
+                    <div className="flex justify-between mt-2 items-center gap-4">
+                      <Label htmlFor="limit-input">Limit</Label>
+                      <Switch id="limit-input" checked={limit} onCheckedChange={(e) => setLimit(e)} />
+                    </div>
+                    {limit && <Input value={limitValue} onChange={(e) => setlimitValue(e.target.valueAsNumber)} disabled={!limit} placeholder="eg. 10" type="number" />}
+                  </div>
+                )}
               </div>
             </div>
           </div>

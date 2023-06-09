@@ -28,16 +28,15 @@ const Home: NextPage = () => {
     };
   }, [search]);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.navigator.userAgent.indexOf("Windows") !== -1) {
-      setisWindows(true);
-    }
-    setTool(undefined);
-    return () => {
-      setisWindows(false);
-    };
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window === "undefined") return;
+  //   if (window.navigator.userAgent.indexOf("Windows") !== -1) {
+  //     setisWindows(true);
+  //   }
+  //   return () => {
+  //     setisWindows(false);
+  //   };
+  // }, []);
 
   return (
     <main className="w-full grow h-full">

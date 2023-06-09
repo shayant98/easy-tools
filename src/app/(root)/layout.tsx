@@ -10,8 +10,10 @@ import QuickAccessMenu from "@components/QuickAccessMenu/QuickAccessMenu";
 import Footer from "@components/Footer/Footer";
 import { Suspense } from "react";
 import Loading from "./loading";
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 export const metadata = {
   title: "Easy Tools",
   description: "Easy Tools is a collection of tools for developers.",
@@ -23,8 +25,8 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html>
-      <body className={cn(`${inter.variable} font-sans`, "bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen  flex flex-col items-start")}>
+    <html className={inter.className}>
+      <body className={cn(``, "bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen  flex flex-col items-start")}>
         <ClerkProvider>
           <Providers>
             <Navbar />

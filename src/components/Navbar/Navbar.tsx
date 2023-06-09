@@ -19,7 +19,7 @@ const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
 
-  const { tool } = useTool();
+  // const { tool } = useTool();
 
   useEffect(() => {
     setMounted(true);
@@ -44,7 +44,7 @@ const Navbar = () => {
       </div>
       {pathname?.trim() != "/" && (
         <div className="flex items-center gap-4 visible">
-          <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{tool?.title}</h1>
+          <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl"></h1>
           <SignedIn>
             <Feedback />
           </SignedIn>
