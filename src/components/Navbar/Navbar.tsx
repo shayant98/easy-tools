@@ -61,7 +61,7 @@ const Navbar = () => {
           />
         </SignedIn>
         <SignedOut>
-          <SignInButton redirectUrl="/login" />
+          <SignInButton redirectUrl="/" />
         </SignedOut>
 
         {theme === "dark" ? (
