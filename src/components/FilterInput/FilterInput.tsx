@@ -1,53 +1,131 @@
+import DatePicker from "@components/Datepicker/Datepicker";
+import { Button } from "@components/ui/Button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@components/ui/Dropdown";
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/Select";
 import { IFilter } from "app/(root)/[tools]/odata-generator/page";
+import { parseISO } from "date-fns";
+import { AiOutlineCopy, AiOutlineMinus } from "react-icons/ai";
+import { BiDotsVertical } from "react-icons/bi";
+import { TiFlowChildren } from "react-icons/ti";
 
-const FilterInput = ({ filter, updateFilter, disabled }: FilterInputProps) => {
+const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter }: FilterInputProps) => {
+  const updateValue = (newValue: string, index: number) => {
+    const value = [...filter.value];
+    value[index] = newValue;
+    console.log(value);
+
+    updateFilter({ ...filter, value });
+  };
   if (filter.type == "default") {
     return (
-      <div className="flex items-center gap-2">
-        <Input disabled={disabled} className="grow" placeholder="eg. id" value={filter.key} onChange={(e) => updateFilter({ ...filter, key: e.target.value.trim() })} />
-        <Select disabled={disabled} defaultValue={filter.comparator} onValueChange={(v) => updateFilter({ ...filter, comparator: v })}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue className="" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="eq">Equals</SelectItem>
-            <SelectItem value="ne">Not equals</SelectItem>
-            <SelectItem value="contains">Contains</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="flex w-full mb-5 flex-col gap-3 ">
+        <div className="flex gap-2 items-center justify-between mb-2">
+          <Label>Filter {filter.key}</Label>
+          <div className="flex gap-2">
+            <Select
+              autoComplete="true"
+              disabled={disabled}
+              defaultValue={filter.valueType}
+              onValueChange={(v) => {
+                updateFilter({ ...filter, valueType: v, value: [] });
+              }}
+            >
+              <SelectTrigger className="w-[200px]">
+                <SelectValue className="" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="string">String</SelectItem>
+                <SelectItem value="number">Number</SelectItem>
+                <SelectItem value="date">Date</SelectItem>
+              </SelectContent>
+            </Select>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <BiDotsVertical />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-full">
+                <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => copyFilter(filter)}>
+                  <AiOutlineCopy />
+                  Copy filter
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="gap-2 cursor-pointer"
+                  onClick={() =>
+                    updateFilter({
+                      ...filter,
+                      optionalComparisons: [
+                        ...(filter.optionalComparisons ?? []),
+                        {
+                          id: filter.optionalComparisons?.length || 0,
+                          value: [""],
+                          key: "",
+                          type: "default",
 
-        <Input disabled={disabled} className="grow" placeholder="eg. foo" value={filter.value} onChange={(e) => updateFilter({ ...filter, value: [e.target.value.trim()] })} />
-        <Select disabled={disabled} defaultValue={filter.valueType} onValueChange={(v) => updateFilter({ ...filter, valueType: v })}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue className="" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="string">String</SelectItem>
-            <SelectItem value="number">Number</SelectItem>
-            <SelectItem value="date">Date</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    );
-  }
+                          comparator: "eq",
+                          valueType: "string",
+                        },
+                      ],
+                    })
+                  }
+                >
+                  <TiFlowChildren />
+                  Add optional comparison
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+        <div className="flex justify-between w-full   ">
+          <div className="flex items-center w-full gap-2 mr-2">
+            <Input disabled={disabled} className="grow" placeholder="eg. id" value={filter.key} onChange={(e) => updateFilter({ ...filter, key: e.target.value.trim() })} />
+            <Select
+              disabled={disabled}
+              defaultValue={filter.comparator}
+              onValueChange={(v) => {
+                if (v != "between" && filter.value.length > 1) {
+                  updateFilter({ ...filter, comparator: v, value: [filter.value[0] ?? ""] });
+                  return;
+                }
 
-  if (filter.type == "date-between") {
-    const updateValue = (v: string, index: number) => {
-      const value = filter.value.map((v, i) => (i == index ? v : v));
-      updateFilter({ ...filter, value });
-    };
+                updateFilter({ ...filter, comparator: v });
+              }}
+            >
+              <SelectTrigger className="w-min gap-2">
+                <SelectValue className="" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="eq">Equals</SelectItem>
+                <SelectItem value="ne">Not equals</SelectItem>
+                <SelectItem value="contains">Contains</SelectItem>
+                <SelectItem value="between">Between</SelectItem>
+              </SelectContent>
+            </Select>
+            {filter.valueType == "date" ? (
+              <DatePicker date={filter.value[0] ? parseISO(filter.value[0] ?? "") : undefined} setDate={(date) => updateValue(date?.toISOString() ?? "", 0)} />
+            ) : (
+              <Input disabled={disabled} placeholder="eg. foo" value={filter.value[0] ?? ""} onChange={(e) => updateValue(e.target.value.trim(), 0)} />
+            )}
+            {filter.comparator == "between" && (
+              <>
+                <span>&</span>
+                {filter.valueType == "date" ? (
+                  <DatePicker date={filter.value[1] ? parseISO(filter.value[1] ?? "") : undefined} setDate={(date) => updateValue(date?.toISOString() ?? "", 1)} />
+                ) : (
+                  <Input disabled={disabled} placeholder="eg. foo" value={filter.value[1] ?? ""} onChange={(e) => updateValue(e.target.value.trim(), 1)} />
+                )}
+              </>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={() => deleteFilter(filter.id)} variant={"default"}>
+              <AiOutlineMinus />
+            </Button>
 
-    return (
-      <div className="flex items-center gap-2">
-        <p className=" rounded py-2 px-4 dark:bg-slate-700 dark:text-slate-300">{filter.id}</p>
-        <Input disabled={disabled} className="grow" placeholder="eg. 2023" value={filter.key} onChange={(e) => updateFilter({ ...filter, key: e.target.value.trim() })} />
-        <p className="w-[200px] text-center rounded py-2 px-4 dark:bg-slate-700 dark:text-slate-300">BETWEEN</p>
-        <Input disabled={disabled} className="grow" placeholder="eg. 2023" value={filter.value[0]} onChange={(e) => updateValue(e.target.value, 0)} />
-        <p className="w-[200px] text-center rounded py-2 px-4 dark:bg-slate-700 dark:text-slate-300">AND</p>
-        <Input disabled={disabled} className="grow" placeholder="eg. 2023" value={filter.value[1]} onChange={(e) => updateValue(e.target.value, 1)} />
+            {/* <Button onClick={() => addOptionalFilter(filter.id)} variant={"default"} ></Button> */}
+          </div>
+        </div>
       </div>
     );
   }
@@ -58,6 +136,8 @@ const FilterInput = ({ filter, updateFilter, disabled }: FilterInputProps) => {
 interface FilterInputProps {
   filter: IFilter;
   updateFilter: (filter: IFilter) => void;
+  deleteFilter: (id: number) => void;
+  copyFilter: (filter: IFilter) => void;
   disabled?: boolean;
 }
 

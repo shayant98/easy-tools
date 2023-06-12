@@ -1,4 +1,5 @@
 import { IFilter } from "app/(root)/[tools]/odata-generator/page";
+import { parseISO, format } from "date-fns";
 import { toast } from "react-toastify";
 
 // Generate OData filter string from string value
@@ -16,6 +17,9 @@ const generateFilter = (filters: IFilter[]): string => {
       return "";
     }
 
+    if (filter.valueType == "date") {
+      return handleDate({ key: filter.key, firstDate: filter.value[0] ?? "", secondDate: filter.value[1] ?? "", comparator: filter.comparator });
+    }
     const filterValue = filter.valueType == "string" ? `'${filter.value}'` : filter.value;
 
     if (filter.comparator === "contains") {
@@ -42,6 +46,17 @@ const generateFilter = (filters: IFilter[]): string => {
   return `$filter=${filterString}`;
 };
 
+const handleDate = ({ key, firstDate, secondDate, comparator }: { key: string; firstDate: string; secondDate: string; comparator: string }) => {
+  if (firstDate === "" || secondDate === "") {
+    return "";
+  }
+  if (comparator == "between") {
+    return `${key} ge ${format(parseISO(firstDate), "dd/mm/yyy")} and ${key} le ${format(parseISO(firstDate), "dd/mm/yyy")}`;
+  }
+
+  return `${key} ${comparator} ${firstDate}`;
+};
+
 const generateOrderby = (key: string, direction: string) => {
   return `$orderBy=${key} ${direction}`;
 };
@@ -52,6 +67,7 @@ const buildUrl = (
     filters,
     orderByDirection,
     orderByKey,
+    count = false,
     ...opt
   }: {
     filters?: IFilter[];
@@ -59,6 +75,8 @@ const buildUrl = (
     orderByDirection?: string;
     top?: number;
     skip?: number;
+    count: boolean;
+    search?: string;
   }
 ) => {
   let paramCount = 0;
@@ -66,6 +84,8 @@ const buildUrl = (
   let filterString = "";
   let skipString = "";
   let topString = "";
+  let countString = "";
+  let searchString = "";
 
   // const regex = new RegExp(
   //   "^(https?:\\/\\/)?" + // protocol
@@ -111,6 +131,15 @@ const buildUrl = (
     }
   }
 
+  if (opt.search) {
+    searchString = `$search=${opt.search}`;
+    paramCount++;
+
+    if (paramCount > 1) {
+      searchString = `&${searchString}`;
+    }
+  }
+
   if (orderByKey && orderByDirection) {
     orderBy = generateOrderby(orderByKey, orderByDirection);
     if (paramCount > 0) {
@@ -119,7 +148,15 @@ const buildUrl = (
     paramCount++;
   }
 
-  return `${url}?${filterString}${orderBy}${topString}${skipString}`;
+  if (count) {
+    countString = `$count=${count}`;
+    if (paramCount > 0) {
+      countString = `&${countString}`;
+    }
+    paramCount++;
+  }
+
+  return `${url}?${filterString}${searchString}${countString}${orderBy}${topString}${skipString}`;
 };
 
 export { generateFilter, buildUrl };

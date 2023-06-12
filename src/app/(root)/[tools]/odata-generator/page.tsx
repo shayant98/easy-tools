@@ -5,22 +5,18 @@ import Editor from "@components/Editor/Editor";
 import FilterInput from "@components/FilterInput/FilterInput";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/Button";
-import { DropdownMenuContent, DropdownMenuItem } from "@components/ui/Dropdown";
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/Select";
 import { Switch } from "@components/ui/Switch";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { DropdownMenu, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { buildUrl, generateFilter } from "@utils/odata";
+import { buildUrl } from "@utils/odata";
 import { cn } from "@utils/utils";
 import { useEffect, useState } from "react";
-import { AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineCopy, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BiDotsVertical } from "react-icons/bi";
+import { AiOutlineMinus } from "react-icons/ai";
 import { BsGear } from "react-icons/bs";
-import { TiFlowChildren } from "react-icons/ti";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@components/ui/Card";
+import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/Card";
+import FilterTemplates from "modules/OdataGenerator/Filter/FilterTemplates";
 
 export interface IFilter {
   id: number;
@@ -41,10 +37,12 @@ const OdataGenerator = () => {
   const [limitValue, setlimitValue] = useState<number>();
   const [skipValue, setskipValue] = useState<number>();
   const [orderKeyValue, setOrderKeyValue] = useState("");
+  const [searchKeyValue, setsearchKeyValue] = useState("");
   const [orderDirectionValue, setOrderDirectionValue] = useState("asc");
   const [filterValue, setfilterValue] = useState<IFilter[]>();
   const [generatedUrl, setgeneratedUrl] = useState("");
   const [count, setcount] = useState(false);
+  const [search, setsearch] = useState(false);
 
   useEffect(() => {
     setfilterValue([
@@ -158,6 +156,8 @@ const OdataGenerator = () => {
         orderByKey: order ? orderKeyValue : undefined,
         skip: skip ? skipValue : undefined,
         top: limit ? limitValue : undefined,
+        count: count,
+        search: search ? searchKeyValue : undefined,
       })
     );
   };
@@ -195,28 +195,7 @@ const OdataGenerator = () => {
                   <div className="flex justify-between   items-center gap-4">
                     <Label className="flex gap-2 items-center">
                       Filter
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button>
-                            <AiOutlinePlus />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="grid gap-4">
-                          <div className="space-y-2">
-                            <h4 className="font-medium leading-none">Properties</h4>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">Choose one of the predefined templates to get started</p>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <Button onClick={() => addFilter()} variant={"default"}>
-                              Default
-                            </Button>
-
-                            {/* <Button onClick={() => addFilter("date-between")} variant={"default"} >
-                            Date between
-                          </Button> */}
-                          </div>
-                        </PopoverContent>
-                      </Popover>
+                      <FilterTemplates onClick={addFilter} />
                     </Label>
 
                     <Switch checked={filterIsActive} onCheckedChange={(e) => setFilterIsActive(e)} />
@@ -224,49 +203,9 @@ const OdataGenerator = () => {
                   {filterIsActive && (
                     <>
                       {filterValue?.map((filter) => (
-                        <div key={`filter-${filter.id}`} className="  ">
-                          <div className="flex justify-between gap-2">
-                            <FilterInput disabled={!filterIsActive} filter={filter} updateFilter={updateFilter} />
-                            <div className="flex gap-2">
-                              <Button onClick={() => deleteFilter(filter.id)} variant={"default"}>
-                                <AiOutlineMinus />
-                              </Button>
-                              <DropdownMenu>
-                                <DropdownMenuTrigger>
-                                  <BiDotsVertical />
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="w-full">
-                                  <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => copyFilter(filter)}>
-                                    <AiOutlineCopy />
-                                    Copy filter
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    className="gap-2 cursor-pointer"
-                                    onClick={() =>
-                                      updateFilter({
-                                        ...filter,
-                                        optionalComparisons: [
-                                          ...(filter.optionalComparisons ?? []),
-                                          {
-                                            id: filter.optionalComparisons?.length || 0,
-                                            value: [""],
-                                            key: "",
-                                            type: "default",
-
-                                            comparator: "eq",
-                                            valueType: "string",
-                                          },
-                                        ],
-                                      })
-                                    }
-                                  >
-                                    <TiFlowChildren />
-                                    Add optional comparison
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                              {/* <Button onClick={() => addOptionalFilter(filter.id)} variant={"default"} ></Button> */}
-                            </div>
+                        <div key={`filter-${filter.id}`} className=" w-full ">
+                          <div className="flex justify-between items-end w-full gap-2">
+                            <FilterInput disabled={!filterIsActive} filter={filter} updateFilter={updateFilter} deleteFilter={deleteFilter} copyFilter={copyFilter} />
                           </div>
                           {filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0 && (
                             <div className="mt-2">
@@ -283,6 +222,8 @@ const OdataGenerator = () => {
                                       <FilterInput
                                         disabled={!filter}
                                         filter={optionalFilter}
+                                        deleteFilter={() => deleteOptionalFilter(filter.id, optionalFilter.id)}
+                                        copyFilter={() => copyFilter(optionalFilter)}
                                         updateFilter={(newOptionalFilter) =>
                                           updateFilter({
                                             ...filter,
@@ -304,21 +245,36 @@ const OdataGenerator = () => {
                     </>
                   )}
                 </div>
-
+                {!count && (
+                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !search && "dark:bg-gray-900 opacity-40")}>
+                    <div className="flex justify-between mt-2 items-center gap-4">
+                      <Label>Search</Label>
+                      <Switch checked={search} onCheckedChange={(e) => setsearch(e)} />
+                    </div>
+                    {search && (
+                      <div className="flex gap-2 items-center">
+                        <div className="flex flex-col grow">
+                          <Label className="mb-2">Query</Label>
+                          <Input value={searchKeyValue} onChange={(e) => setsearchKeyValue(e.target.value)} disabled={!search} placeholder="eg. Harold" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
                 {!count && (
                   <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !order && "dark:bg-gray-900 opacity-40")}>
                     <div className="flex justify-between mt-2 items-center gap-4">
-                      <Label>Order</Label>
+                      <Label className="">Order</Label>
                       <Switch checked={order} onCheckedChange={(e) => setOrder(e)} />
                     </div>
                     {order && (
                       <div className="flex gap-2 items-center">
                         <div className="flex flex-col grow">
-                          <Label className="">Key</Label>
+                          <Label className="mb-2">Key</Label>
                           <Input value={orderKeyValue} onChange={(e) => setOrderKeyValue(e.target.value)} disabled={!order} placeholder="eg. id" />
                         </div>
                         <div className="flex flex-col">
-                          <Label>Direction</Label>
+                          <Label className="mb-2">Direction</Label>
                           <Select disabled={!order} defaultValue={orderDirectionValue} onValueChange={(v) => setOrderDirectionValue(v)}>
                             <SelectTrigger>
                               <SelectValue className="" />

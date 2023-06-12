@@ -62,10 +62,10 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { Configuration, OpenAIApi } from "openai";
 import { env } from "../../env/server.mjs";
-import { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/dist/server/clerk.js";
-import { getAuth } from "@clerk/nextjs/server.js";
 import { PrismaClient } from "@prisma/client";
 import { prisma } from "../db";
+import { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/dist/types/server/clerkClient.js";
+import { getAuth } from "@clerk/nextjs/dist/types/server-helpers.server.js";
 
 const t = initTRPC.context<Awaited<ReturnType<typeof createTRPCContext>>>().create({
   transformer: superjson,
