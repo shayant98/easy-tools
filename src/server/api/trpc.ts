@@ -64,9 +64,8 @@ import { Configuration, OpenAIApi } from "openai";
 import { env } from "../../env/server.mjs";
 import { PrismaClient } from "@prisma/client";
 import { prisma } from "../db";
-import { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/dist/types/server/clerkClient.js";
-import { getAuth } from "@clerk/nextjs/dist/types/server-helpers.server.js";
-
+import type { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
 const t = initTRPC.context<Awaited<ReturnType<typeof createTRPCContext>>>().create({
   transformer: superjson,
   errorFormatter({ shape }) {
@@ -95,8 +94,6 @@ const configureOpenAI = t.middleware(({ ctx, next }) => {
   const configuration = new Configuration({
     apiKey: env.OPENAI_KEY,
   });
-
-  console.log(configuration);
 
   const openai = new OpenAIApi(configuration);
 
