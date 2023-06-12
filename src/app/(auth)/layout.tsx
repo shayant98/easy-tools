@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
-      <body className={cn(`${inter.variable} font-inter`, "bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen h-full")}>
+      <body className={cn(`${inter.className} font-inter`, "bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen h-full")}>
         <Providers>
           <ClerkProvider>
             {children}
