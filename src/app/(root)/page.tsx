@@ -1,7 +1,7 @@
 "use client";
 
 import type { NextPage } from "next";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineFilter, AiOutlineSearch } from "react-icons/ai";
 import Input from "@components/ui/Input";
 import { useEffect, useState } from "react";
 import ToolCard from "@components/ToolCard";
@@ -9,6 +9,7 @@ import menuItems, { IMenuItem } from "data/menuItems";
 import { Label } from "@components/ui/Label";
 import { motion } from "framer-motion";
 import { useTool } from "context/ToolContext";
+import { Button } from "@components/ui/Button";
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
@@ -40,7 +41,7 @@ const Home: NextPage = () => {
 
   return (
     <main className="w-full grow h-full">
-      <div className="flex items-center justify-center w-full">
+      <div className="flex items-end gap-2 justify-center w-full">
         <div className="w-full px-4 md:px-0 max-w-lg items-end flex gap-2">
           <div className="grow">
             <Label>Search</Label>
@@ -54,6 +55,9 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
+        <Button variant={"ghost"}>
+          <AiOutlineFilter />
+        </Button>
       </div>
       {fitleredItems.length > 0 ? (
         <div className="flex flex-col mt-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
+import { IoArrowForwardOutline, IoArrowBackOutline, IoCopy, IoCopyOutline } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
 import Editor from "@components/Editor/Editor";
 
@@ -12,23 +12,50 @@ import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Button } from "@components/ui/Button";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
-
-const NAME = "URL Encoder/Decoder";
-const DESCRIPTION = "Encode and decode URLs";
+import { AiOutlineCopy } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
 
   const handleDecode = () => {
-    setoutputArea(decodeURI(inputArea));
+    //Split url before ? and decode only the part after ?
+    const url = outputArea.split("?")[0] ?? "";
+    const query = outputArea.split("?")[1] ?? "";
+
+    //Decode the query part
+    const decodedQuery = decodeURIComponent(query.replace(/\+/g, " "));
+    //Decode the url part
+    const decodedUrl = decodeURI(url);
+
+    //Join the decoded url and query
+    setinputArea(decodedUrl + "?" + decodedQuery);
   };
   const handleEncode = () => {
-    setoutputArea(encodeURI(inputArea));
+    //Split url before ? and encode only the part after ?
+    const url = inputArea.split("?")[0] ?? "";
+    const query = inputArea.split("?")[1] ?? "";
+
+    //Encode the query part
+    const encodedQuery = encodeURIComponent(query).replace(/[!'()*]/g, function (c) {
+      return "%" + c.charCodeAt(0).toString(16);
+    });
+
+    //Encode the url part
+    const encodedUrl = encodeURI(url);
+
+    //Join the encoded url and query
+    setoutputArea(encodedUrl + "?" + encodedQuery);
   };
   const handleClear = () => {
     setinputArea("");
     setoutputArea("");
+  };
+
+  const handleCopy = (input: string) => {
+    navigator.clipboard.writeText(input);
+    toast.success("Copied to clipboard");
   };
   return (
     <>
@@ -39,6 +66,10 @@ const UrlEncoderDecoder = () => {
               <MdClear />
               Clear
             </Button>
+            <Button onClick={() => handleCopy(inputArea)}>
+              <IoCopyOutline />
+              Copy
+            </Button>
             <Button onClick={handleEncode}>
               <IoArrowForwardOutline />
               Encode
@@ -47,6 +78,10 @@ const UrlEncoderDecoder = () => {
         }
         second={
           <>
+            <Button onClick={() => handleCopy(outputArea)}>
+              <IoCopyOutline />
+              Copy
+            </Button>
             <Button onClick={handleDecode}>
               <IoArrowBackOutline />
               Decode

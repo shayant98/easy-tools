@@ -11,9 +11,10 @@ import Editor from "../../../../components/Editor/Editor";
 import { Button } from "@components/ui/Button";
 import Container from "@components/Container/Container";
 import { useTool } from "context/ToolContext";
+import { IoArrowUndo, IoArrowUndoOutline, IoCopyOutline, IoDownloadOutline } from "react-icons/io5";
+import TwoEditorLayout from "@layout/TwoEditorLayout";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
 
-const NAME = "Markdown Generator";
-const DESCRIPTION = "Generate Markdown";
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
   const [availablePresets, setavailablePresets] = useState<
@@ -73,6 +74,19 @@ const ReadmeGenerator = () => {
     setSelectedPresets((arr) => arr.filter((el) => el.title !== preset.title));
   };
 
+  const handleDownload = () => {
+    if (value == "") {
+      toast("Noting to download!", { type: "error" });
+      return;
+    }
+    const element = document.createElement("a");
+    const file = new Blob([value], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = "README.md";
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+  };
+
   useEffect(() => {
     setCurrentlySelectedPreset(presets[0]);
     if (presets[0]) {
@@ -84,52 +98,59 @@ const ReadmeGenerator = () => {
 
   return (
     <>
-      <div className="flex gap-x-1 mb-2 ">
-        <div className="flex gap-x-1  w-1/4">
+      <ToolButtons
+        first={
           <Button onClick={handleOnClear}>
-            <AiOutlineUndo /> Undo
+            <IoArrowUndoOutline /> Undo
           </Button>
-        </div>
-        <div className="flex gap-x-1  w-1/3"></div>
-        <div className="flex gap-x-1  w-full justify-end">
-          <Button onClick={handleCopy}>
-            <AiOutlineCopy /> Copy
-          </Button>
-        </div>
-      </div>
-      <div className="flex h-full  gap-x-1 ">
-        <div className=" w-1/4 max-h-96 ">
-          <Container>
-            {availablePresets.map((preset, i) => (
-              <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
-                <div
-                  onClick={() => handlePresetSelection(preset)}
-                  className="grow text-sm text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900  flex justify-between rounded px-4 py-3 cursor-pointer hover:scale-105 duration-200"
-                >
-                  {preset.title}
+        }
+        second={
+          <div className="flex gap-1">
+            <Button onClick={handleDownload}>
+              <IoDownloadOutline /> Download
+            </Button>
+            <Button onClick={handleCopy}>
+              <IoCopyOutline /> Copy
+            </Button>
+          </div>
+        }
+      />
+      <TwoEditorLayout>
+        <Container>
+          <div className="flex gap-2 h-full w-full">
+            <div className="md:w-1/4 max-h-96">
+              {availablePresets.map((preset, i) => (
+                <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
+                  <div
+                    onClick={() => handlePresetSelection(preset)}
+                    className="grow text-sm text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900  flex justify-between rounded px-4 py-3 cursor-pointer hover:scale-105 duration-200"
+                  >
+                    {preset.title}
+                  </div>
+                  {new Set(selectedPresets).has(preset) && (
+                    <Button variant={"destructive"} onClick={() => removeselectedPreset(preset)}>
+                      <AiOutlineClear className="" />
+                    </Button>
+                  )}
                 </div>
-                {new Set(selectedPresets).has(preset) && (
-                  <Button variant={"destructive"} onClick={() => removeselectedPreset(preset)}>
-                    <AiOutlineClear className="" />
-                  </Button>
-                )}
-              </div>
-            ))}
-          </Container>
-        </div>
-        <div className=" w-1/3 max-h-max  break-words">
-          <Container>
-            <Editor value={currentlySelectedPreset?.value ?? ""} setValue={(e) => handlePresetEdit(e.target.value, currentlySelectedPreset)} language="md" />
-          </Container>
-        </div>
-        <div className="grow w-1/3 h-5/6 overflow-y-auto">
-          <Container>
-            <ReactMarkdown className="bg-slate-100 dark:bg-slate-900 p-4 rounded markdown-body" remarkPlugins={[remarkGfm]}>
-              {selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}
-            </ReactMarkdown>
-          </Container>
-        </div>
-      </div>
+              ))}
+            </div>
+            <div className="grow">
+              <Editor
+                placeholder="Enter encoded URL here"
+                value={currentlySelectedPreset?.value ?? ""}
+                setValue={(e) => handlePresetEdit(e.target.value, currentlySelectedPreset)}
+                language="markdown"
+              />
+            </div>
+          </div>
+        </Container>
+        <Container>
+          <ReactMarkdown className="bg-slate-100 dark:bg-slate-900 p-4 rounded markdown-body h-full" remarkPlugins={[remarkGfm]}>
+            {selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}
+          </ReactMarkdown>
+        </Container>
+      </TwoEditorLayout>
     </>
   );
 };
