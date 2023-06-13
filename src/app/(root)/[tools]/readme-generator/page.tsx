@@ -11,7 +11,7 @@ import Editor from "../../../../components/Editor/Editor";
 import { Button } from "@components/ui/Button";
 import Container from "@components/Container/Container";
 import { useTool } from "context/ToolContext";
-import { IoArrowUndo, IoArrowUndoOutline, IoCopyOutline, IoDownloadOutline } from "react-icons/io5";
+import { IoArrowUndo, IoArrowUndoOutline, IoCopyOutline, IoDownloadOutline, IoRemoveOutline } from "react-icons/io5";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 
@@ -96,13 +96,32 @@ const ReadmeGenerator = () => {
     }
   }, []);
 
+  const handleUpdateOrder = (
+    movedPreset: {
+      title: string;
+      value: string;
+    },
+    newIndex: number
+  ) => {
+    //Move the item to the new index and shift the rest
+    const newOrder = selectedPresets.filter((_, i) => i !== newIndex);
+    newOrder.splice(newIndex, 0, movedPreset);
+
+    setSelectedPresets(newOrder);
+  };
+
   return (
     <>
       <ToolButtons
         first={
-          <Button onClick={handleOnClear}>
-            <IoArrowUndoOutline /> Undo
-          </Button>
+          <div className="flex gap-1">
+            <Button className="flex md:hidden" onClick={handleOnClear}>
+              <IoArrowUndoOutline /> Templates
+            </Button>
+            <Button onClick={handleOnClear}>
+              <IoArrowUndoOutline /> Undo
+            </Button>
+          </div>
         }
         second={
           <div className="flex gap-1">
@@ -118,7 +137,7 @@ const ReadmeGenerator = () => {
       <TwoEditorLayout>
         <Container>
           <div className="flex gap-2 h-full w-full">
-            <div className="md:w-1/4 max-h-96">
+            <div className="hidden md:block">
               {availablePresets.map((preset, i) => (
                 <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
                   <div
@@ -129,7 +148,7 @@ const ReadmeGenerator = () => {
                   </div>
                   {new Set(selectedPresets).has(preset) && (
                     <Button variant={"destructive"} onClick={() => removeselectedPreset(preset)}>
-                      <AiOutlineClear className="" />
+                      <IoRemoveOutline className="" />
                     </Button>
                   )}
                 </div>

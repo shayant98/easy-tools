@@ -8,6 +8,7 @@ import { IFilter } from "app/(root)/[tools]/odata-generator/page";
 import { parseISO } from "date-fns";
 import { AiOutlineCopy, AiOutlineMinus } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
+import { IoRemoveOutline } from "react-icons/io5";
 import { TiFlowChildren } from "react-icons/ti";
 
 const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter }: FilterInputProps) => {
@@ -119,8 +120,8 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
             )}
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => deleteFilter(filter.id)} variant={"default"}>
-              <AiOutlineMinus />
+            <Button onClick={() => deleteFilter(filter.id)} variant={"destructive"}>
+              <IoRemoveOutline />
             </Button>
 
             {/* <Button onClick={() => addOptionalFilter(filter.id)} variant={"default"} ></Button> */}

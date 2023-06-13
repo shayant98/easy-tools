@@ -148,6 +148,15 @@ Install my-project with npm
 
 `,
   },
+  {
+    title: "Screenshot",
+    value: `
+## Screenshots
+
+![Screenshot](https://via.placeholder.com/400x300)
+
+`,
+  },
 ];
 
 export default presets;

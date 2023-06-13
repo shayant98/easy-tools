@@ -4,6 +4,7 @@ import { Button } from "@components/ui/Button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { useMemo } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { IoAddOutline } from "react-icons/io5";
 
 const FilterTemplates = ({ onClick }: { onClick: (type: string) => void }) => {
   const tempaltes = useMemo(
@@ -11,10 +12,6 @@ const FilterTemplates = ({ onClick }: { onClick: (type: string) => void }) => {
       {
         name: "Default",
         type: "default",
-      },
-      {
-        name: "Date between",
-        type: "date-between",
       },
     ],
     []
@@ -24,7 +21,7 @@ const FilterTemplates = ({ onClick }: { onClick: (type: string) => void }) => {
     <Popover>
       <PopoverTrigger asChild>
         <Button>
-          <AiOutlinePlus />
+          <IoAddOutline />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="grid gap-4">
