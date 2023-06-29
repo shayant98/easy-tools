@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/Select";
-import { IFilter } from "app/(root)/[tools]/odata-generator/page";
+import { IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
 import { AiOutlineCopy, AiOutlineMinus } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";

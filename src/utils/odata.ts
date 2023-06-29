@@ -1,4 +1,4 @@
-import { IFilter } from "app/(root)/[tools]/odata-generator/page";
+import { IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO, format } from "date-fns";
 import { toast } from "react-toastify";
 

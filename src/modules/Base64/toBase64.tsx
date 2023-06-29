@@ -112,7 +112,7 @@ const ToBase64 = () => {
                     <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => handleCopyBase64(file, { excludeData: false })}>
                       <AiOutlineCopy /> Full Base64
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => handleCopyBase64(file, { excludeData: false })}>
+                    <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => handleCopyBase64(file, { excludeData: true })}>
                       <AiOutlineCopy /> Without MIME data
                     </DropdownMenuItem>
                   </DropdownMenuContent>

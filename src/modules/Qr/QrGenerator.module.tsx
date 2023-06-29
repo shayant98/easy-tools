@@ -3,15 +3,12 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import Image from "next/image";
-import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
+import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Button } from "@components/ui/Button";
 import { Textarea } from "@components/ui/Textarea";
 import Container from "@components/Container/Container";
 import { AiOutlineDownload } from "react-icons/ai";
 import { useTool } from "context/ToolContext";
-
-const NAME = "QR Code Generator";
-const DESCRIPTION = "Generate QR Code";
 
 const QrCodeGenerator = () => {
   const [input, setinput] = useState("");

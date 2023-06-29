@@ -4,8 +4,8 @@ import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
-import Editor from "../../../../components/Editor/Editor";
-import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
+import Editor from "@components/Editor/Editor";
+import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
@@ -17,7 +17,7 @@ import { IoSettings } from "react-icons/io5";
 import { BsFlower1 } from "react-icons/bs";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 
-const JsonToTs = () => {
+const JsonToTsPage = async () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
@@ -96,46 +96,6 @@ const JsonToTs = () => {
           </SignedIn>
         }
       />
-
-      {/* <div className="flex gap-2 mb-2">
-        <div className="flex gap-2 basis-2/4 items-center justify-end">
-          <Button size={"sm"} onClick={handleBeatify}>
-            <BsFlower1 /> Beautify
-          </Button>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button size={"sm"} className="w-9">
-                <IoSettings />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="grid gap-4">
-              <div className="space-y-2">
-                <h4 className="font-medium leading-none">Settings</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Set properties of on the type object</p>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="type-name">Name</Label>
-                <Input
-                  id="type-name"
-                  placeholder="Enter name"
-                  className="col-span-1 h-8"
-                  defaultValue={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className="basis-2/4  flex justify-end">
-          <div className="">
-            <SignedIn>
-              <SnippetDialog value={outputArea} language="TS" />
-            </SignedIn>
-          </div>
-        </div>
-      </div> */}
       <TwoEditorLayout>
         <Container errorMessage={error}>
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
@@ -148,4 +108,4 @@ const JsonToTs = () => {
   );
 };
 
-export default JsonToTs;
+export default JsonToTsPage;

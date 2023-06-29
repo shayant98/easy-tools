@@ -6,7 +6,7 @@ import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { stringToJsonString } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
 
-const JsToJson = () => {
+const JsToJsonPage = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
@@ -42,4 +42,4 @@ const JsToJson = () => {
   );
 };
 
-export default JsToJson;
+export default JsToJsonPage;
