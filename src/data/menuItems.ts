@@ -10,9 +10,12 @@ export interface IMenuItem {
   subtitle: string;
   icon: IconType;
   link: string;
-  tags: string[];
+  tags: IToolTag[];
   description: string;
 }
+
+export const toolTags = ["TRANSFORMER", "GENERATOR", "ENCRYPTION", "CSS", "JSON", "TYPESCRIPT", "JAVASCRIPT", "MD", "DOCKER", "AI", "SQL", "TS", "TRPC", "DEVOPS"] as const;
+export type IToolTag = (typeof toolTags)[number];
 
 const menuItems: IMenuItem[] = [
   {

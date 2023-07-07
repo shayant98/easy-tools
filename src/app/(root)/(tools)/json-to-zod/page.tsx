@@ -9,7 +9,6 @@ import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
 import { BsFlower1 } from "react-icons/bs";
-import { useTool } from "context/ToolContext";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";

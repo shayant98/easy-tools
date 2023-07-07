@@ -16,6 +16,7 @@ import Input from "@components/ui/Input";
 import { IoSettings } from "react-icons/io5";
 import { BsFlower1 } from "react-icons/bs";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
+import BaseLayout from "@layout/BaseLayout";
 
 const JsonToTsPage = async () => {
   const [inputArea, setinputArea] = useState("");
@@ -56,7 +57,7 @@ const JsonToTsPage = async () => {
   };
 
   return (
-    <>
+    <BaseLayout title="JSON to TypeScript" desc="Convert JSON to TypeScript interfaces">
       <ToolButtons
         first={
           <>
@@ -104,7 +105,7 @@ const JsonToTsPage = async () => {
           <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled placeholder="TS will appear here" />
         </Container>
       </TwoEditorLayout>
-    </>
+    </BaseLayout>
   );
 };
 

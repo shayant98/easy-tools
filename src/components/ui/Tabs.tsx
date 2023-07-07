@@ -8,7 +8,7 @@ import { cn } from "@utils/utils";
 const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>>(({ className, ...props }, ref) => (
-  <TabsPrimitive.List ref={ref} className={cn("inline-flex items-center justify-center rounded-md bg-slate-100 p-1 dark:bg-slate-800", className)} {...props} />
+  <TabsPrimitive.List ref={ref} className={cn("inline-flex items-center justify-center rounded-md bg-slate-100 p-1 dark:bg-slate-700", className)} {...props} />
 ));
 TabsList.displayName = TabsPrimitive.List.displayName;
 
@@ -29,7 +29,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 const TabsContent = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Content>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>>(
   ({ className, ...props }, ref) => (
     <TabsPrimitive.Content
-      className={cn("mt-2 dark:data-[state=inactive]:hidden rounded-md border h-full  border-slate-500 p-6 dark:border-slate-700", className)}
+      className={cn("mt-2 data-[state=inactive]:hidden rounded-md border h-full  border-slate-500 p-6 dark:border-slate-700", className)}
       {...props}
       ref={ref}
     />

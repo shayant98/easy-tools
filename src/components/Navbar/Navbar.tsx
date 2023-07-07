@@ -42,14 +42,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      {pathname?.trim() != "/" && (
-        <div className="flex items-center gap-4 visible">
-          <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl"></h1>
-          <SignedIn>
-            <Feedback />
-          </SignedIn>
-        </div>
-      )}
+
       <div className="inline-flex items-center justify-end gap-4">
         <SignedIn>
           <UserButton

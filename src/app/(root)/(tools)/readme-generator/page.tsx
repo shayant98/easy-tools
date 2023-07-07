@@ -14,6 +14,7 @@ import { useTool } from "context/ToolContext";
 import { IoArrowUndo, IoArrowUndoOutline, IoCopyOutline, IoDownloadOutline, IoRemoveOutline } from "react-icons/io5";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
+import BaseLayout from "@layout/BaseLayout";
 
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
@@ -111,7 +112,7 @@ const ReadmeGenerator = () => {
   };
 
   return (
-    <>
+    <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease.">
       <ToolButtons
         first={
           <div className="flex gap-1">
@@ -170,7 +171,7 @@ const ReadmeGenerator = () => {
           </ReactMarkdown>
         </Container>
       </TwoEditorLayout>
-    </>
+    </BaseLayout>
   );
 };
 

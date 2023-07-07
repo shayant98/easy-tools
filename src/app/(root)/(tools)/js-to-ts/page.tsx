@@ -11,9 +11,7 @@ import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
 import { useTool } from "context/ToolContext";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-
-const NAME = "JSON to Typescript";
-const DESCRIPTION = "Convert JSON to Typescript";
+import BaseLayout from "@layout/BaseLayout";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
@@ -48,7 +46,7 @@ const JsonToTs = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <>
+    <BaseLayout title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
       <ToolButtons
         second={
           <SignedIn>
@@ -64,7 +62,7 @@ const JsonToTs = () => {
           <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled placeholder="TS will appear here" />
         </Container>
       </TwoEditorLayout>
-    </>
+    </BaseLayout>
   );
 };
 

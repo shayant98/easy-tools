@@ -18,6 +18,8 @@ const generateFilter = (filters: IFilter[]): string => {
     }
 
     if (filter.valueType == "date") {
+      console.log(filter);
+
       return handleDate({ key: filter.key, firstDate: filter.value[0] ?? "", secondDate: filter.value[1] ?? "", comparator: filter.comparator });
     }
     const filterValue = filter.valueType == "string" ? `'${filter.value}'` : filter.value;
@@ -47,7 +49,7 @@ const generateFilter = (filters: IFilter[]): string => {
 };
 
 const handleDate = ({ key, firstDate, secondDate, comparator }: { key: string; firstDate: string; secondDate: string; comparator: string }) => {
-  if (firstDate === "" || secondDate === "") {
+  if (firstDate === "" && secondDate === "") {
     return "";
   }
   if (comparator == "between") {
@@ -86,20 +88,6 @@ const buildUrl = (
   let topString = "";
   let countString = "";
   let searchString = "";
-
-  // const regex = new RegExp(
-  //   "^(https?:\\/\\/)?" + // protocol
-  //     "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-  //     "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-  //     "i" // fragment locator
-  // );
-
-  // if (!regex.test(url)) {
-  //   toast("Please enter a valid URL", {
-  //     type: "error",
-  //   });
-  //   return "";
-  // }
 
   if (filters != undefined && filters.length > 0) {
     filterString = generateFilter(filters);

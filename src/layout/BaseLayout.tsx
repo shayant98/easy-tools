@@ -1,22 +1,35 @@
+"use client";
+
+import { SignedIn } from "@clerk/nextjs";
+import Feedback from "@components/Feedback/Feedback";
+import { usePathname } from "next/navigation";
+
 const BaseLayout = ({ children, title, desc }: BaseLayoutProps) => {
+  const pathname = usePathname();
+
   return (
     <>
       <div className=" pb-5">
-        <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
-        {desc && (
-          <div className="p-2 rounded-md border text-slate-800 dark:text-slate-100 border-slate-400 bg-slate-100 dark:border-slate-800 dark:bg-slate-700 mt-2">
-            <p className="text-slate-800 dark:text-slate-100 text-lg ">{desc}</p>
-          </div>
-        )}
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
+          {pathname?.trim() != "/" && (
+            <div className=" items-center gap-4  hidden md:flex">
+              <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl"></h1>
+              <SignedIn>
+                <Feedback />
+              </SignedIn>
+            </div>
+          )}
+        </div>
+        {desc && <p className="text-muted-foreground ">{desc}</p>}
       </div>
-      <div className="grow flex flex-col">{children}</div>
+      {children}
     </>
   );
 };
 
 interface BaseLayoutProps {
   children: JSX.Element | JSX.Element[];
-  showBackButton?: boolean;
   title?: string;
   desc?: string;
 }
