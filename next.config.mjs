@@ -23,6 +23,31 @@ export default removeImportsFun(
       appDir: true,
     },
     swcMinify: true,
+    async headers() {
+      return [
+        {
+          source: "/pkg-sizer",
+          headers: [
+            {
+              key: "Cross-Origin-Embedder-Policy",
+              value: "require-corp",
+            },
+            {
+              key: "Cross-Origin-Opener-Policy",
+              value: "same-origin",
+            },
+            {
+              key: "X-Frame-Options",
+              value: "same-origin",
+            },
+            {
+              key: "Cross-Origin-Resource-Policy",
+              value: "cross-origin",
+            },
+          ],
+        },
+      ];
+    },
 
     // // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
     // i18n: {

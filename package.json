@@ -27,6 +27,7 @@
     "@uiw/react-textarea-code-editor": "^2.1.6",
     "@upstash/ratelimit": "^0.4.3",
     "@vercel/analytics": "^1.0.1",
+    "@webcontainer/api": "^1.1.5",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
