@@ -48,7 +48,12 @@ export default removeImportsFun(
         },
       ];
     },
-
+    webpack: (config, options) => {
+      config.resolve.alias.canvas = false;
+      config.resolve.alias.encoding = false;
+      config.resolve.alias.ws = false;
+      return config;
+    },
     // // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
     // i18n: {
     //   locales: ["en"],

@@ -2,7 +2,7 @@ import { IconType } from "react-icons";
 import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
-import { SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiDart, SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { VscJson, VscSymbolString } from "react-icons/vsc";
 
 export interface IMenuItem {
@@ -14,7 +14,24 @@ export interface IMenuItem {
   description: string;
 }
 
-export const toolTags = ["TRANSFORMER", "GENERATOR", "ENCRYPTION", "CSS", "JSON", "TYPESCRIPT", "JAVASCRIPT", "MD", "DOCKER", "AI", "SQL", "TS", "TRPC", "DEVOPS"] as const;
+export const toolTags = [
+  "TRANSFORMER",
+  "GENERATOR",
+  "ENCRYPTION",
+  "CSS",
+  "JSON",
+  "TYPESCRIPT",
+  "JAVASCRIPT",
+  "MD",
+  "DOCKER",
+  "AI",
+  "SQL",
+  "TS",
+  "TRPC",
+  "DEVOPS",
+  "DART",
+  "FLUTTER",
+] as const;
 export type IToolTag = (typeof toolTags)[number];
 
 const menuItems: IMenuItem[] = [
@@ -49,6 +66,14 @@ const menuItems: IMenuItem[] = [
     link: "/qrcode-generator",
     tags: ["GENERATOR"],
     description: "Generate QR Codes",
+  },
+  {
+    title: "JSON To Dart",
+    subtitle: "Generate Dart classes from JSON",
+    icon: SiDart,
+    link: "/json-to-dart",
+    description: "Generate Dart classes from JSON",
+    tags: ["TRANSFORMER", "JSON", "FLUTTER"],
   },
   {
     title: "URL Encoder/Decoder",
@@ -98,14 +123,14 @@ const menuItems: IMenuItem[] = [
     tags: ["JSON", "TS", "TRPC", "TRANSFORMER"],
     description: "generate ZOD validation based on JSON model",
   },
-  {
-    title: "SQL Translator",
-    subtitle: "use AI to translate natural language into a usable SQL query",
-    icon: SiMysql,
-    link: "/sql-translator",
-    tags: ["AI", "SQL", "GENERATOR"],
-    description: "use AI to translate natural language into a usable SQL query",
-  },
+  // {
+  //   title: "SQL Translator",
+  //   subtitle: "use AI to translate natural language into a usable SQL query",
+  //   icon: SiMysql,
+  //   link: "/sql-translator",
+  //   tags: ["AI", "SQL", "GENERATOR"],
+  //   description: "use AI to translate natural language into a usable SQL query",
+  // },
   {
     title: "Base64",
     subtitle: "Convert files to base64 or base64 to files",
