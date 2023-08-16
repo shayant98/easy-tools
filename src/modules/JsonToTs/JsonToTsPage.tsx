@@ -18,7 +18,7 @@ import { BsFlower1 } from "react-icons/bs";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
 
-const JsonToTsPage = async () => {
+const JsonToTsPage = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [error, seterror] = useState("");
