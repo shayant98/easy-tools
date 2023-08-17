@@ -9,6 +9,7 @@ import { Label } from "@components/ui/Label";
 import { api } from "@utils/api";
 import { toast } from "react-toastify";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/Select";
+import { Save } from "lucide-react";
 
 const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
   const [open, setOpen] = useState(false);
@@ -47,8 +48,8 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="" disabled={isSavingSnippet}>
-          <AiOutlineSave /> Save Snippet
+        <Button variant="default" className="" size={"sm"} disabled={isSavingSnippet}>
+          <Save size={16} /> Save Snippet
         </Button>
       </DialogTrigger>
       <DialogContent>

@@ -8,19 +8,23 @@ import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/Button";
 import BaseLayout from "@layout/BaseLayout";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { Cog, Copy, Flower, Settings } from "lucide-react";
+import { Cog, Copy, Flower, MoreVertical, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createDartClassFromJson } from "../../../../services/dart/dart";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { Label } from "@components/ui/Label";
 import Input from "@components/ui/Input";
 import { toast } from "react-toastify";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/Dropdown";
 
 const JsonToDart = () => {
   const [json, setJson] = useState("");
   const [dart, setDart] = useState("");
   const [className, setclassName] = useState("root");
   const [error, seterror] = useState("");
+  const [addJsonKey, setAddJsonKey] = useState(true);
+  const [autoCamelCase, setAutoCamelCase] = useState(true);
+  const [addConstructor, setAddConstructor] = useState(false);
 
   const onSubmit = () => {
     if (json.trim().length < 1) {
@@ -35,6 +39,9 @@ const JsonToDart = () => {
       const dartClass = createDartClassFromJson({
         json: json,
         className: className,
+        addJsonKey: addJsonKey,
+        autoCamelCase: autoCamelCase,
+        addConstructor: addConstructor,
       });
 
       setDart(dartClass.trim());
@@ -71,6 +78,13 @@ const JsonToDart = () => {
       return;
     }
 
+    try {
+      JSON.stringify(JSON.parse(json), null, 2);
+      seterror("");
+    } catch (error: any) {
+      seterror(error.message);
+    }
+
     return () => {
       return;
     };
@@ -82,15 +96,15 @@ const JsonToDart = () => {
         first={
           <>
             <Button size={"sm"} onClick={() => handleBeatify()}>
-              <Flower /> Beautify
+              <Flower size={16} /> Beautify
             </Button>
             <Button size={"sm"} onClick={() => onSubmit()}>
-              <Cog /> Generate
+              <Cog size={16} /> Generate
             </Button>
             <Popover>
               <PopoverTrigger asChild>
                 <Button size={"sm"} className="w-9">
-                  <Settings />
+                  <Settings size={16} />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="grid gap-4">
@@ -112,6 +126,26 @@ const JsonToDart = () => {
                 </div>
               </PopoverContent>
             </Popover>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  <MoreVertical size={16} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>Options</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuCheckboxItem checked={addJsonKey} onCheckedChange={setAddJsonKey}>
+                  Add JSON keys
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem checked={autoCamelCase} onCheckedChange={setAutoCamelCase}>
+                  Auto camelcase
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem checked={addConstructor} onCheckedChange={setAddConstructor}>
+                  Add empty constructor
+                </DropdownMenuCheckboxItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         }
         second={
@@ -127,7 +161,7 @@ const JsonToDart = () => {
                 toast.success("Copied to clipboard");
               }}
             >
-              <Copy /> Copy
+              <Copy size={16} /> Copy
             </Button>
           </>
         }

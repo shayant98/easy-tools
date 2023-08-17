@@ -1,8 +1,7 @@
 "use client";
 
-import { Toggle } from "@components/ui/Toggle";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
-import { CircleIcon, FileCheck, MinusIcon, PlusIcon, PointerIcon, Square, SquareIcon, Trash2Icon } from "lucide-react";
+import { CircleIcon, MinusIcon, PlusIcon, SquareIcon, Trash2Icon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 const Draw = () => {

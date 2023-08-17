@@ -1,13 +1,15 @@
 export const createDartClassFromJson = ({
   json,
   className,
-  isAbstract = false,
+  addConstructor = false,
   addJsonKey = false,
+  autoCamelCase = false,
 }: {
   json: string;
   className: string;
-  isAbstract?: boolean;
+  addConstructor?: boolean;
   addJsonKey?: boolean;
+  autoCamelCase?: boolean;
 }) => {
   const jsonMap = JSON.parse(json);
 
@@ -18,8 +20,7 @@ export const createDartClassFromJson = ({
     if (Object.prototype.hasOwnProperty.call(jsonMap, key)) {
       const element = jsonMap[key];
 
-      const classPropterty = generateDartClassPropertiesFromJson(key, element);
-      console.log(classPropterty);
+      const classPropterty = generateDartClassPropertiesFromJson({ key, value: element, addJsonKey, autoCamelCase });
 
       if (classPropterty.trim() !== "") {
         dartClassProperties.push(classPropterty);
@@ -33,12 +34,12 @@ export const createDartClassFromJson = ({
           if (isArrayOfObjects) {
             //If array of objects
             const className = `${key.charAt(0).toUpperCase() + key.slice(1)}`;
-            const subClass = createDartClassFromJson({ json: JSON.stringify(element[0]), className: `${className}` });
+            const subClass = createDartClassFromJson({ json: JSON.stringify(element[0]), className: `${className}`, autoCamelCase, addJsonKey, addConstructor });
             dartClassProperties.push(`List<${className}> ${key};`);
             subClasses.push(subClass);
           } else {
             //If not array of objects
-            dartClassProperties.push(generateDartClassPropertiesFromJson(key, element[0], true));
+            dartClassProperties.push(generateDartClassPropertiesFromJson({ key, value: element, isList: true, addJsonKey, autoCamelCase }));
           }
         } else {
           dartClassProperties.push(`List<dynamic> ${key};`);
@@ -48,14 +49,15 @@ export const createDartClassFromJson = ({
       // if element is an object then we need to create a class for it, recursively run this function
       if (typeof element === "object" && !Array.isArray(element) && element !== null) {
         const className = `${key.charAt(0).toUpperCase() + key.slice(1)}`;
-        const subClass = createDartClassFromJson({ json: JSON.stringify(element), className: `${className}` });
-        dartClassProperties.push(`${className} ${key};`);
+        const subClass = createDartClassFromJson({ json: JSON.stringify(element), className: `${className}`, autoCamelCase, addJsonKey, addConstructor });
+        dartClassProperties.push(`${addJsonKey ? `@JsonKey(name: '${key}') ` : "p"} ${className} ${key};`);
         subClasses.push(subClass);
       }
     }
   }
 
   const dartClass = `\nclass ${className.charAt(0).toUpperCase() + className.slice(1)} with _\$${className.charAt(0).toUpperCase() + className.slice(1)} {
+    ${addConstructor ? `const ${className.charAt(0).toUpperCase() + className.slice(1)}._();` : ""}
             \n  @JsonSerializable()\n  factory ${className.charAt(0).toUpperCase() + className.slice(1)}({\n        ${dartClassProperties.join("\n        ")}\n   }) = _${
     className.charAt(0).toUpperCase() + className.slice(1)
   }
@@ -70,27 +72,49 @@ export const createDartClassFromJson = ({
       `;
 };
 
-const generateDartClassPropertiesFromJson = (key: string, value: unknown, isList = false) => {
-  console.log(typeof value);
+const generateDartClassPropertiesFromJson = ({
+  key,
+  value,
+  isList = false,
+  addJsonKey = false,
+  autoCamelCase = false,
+}: {
+  key: string;
+  value: unknown;
+  isList?: boolean;
+  autoCamelCase?: boolean;
+  addJsonKey?: boolean;
+}) => {
+  let camelCaseKey = key;
+  if (autoCamelCase) {
+    camelCaseKey = convertStringToCamelCase(key);
+  }
+
   let res = "";
   if (typeof value === "string") {
-    res = `String ${key};`;
+    res = `String ${camelCaseKey};`;
     if (isList) {
-      res = `List<String> ${key};`;
+      res = `List<String> ${camelCaseKey};`;
     }
   }
 
   if (typeof value === "number") {
-    res = `int ${key};`;
+    res = `int ${camelCaseKey};`;
     if (isList) {
-      res = `List<int> ${key};`;
+      res = `List<int> ${camelCaseKey};`;
     }
   }
 
   if (typeof value === "boolean") {
-    res = `bool ${key};`;
+    res = `bool ${camelCaseKey};`;
     if (isList) {
-      res = `List<bool> ${key};`;
+      res = `List<bool> ${camelCaseKey};`;
+    }
+  }
+
+  if (res.length > 0) {
+    if (addJsonKey) {
+      res = `@JsonKey(name: '${key}') ${res}`;
     }
   }
 
@@ -110,4 +134,8 @@ const checkIfArrayisArrayofObjects = (arr: unknown[]) => {
 
 const checkifArrayIsHomogenous = (arr: unknown[]) => {
   return arr.every((val) => typeof val === typeof arr[0]);
+};
+
+const convertStringToCamelCase = (str: string) => {
+  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 };
