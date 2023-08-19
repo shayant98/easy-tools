@@ -245,7 +245,7 @@ const OdataGenerator = () => {
                     </>
                   )}
                 </div>
-                {!count && (
+                {
                   <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !search && "dark:bg-gray-900 opacity-40")}>
                     <div className="flex justify-between mt-2 items-center gap-4">
                       <Label>Search</Label>
@@ -260,8 +260,8 @@ const OdataGenerator = () => {
                       </div>
                     )}
                   </div>
-                )}
-                {!count && (
+                }
+                {
                   <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !order && "dark:bg-gray-900 opacity-40")}>
                     <div className="flex justify-between mt-2 items-center gap-4">
                       <Label className="">Order</Label>
@@ -288,8 +288,8 @@ const OdataGenerator = () => {
                       </div>
                     )}
                   </div>
-                )}
-                {!count && (
+                }
+                {
                   <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !skip && "dark:bg-gray-900 opacity-40")}>
                     <div className="flex justify-between mt-2 items-center gap-4">
                       <Label>Skip</Label>
@@ -297,8 +297,8 @@ const OdataGenerator = () => {
                     </div>
                     {skip && <Input value={skipValue} onChange={(e) => setskipValue(e.target.valueAsNumber)} disabled={!limit} placeholder="eg. 10" type="number" />}
                   </div>
-                )}
-                {!count && (
+                }
+                {
                   <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !limit && "dark:bg-gray-900 opacity-40")}>
                     <div className="flex justify-between mt-2 items-center gap-4">
                       <Label htmlFor="limit-input">Limit</Label>
@@ -306,7 +306,7 @@ const OdataGenerator = () => {
                     </div>
                     {limit && <Input value={limitValue} onChange={(e) => setlimitValue(e.target.valueAsNumber)} disabled={!limit} placeholder="eg. 10" type="number" />}
                   </div>
-                )}
+                }
               </div>
             </div>
           </div>
