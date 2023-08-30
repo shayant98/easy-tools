@@ -15,12 +15,12 @@ const ImageToBase64 = () => {
         defaultTab="to"
         options={[
           {
-            label: "To Base64",
+            label: "Image to Base64",
             value: "to",
             child: <ToBase64 />,
           },
           {
-            label: "From Base64",
+            label: "Image from Base64",
             value: "from",
             child: <FromBase64 />,
           },

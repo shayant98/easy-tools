@@ -70,9 +70,7 @@ Start the server
   },
   {
     title: "API Reference",
-    value: `
-
-## API Reference
+    value: `## API Reference
 
 #### Get all items
 
@@ -103,9 +101,7 @@ Takes two numbers and returns the sum.
   },
   {
     title: "FAQ",
-    value: `
-
-## FAQ
+    value: `## FAQ
 
 #### Question 1
 
@@ -120,9 +116,7 @@ Answer 2
   },
   {
     title: "Features",
-    value: `
-
-## Features
+    value: `## Features
 
 - Light/dark mode toggle
 - Live previews
@@ -134,10 +128,7 @@ Answer 2
 
   {
     title: "Installation",
-    value: `
-
-
-## Installation
+    value: `## Installation
 
 Install my-project with npm
 
@@ -150,10 +141,8 @@ Install my-project with npm
   },
   {
     title: "Screenshot",
-    value: `
-## Screenshots
-
-![Screenshot](https://via.placeholder.com/400x300)
+    value: `## Screenshots
+    ![Screenshot](https://via.placeholder.com/400x300)
 
 `,
   },

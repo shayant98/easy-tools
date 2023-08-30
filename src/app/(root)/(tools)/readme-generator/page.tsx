@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "github-markdown-css";
-import { AiOutlineClear, AiOutlineCopy, AiOutlineUndo } from "react-icons/ai";
 import { toast } from "react-toastify";
 import presets from "../../../../data/markdown-presets";
 import Editor from "../../../../components/Editor/Editor";
@@ -137,8 +136,8 @@ const ReadmeGenerator = () => {
       />
       <TwoEditorLayout>
         <Container>
-          <div className="flex gap-2 h-full w-full">
-            <div className="hidden md:block">
+          <div className="flex gap-2 h-full w-full ">
+            <div className="hidden md:block w-[200px]">
               {availablePresets.map((preset, i) => (
                 <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
                   <div
