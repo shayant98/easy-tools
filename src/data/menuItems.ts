@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
+import { BiLockAlt } from "react-icons/bi";
 import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
 import { SiDart, SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
@@ -146,6 +147,14 @@ const menuItems: IMenuItem[] = [
     link: "/odata-generator",
     tags: ["GENERATOR"],
     description: "Generate ",
+  },
+  {
+    title: "Key Generator",
+    subtitle: "Generate random keys",
+    icon: BiLockAlt,
+    link: "/keygen",
+    tags: ["GENERATOR"],
+    description: "Generate",
   },
 ];
 

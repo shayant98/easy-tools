@@ -66,7 +66,7 @@ const Form = () => {
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2">
+                <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Volumes</Label>
                   <Button onClick={() => addVolumeToService(service.name)} variant={"default"} className="bg-green-400">
                     <AiOutlinePlus />
@@ -77,7 +77,7 @@ const Form = () => {
                     <div key={`volume-${volume.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="internal" value={volume.internal} onChange={(e) => updateVolumeOfService(e, service.name, i, "internal")} />
                       <Input placeholder="external" value={volume.external} onChange={(e) => updateVolumeOfService(e, service.name, i, "external")} />
-                      <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"default"} className="bg-red-400">
+                      <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
                         <AiOutlineMinus />
                       </Button>
                     </div>
@@ -85,18 +85,18 @@ const Form = () => {
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2">
+                <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Ports</Label>
                   <Button onClick={() => addPortToService(service.name)} variant={"default"} className="bg-green-400">
                     <AiOutlinePlus />
                   </Button>
                 </div>
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col space-y-2 ">
                   {service.ports.map((port, i) => (
                     <div key={`port-${port.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="internal" value={port.internal} onChange={(e) => updatePortOfService(e, service.name, i, "internal")} />
                       <Input placeholder="external" value={port.external} onChange={(e) => updatePortOfService(e, service.name, i, "external")} />
-                      <Button onClick={() => removePortFromService(service.name, i)} variant={"default"} className="bg-red-400">
+                      <Button onClick={() => removePortFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
                         <AiOutlineMinus />
                       </Button>
                     </div>
@@ -104,7 +104,7 @@ const Form = () => {
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2">
+                <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Environment</Label>
                   <Button onClick={() => addEnvToService(service.name)} variant={"default"} className="bg-green-400">
                     <AiOutlinePlus />
@@ -115,7 +115,7 @@ const Form = () => {
                     <div key={`env-${env.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="Label" value={env.label} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
                       <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
-                      <Button onClick={() => removeEnvFromService(service.name, i)} variant={"default"} className="bg-red-400">
+                      <Button onClick={() => removeEnvFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
                         <AiOutlineMinus />
                       </Button>
                     </div>
@@ -123,7 +123,7 @@ const Form = () => {
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2">
+                <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Label</Label>
                   <Button onClick={() => addLabelToService(service.name)} variant={"default"} className="bg-green-400">
                     <AiOutlinePlus />
@@ -134,7 +134,7 @@ const Form = () => {
                     <div key={`label-${label.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="Label" value={label.label} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
                       <Input placeholder="Value" value={label.value} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
-                      <Button onClick={() => removeLabelFromService(service.name, i)} variant={"default"} className="bg-red-400">
+                      <Button onClick={() => removeLabelFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
                         <AiOutlineMinus />
                       </Button>
                     </div>

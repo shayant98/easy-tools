@@ -97,17 +97,13 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
   const generateDockerComposeFromServices = () => {
     const serviceJson = services.map((service) => {
       const { name } = service;
-      return {
+
+      const mainObject = {
         [name]: {
           image: service.image,
-          deploy: {
-            replicas: 1,
-            restart_policy: {
-              condition: "any",
-            },
-          },
+
           user: "1000",
-          working_dir: null,
+          // working_dir: null,
           container_name: service.container_name,
           ports: service.ports.map((port) => `${port.external}:${port.internal}`),
           volumes: service.volumes.map((volume) => `${volume.external}:${volume.internal}`),
@@ -115,7 +111,10 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
           labels: service.labels.map((label) => `${label.label}=${label.value}`),
         },
       };
+
+      return mainObject;
     });
+
     const allServices = Object.assign({}, ...serviceJson);
 
     const yaml = json2yaml.stringify(allServices);

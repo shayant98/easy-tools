@@ -53,7 +53,7 @@ const handleDate = ({ key, firstDate, secondDate, comparator }: { key: string; f
     return "";
   }
   if (comparator == "between") {
-    return `${key} ge ${format(parseISO(firstDate), "dd/mm/yyy")} and ${key} le ${format(parseISO(firstDate), "dd/mm/yyy")}`;
+    return `${key} ge ${format(new Date(firstDate), "dd/MM/yyy")} and ${key} le ${format(new Date(secondDate), "dd/MM/yyy")}`;
   }
 
   return `${key} ${comparator} ${firstDate}`;

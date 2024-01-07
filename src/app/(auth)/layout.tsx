@@ -1,4 +1,4 @@
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
