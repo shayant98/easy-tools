@@ -1,4 +1,4 @@
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -17,7 +17,6 @@ const inter = Inter({
 export const metadata = {
   title: "Easy Tools",
   description: "Easy Tools is a collection of tools for developers.",
-  themeColor: "#0f172a",
   applicationName: "Easy Tools",
   keywords:
     "tools, developer, developer tools, easy tools, easytools, easy tools for developers, easytools for developers, qr code, qr code generator, json, json to js, js to json, docker, docker compose, docker compose generator, docker compose file, docker compose file generator, docker compose file generator",
