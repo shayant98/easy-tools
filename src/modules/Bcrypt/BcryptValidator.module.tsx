@@ -5,10 +5,9 @@ import { Button } from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 import { useState } from "react";
-import { IoArrowForwardOutline } from "react-icons/io5";
-import { MdClear } from "react-icons/md";
 import * as bcrypt from "bcryptjs";
 import { toast } from "react-toastify";
+import { ArrowRight, Eraser } from "lucide-react";
 
 const BcryptValidator = () => {
   const [validateHash, setValidateHash] = useState("");
@@ -50,11 +49,11 @@ const BcryptValidator = () => {
       </div>
       <div className="flex gap-x-3 justify-end pt-3">
         <Button variant={"subtle"} onClick={handleClear}>
-          <MdClear />
+          <Eraser className="w-4 h-4" />
           Clear
         </Button>
         <Button onClick={handleCheck}>
-          <IoArrowForwardOutline />
+          <ArrowRight className="w-4 h-4" />
           <span>Validate</span>
         </Button>
       </div>

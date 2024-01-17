@@ -7,8 +7,7 @@ import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Button } from "@components/ui/Button";
 import { Textarea } from "@components/ui/Textarea";
 import Container from "@components/Container/Container";
-import { AiOutlineDownload } from "react-icons/ai";
-import { useTool } from "context/ToolContext";
+import { Download } from "lucide-react";
 
 const QrCodeGenerator = () => {
   const [input, setinput] = useState("");
@@ -57,7 +56,7 @@ const QrCodeGenerator = () => {
     <>
       <div className="mb-2 flex justify-end">
         <Button onClick={handleDownload}>
-          <AiOutlineDownload /> Download Image
+          <Download className="w-4 h-4" /> Download Image
         </Button>
       </div>
       <TwoEditorLayout>

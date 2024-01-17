@@ -2,7 +2,7 @@
 
 import cuid2 from "@paralleldrive/cuid2";
 import { Copy, RefreshCcw } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { Button } from "@components/ui/Button";
 
@@ -16,14 +16,14 @@ const Keys = () => {
         <KeyContainer
           ids={uuids}
           setId={() => {
-            setUuids(Array.from({ length: 8 }).map((_, i) => crypto.randomUUID()));
+            setUuids(Array.from({ length: 8 }).map(() => crypto.randomUUID()));
           }}
           title="UUID"
         />
         <KeyContainer
           ids={cuids}
           setId={() => {
-            setCuids(Array.from({ length: 8 }).map((_, i) => cuid2.createId()));
+            setCuids(Array.from({ length: 8 }).map(() => cuid2.createId()));
           }}
           title="CUID"
         />

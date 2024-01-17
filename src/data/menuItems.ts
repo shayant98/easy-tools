@@ -1,15 +1,15 @@
+import { LucideIcon } from "lucide-react";
 import { IconType } from "react-icons";
 import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
-import { HiOutlineShieldCheck } from "react-icons/hi2";
 import { MdEnhancedEncryption } from "react-icons/md";
-import { SiDart, SiDocker, SiJavascript, SiJson, SiMysql, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiDart, SiDocker, SiJavascript, SiJson, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { VscJson, VscSymbolString } from "react-icons/vsc";
 
 export interface IMenuItem {
   title: string;
   subtitle: string;
-  icon: IconType;
+  icon: IconType | LucideIcon;
   link: string;
   tags: IToolTag[];
   description: string;

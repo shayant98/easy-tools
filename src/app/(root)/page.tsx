@@ -1,7 +1,6 @@
 "use client";
 
 import type { NextPage } from "next";
-import { AiOutlineFilter, AiOutlineSearch } from "react-icons/ai";
 import Input from "@components/ui/Input";
 import { useEffect, useState } from "react";
 import ToolCard from "@components/ToolCard";
@@ -10,6 +9,7 @@ import { Label } from "@components/ui/Label";
 import { motion } from "framer-motion";
 import { useTool } from "context/ToolContext";
 import { Button } from "@components/ui/Button";
+import { Filter } from "lucide-react";
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <Button variant={"ghost"}>
-          <AiOutlineFilter />
+          <Filter size={16} />
         </Button>
       </div>
       {fitleredItems.length > 0 ? (

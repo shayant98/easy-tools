@@ -13,10 +13,9 @@ import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { buildUrl } from "@utils/odata";
 import { cn } from "@utils/utils";
 import { useEffect, useState } from "react";
-import { AiOutlineMinus } from "react-icons/ai";
-import { BsGear } from "react-icons/bs";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/Card";
 import FilterTemplates from "modules/OdataGenerator/Filter/FilterTemplates";
+import { Cog, MinusCircle } from "lucide-react";
 
 export interface IFilter {
   id: number;
@@ -93,45 +92,45 @@ const OdataGenerator = () => {
     });
   };
 
-  const addOptionalFilter = (id: number) => {
-    setfilterValue((prev) => {
-      const newFilter = prev?.map((filter) => {
-        if (filter.id === id) {
-          return {
-            ...filter,
-            optionalComparisons: [
-              ...(filter.optionalComparisons ?? []),
-              {
-                id: filter.optionalComparisons?.length || 0,
-                value: [""],
-                key: "",
-                type: "default",
-                comparator: "eq",
-                valueType: "string",
-              },
-            ],
-          };
-        }
-        return filter;
-      });
-      return newFilter;
-    });
-  };
+  // const addOptionalFilter = (id: number) => {
+  //   setfilterValue((prev) => {
+  //     const newFilter = prev?.map((filter) => {
+  //       if (filter.id === id) {
+  //         return {
+  //           ...filter,
+  //           optionalComparisons: [
+  //             ...(filter.optionalComparisons ?? []),
+  //             {
+  //               id: filter.optionalComparisons?.length || 0,
+  //               value: [""],
+  //               key: "",
+  //               type: "default",
+  //               comparator: "eq",
+  //               valueType: "string",
+  //             },
+  //           ],
+  //         };
+  //       }
+  //       return filter;
+  //     });
+  //     return newFilter;
+  //   });
+  // };
 
-  const updateOptionalFilter = (id: number, newOptionalFilter: IFilter) => {
-    setfilterValue((prev) => {
-      const newFilter = prev?.map((f) => {
-        if (f.id === id) {
-          return {
-            ...f,
-            optionalComparisons: [...(f.optionalComparisons?.filter((of) => of.id !== newOptionalFilter.id) ?? []), newOptionalFilter],
-          };
-        }
-        return f;
-      });
-      return newFilter;
-    });
-  };
+  // const updateOptionalFilter = (id: number, newOptionalFilter: IFilter) => {
+  //   setfilterValue((prev) => {
+  //     const newFilter = prev?.map((f) => {
+  //       if (f.id === id) {
+  //         return {
+  //           ...f,
+  //           optionalComparisons: [...(f.optionalComparisons?.filter((of) => of.id !== newOptionalFilter.id) ?? []), newOptionalFilter],
+  //         };
+  //       }
+  //       return f;
+  //     });
+  //     return newFilter;
+  //   });
+  // };
 
   const deleteOptionalFilter = (id: number, optionalId: number) => {
     setfilterValue((prev) => {
@@ -171,7 +170,7 @@ const OdataGenerator = () => {
       <ToolButtons
         first={
           <Button onClick={handleGenerate}>
-            <BsGear />
+            <Cog />
             Generate
           </Button>
         }
@@ -215,7 +214,7 @@ const OdataGenerator = () => {
                                     <div className="flex justify-between items-center">
                                       <CardTitle>Optional Comparison {i + 1}</CardTitle>{" "}
                                       <Button onClick={() => deleteOptionalFilter(filter.id, optionalFilter.id)} variant={"default"}>
-                                        <AiOutlineMinus />
+                                        <MinusCircle />
                                       </Button>
                                     </div>
                                     <CardContent>

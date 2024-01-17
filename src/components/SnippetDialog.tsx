@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/Dialog";
 import { Button } from "@components/ui/Button";
-import { AiOutlineSave } from "react-icons/ai";
 import { FormEvent, useState } from "react";
 
 import Input from "@components/ui/Input";
@@ -84,7 +83,7 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
 
           <DialogFooter>
             <Button type="submit" onClick={handleSubmission} variant="default" className="w-full" disabled={isSavingSnippet || !snippetName || !value}>
-              <AiOutlineSave /> Save Snippet
+              <Save className="w-4 h-4" /> Save Snippet
             </Button>
           </DialogFooter>
         </DialogHeader>

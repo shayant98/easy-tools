@@ -3,8 +3,8 @@ import { Button } from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@components/ui/Tabs";
-import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { useDockerCompose } from "./DockerComposeContext";
+import { MinusCircle, PlusCircle, XCircle } from "lucide-react";
 
 const Form = () => {
   const {
@@ -35,12 +35,12 @@ const Form = () => {
             {services.map((service, i) => (
               <TabsTrigger className="items-center flex gap-2" key={i} value={service.id}>
                 {service.name}
-                <AiOutlineClose onClick={() => removeService(service.name)} />
+                <XCircle className="w-4 h-4" onClick={() => removeService(service.name)} />
               </TabsTrigger>
             ))}
           </TabsList>
           <Button onClick={addService} variant={"default"} className="ml-3 bg-green-400">
-            <AiOutlinePlus />
+            <PlusCircle className="w-4 h-4" />
           </Button>
         </div>
         {/* Loop over services and create TabsContent with name, for inputs use Input component */}
@@ -69,7 +69,7 @@ const Form = () => {
                 <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Volumes</Label>
                   <Button onClick={() => addVolumeToService(service.name)} variant={"default"} className="bg-green-400">
-                    <AiOutlinePlus />
+                    <PlusCircle className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2">
@@ -78,7 +78,7 @@ const Form = () => {
                       <Input placeholder="internal" value={volume.internal} onChange={(e) => updateVolumeOfService(e, service.name, i, "internal")} />
                       <Input placeholder="external" value={volume.external} onChange={(e) => updateVolumeOfService(e, service.name, i, "external")} />
                       <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <AiOutlineMinus />
+                        <MinusCircle className="w-4 h-4" />
                       </Button>
                     </div>
                   ))}
@@ -88,7 +88,7 @@ const Form = () => {
                 <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Ports</Label>
                   <Button onClick={() => addPortToService(service.name)} variant={"default"} className="bg-green-400">
-                    <AiOutlinePlus />
+                    <PlusCircle className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2 ">
@@ -97,7 +97,7 @@ const Form = () => {
                       <Input placeholder="internal" value={port.internal} onChange={(e) => updatePortOfService(e, service.name, i, "internal")} />
                       <Input placeholder="external" value={port.external} onChange={(e) => updatePortOfService(e, service.name, i, "external")} />
                       <Button onClick={() => removePortFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <AiOutlineMinus />
+                        <MinusCircle className="w-4 h-4" />
                       </Button>
                     </div>
                   ))}
@@ -107,7 +107,7 @@ const Form = () => {
                 <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Environment</Label>
                   <Button onClick={() => addEnvToService(service.name)} variant={"default"} className="bg-green-400">
-                    <AiOutlinePlus />
+                    <PlusCircle className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2">
@@ -116,7 +116,7 @@ const Form = () => {
                       <Input placeholder="Label" value={env.label} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
                       <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
                       <Button onClick={() => removeEnvFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <AiOutlineMinus />
+                        <MinusCircle className="w-4 h-4" />
                       </Button>
                     </div>
                   ))}
@@ -126,7 +126,7 @@ const Form = () => {
                 <div className="flex  items-center gap-4 mb-2 justify-between">
                   <Label>Label</Label>
                   <Button onClick={() => addLabelToService(service.name)} variant={"default"} className="bg-green-400">
-                    <AiOutlinePlus />
+                    <PlusCircle className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2">
@@ -135,7 +135,7 @@ const Form = () => {
                       <Input placeholder="Label" value={label.label} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
                       <Input placeholder="Value" value={label.value} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
                       <Button onClick={() => removeLabelFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <AiOutlineMinus />
+                        <MinusCircle className="w-4 h-4" />
                       </Button>
                     </div>
                   ))}

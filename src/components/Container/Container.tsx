@@ -1,5 +1,5 @@
+import { AlertOctagon } from "lucide-react";
 import { useState } from "react";
-import { AiOutlineWarning } from "react-icons/ai";
 
 const Container = ({ children, errorMessage }: ContainerProps) => {
   const [showFullError, setshowFullError] = useState(false);
@@ -14,7 +14,7 @@ const Container = ({ children, errorMessage }: ContainerProps) => {
       >
         {showFullError && <p className={`text-red-500 ml-2 text-xs `}>{errorMessage}</p>}
 
-        <AiOutlineWarning className="text-red-500 text-xs hover:scale-200" />
+        <AlertOctagon className="text-red-500 text-xs hover:scale-200" />
       </div>
     </div>
   );

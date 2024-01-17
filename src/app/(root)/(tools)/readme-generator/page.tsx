@@ -9,11 +9,10 @@ import presets from "../../../../data/markdown-presets";
 import Editor from "../../../../components/Editor/Editor";
 import { Button } from "@components/ui/Button";
 import Container from "@components/Container/Container";
-import { useTool } from "context/ToolContext";
-import { IoArrowUndo, IoArrowUndoOutline, IoCopyOutline, IoDownloadOutline, IoRemoveOutline } from "react-icons/io5";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
+import { Copy, Download, Trash, Undo2 } from "lucide-react";
 
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
@@ -96,19 +95,19 @@ const ReadmeGenerator = () => {
     }
   }, []);
 
-  const handleUpdateOrder = (
-    movedPreset: {
-      title: string;
-      value: string;
-    },
-    newIndex: number
-  ) => {
-    //Move the item to the new index and shift the rest
-    const newOrder = selectedPresets.filter((_, i) => i !== newIndex);
-    newOrder.splice(newIndex, 0, movedPreset);
+  // const handleUpdateOrder = (
+  //   movedPreset: {
+  //     title: string;
+  //     value: string;
+  //   },
+  //   newIndex: number
+  // ) => {
+  //   //Move the item to the new index and shift the rest
+  //   const newOrder = selectedPresets.filter((_, i) => i !== newIndex);
+  //   newOrder.splice(newIndex, 0, movedPreset);
 
-    setSelectedPresets(newOrder);
-  };
+  //   setSelectedPresets(newOrder);
+  // };
 
   return (
     <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease.">
@@ -116,20 +115,20 @@ const ReadmeGenerator = () => {
         first={
           <div className="flex gap-1">
             <Button className="flex md:hidden" onClick={handleOnClear}>
-              <IoArrowUndoOutline /> Templates
+              <Undo2 className="w-4 h-4" /> Templates
             </Button>
             <Button onClick={handleOnClear}>
-              <IoArrowUndoOutline /> Undo
+              <Undo2 className="w-4 h-4" /> Undo
             </Button>
           </div>
         }
         second={
           <div className="flex gap-1">
             <Button onClick={handleDownload}>
-              <IoDownloadOutline /> Download
+              <Download className="w-4 h-4" /> Download
             </Button>
             <Button onClick={handleCopy}>
-              <IoCopyOutline /> Copy
+              <Copy className="w-4 h-4" /> Copy
             </Button>
           </div>
         }
@@ -138,7 +137,7 @@ const ReadmeGenerator = () => {
         <Container>
           <div className="flex gap-2 h-full w-full ">
             <div className="hidden md:block w-[200px]">
-              {availablePresets.map((preset, i) => (
+              {availablePresets.map((preset) => (
                 <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
                   <div
                     onClick={() => handlePresetSelection(preset)}
@@ -148,7 +147,7 @@ const ReadmeGenerator = () => {
                   </div>
                   {new Set(selectedPresets).has(preset) && (
                     <Button variant={"destructive"} onClick={() => removeselectedPreset(preset)}>
-                      <IoRemoveOutline className="" />
+                      <Trash className="w-4 h-4" />
                     </Button>
                   )}
                 </div>

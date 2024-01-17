@@ -24,7 +24,7 @@ const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectPrimitive.T
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <AiOutlineDown className="h-4 w-4 opacity-50" />
+        <ArrowDown className="w-4 h-4" className="h-4 w-4 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )

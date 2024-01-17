@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@utils/utils";
-import { ChangeEvent, forwardRef, InputHTMLAttributes, useRef } from "react";
+import { LucideIcon, XCircle } from "lucide-react";
+import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react";
 import { IconType } from "react-icons";
-import { AiOutlineClose } from "react-icons/ai";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, icon: Icon, shortcutIcon: SCIcon, ...props }, ref) => {
   // Clear the input value
@@ -36,9 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
           "bg-transparent  h-10 outline-none px-2 rounded placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-50 group-focus:bg-white text-slate-900 dark:text-slate-50  w-full"
         )}
       />
-      {props.value && showClear && (
-        <AiOutlineClose onClick={handleClearInput} size={32} className="mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-full px-2 py-2" />
-      )}
+      {props.value && showClear && <XCircle onClick={handleClearInput} size={32} className=" w-4 mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-4 px-2 py-2" />}
       {!props.value && SCIcon && (
         <div className="whitespace-nowrap px-2 py-1 rounded-sm shadow-lg bg-slate-300 dark:bg-gray-700 mr-1">
           <small>{SCIcon}</small>
@@ -52,7 +50,7 @@ Input.displayName = "Input";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   showClear?: boolean;
-  icon?: IconType;
+  icon?: IconType | LucideIcon;
   shortcutIcon?: string;
 }
 

@@ -1,5 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { AiOutlineClose } from "react-icons/ai";
+import { XCircle } from "lucide-react";
 
 const SearchDialog = () => {
   return (
@@ -31,7 +31,7 @@ const SearchDialog = () => {
           </div>
           <Dialog.Close asChild>
             <button className="IconButton" aria-label="Close">
-              <AiOutlineClose />
+              <XCircle className="w-4 h-4" />
             </button>
           </Dialog.Close>
         </Dialog.Content>

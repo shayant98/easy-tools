@@ -1,8 +1,7 @@
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/Button";
-import { AiOutlineDownload } from "react-icons/ai";
-import { BsGear } from "react-icons/bs";
 import { useDockerCompose } from "./DockerComposeContext";
+import { Cog, Download } from "lucide-react";
 
 const ToolActions = () => {
   const { generateDockerComposeFromServices, downloadYaml } = useDockerCompose();
@@ -12,11 +11,11 @@ const ToolActions = () => {
       second={
         <>
           <Button onClick={generateDockerComposeFromServices}>
-            <BsGear />
+            <Cog className="w-4 h-4" />
             Generate
           </Button>
           <Button onClick={downloadYaml}>
-            <AiOutlineDownload /> Download
+            <Download className="w-4 h-4" /> Download
           </Button>
         </>
       }

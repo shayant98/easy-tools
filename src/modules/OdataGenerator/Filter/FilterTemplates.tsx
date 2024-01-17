@@ -2,9 +2,8 @@
 
 import { Button } from "@components/ui/Button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
+import { PlusCircle } from "lucide-react";
 import { useMemo } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import { IoAddOutline } from "react-icons/io5";
 
 const FilterTemplates = ({ onClick }: { onClick: (type: string) => void }) => {
   const tempaltes = useMemo(
@@ -21,7 +20,7 @@ const FilterTemplates = ({ onClick }: { onClick: (type: string) => void }) => {
     <Popover>
       <PopoverTrigger asChild>
         <Button>
-          <IoAddOutline />
+          <PlusCircle className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="grid gap-4">

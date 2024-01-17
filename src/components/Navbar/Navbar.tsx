@@ -1,7 +1,5 @@
 "use client";
 
-import { AiOutlineHome } from "react-icons/ai";
-import { BsMoon, BsSun } from "react-icons/bs";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@components/ui/Button";
 import { useTheme } from "next-themes";
@@ -10,9 +8,7 @@ import Link from "next/link";
 import Sidebar from "@components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useTool } from "context/ToolContext";
-import { IoThumbsDown, IoThumbsUp } from "react-icons/io5";
-import Feedback from "@components/Feedback/Feedback";
+import { Home, Moon, Sun } from "lucide-react";
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
@@ -36,7 +32,7 @@ const Navbar = () => {
           <div className="">
             <Link href="/">
               <Button variant="subtle">
-                <AiOutlineHome /> Home
+                <Home className="w-4 h-4" /> Home
               </Button>
             </Link>
           </div>
@@ -65,7 +61,7 @@ const Navbar = () => {
             }}
             variant={"outline"}
           >
-            <BsSun />
+            <Sun className="w-4 h-4" />
           </Button>
         ) : (
           <Button
@@ -75,7 +71,7 @@ const Navbar = () => {
             }}
             variant={"outline"}
           >
-            <BsMoon />
+            <Moon className="w-4 h-4" />
           </Button>
         )}
         <Sidebar />
@@ -83,9 +79,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
-interface NavbarProps {
-  showBackButton?: boolean;
-}
 
 export default Navbar;

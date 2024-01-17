@@ -8,10 +8,8 @@ import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Label } from "@components/ui/Label";
 import * as bcrypt from "bcryptjs";
 import { useState } from "react";
-import { AiOutlineCopy } from "react-icons/ai";
-import { IoArrowForwardOutline } from "react-icons/io5";
-import { MdClear } from "react-icons/md";
 import { toast } from "react-toastify";
+import { ArrowRight, Copy, Eraser } from "lucide-react";
 
 const BcryptGenerator = () => {
   const [inputArea, setinputArea] = useState("");
@@ -49,7 +47,7 @@ const BcryptGenerator = () => {
     <>
       <div className="justify-end w-full flex mb-2">
         <Button className="flex  items-center gap-1 px-4 py-2 ml-4 rounded " onClick={handleCopy}>
-          <AiOutlineCopy />
+          <Copy className="w-4 h-4" />
           Copy
         </Button>
       </div>
@@ -65,11 +63,11 @@ const BcryptGenerator = () => {
           </div>
           <div className="flex gap-x-3 justify-end pt-3">
             <Button variant={"subtle"} className="flex  items-center gap-1 px-4 py-2 ml-4 rounded " onClick={handleClear}>
-              <MdClear />
+              <Eraser className="w-4 h-4" />
               Clear
             </Button>
             <Button onClick={handleGenerate} className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200">
-              <IoArrowForwardOutline />
+              <ArrowRight className="w-4 h-4" />
               Generate
             </Button>
           </div>
@@ -78,7 +76,7 @@ const BcryptGenerator = () => {
           <Editor
             disabled
             value={hash}
-            setValue={(e) => {
+            setValue={() => {
               return;
             }}
           />

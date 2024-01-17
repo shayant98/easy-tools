@@ -1,5 +1,5 @@
+import { Github } from "lucide-react";
 import Link from "next/link";
-import { AiOutlineGithub } from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
         Shayant Sital
       </a>
       <a href="https://www.github.com/shayant98" target={"_blank"} rel="noreferrer">
-        <AiOutlineGithub className="hover:text-gray-100" />
+        <Github className="hover:text-gray-100" />
       </a>
       - <span className="text-red-500 font-bold">BETA </span> -
       <Link className="hover:text-green-600 duration-200" target={"_blank"} href={`https://www.buymeacoffee.com/shayant`}>

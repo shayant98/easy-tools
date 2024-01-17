@@ -13,10 +13,9 @@ import { Button } from "@components/ui/Button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { Label } from "@components/ui/Label";
 import Input from "@components/ui/Input";
-import { IoSettings } from "react-icons/io5";
-import { BsFlower1 } from "react-icons/bs";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
+import { Cog, Flower } from "lucide-react";
 
 const JsonToTsPage = () => {
   const [inputArea, setinputArea] = useState("");
@@ -62,12 +61,12 @@ const JsonToTsPage = () => {
         first={
           <>
             <Button size={"sm"} onClick={handleBeatify}>
-              <BsFlower1 /> Beautify
+              <Flower className="w-4 h-4" /> Beautify
             </Button>
             <Popover>
               <PopoverTrigger asChild>
                 <Button size={"sm"} className="w-9">
-                  <IoSettings />
+                  <Cog className="w-4 h-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="grid gap-4">

@@ -6,8 +6,8 @@ import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/Button";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { TailwindConverter } from "css-to-tailwindcss";
+import { Copy } from "lucide-react";
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { AiOutlineCopy } from "react-icons/ai";
 
 const CssToTailwindForm = () => {
   const [inputArea, setinputArea] = useState("");
@@ -66,7 +66,7 @@ const CssToTailwindForm = () => {
       <ToolButtons
         second={
           <Button>
-            <AiOutlineCopy /> Copy
+            <Copy className="w-4 h-4" /> Copy
           </Button>
         }
       />

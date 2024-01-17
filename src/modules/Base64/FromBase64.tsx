@@ -8,15 +8,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
 import { Textarea } from "@components/ui/Textarea";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { base64toFile } from "@utils/formatters";
-import { useTool } from "context/ToolContext";
 import JSZip from "jszip";
-import { useEffect, useState } from "react";
-import { AiOutlineArrowRight, AiOutlineDownload, AiOutlineFileZip } from "react-icons/ai";
-import { IoSettings } from "react-icons/io5";
+import { ArrowRight, Cog, Download, FileArchive } from "lucide-react";
+import { useState } from "react";
 import { toast } from "react-toastify";
-
-const NAME = "Base64 to File";
-const DESCRIPTION = "Convert Base64 to File";
 
 const FromBase64 = () => {
   const [input, setinput] = useState("");
@@ -83,7 +78,7 @@ const FromBase64 = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Button className="w-9 self-end rounded-md mr-1 p-0">
-                <IoSettings />
+                <Cog className="w-4 h-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="grid gap-4">
@@ -106,12 +101,12 @@ const FromBase64 = () => {
             </PopoverContent>
           </Popover>
           <Button onClick={handleConversion}>
-            <AiOutlineArrowRight /> Generate
+            <ArrowRight className="w-4 h-4" /> Generate
           </Button>
         </div>
         <div className="flex basis-1/2 justify-end">
           <Button onClick={handledownload}>
-            <AiOutlineFileZip /> Download all
+            <FileArchive className="w-4 h-4" /> Download all
           </Button>
         </div>
       </div>
@@ -121,13 +116,13 @@ const FromBase64 = () => {
         </Container>
         <Container>
           <div className="grid grid-cols-3 gap-2">
-            {generatedFiles.map((file, index) => (
+            {generatedFiles.map((file) => (
               <div key={`converted-file-${file.name}`} className="dark:bg-slate-700 p-2 bg-slate-100 justify-between  rounded text-xs leading-7 flex flex-col gap-2">
                 <p className="overflow-hidden overflow-ellipsis text-sm text-slate-800 dark:text-slate-100 font-medium leading-2">Name: {file.name}</p>
                 <p className="overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400 mt-1">Size: {Math.ceil(file.size / 1024)} Kb</p>
 
                 <Button>
-                  <AiOutlineDownload /> Download
+                  <Download className="w-4 h-4" /> Download
                 </Button>
               </div>
             ))}

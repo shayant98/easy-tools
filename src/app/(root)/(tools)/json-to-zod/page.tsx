@@ -8,10 +8,10 @@ import { toast } from "react-toastify";
 import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/Button";
-import { BsFlower1 } from "react-icons/bs";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
+import { Flower } from "lucide-react";
 
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
@@ -27,7 +27,7 @@ const JsonToZod = () => {
       const zod = jsonToZod(obj);
       setoutputArea(zod);
     } catch (error: any) {
-      seterror(error.message);
+      seterror(error.message as string);
     }
   }, [inputArea]);
 
@@ -52,7 +52,7 @@ const JsonToZod = () => {
       <ToolButtons
         first={
           <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
-            <BsFlower1 /> Beautify
+            <Flower /> Beautify
           </Button>
         }
         second={

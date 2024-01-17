@@ -1,19 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { IoArrowForwardOutline, IoArrowBackOutline, IoCopy, IoCopyOutline } from "react-icons/io5";
-import { MdClear } from "react-icons/md";
+import { useState } from "react";
 import Editor from "@components/Editor/Editor";
 
-import { useTool } from "context/ToolContext";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import Container from "@components/Container/Container";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Button } from "@components/ui/Button";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
-import { AiOutlineCopy } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { ArrowLeft, ArrowRight, Copy, Eraser } from "lucide-react";
 
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
@@ -63,15 +60,15 @@ const UrlEncoderDecoder = () => {
         first={
           <>
             <Button variant={"outline"} onClick={handleClear}>
-              <MdClear />
+              <Eraser className="w-4 h-4" />
               Clear
             </Button>
             <Button onClick={() => handleCopy(inputArea)}>
-              <IoCopyOutline />
+              <Copy className="w-4 h-4" />
               Copy
             </Button>
             <Button onClick={handleEncode}>
-              <IoArrowForwardOutline />
+              <ArrowRight className="w-4 h-4" />
               Encode
             </Button>
           </>
@@ -79,11 +76,11 @@ const UrlEncoderDecoder = () => {
         second={
           <>
             <Button onClick={() => handleCopy(outputArea)}>
-              <IoCopyOutline />
+              <Copy className="w-4 h-4" />
               Copy
             </Button>
             <Button onClick={handleDecode}>
-              <IoArrowBackOutline />
+              <ArrowLeft className="w-4 h-4" />
               Decode
             </Button>
             <SignedIn>

@@ -8,9 +8,9 @@ import { useDropzone } from "react-dropzone";
 import QrScanner from "qr-scanner"; // if installed via package and bundling with a module bundler like webpack or rollup
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/Button";
-import { IoCamera, IoCameraOutline } from "react-icons/io5";
 import { Dialog, DialogContent } from "@components/ui/Dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Camera } from "lucide-react";
 
 const QrDecoder = () => {
   const [value, setvalue] = useState("second");
@@ -24,7 +24,7 @@ const QrDecoder = () => {
     setvalue(res.toString());
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({ onDrop, maxFiles: 1 });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles: 1 });
 
   useEffect(() => {
     if (videoRef.current == null) return;
@@ -55,7 +55,7 @@ const QrDecoder = () => {
                   await qrReader.start();
                 }}
               >
-                <IoCameraOutline /> Camera
+                <Camera className="w-4 h-4" /> Camera
               </Button>
             </DialogTrigger>
             <DialogContent>

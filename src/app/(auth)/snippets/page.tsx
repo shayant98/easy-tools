@@ -3,18 +3,13 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@components/ui/accordion";
 import { Button } from "@components/ui/Button";
 import { api } from "@utils/api";
-import { useTool } from "context/ToolContext";
-import { useEffect } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { Trash } from "lucide-react";
 import { toast } from "react-toastify";
-
-const NAME = "Snippets";
-const DESCRIPTION = "Your snippets";
 
 const Snippets = () => {
   const { data } = api.snippet.getAllSnippetsByUser.useQuery();
   const { mutateAsync: deleteSnippet } = api.snippet.deleteSnippet.useMutation();
-  const context = api.useContext();
+  const context = api.useUtils();
 
   const handleDelete = (id: number) => {
     toast.promise(deleteSnippet({ id }), {
@@ -32,7 +27,7 @@ const Snippets = () => {
           <div className=" flex items-center gap-5 justify-between ">
             <h4 className="mt-5 scroll-m-20 text-xl font-semibold tracking-tight text-slate-800 dark:text-slate-100">{snippet.title}</h4>
             <Button className="mt-5" variant={"destructive"} onClick={() => handleDelete(snippet.id)}>
-              <AiOutlineDelete /> Delete
+              <Trash className="w-4 h-4" /> Delete
             </Button>
           </div>
           <Accordion type="multiple">

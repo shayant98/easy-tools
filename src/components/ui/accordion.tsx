@@ -4,7 +4,7 @@ import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import { cn } from "@utils/utils";
-import { AiOutlineDown } from "react-icons/ai";
+import { ArrowDown } from "lucide-react";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -22,7 +22,7 @@ const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimi
         {...props}
       >
         {children}
-        <AiOutlineDown className="h-4 w-4 transition-transform duration-200" />
+        <ArrowDown className="h-4 w-4 transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

@@ -6,10 +6,7 @@ import { Label } from "@components/ui/Label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/Select";
 import { IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
-import { AiOutlineCopy, AiOutlineMinus } from "react-icons/ai";
-import { BiDotsVertical } from "react-icons/bi";
-import { IoRemoveOutline } from "react-icons/io5";
-import { TiFlowChildren } from "react-icons/ti";
+import { Copy, ListEnd, MoreVertical, Trash } from "lucide-react";
 
 const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter }: FilterInputProps) => {
   const updateValue = (newValue: string, index: number) => {
@@ -44,11 +41,11 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
             </Select>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <BiDotsVertical />
+                <MoreVertical className="w-4 h-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-full">
                 <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => copyFilter(filter)}>
-                  <AiOutlineCopy />
+                  <Copy className="w-4 h-4" />
                   Copy filter
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -71,7 +68,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
                     })
                   }
                 >
-                  <TiFlowChildren />
+                  <ListEnd className="w-4 h-4" />
                   Add optional comparison
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -121,7 +118,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
           </div>
           <div className="flex gap-2">
             <Button onClick={() => deleteFilter(filter.id)} variant={"destructive"}>
-              <IoRemoveOutline />
+              <Trash className="w-4 h-4" />
             </Button>
 
             {/* <Button onClick={() => addOptionalFilter(filter.id)} variant={"default"} ></Button> */}
