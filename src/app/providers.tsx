@@ -4,7 +4,7 @@ import { api, ClientProvider } from "@utils/api";
 import { ToolProvider } from "context/ToolContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
-import { ReactNode } from "react-markdown/lib/ast-to-react";
+import { type ReactNode } from "react";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
