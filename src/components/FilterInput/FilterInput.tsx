@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Input from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/Select";
-import { IFilter } from "app/(root)/(tools)/odata-generator/page";
+import { type IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
 import { Copy, ListEnd, MoreVertical, Trash } from "lucide-react";
 
@@ -18,8 +18,8 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
   };
   if (filter.type == "default") {
     return (
-      <div className="flex w-full mb-5 flex-col gap-3 ">
-        <div className="flex gap-2 items-center justify-between mb-2">
+      <div className="mb-5 flex w-full flex-col gap-3 ">
+        <div className="mb-2 flex items-center justify-between gap-2">
           <Label>Filter {filter.key}</Label>
           <div className="flex gap-2">
             <Select
@@ -41,22 +41,22 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
             </Select>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <MoreVertical className="w-4 h-4" />
+                <MoreVertical className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-full">
-                <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => copyFilter(filter)}>
-                  <Copy className="w-4 h-4" />
+                <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => copyFilter(filter)}>
+                  <Copy className="h-4 w-4" />
                   Copy filter
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="gap-2 cursor-pointer"
+                  className="cursor-pointer gap-2"
                   onClick={() =>
                     updateFilter({
                       ...filter,
                       optionalComparisons: [
                         ...(filter.optionalComparisons ?? []),
                         {
-                          id: filter.optionalComparisons?.length || 0,
+                          id: filter.optionalComparisons?.length ?? 0,
                           value: [""],
                           key: "",
                           type: "default",
@@ -68,15 +68,15 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
                     })
                   }
                 >
-                  <ListEnd className="w-4 h-4" />
+                  <ListEnd className="h-4 w-4" />
                   Add optional comparison
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
-        <div className="flex justify-between w-full   ">
-          <div className="flex items-center w-full gap-2 mr-2">
+        <div className="flex w-full justify-between   ">
+          <div className="mr-2 flex w-full items-center gap-2">
             <Input disabled={disabled} className="grow" placeholder="eg. id" value={filter.key} onChange={(e) => updateFilter({ ...filter, key: e.target.value.trim() })} />
             <Select
               disabled={disabled}
@@ -118,7 +118,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
           </div>
           <div className="flex gap-2">
             <Button onClick={() => deleteFilter(filter.id)} variant={"destructive"}>
-              <Trash className="w-4 h-4" />
+              <Trash className="h-4 w-4" />
             </Button>
 
             {/* <Button onClick={() => addOptionalFilter(filter.id)} variant={"default"} ></Button> */}

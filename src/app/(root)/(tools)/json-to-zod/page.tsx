@@ -23,11 +23,11 @@ const JsonToZod = () => {
       if (inputArea.trim().length < 1) {
         return;
       }
-      const obj = JSON.parse(inputArea.trim());
+      const obj = JSON.parse(inputArea.trim()) as Record<string, unknown>;
       const zod = jsonToZod(obj);
       setoutputArea(zod);
     } catch (error: any) {
-      seterror(error.message as string);
+      seterror("Invalid JSON");
     }
   }, [inputArea]);
 

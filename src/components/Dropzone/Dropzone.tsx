@@ -1,3 +1,5 @@
+import { type DropzoneInputProps, type DropzoneRootProps } from "react-dropzone";
+
 const Dropzone = ({ getRootProps, getInputProps, isDragActive }: DropzoneProps) => {
   return (
     <div
@@ -13,8 +15,8 @@ const Dropzone = ({ getRootProps, getInputProps, isDragActive }: DropzoneProps) 
 };
 
 interface DropzoneProps {
-  getRootProps: any;
-  getInputProps: any;
+  getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps;
+  getInputProps: (props?: DropzoneInputProps | undefined) => DropzoneInputProps;
   isDragActive: boolean;
 }
 

@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import { VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 
 import { cn } from "@utils/utils";
 import { Inter } from "next/font/google";
+import { Circle } from "lucide-react";
 
 export const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -27,8 +28,8 @@ const portalVariants = cva("fixed inset-0 z-50 flex", {
 
 interface SheetPortalProps extends SheetPrimitive.DialogPortalProps, VariantProps<typeof portalVariants> {}
 
-const SheetPortal = ({ position, className, children, ...props }: SheetPortalProps) => (
-  <SheetPrimitive.Portal className={cn(className)} {...props}>
+const SheetPortal = ({ position, children, ...props }: SheetPortalProps) => (
+  <SheetPrimitive.Portal {...props}>
     <div className={portalVariants({ position })}>{children}</div>
   </SheetPrimitive.Portal>
 );
@@ -38,7 +39,7 @@ const SheetOverlay = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Ove
   ({ className, children, ...props }, ref) => (
     <SheetPrimitive.Overlay
       className={cn(
-        "data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-all duration-100",
+        "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-all duration-100 data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in",
         className
       )}
       {...props}
@@ -140,8 +141,8 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Con
     <SheetOverlay />
     <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ position, size }), className, inter.className)} {...props}>
       {children}
-      <SheetPrimitive.Close className="absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-slate-300 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800">
-        <XCircle className="w-4 h-4" className="h-4 w-4" />
+      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-slate-300 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800">
+        <Circle className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>

@@ -9,7 +9,6 @@ import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
-import { useTool } from "context/ToolContext";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
 
@@ -26,7 +25,7 @@ const JsonToTs = () => {
       const jsonString = inputArea.replace(/(\w+:)|(\w+ :)/g, function (matchedStr) {
         return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
       });
-      const obj = JSON.parse(jsonString.trim());
+      const obj: Record<string, unknown> = JSON.parse(jsonString.trim()) as Record<string, unknown>;
 
       const tsObj = JsonToTS(obj);
       setoutputArea(tsObj.join("\n\n"));
@@ -37,7 +36,7 @@ const JsonToTs = () => {
         type: "error",
       });
     } catch (error: any) {
-      seterror(error.message);
+      seterror("Invalid JSON");
     }
   }, [inputArea]);
 

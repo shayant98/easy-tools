@@ -1,5 +1,5 @@
-import { IFilter } from "app/(root)/(tools)/odata-generator/page";
-import { parseISO, format } from "date-fns";
+import { type IFilter } from "app/(root)/(tools)/odata-generator/page";
+import { format } from "date-fns";
 import { toast } from "react-toastify";
 
 // Generate OData filter string from string value
@@ -22,7 +22,7 @@ const generateFilter = (filters: IFilter[]): string => {
 
       return handleDate({ key: filter.key, firstDate: filter.value[0] ?? "", secondDate: filter.value[1] ?? "", comparator: filter.comparator });
     }
-    const filterValue = filter.valueType == "string" ? `'${filter.value}'` : filter.value;
+    const filterValue = filter.valueType == "string" ? `'${filter.value.toString()}'` : filter.value;
 
     if (filter.comparator === "contains") {
       return `contains(${filter.key}, ${filterValue})`;

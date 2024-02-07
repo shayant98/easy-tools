@@ -11,7 +11,7 @@ export default createNextApiHandler({
   onError:
     env.ENVIRONMENT === "dev"
       ? ({ path, error }) => {
-          console.error(`❌ tRPC failed on ${path}: ${error}`);
+          console.error(`❌ tRPC failed on ${path}: ${error.stack?.toString()}`);
         }
       : undefined,
 });

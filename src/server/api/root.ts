@@ -1,4 +1,3 @@
-import { aiRouter } from "./router/ai";
 import { snippetRouter } from "./router/snippet";
 import { createTRPCRouter } from "./trpc";
 
@@ -8,7 +7,6 @@ import { createTRPCRouter } from "./trpc";
  * All routers added in /api/routers should be manually added here
  */
 export const appRouter = createTRPCRouter({
-  ai: aiRouter,
   snippet: snippetRouter,
 });
 

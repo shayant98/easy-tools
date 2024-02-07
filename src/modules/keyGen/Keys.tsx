@@ -12,7 +12,7 @@ const Keys = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col space-y-2 gap-4">
+      <div className="flex flex-col gap-4 space-y-2">
         <KeyContainer
           ids={uuids}
           setId={() => {
@@ -34,32 +34,32 @@ const Keys = () => {
 
 const KeyContainer = ({ ids, setId, title }: { ids: string[]; setId: () => void; title: string; description?: string }) => {
   return (
-    <div className="px-6 py-3 rounded bg-slate-500">
+    <div className="rounded border-2 border-slate-300 px-6 py-3 dark:border-slate-900 dark:bg-slate-900">
       <div className="flex justify-between">
-        <h2 className="scroll-m-20  pb-2 text-3xl font-semibold tracking-tight first:mt-0">{title}</h2>
+        <h2 className="scroll-m-20 pb-2  text-3xl font-semibold tracking-tight text-slate-800 first:mt-0 dark:text-slate-100">{title}</h2>
         <div className="flex space-x-2">
           <Button
             size={"sm"}
-            onClick={() => {
-              navigator.clipboard.writeText(ids.join("\n"));
+            onClick={async () => {
+              await navigator.clipboard.writeText(ids.join("\n"));
               toast.success("Copied to clipboard");
             }}
           >
-            <Copy /> Copy all
+            <Copy className="h-4 w-4" /> Copy all
           </Button>
           <Button size={"sm"} onClick={setId}>
-            <RefreshCcw />
+            <RefreshCcw className="h-4 w-4" />
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-2 text-center py-4  gap-4">
+      <div className="grid grid-cols-2 gap-4 py-4  text-center">
         {ids.map((_, i) => (
           <div
             key={i}
-            className="bg-slate-400 py-2 rounded hover:bg-slate-800 text-slate-700 hover:text-slate-50 cursor-pointer"
-            onClick={() => {
+            className="cursor-pointer rounded bg-slate-400 py-2 text-slate-700 hover:bg-slate-800 hover:text-slate-50"
+            onClick={async () => {
               if (ids.at(i) == undefined) return;
-              navigator.clipboard.writeText(ids.at(i) ?? "");
+              await navigator.clipboard.writeText(ids.at(i) ?? "");
               toast.success("Copied to clipboard");
             }}
           >

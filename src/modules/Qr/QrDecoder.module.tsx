@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 "use client";
 
 import Container from "@components/Container/Container";
@@ -21,7 +22,7 @@ const QrDecoder = () => {
     if (acceptedFiles.length === 0) return;
     if (acceptedFiles[0] == undefined) return;
     const res: QrScanner.ScanResult = await QrScanner.scanImage(acceptedFiles[0], {});
-    setvalue(res.toString());
+    setvalue(res.data.toString());
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles: 1 });
@@ -30,8 +31,8 @@ const QrDecoder = () => {
     if (videoRef.current == null) return;
     const qrScanner = new QrScanner(
       videoRef.current,
-      (result: any) => {
-        console.log(result);
+      (result) => {
+        return;
       },
       {}
     );
@@ -55,7 +56,7 @@ const QrDecoder = () => {
                   await qrReader.start();
                 }}
               >
-                <Camera className="w-4 h-4" /> Camera
+                <Camera className="h-4 w-4" /> Camera
               </Button>
             </DialogTrigger>
             <DialogContent>
@@ -69,7 +70,7 @@ const QrDecoder = () => {
           <Dropzone getInputProps={getInputProps} isDragActive={isDragActive} getRootProps={getRootProps} />
         </Container>
         <Container>
-          <div className="flex items-center justify-center h-full">{value}</div>
+          <div className="flex h-full items-center justify-center">{value}</div>
         </Container>
       </TwoEditorLayout>
     </>

@@ -1,5 +1,7 @@
-import { DockerServices, GetStringKeys } from "models/DockerService";
-import { ChangeEvent, createContext, ReactNode, useContext, useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { type DockerServices, type GetStringKeys } from "models/DockerService";
+import { type ChangeEvent, createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import json2yaml from "json-to-pretty-yaml";
 
 export type dockerComposeContextType = {
@@ -115,9 +117,9 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
       return mainObject;
     });
 
-    const allServices = Object.assign({}, ...serviceJson);
+    const allServices = Object.assign({}, ...serviceJson) as Record<string, unknown>;
 
-    const yaml = json2yaml.stringify(allServices);
+    const yaml = json2yaml.stringify(allServices) as string;
 
     setYaml(yaml);
   };

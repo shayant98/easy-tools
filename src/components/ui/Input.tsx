@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@utils/utils";
-import { LucideIcon, XCircle } from "lucide-react";
-import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react";
-import { IconType } from "react-icons";
+import { type LucideIcon, XCircle } from "lucide-react";
+import { type ChangeEvent, forwardRef, type InputHTMLAttributes } from "react";
+import { type IconType } from "react-icons";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, icon: Icon, shortcutIcon: SCIcon, ...props }, ref) => {
   // Clear the input value
@@ -14,9 +14,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
   // Focus the input element
   const setInputFocus = () => {
     try {
-      if (ref != null) {
-        (ref as any).current.focus();
-      }
     } catch (error) {
       console.error(error);
     }
@@ -25,7 +22,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
   return (
     <div
       onClick={setInputFocus}
-      className="group flex text-xs text-slate-800  bg-transparent border dark:border-slate-700 border-slate-300 group-focus:outline-none group-focus:ring-2 group-focus:ring-slate-400 group-focus:ring-offset-2   rounded items-center dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900"
+      className="group flex items-center rounded  border border-slate-300 bg-transparent text-xs text-slate-800 group-focus:outline-none group-focus:ring-2 group-focus:ring-slate-400   group-focus:ring-offset-2 dark:border-slate-700 dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900"
     >
       {Icon && <Icon size={16} className="ml-2 " />}
       <input
@@ -33,12 +30,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, showClear, 
         {...props}
         className={cn(
           className,
-          "bg-transparent  h-10 outline-none px-2 rounded placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-50 group-focus:bg-white text-slate-900 dark:text-slate-50  w-full"
+          "h-10  w-full rounded bg-transparent px-2 text-slate-900 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-50 group-focus:bg-white  dark:text-slate-50"
         )}
       />
-      {props.value && showClear && <XCircle onClick={handleClearInput} size={32} className=" w-4 mr-1 duration-200 cursor-pointer   hover:bg-gray-400  rounded h-4 px-2 py-2" />}
+      {props.value && showClear && <XCircle onClick={handleClearInput} size={32} className=" mr-1 h-4 w-4 cursor-pointer   rounded  px-2 py-2 duration-200 hover:bg-gray-400" />}
       {!props.value && SCIcon && (
-        <div className="whitespace-nowrap px-2 py-1 rounded-sm shadow-lg bg-slate-300 dark:bg-gray-700 mr-1">
+        <div className="mr-1 whitespace-nowrap rounded-sm bg-slate-300 px-2 py-1 shadow-lg dark:bg-gray-700">
           <small>{SCIcon}</small>
         </div>
       )}

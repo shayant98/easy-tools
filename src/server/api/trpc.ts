@@ -32,7 +32,7 @@ type CreateContextOptions = {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = async ({ auth, prisma }: CreateContextOptions) => {
+const createInnerTRPCContext = ({ auth, prisma }: CreateContextOptions) => {
   return {
     auth,
     prisma,
@@ -44,12 +44,10 @@ const createInnerTRPCContext = async ({ auth, prisma }: CreateContextOptions) =>
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
-  const { req, res } = opts;
-
+export const createTRPCContext = (opts: CreateNextContextOptions) => {
   // Get the session from the server using the unstable_getServerSession wrapper function
 
-  return await createInnerTRPCContext({ auth: getAuth(opts.req), prisma });
+  return createInnerTRPCContext({ auth: getAuth(opts.req), prisma });
 };
 
 /**
@@ -58,11 +56,9 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
  * This is where the trpc api is initialized, connecting the context and
  * transformer
  */
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
-import { Configuration, OpenAIApi } from "openai";
-import { env } from "../../env/server.mjs";
-import { PrismaClient } from "@prisma/client";
+import { type PrismaClient } from "@prisma/client";
 import { prisma } from "../db";
 import type { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/server";
 import { getAuth } from "@clerk/nextjs/server";
@@ -90,21 +86,21 @@ export const createTRPCRouter = t.router;
  * Reusable middleware that configures OpenAI
  * procedure
  */
-const configureOpenAI = t.middleware(({ ctx, next }) => {
-  const configuration = new Configuration({
-    apiKey: env.OPENAI_KEY,
-  });
+// const configureOpenAI = t.middleware(({ ctx, next }) => {
+//   const configuration = new Configuration({
+//     apiKey: env.OPENAI_KEY,
+//   });
 
-  const openai = new OpenAIApi(configuration);
+//   const openai = new OpenAIApi(configuration);
 
-  console.log(openai);
+//   console.log(openai);
 
-  return next({
-    ctx: {
-      openai,
-    },
-  });
-});
+//   return next({
+//     ctx: {
+//       openai,
+//     },
+//   });
+// });
 
 /**
  * Public (unauthed) procedure
@@ -114,4 +110,3 @@ const configureOpenAI = t.middleware(({ ctx, next }) => {
  * can still access user session data if they are logged in
  */
 export const publicProcedure = t.procedure;
-export const aiProcedure = t.procedure.use(configureOpenAI);

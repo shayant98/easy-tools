@@ -2,20 +2,15 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import Navbar from "@components/Navbar/Navbar";
 import Providers from "../providers";
 import { cn } from "@utils/utils";
-import Toast from "@components/ui/Toast";
 import QuickAccessMenu from "@components/QuickAccessMenu/QuickAccessMenu";
-import Footer from "@components/Footer/Footer";
-import { Suspense } from "react";
-import Loading from "../(root)/loading";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
-      <body className={cn(`${inter.className} font-inter`, "bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen h-full")}>
+      <body className={cn(`${inter.className} font-inter`, "min-w-screen h-full min-h-screen bg-slate-200 text-gray-300 dark:bg-slate-800")}>
         <Providers>
           <ClerkProvider>
             {children}

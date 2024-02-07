@@ -1,6 +1,6 @@
 import JsonToTsPage from "modules/JsonToTs/JsonToTsPage";
 
-const JsonToTs = async () => {
+const JsonToTs = () => {
   return <JsonToTsPage />;
 };
 

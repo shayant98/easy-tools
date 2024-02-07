@@ -46,8 +46,7 @@ const JsonToDart = () => {
 
       setDart(dartClass.trim());
       return;
-    } catch (error: any) {
-      seterror(error.message);
+    } catch (error: unknown) {
       toast.error("Please enter valid JSON");
       return;
     }
@@ -67,9 +66,7 @@ const JsonToDart = () => {
       const beatified = JSON.stringify(JSON.parse(json), null, 2);
 
       setJson(beatified);
-    } catch (error: any) {
-      seterror(error.message);
-    }
+    } catch (error: any) {}
   };
 
   useEffect(() => {
@@ -81,9 +78,7 @@ const JsonToDart = () => {
     try {
       JSON.stringify(JSON.parse(json), null, 2);
       seterror("");
-    } catch (error: any) {
-      seterror(error.message);
-    }
+    } catch (error: unknown) {}
 
     return () => {
       return;

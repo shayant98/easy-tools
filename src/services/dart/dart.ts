@@ -11,7 +11,7 @@ export const createDartClassFromJson = ({
   addJsonKey?: boolean;
   autoCamelCase?: boolean;
 }) => {
-  const jsonMap = JSON.parse(json);
+  const jsonMap: Record<string, unknown> = JSON.parse(json) as Record<string, unknown>;
 
   const dartClassProperties: string[] = [];
   const subClasses: string[] = [];
@@ -137,5 +137,5 @@ const checkifArrayIsHomogenous = (arr: unknown[]) => {
 };
 
 const convertStringToCamelCase = (str: string) => {
-  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr: string) => chr.toUpperCase());
 };

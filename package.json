@@ -2,6 +2,7 @@
   "name": "easy-tools",
   "version": "4.7.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -38,8 +39,6 @@
     "cmdk": "^0.2.0",
     "css-to-tailwindcss": "^1.0.5",
     "date-fns": "^3.1.0",
-    "fabric": "^5.3.0",
-    "fabricjs-react": "^1.2.1",
     "framer-motion": "^10.17.9",
     "github-markdown-css": "^5.5.0",
     "json-to-pretty-yaml": "^1.2.2",
@@ -83,7 +82,7 @@
     "postcss": "^8.4.33",
     "prisma": "^5.7.1",
     "tailwindcss": "^3.4.1",
-    "tailwindcss-dotted-background": "^1.1.0",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "typescript": "^5.3.3"
   },
   "ct3aMetadata": {

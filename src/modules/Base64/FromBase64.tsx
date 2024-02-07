@@ -49,18 +49,18 @@ const FromBase64 = () => {
         element.click();
         return;
       }
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error("Failed to convert base64 string to file");
     }
   };
 
-  const handledownload = () => {
+  const handledownload = async () => {
     if (generatedFiles.length > 1) {
       const zip = new JSZip();
       for (const file of generatedFiles) {
         zip.file(file.name, file);
       }
-      zip.generateAsync({ type: "blob" }).then((content) => {
+      await zip.generateAsync({ type: "blob" }).then((content) => {
         const element = document.createElement("a");
         element.href = URL.createObjectURL(content);
         element.download = "files.zip";
@@ -74,11 +74,11 @@ const FromBase64 = () => {
   return (
     <>
       <div className="mb-2 flex gap-2">
-        <div className="basis-1/2 flex justify-end ">
+        <div className="flex basis-1/2 justify-end ">
           <Popover>
             <PopoverTrigger asChild>
-              <Button className="w-9 self-end rounded-md mr-1 p-0">
-                <Cog className="w-4 h-4" />
+              <Button className="mr-1 w-9 self-end rounded-md p-0">
+                <Cog className="h-4 w-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="grid gap-4">
@@ -101,12 +101,12 @@ const FromBase64 = () => {
             </PopoverContent>
           </Popover>
           <Button onClick={handleConversion}>
-            <ArrowRight className="w-4 h-4" /> Generate
+            <ArrowRight className="h-4 w-4" /> Generate
           </Button>
         </div>
         <div className="flex basis-1/2 justify-end">
           <Button onClick={handledownload}>
-            <FileArchive className="w-4 h-4" /> Download all
+            <FileArchive className="h-4 w-4" /> Download all
           </Button>
         </div>
       </div>
@@ -117,12 +117,12 @@ const FromBase64 = () => {
         <Container>
           <div className="grid grid-cols-3 gap-2">
             {generatedFiles.map((file) => (
-              <div key={`converted-file-${file.name}`} className="dark:bg-slate-700 p-2 bg-slate-100 justify-between  rounded text-xs leading-7 flex flex-col gap-2">
-                <p className="overflow-hidden overflow-ellipsis text-sm text-slate-800 dark:text-slate-100 font-medium leading-2">Name: {file.name}</p>
-                <p className="overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400 mt-1">Size: {Math.ceil(file.size / 1024)} Kb</p>
+              <div key={`converted-file-${file.name}`} className="flex flex-col justify-between gap-2  rounded bg-slate-100 p-2 text-xs leading-7 dark:bg-slate-700">
+                <p className="leading-2 overflow-hidden overflow-ellipsis text-sm font-medium text-slate-800 dark:text-slate-100">Name: {file.name}</p>
+                <p className="mt-1 overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400">Size: {Math.ceil(file.size / 1024)} Kb</p>
 
                 <Button>
-                  <Download className="w-4 h-4" /> Download
+                  <Download className="h-4 w-4" /> Download
                 </Button>
               </div>
             ))}

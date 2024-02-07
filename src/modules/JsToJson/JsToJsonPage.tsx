@@ -17,12 +17,12 @@ const JsToJsonPage = () => {
         return;
       }
       const jsonString = stringToJsonString(inputArea);
-      const obj = JSON.parse(jsonString.trim());
+      const obj: Record<string, unknown> = JSON.parse(jsonString.trim()) as Record<string, unknown>;
 
       setoutputArea(JSON.stringify(obj, null, 2));
       seterror("");
     } catch (error: any) {
-      seterror(error.message);
+      seterror("Invalid JSON");
     }
   }, [inputArea]);
 

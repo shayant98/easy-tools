@@ -5,6 +5,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { cn } from "@utils/utils";
 import { AiOutlineCheck, AiOutlineDown } from "react-icons/ai";
+import { ArrowDown } from "lucide-react";
 
 const Select = SelectPrimitive.Root;
 
@@ -24,7 +25,7 @@ const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectPrimitive.T
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ArrowDown className="w-4 h-4" className="h-4 w-4 opacity-50" />
+        <ArrowDown className="h-4 w-4 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )
@@ -37,7 +38,7 @@ const SelectContent = React.forwardRef<React.ElementRef<typeof SelectPrimitive.C
       <SelectPrimitive.Content
         ref={ref}
         className={cn(
-          "relative z-50 min-w-[8rem] overflow-hidden dark:bg-slate-900 rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80",
+          "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80 dark:bg-slate-900",
           position === "popper" && "translate-y-1",
           className
         )}

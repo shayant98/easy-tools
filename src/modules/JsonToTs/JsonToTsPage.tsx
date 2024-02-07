@@ -31,11 +31,11 @@ const JsonToTsPage = () => {
         seterror("");
         return;
       }
-      const obj = JSON.parse(inputArea.trim());
+      const obj: Record<string, unknown> = JSON.parse(inputArea.trim()) as Record<string, unknown>;
       const tsObj = JsonToTS(obj, { rootName: name ?? "Root" });
       setoutputArea(tsObj.join("\n\n"));
-    } catch (error: any) {
-      seterror(error.message);
+    } catch (error) {
+      seterror("Invalid JSON");
     }
   }, [inputArea, name]);
 
@@ -61,12 +61,12 @@ const JsonToTsPage = () => {
         first={
           <>
             <Button size={"sm"} onClick={handleBeatify}>
-              <Flower className="w-4 h-4" /> Beautify
+              <Flower className="h-4 w-4" /> Beautify
             </Button>
             <Popover>
               <PopoverTrigger asChild>
                 <Button size={"sm"} className="w-9">
-                  <Cog className="w-4 h-4" />
+                  <Cog className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="grid gap-4">

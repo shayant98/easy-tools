@@ -4,12 +4,12 @@ import type { NextPage } from "next";
 import Input from "@components/ui/Input";
 import { useEffect, useState } from "react";
 import ToolCard from "@components/ToolCard";
-import menuItems, { IMenuItem } from "data/menuItems";
+import menuItems, { type IMenuItem } from "data/menuItems";
 import { Label } from "@components/ui/Label";
 import { motion } from "framer-motion";
 import { useTool } from "context/ToolContext";
 import { Button } from "@components/ui/Button";
-import { Filter } from "lucide-react";
+import { Filter, Search } from "lucide-react";
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
@@ -40,19 +40,12 @@ const Home: NextPage = () => {
   // }, []);
 
   return (
-    <main className="w-full grow h-full">
-      <div className="flex items-end gap-2 justify-center w-full">
-        <div className="w-full px-4 md:px-0 max-w-lg items-end flex gap-2">
+    <main className="h-full w-full grow">
+      <div className="flex w-full items-end justify-center gap-2">
+        <div className="flex w-full max-w-lg items-end gap-2 px-4 md:px-0">
           <div className="grow">
             <Label>Search</Label>
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..."
-              icon={AiOutlineSearch}
-              showClear
-              shortcutIcon={!isWindows ? "⌘ + /" : "Ctrl + /"}
-            />
+            <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={Search} showClear shortcutIcon={!isWindows ? "⌘ + /" : "Ctrl + /"} />
           </div>
         </div>
         <Button variant={"ghost"}>
@@ -60,8 +53,8 @@ const Home: NextPage = () => {
         </Button>
       </div>
       {fitleredItems.length > 0 ? (
-        <div className="flex flex-col mt-4">
-          <div className="flex grow flex-wrap gap-4 justify-center">
+        <div className="mt-4 flex flex-col">
+          <div className="flex grow flex-wrap justify-center gap-4">
             {fitleredItems.map((menuItem, i) => (
               <motion.div
                 initial={{ opacity: 0, translateX: -50 }}
@@ -77,8 +70,8 @@ const Home: NextPage = () => {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center w-full items-center h-full">
-          <h1 className="text-2xl h-86">No results found for &apos;{search}&apos;</h1>
+        <div className="flex h-full w-full items-center justify-center">
+          <h1 className="h-86 text-2xl">No results found for &apos;{search}&apos;</h1>
         </div>
       )}
     </main>

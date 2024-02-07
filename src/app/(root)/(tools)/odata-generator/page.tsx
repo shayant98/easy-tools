@@ -162,7 +162,7 @@ const OdataGenerator = () => {
   };
 
   const copyFilter = (filter: IFilter) => {
-    setfilterValue((prev) => [...(prev ?? []), { ...filter, id: prev?.length || 0 }]);
+    setfilterValue((prev) => [...(prev ?? []), { ...filter, id: prev?.length ?? 0 }]);
   };
 
   return (
@@ -184,15 +184,15 @@ const OdataGenerator = () => {
           <div className="mt-2">
             <Label>Options</Label>
             <div className="grid grid-cols-1 place-items-stretch gap-3">
-              <div className="flex items-center gap-2 mt-2">
+              <div className="mt-2 flex items-center gap-2">
                 <Switch checked={count} onCheckedChange={() => setcount((prev) => !prev)} />
                 <Label>Count</Label>
               </div>
 
               <div className=" ">
-                <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !filterIsActive && "dark:bg-gray-900 opacity-40")}>
-                  <div className="flex justify-between   items-center gap-4">
-                    <Label className="flex gap-2 items-center">
+                <div className={cn("mt-2 flex flex-col gap-2 rounded  bg-gray-100 p-4 dark:bg-gray-900", !filterIsActive && "opacity-40 dark:bg-gray-900")}>
+                  <div className="flex items-center   justify-between gap-4">
+                    <Label className="flex items-center gap-2">
                       Filter
                       <FilterTemplates onClick={addFilter} />
                     </Label>
@@ -203,7 +203,7 @@ const OdataGenerator = () => {
                     <>
                       {filterValue?.map((filter) => (
                         <div key={`filter-${filter.id}`} className=" w-full ">
-                          <div className="flex justify-between items-end w-full gap-2">
+                          <div className="flex w-full items-end justify-between gap-2">
                             <FilterInput disabled={!filterIsActive} filter={filter} updateFilter={updateFilter} deleteFilter={deleteFilter} copyFilter={copyFilter} />
                           </div>
                           {filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0 && (
@@ -211,7 +211,7 @@ const OdataGenerator = () => {
                               {filter.optionalComparisons?.map((optionalFilter, i) => (
                                 <Card key={`filter-optional-${optionalFilter.id}`} className="flex gap-2">
                                   <CardHeader>
-                                    <div className="flex justify-between items-center">
+                                    <div className="flex items-center justify-between">
                                       <CardTitle>Optional Comparison {i + 1}</CardTitle>{" "}
                                       <Button onClick={() => deleteOptionalFilter(filter.id, optionalFilter.id)} variant={"default"}>
                                         <MinusCircle />
@@ -245,14 +245,14 @@ const OdataGenerator = () => {
                   )}
                 </div>
                 {
-                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !search && "dark:bg-gray-900 opacity-40")}>
-                    <div className="flex justify-between mt-2 items-center gap-4">
+                  <div className={cn("mt-2 flex flex-col gap-2 rounded  bg-gray-100 p-4 dark:bg-gray-900", !search && "opacity-40 dark:bg-gray-900")}>
+                    <div className="mt-2 flex items-center justify-between gap-4">
                       <Label>Search</Label>
                       <Switch checked={search} onCheckedChange={(e) => setsearch(e)} />
                     </div>
                     {search && (
-                      <div className="flex gap-2 items-center">
-                        <div className="flex flex-col grow">
+                      <div className="flex items-center gap-2">
+                        <div className="flex grow flex-col">
                           <Label className="mb-2">Query</Label>
                           <Input value={searchKeyValue} onChange={(e) => setsearchKeyValue(e.target.value)} disabled={!search} placeholder="eg. Harold" />
                         </div>
@@ -261,14 +261,14 @@ const OdataGenerator = () => {
                   </div>
                 }
                 {
-                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !order && "dark:bg-gray-900 opacity-40")}>
-                    <div className="flex justify-between mt-2 items-center gap-4">
+                  <div className={cn("mt-2 flex flex-col gap-2 rounded  bg-gray-100 p-4 dark:bg-gray-900", !order && "opacity-40 dark:bg-gray-900")}>
+                    <div className="mt-2 flex items-center justify-between gap-4">
                       <Label className="">Order</Label>
                       <Switch checked={order} onCheckedChange={(e) => setOrder(e)} />
                     </div>
                     {order && (
-                      <div className="flex gap-2 items-center">
-                        <div className="flex flex-col grow">
+                      <div className="flex items-center gap-2">
+                        <div className="flex grow flex-col">
                           <Label className="mb-2">Key</Label>
                           <Input value={orderKeyValue} onChange={(e) => setOrderKeyValue(e.target.value)} disabled={!order} placeholder="eg. id" />
                         </div>
@@ -289,8 +289,8 @@ const OdataGenerator = () => {
                   </div>
                 }
                 {
-                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !skip && "dark:bg-gray-900 opacity-40")}>
-                    <div className="flex justify-between mt-2 items-center gap-4">
+                  <div className={cn("mt-2 flex flex-col gap-2 rounded  bg-gray-100 p-4 dark:bg-gray-900", !skip && "opacity-40 dark:bg-gray-900")}>
+                    <div className="mt-2 flex items-center justify-between gap-4">
                       <Label>Skip</Label>
                       <Switch checked={skip} onCheckedChange={(e) => setSkip(e)} />
                     </div>
@@ -298,8 +298,8 @@ const OdataGenerator = () => {
                   </div>
                 }
                 {
-                  <div className={cn("flex flex-col gap-2 bg-gray-100 dark:bg-gray-900  p-4 rounded mt-2", !limit && "dark:bg-gray-900 opacity-40")}>
-                    <div className="flex justify-between mt-2 items-center gap-4">
+                  <div className={cn("mt-2 flex flex-col gap-2 rounded  bg-gray-100 p-4 dark:bg-gray-900", !limit && "opacity-40 dark:bg-gray-900")}>
+                    <div className="mt-2 flex items-center justify-between gap-4">
                       <Label htmlFor="limit-input">Limit</Label>
                       <Switch id="limit-input" checked={limit} onCheckedChange={(e) => setLimit(e)} />
                     </div>
