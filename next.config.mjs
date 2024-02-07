@@ -7,25 +7,7 @@
  * @constraint {{import('next').NextConfig}}
  */
 
-import removeImports from "next-remove-imports";
+/** @type {import("next").NextConfig} */
+const config = {};
 
-const removeImportsFun = removeImports({
-  options: {},
-});
-function defineNextConfig(config) {
-  return config;
-}
-
-export default removeImportsFun(
-  defineNextConfig({
-    reactStrictMode: true,
-
-    swcMinify: true,
-
-    // // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
-    // i18n: {
-    //   locales: ["en"],
-    //   defaultLocale: "en",
-    // },
-  })
-);
+export default config;
