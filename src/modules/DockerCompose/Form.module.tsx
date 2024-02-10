@@ -1,10 +1,10 @@
 import Container from "@components/Container/Container";
-import { Button } from "@components/ui/Button";
-import Input from "@components/ui/Input";
-import { Label } from "@components/ui/Label";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@components/ui/Tabs";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/Input";
+import { Label } from "@components/ui/label";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@components/ui/tabs";
 import { useDockerCompose } from "./DockerComposeContext";
-import { MinusCircle, PlusCircle, XCircle } from "lucide-react";
+import { Trash, PlusCircle, XCircle } from "lucide-react";
 
 const Form = () => {
   const {
@@ -30,17 +30,17 @@ const Form = () => {
     <Container>
       <Tabs defaultValue={"0"}>
         <div className="flex ">
-          <TabsList className="justify-start flex-wrap gap-2 flex grow">
+          <TabsList className="flex grow flex-wrap justify-start gap-2">
             {/* Loop over services and create TabsTrigger with name */}
             {services.map((service, i) => (
-              <TabsTrigger className="items-center flex gap-2" key={i} value={service.id}>
+              <TabsTrigger className="flex items-center gap-2" key={i} value={service.id}>
                 {service.name}
-                <XCircle className="w-4 h-4" onClick={() => removeService(service.name)} />
+                <XCircle className=" h-4 w-4" onClick={() => removeService(service.name)} />
               </TabsTrigger>
             ))}
           </TabsList>
-          <Button onClick={addService} variant={"default"} className="ml-3 bg-green-400">
-            <PlusCircle className="w-4 h-4" />
+          <Button onClick={addService} variant={"default"} size={"icon"} className="ml-3 ">
+            <PlusCircle className=" h-4 w-4" />
           </Button>
         </div>
         {/* Loop over services and create TabsContent with name, for inputs use Input component */}
@@ -66,10 +66,10 @@ const Form = () => {
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2 justify-between">
-                  <Label>Volumes</Label>
-                  <Button onClick={() => addVolumeToService(service.name)} variant={"default"} className="bg-green-400">
-                    <PlusCircle className="w-4 h-4" />
+                <div className="mb-2  flex items-center justify-between gap-4">
+                  <Label>Volume</Label>
+                  <Button onClick={() => addVolumeToService(service.name)} size={"icon"} variant={"default"}>
+                    <PlusCircle className=" h-4 w-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2">
@@ -77,18 +77,18 @@ const Form = () => {
                     <div key={`volume-${volume.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="internal" value={volume.internal} onChange={(e) => updateVolumeOfService(e, service.name, i, "internal")} />
                       <Input placeholder="external" value={volume.external} onChange={(e) => updateVolumeOfService(e, service.name, i, "external")} />
-                      <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <MinusCircle className="w-4 h-4" />
+                      <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"destructive"}>
+                        <Trash className="h-4 w-4" />
                       </Button>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2 justify-between">
+                <div className="mb-2  flex items-center justify-between gap-4">
                   <Label>Ports</Label>
-                  <Button onClick={() => addPortToService(service.name)} variant={"default"} className="bg-green-400">
-                    <PlusCircle className="w-4 h-4" />
+                  <Button onClick={() => addPortToService(service.name)} size={"icon"} variant={"default"}>
+                    <PlusCircle className=" h-4 w-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2 ">
@@ -96,18 +96,18 @@ const Form = () => {
                     <div key={`port-${port.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="internal" value={port.internal} onChange={(e) => updatePortOfService(e, service.name, i, "internal")} />
                       <Input placeholder="external" value={port.external} onChange={(e) => updatePortOfService(e, service.name, i, "external")} />
-                      <Button onClick={() => removePortFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <MinusCircle className="w-4 h-4" />
+                      <Button onClick={() => removePortFromService(service.name, i)} variant={"destructive"}>
+                        <Trash className=" h-4 w-4" />
                       </Button>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2 justify-between">
+                <div className="mb-2  flex items-center justify-between gap-4">
                   <Label>Environment</Label>
-                  <Button onClick={() => addEnvToService(service.name)} variant={"default"} className="bg-green-400">
-                    <PlusCircle className="w-4 h-4" />
+                  <Button onClick={() => addEnvToService(service.name)} size={"icon"} variant={"default"}>
+                    <PlusCircle className=" h-4 w-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2">
@@ -115,18 +115,18 @@ const Form = () => {
                     <div key={`env-${env.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="Label" value={env.label} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
                       <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
-                      <Button onClick={() => removeEnvFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <MinusCircle className="w-4 h-4" />
+                      <Button onClick={() => removeEnvFromService(service.name, i)} variant={"destructive"}>
+                        <Trash className=" h-4 w-4" />
                       </Button>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="">
-                <div className="flex  items-center gap-4 mb-2 justify-between">
+                <div className="mb-2  flex items-center justify-between gap-4">
                   <Label>Label</Label>
-                  <Button onClick={() => addLabelToService(service.name)} variant={"default"} className="bg-green-400">
-                    <PlusCircle className="w-4 h-4" />
+                  <Button onClick={() => addLabelToService(service.name)} variant={"default"}>
+                    <PlusCircle className="h-4 w-4" />
                   </Button>
                 </div>
                 <div className="flex flex-col space-y-2">
@@ -134,8 +134,8 @@ const Form = () => {
                     <div key={`label-${label.id}-${service.id}`} className="flex gap-2">
                       <Input placeholder="Label" value={label.label} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
                       <Input placeholder="Value" value={label.value} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
-                      <Button onClick={() => removeLabelFromService(service.name, i)} variant={"default"} className="dark:bg-red-400">
-                        <MinusCircle className="w-4 h-4" />
+                      <Button onClick={() => removeLabelFromService(service.name, i)} variant={"destructive"}>
+                        <Trash className="h-4 w-4" />
                       </Button>
                     </div>
                   ))}

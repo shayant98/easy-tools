@@ -1,17 +1,17 @@
 "use client";
 
 import Container from "@components/Container/Container";
-import { Button } from "@components/ui/Button";
-import Input from "@components/ui/Input";
-import { Label } from "@components/ui/Label";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/Input";
+import { Label } from "@components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { Textarea } from "@components/ui/Textarea";
+import { Textarea } from "@components/ui/textarea";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { base64toFile } from "@utils/formatters";
 import JSZip from "jszip";
 import { ArrowRight, Cog, Download, FileArchive } from "lucide-react";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const FromBase64 = () => {
   const [input, setinput] = useState("");
@@ -101,12 +101,12 @@ const FromBase64 = () => {
             </PopoverContent>
           </Popover>
           <Button onClick={handleConversion}>
-            <ArrowRight className="h-4 w-4" /> Generate
+            <ArrowRight className="mr-2 h-4 w-4" /> Generate
           </Button>
         </div>
         <div className="flex basis-1/2 justify-end">
           <Button onClick={handledownload}>
-            <FileArchive className="h-4 w-4" /> Download all
+            <FileArchive className="mr-2 h-4 w-4" /> Download all
           </Button>
         </div>
       </div>
@@ -122,7 +122,7 @@ const FromBase64 = () => {
                 <p className="mt-1 overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400">Size: {Math.ceil(file.size / 1024)} Kb</p>
 
                 <Button>
-                  <Download className="h-4 w-4" /> Download
+                  <Download className="mr-2 h-4 w-4" /> Download
                 </Button>
               </div>
             ))}

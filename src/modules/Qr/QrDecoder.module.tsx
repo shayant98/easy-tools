@@ -8,8 +8,8 @@ import { useCallback, useRef, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import QrScanner from "qr-scanner"; // if installed via package and bundling with a module bundler like webpack or rollup
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/Button";
-import { Dialog, DialogContent } from "@components/ui/Dialog";
+import { Button } from "@components/ui/button";
+import { Dialog, DialogContent } from "@components/ui/dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { Camera } from "lucide-react";
 
@@ -56,7 +56,7 @@ const QrDecoder = () => {
                   await qrReader.start();
                 }}
               >
-                <Camera className="h-4 w-4" /> Camera
+                <Camera className="mr-2 h-4 w-4" /> Camera
               </Button>
             </DialogTrigger>
             <DialogContent>

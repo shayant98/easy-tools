@@ -1,13 +1,13 @@
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/Dialog";
-import { Button } from "@components/ui/Button";
-import { FormEvent, useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/dialog";
+import { Button } from "@components/ui/button";
+import { type FormEvent, useState } from "react";
 
-import Input from "@components/ui/Input";
-import { Textarea } from "@components/ui/Textarea";
-import { Label } from "@components/ui/Label";
+import { Input } from "@components/ui/Input";
+import { Textarea } from "@components/ui/textarea";
+import { Label } from "@components/ui/label";
 import { api } from "@utils/api";
-import { toast } from "react-toastify";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/Select";
+import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Save } from "lucide-react";
 
 const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
@@ -48,7 +48,7 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="" size={"sm"} disabled={isSavingSnippet}>
-          <Save size={16} /> Save Snippet
+          <Save className="mr-2 h-4 w-4" /> Save Snippet
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -83,7 +83,7 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
 
           <DialogFooter>
             <Button type="submit" onClick={handleSubmission} variant="default" className="w-full" disabled={isSavingSnippet || !snippetName || !value}>
-              <Save className="w-4 h-4" /> Save Snippet
+              <Save className="mr-2 h-4 w-4" /> Save Snippet
             </Button>
           </DialogFooter>
         </DialogHeader>

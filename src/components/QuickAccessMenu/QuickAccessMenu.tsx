@@ -1,6 +1,6 @@
 "use client";
 
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/Command";
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/command";
 import { useEffect, useState } from "react";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 import menuItems from "@data/menuItems";
@@ -27,13 +27,13 @@ const QuickAccessMenu = () => {
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
-        <CommandEmpty className="text-slate-500 dark:text-slate-200 opacity-40 text-xs text-center py-5">No results found.</CommandEmpty>
+        <CommandEmpty className="py-5 text-center text-xs text-slate-500 opacity-40 dark:text-slate-200">No results found.</CommandEmpty>
         <CommandGroup heading="General">
           <CommandItem onSelect={() => router.push("/")}>
             <Home className="mr-2 h-4 w-4 " />
             <div className="flex flex-col">
               <span>Home</span>
-              <span className="text-xs mt-px font-thin">Base of operations</span>
+              <span className="mt-px text-xs font-thin">Base of operations</span>
             </div>
           </CommandItem>
         </CommandGroup>
@@ -43,7 +43,7 @@ const QuickAccessMenu = () => {
               <LogOut className="mr-2 h-4 w-4 " />
               <div className="flex flex-col">
                 <span>Sign out</span>
-                <span className="text-xs mt-px font-thin">Sign out of your account</span>
+                <span className="mt-px text-xs font-thin">Sign out of your account</span>
               </div>
             </CommandItem>
             {/* <CommandItem key={`general-snippets`} onSelect={() => router.push("/snippets")}>
@@ -59,14 +59,14 @@ const QuickAccessMenu = () => {
               <LogIn className="mr-2 h-4 w-4 " />
               <div className="flex flex-col">
                 <span>Sign in</span>
-                <span className="text-xs mt-px font-thin">Sign in to save your work</span>
+                <span className="mt-px text-xs font-thin">Sign in to save your work</span>
               </div>
             </CommandItem>
             <CommandItem onSelect={() => router.push("/register")}>
               <UserPlus2 className="mr-2 h-4 w-4 " />
               <div className="flex flex-col">
                 <span>Create an account</span>
-                <span className="text-xs mt-px font-thin">Create an account to save your work</span>
+                <span className="mt-px text-xs font-thin">Create an account to save your work</span>
               </div>
             </CommandItem>
           </SignedOut>
@@ -78,7 +78,7 @@ const QuickAccessMenu = () => {
               <Icon className="mr-2 h-4 w-4 " />
               <div className="flex flex-col">
                 <span>{title}</span>
-                <span className="text-xs mt-px font-thin">{subtitle}</span>
+                <span className="mt-px text-xs font-thin">{subtitle}</span>
               </div>
             </CommandItem>
           ))}

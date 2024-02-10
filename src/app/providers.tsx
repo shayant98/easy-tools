@@ -8,7 +8,7 @@ import { type ReactNode } from "react";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
+    <ThemeProvider attribute="class" defaultTheme="system">
       <AnimatePresence mode="wait">
         {/* <motion.div key={"index"} transition={{ duration: 0.75 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full"> */}
         <ClientProvider>

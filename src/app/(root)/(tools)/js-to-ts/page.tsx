@@ -3,7 +3,7 @@
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
 
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";
 import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import { SignedIn } from "@clerk/nextjs";

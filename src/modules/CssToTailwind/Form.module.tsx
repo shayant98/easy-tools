@@ -3,7 +3,7 @@
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { TailwindConverter } from "css-to-tailwindcss";
 import { Copy } from "lucide-react";
@@ -66,7 +66,7 @@ const CssToTailwindForm = () => {
       <ToolButtons
         second={
           <Button>
-            <Copy className="w-4 h-4" /> Copy
+            <Copy className="mr-2 h-4 w-4" /> Copy
           </Button>
         }
       />

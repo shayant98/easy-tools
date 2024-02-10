@@ -5,11 +5,11 @@ import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@components/Navbar/Navbar";
 import Providers from "../providers";
 import { cn } from "@utils/utils";
-import Toast from "@components/ui/Toast";
 import QuickAccessMenu from "@components/QuickAccessMenu/QuickAccessMenu";
-import Footer from "@components/Footer/Footer";
+import Footer from "@components/Footer/footer";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { Toaster } from "@components/ui/sonner";
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -24,14 +24,14 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html className={inter.className}>
-      <body className={cn(``, "bg-slate-200 dark:bg-slate-800 text-gray-300 min-h-screen min-w-screen  flex flex-col items-start")}>
+    <html>
+      <body className={cn(`${inter.className} font-inter`, " min-h-screen bg-background antialiased")}>
         <ClerkProvider>
           <Providers>
             <Navbar />
             <Suspense fallback={<Loading />}>{children}</Suspense>
             <Footer />
-            <Toast />
+            <Toaster richColors />
             <QuickAccessMenu />
 
             <Analytics />

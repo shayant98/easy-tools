@@ -6,10 +6,10 @@ import Editor from "@components/Editor/Editor";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import Container from "@components/Container/Container";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, Copy, Eraser } from "lucide-react";
 
 const UrlEncoderDecoder = () => {
@@ -60,15 +60,15 @@ const UrlEncoderDecoder = () => {
         first={
           <>
             <Button variant={"outline"} onClick={handleClear}>
-              <Eraser className="w-4 h-4" />
+              <Eraser className="mr-2 h-4 w-4" />
               Clear
             </Button>
             <Button onClick={() => handleCopy(inputArea)}>
-              <Copy className="w-4 h-4" />
+              <Copy className="mr-2 h-4 w-4" />
               Copy
             </Button>
             <Button onClick={handleEncode}>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="mr-2 h-4 w-4" />
               Encode
             </Button>
           </>
@@ -76,11 +76,11 @@ const UrlEncoderDecoder = () => {
         second={
           <>
             <Button onClick={() => handleCopy(outputArea)}>
-              <Copy className="w-4 h-4" />
+              <Copy className="mr-2 h-4 w-4" />
               Copy
             </Button>
             <Button onClick={handleDecode}>
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="mr-2 h-4 w-4" />
               Decode
             </Button>
             <SignedIn>

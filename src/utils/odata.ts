@@ -1,6 +1,6 @@
 import { type IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { format } from "date-fns";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 // Generate OData filter string from string value
 const generateFilter = (filters: IFilter[]): string => {

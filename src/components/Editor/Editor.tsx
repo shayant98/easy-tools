@@ -1,7 +1,7 @@
 import "@uiw/react-textarea-code-editor/dist.css";
 import { cn } from "@utils/utils";
 import dynamic from "next/dynamic";
-import { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 const CodeEditor = dynamic(() => import("@uiw/react-textarea-code-editor").then((mod) => mod.default), { ssr: false });
 const Editor = ({ value, setValue, language = "js", disabled = false, placeholder = "Enter code here" }: EditorProps) => {
   return (
@@ -13,7 +13,7 @@ const Editor = ({ value, setValue, language = "js", disabled = false, placeholde
         placeholder={placeholder}
         onChange={setValue}
         padding={15}
-        className={cn("font-mono  h-full rounded-md bg-foreground text-foreground")}
+        className={cn("h-full  min-h-64 rounded-md bg-secondary font-mono text-primary-foreground")}
       />
     </>
   );

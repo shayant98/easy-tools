@@ -4,10 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 
 import { jsonToZod } from "json-to-zod";
 import Editor from "../../../../components/Editor/Editor";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
@@ -26,8 +26,12 @@ const JsonToZod = () => {
       const obj = JSON.parse(inputArea.trim()) as Record<string, unknown>;
       const zod = jsonToZod(obj);
       setoutputArea(zod);
-    } catch (error: any) {
-      seterror("Invalid JSON");
+    } catch (error) {
+      if (typeof e === "string") {
+        e.toUpperCase(); // works, `e` narrowed to string
+      } else if (e instanceof Error) {
+        e.message; // works, `e` narrowed to Error
+      }
     }
   }, [inputArea]);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { PlusCircle } from "lucide-react";
 import { useMemo } from "react";
@@ -20,7 +20,7 @@ const FilterTemplates = ({ onClick }: { onClick: (type: string) => void }) => {
     <Popover>
       <PopoverTrigger asChild>
         <Button>
-          <PlusCircle className="w-4 h-4" />
+          <PlusCircle className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="grid gap-4">

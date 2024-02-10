@@ -1,4 +1,4 @@
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import { IoThumbsDown, IoThumbsUp } from "react-icons/io5";
 
 const Feedback = () => {

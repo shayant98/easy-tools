@@ -1,14 +1,15 @@
 import DatePicker from "@components/Datepicker/Datepicker";
-import { Button } from "@components/ui/Button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@components/ui/Dropdown";
-import Input from "@components/ui/Input";
-import { Label } from "@components/ui/Label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/Select";
+import { Button } from "@components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@components/ui/dropdown";
+import { Input } from "@components/ui/Input";
+import { Label } from "@components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/select";
+import { cn } from "@utils/utils";
 import { type IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
 import { Copy, ListEnd, MoreVertical, Trash } from "lucide-react";
 
-const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter }: FilterInputProps) => {
+const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter, isOptional = false }: FilterInputProps) => {
   const updateValue = (newValue: string, index: number) => {
     const value = [...filter.value];
     value[index] = newValue;
@@ -41,15 +42,18 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
             </Select>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <MoreVertical className="h-4 w-4" />
+                <MoreVertical className="mr-2 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-full">
                 <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => copyFilter(filter)}>
-                  <Copy className="h-4 w-4" />
+                  <Copy className="mr-2 h-4 w-4" />
                   Copy filter
                 </DropdownMenuItem>
+
                 <DropdownMenuItem
-                  className="cursor-pointer gap-2"
+                  className={cn("cursor-pointer gap-2", {
+                    hidden: isOptional,
+                  })}
                   onClick={() =>
                     updateFilter({
                       ...filter,
@@ -68,7 +72,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
                     })
                   }
                 >
-                  <ListEnd className="h-4 w-4" />
+                  <ListEnd className="mr-2 h-4 w-4" />
                   Add optional comparison
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -117,7 +121,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter 
             )}
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => deleteFilter(filter.id)} variant={"destructive"}>
+            <Button onClick={() => deleteFilter(filter.id)} variant={"destructive"} size={"icon"}>
               <Trash className="h-4 w-4" />
             </Button>
 
@@ -137,6 +141,7 @@ interface FilterInputProps {
   deleteFilter: (id: number) => void;
   copyFilter: (filter: IFilter) => void;
   disabled?: boolean;
+  isOptional: boolean;
 }
 
 export default FilterInput;

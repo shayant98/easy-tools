@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/Tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
 
 interface TabbedLayoutProps {
   defaultTab?: string;
@@ -11,8 +11,8 @@ interface TabbedLayoutProps {
 
 const TabbedLayout = ({ options, defaultTab }: TabbedLayoutProps) => {
   return (
-    <Tabs className="flex flex-col   grow" defaultValue={defaultTab}>
-      <TabsList className="self-start shrink">
+    <Tabs className="flex grow   flex-col" defaultValue={defaultTab}>
+      <TabsList className="shrink self-start">
         {options.map((option) => (
           <TabsTrigger key={`tab-${option.value}`} value={option.value}>
             {option.label}
@@ -20,7 +20,7 @@ const TabbedLayout = ({ options, defaultTab }: TabbedLayoutProps) => {
         ))}
       </TabsList>
       {options.map((option) => (
-        <TabsContent className="grow border-0 flex flex-col p-0" key={`tab-content-${option.value}`} value={option.value}>
+        <TabsContent className="flex grow flex-col border-0 p-0" key={`tab-content-${option.value}`} value={option.value}>
           {option.child}
         </TabsContent>
       ))}

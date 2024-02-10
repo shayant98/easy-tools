@@ -1,13 +1,13 @@
 "use client";
 
 import Container from "@components/Container/Container";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { toBase64 } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@components/ui/Dropdown";
+import { toast } from "sonner";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@components/ui/dropdown";
 import { ArrowDown, Copy, Download, Eraser, XCircle } from "lucide-react";
 
 const ToBase64 = () => {
@@ -45,9 +45,7 @@ const ToBase64 = () => {
     let string = await toBase64(file);
     if (excludeData) string = string.replace(/^data:(.*,)?/, ""); //remove "data:*" from string
     navigator.clipboard.writeText(string);
-    toast("Copied to clipboard", {
-      type: "success",
-    });
+    toast.success("Copied to clipboard");
   };
 
   // on command + o press open file dialog
@@ -65,13 +63,13 @@ const ToBase64 = () => {
   }, [open]);
   return (
     <>
-      <div className="flex self-end mb-2 gap-2">
+      <div className="mb-2 flex gap-2 self-end">
         <Button onClick={handleClear} variant={"outline"}>
-          <Eraser className="w-4 h-4" /> Clear
+          <Eraser className="mr-2 h-4 w-4" /> Clear
         </Button>
 
         <Button onClick={handleDownload}>
-          <Download className="w-4 h-4" /> Download TXT File
+          <Download className="mr-2 h-4 w-4" /> Download TXT File
         </Button>
       </div>
       <TwoEditorLayout>
@@ -87,29 +85,29 @@ const ToBase64 = () => {
           </div>
         </Container>
         <Container>
-          <div className="grid grid-cols-3 gap-2 flex-wrap">
+          <div className="grid grid-cols-3 flex-wrap gap-2">
             {files.map((file) => (
-              <div key={`converted-file-${file.name}`} className="dark:bg-slate-700 p-2 bg-slate-100 justify-between  rounded text-xs leading-7 flex flex-col gap-2">
+              <div key={`converted-file-${file.name}`} className="flex flex-col justify-between gap-2  rounded bg-slate-100 p-2 text-xs leading-7 dark:bg-slate-700">
                 <div className="self-end">
-                  <XCircle className="w-4 h-4 cursor-pointer" onClick={() => handleRemove(file)} />
+                  <XCircle className="h-4 w-4 cursor-pointer" onClick={() => handleRemove(file)} />
                 </div>
-                <p className="overflow-hidden overflow-ellipsis text-sm text-slate-800 dark:text-slate-100 font-medium leading-2">Name: {file.name}</p>
-                <p className="overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400 mt-1">Size: {Math.ceil(file.size / 1024)} Kb</p>
+                <p className="leading-2 overflow-hidden overflow-ellipsis text-sm font-medium text-slate-800 dark:text-slate-100">Name: {file.name}</p>
+                <p className="mt-1 overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400">Size: {Math.ceil(file.size / 1024)} Kb</p>
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className="flex justify-between">
-                      <div className="flex gap-2 items-center">Copy as...</div>
-                      <ArrowDown className="w-4 h-4" />
+                      <div className="flex items-center gap-2">Copy as...</div>
+                      <ArrowDown className="mr-2 h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Options</DropdownMenuLabel>
                     <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => handleCopyBase64(file, { excludeData: false })}>
-                      <Copy className="w-4 h-4" /> Full Base64
+                      <Copy className="mr-2 h-4 w-4" /> Full Base64
                     </DropdownMenuItem>
                     <DropdownMenuItem className="cursor-pointer gap-2" onClick={() => handleCopyBase64(file, { excludeData: true })}>
-                      <Copy className="w-4 h-4" /> Without MIME data
+                      <Copy className="mr-2 h-4 w-4" /> Without MIME data
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

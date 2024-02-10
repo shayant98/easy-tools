@@ -3,16 +3,16 @@
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
 
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Editor from "@components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { Label } from "@components/ui/Label";
-import Input from "@components/ui/Input";
+import { Label } from "@components/ui/label";
+import { Input } from "@components/ui/Input";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
 import { Cog, Flower } from "lucide-react";
@@ -34,8 +34,10 @@ const JsonToTsPage = () => {
       const obj: Record<string, unknown> = JSON.parse(inputArea.trim()) as Record<string, unknown>;
       const tsObj = JsonToTS(obj, { rootName: name ?? "Root" });
       setoutputArea(tsObj.join("\n\n"));
-    } catch (error) {
-      seterror("Invalid JSON");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        seterror(error.message);
+      }
     }
   }, [inputArea, name]);
 
@@ -61,25 +63,25 @@ const JsonToTsPage = () => {
         first={
           <>
             <Button size={"sm"} onClick={handleBeatify}>
-              <Flower className="h-4 w-4" /> Beautify
+              <Flower className="mr-2 h-4 w-4" /> Beautify
             </Button>
             <Popover>
               <PopoverTrigger asChild>
-                <Button size={"sm"} className="w-9">
-                  <Cog className="h-4 w-4" />
+                <Button size={"icon"}>
+                  <Cog className=" h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="grid gap-4">
                 <div className="space-y-2">
                   <h4 className="font-medium leading-none">Settings</h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Set properties of on the type object</p>
+                  <p className="text-sm ">Set properties of on the type object</p>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="type-name">Name</Label>
                   <Input
                     id="type-name"
                     placeholder="Enter name"
-                    className="col-span-1 h-8"
+                    className="col-span-1"
                     defaultValue={name}
                     onChange={(e) => {
                       setName(e.target.value);

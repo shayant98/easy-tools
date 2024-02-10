@@ -4,17 +4,17 @@ import { useState } from "react";
 const Container = ({ children, errorMessage }: ContainerProps) => {
   const [showFullError, setshowFullError] = useState(false);
   return (
-    <div className="relative rounded-md flex overflow-auto flex-col border p-1 h-full  md:p-6  border-slate-500 dark:border-slate-700">
+    <div className="relative flex h-full flex-col overflow-auto rounded-md border border-slate-500  p-1  dark:border-slate-700 md:p-6">
       {children}
       <div
         onClick={() => setshowFullError(!showFullError)}
-        className={`flex items-center text-xs gap-2 absolute right-5  top-5 p-2 bg-gray-100 rounded-full shadow cursor-pointer ${
+        className={`absolute right-5 top-5 flex cursor-pointer items-center  gap-2 rounded-full bg-destructive  p-2 text-xs shadow ${
           errorMessage == undefined || errorMessage?.trim().length == 0 ? "scale-0" : ""
         } origin-center duration-100 `}
       >
-        {showFullError && <p className={`text-red-500 ml-2 text-xs `}>{errorMessage}</p>}
+        {showFullError && <p className={`ml-2 text-xs text-destructive-foreground `}>{errorMessage}</p>}
 
-        <AlertOctagon className="text-red-500 text-xs hover:scale-200" />
+        <AlertOctagon className="hover:scale-200 text-xs text-destructive-foreground" />
       </div>
     </div>
   );

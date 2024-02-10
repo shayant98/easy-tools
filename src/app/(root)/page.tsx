@@ -1,14 +1,14 @@
 "use client";
 
 import type { NextPage } from "next";
-import Input from "@components/ui/Input";
+import { Input } from "@components/ui/Input";
 import { useEffect, useState } from "react";
 import ToolCard from "@components/ToolCard";
 import menuItems, { type IMenuItem } from "data/menuItems";
-import { Label } from "@components/ui/Label";
+import { Label } from "@components/ui/label";
 import { motion } from "framer-motion";
 import { useTool } from "context/ToolContext";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import { Filter, Search } from "lucide-react";
 
 const Home: NextPage = () => {
@@ -40,16 +40,15 @@ const Home: NextPage = () => {
   // }, []);
 
   return (
-    <main className="h-full w-full grow">
+    <main className="h-full w-full grow text-primary-foreground">
       <div className="flex w-full items-end justify-center gap-2">
         <div className="flex w-full max-w-lg items-end gap-2 px-4 md:px-0">
           <div className="grow">
-            <Label>Search</Label>
-            <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={Search} showClear shortcutIcon={!isWindows ? "⌘ + /" : "Ctrl + /"} />
+            <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={Search} />
           </div>
         </div>
-        <Button variant={"ghost"}>
-          <Filter size={16} />
+        <Button>
+          <Filter className="mr-2 h-4 w-4" />
         </Button>
       </div>
       {fitleredItems.length > 0 ? (

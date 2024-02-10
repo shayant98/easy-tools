@@ -2,13 +2,13 @@
 
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
-import { Button } from "@components/ui/Button";
-import Input from "@components/ui/Input";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/Input";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { Label } from "@components/ui/Label";
+import { Label } from "@components/ui/label";
 import * as bcrypt from "bcryptjs";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { ArrowRight, Copy, Eraser } from "lucide-react";
 
 const BcryptGenerator = () => {
@@ -28,13 +28,13 @@ const BcryptGenerator = () => {
     });
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (hash == "") {
-      toast("Noting to copy!", { type: "error" });
+      toast("Noting to copy!");
       return;
     }
-    navigator.clipboard.writeText(hash);
-    toast("Copied Hash... Be careful!", { type: "success" });
+    await navigator.clipboard.writeText(hash);
+    toast.success("Copied Hash... Be careful!");
   };
 
   const handleClear = () => {
@@ -45,9 +45,9 @@ const BcryptGenerator = () => {
 
   return (
     <>
-      <div className="justify-end w-full flex mb-2">
-        <Button className="flex  items-center gap-1 px-4 py-2 ml-4 rounded " onClick={handleCopy}>
-          <Copy className="w-4 h-4" />
+      <div className="mb-2 flex w-full justify-end">
+        <Button className="ml-4  flex items-center gap-1 rounded px-4 py-2 " onClick={handleCopy}>
+          <Copy className="mr-2 h-4 w-4" />
           Copy
         </Button>
       </div>
@@ -61,13 +61,13 @@ const BcryptGenerator = () => {
             <Label>String</Label>
             <Input placeholder="String" value={inputArea} onChange={(e) => setinputArea(e.target.value)} />
           </div>
-          <div className="flex gap-x-3 justify-end pt-3">
-            <Button variant={"subtle"} className="flex  items-center gap-1 px-4 py-2 ml-4 rounded " onClick={handleClear}>
-              <Eraser className="w-4 h-4" />
+          <div className="flex justify-end gap-x-3 pt-3">
+            <Button variant={"ghost"} className="ml-4  flex items-center gap-1 rounded px-4 py-2 " onClick={handleClear}>
+              <Eraser className="mr-2 h-4 w-4" />
               Clear
             </Button>
-            <Button onClick={handleGenerate} className="flex  items-center gap-1 px-4 py-2 bg-gray-900 rounded hover:shadow hover:scale-105 transition duration-200">
-              <ArrowRight className="w-4 h-4" />
+            <Button onClick={handleGenerate} className="flex  items-center gap-1 rounded  px-4 py-2 transition duration-200 hover:scale-105 hover:shadow">
+              <ArrowRight className="mr-2 h-4 w-4" />
               Generate
             </Button>
           </div>

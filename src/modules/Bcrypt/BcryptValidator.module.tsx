@@ -1,12 +1,12 @@
 "use client";
 
 import Container from "@components/Container/Container";
-import { Button } from "@components/ui/Button";
-import Input from "@components/ui/Input";
-import { Label } from "@components/ui/Label";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/Input";
+import { Label } from "@components/ui/label";
 import { useState } from "react";
 import * as bcrypt from "bcryptjs";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { ArrowRight, Eraser } from "lucide-react";
 
 const BcryptValidator = () => {
@@ -25,10 +25,10 @@ const BcryptValidator = () => {
     const match = await bcrypt.compare(string, hash);
 
     if (match) {
-      toast("Hash is valid", { type: "success" });
+      toast.success("Hash is valid");
       return;
     }
-    toast("hash is invalid", { type: "error" });
+    toast("hash is invalid");
   };
 
   const handleClear = () => {
@@ -47,13 +47,13 @@ const BcryptValidator = () => {
         <Label>String to check against</Label>
         <Input placeholder="String to check against" value={string} onChange={(e) => setstring(e.target.value)} />
       </div>
-      <div className="flex gap-x-3 justify-end pt-3">
-        <Button variant={"subtle"} onClick={handleClear}>
-          <Eraser className="w-4 h-4" />
+      <div className="flex justify-end gap-x-3 pt-3">
+        <Button variant={"ghost"} onClick={handleClear}>
+          <Eraser className="mr-2 h-4 w-4" />
           Clear
         </Button>
         <Button onClick={handleCheck}>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="mr-2 h-4 w-4" />
           <span>Validate</span>
         </Button>
       </div>

@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "github-markdown-css";
-import { toast } from "react-toastify";
 import presets from "../../../../data/markdown-presets";
 import Editor from "../../../../components/Editor/Editor";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import Container from "@components/Container/Container";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
 import { Copy, Download, Trash, Undo2 } from "lucide-react";
+import { Card, CardHeader, CardTitle } from "@components/ui/card";
+import { toast } from "sonner";
 
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
@@ -45,13 +46,13 @@ const ReadmeGenerator = () => {
     toast.success("Cleared editor");
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (value == "") {
-      toast("Noting to copy!", { type: "error" });
+      toast("Noting to copy!");
       return;
     }
-    navigator.clipboard.writeText(value);
-    toast("Copied Markdown", { type: "success" });
+    await navigator.clipboard.writeText(value);
+    toast.success("Copied Markdown");
   };
 
   const handlePresetEdit = (newValue: string, preset?: { title: string; value: string }) => {
@@ -75,7 +76,7 @@ const ReadmeGenerator = () => {
 
   const handleDownload = () => {
     if (value == "") {
-      toast("Noting to download!", { type: "error" });
+      toast.error("Noting to download!");
       return;
     }
     const element = document.createElement("a");
@@ -115,42 +116,47 @@ const ReadmeGenerator = () => {
         first={
           <div className="flex gap-1">
             <Button className="flex md:hidden" onClick={handleOnClear}>
-              <Undo2 className="w-4 h-4" /> Templates
+              <Undo2 className="mr-2 h-4 w-4" /> Templates
             </Button>
             <Button onClick={handleOnClear}>
-              <Undo2 className="w-4 h-4" /> Undo
+              <Undo2 className="mr-2 h-4 w-4" /> Undo
             </Button>
           </div>
         }
         second={
           <div className="flex gap-1">
             <Button onClick={handleDownload}>
-              <Download className="w-4 h-4" /> Download
+              <Download className="mr-2 h-4 w-4" /> Download
             </Button>
             <Button onClick={handleCopy}>
-              <Copy className="w-4 h-4" /> Copy
+              <Copy className="mr-2 h-4 w-4" /> Copy
             </Button>
           </div>
         }
       />
       <TwoEditorLayout>
         <Container>
-          <div className="flex gap-2 h-full w-full ">
-            <div className="hidden md:block w-[200px]">
+          <div className="flex h-full w-full gap-2 ">
+            <div className="hidden  flex-col gap-2 md:flex">
               {availablePresets.map((preset) => (
-                <div key={preset.title} className="flex items-center justify-center gap-x-2 mb-1">
-                  <div
-                    onClick={() => handlePresetSelection(preset)}
-                    className="grow text-sm text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900  flex justify-between rounded px-4 py-3 cursor-pointer hover:scale-105 duration-200"
-                  >
-                    {preset.title}
-                  </div>
-                  {new Set(selectedPresets).has(preset) && (
-                    <Button variant={"destructive"} onClick={() => removeselectedPreset(preset)}>
-                      <Trash className="w-4 h-4" />
-                    </Button>
-                  )}
-                </div>
+                <Card key={preset.title} onClick={() => handlePresetSelection(preset)} className={`cursor-pointer `}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between gap-2">
+                      <CardTitle className="text-nowrap">{preset.title}</CardTitle>
+                      {new Set(selectedPresets).has(preset) && (
+                        <Button
+                          variant={"destructive"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeselectedPreset(preset);
+                          }}
+                        >
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </CardHeader>
+                </Card>
               ))}
             </div>
             <div className="grow">
@@ -164,7 +170,7 @@ const ReadmeGenerator = () => {
           </div>
         </Container>
         <Container>
-          <ReactMarkdown className="bg-slate-100 dark:bg-slate-900 p-4 rounded markdown-body h-full" remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown className="markdown-body h-full rounded bg-secondary p-4" remarkPlugins={[remarkGfm]}>
             {selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}
           </ReactMarkdown>
         </Container>

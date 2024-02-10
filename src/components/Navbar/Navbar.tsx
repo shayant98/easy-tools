@@ -1,7 +1,7 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import { useTheme } from "next-themes";
 
 import Link from "next/link";
@@ -22,17 +22,17 @@ const Navbar = () => {
   }, []);
 
   if (!mounted) {
-    return <nav className="flex w-full h-14 py-2 px-4 mb-5 justify-between  bg-slate-200 dark:bg-slate-800"></nav>;
+    return <nav className="mb-5 flex h-14 w-full justify-between px-4  py-2 "></nav>;
   }
 
   return (
-    <nav className="flex w-full h-14 py-2 px-4 md:px-20 mb-5 justify-between  items-center bg-slate-200 dark:bg-slate-800">
+    <nav className="mb-5 flex h-14 w-full items-center justify-between px-4  py-2  md:px-20">
       <div className="">
         {pathname?.trim() != "/" && (
           <div className="">
             <Link href="/">
-              <Button variant="subtle">
-                <Home className="w-4 h-4" /> Home
+              <Button variant="outline">
+                <Home className="mr-2 mr-2 h-4 w-4" /> Home
               </Button>
             </Link>
           </div>
@@ -44,7 +44,7 @@ const Navbar = () => {
           <UserButton
             appearance={{
               elements: {
-                userButtonPopoverCard: ` bg-gray-100 text-white`,
+                userButtonPopoverCard: ` bg-background text-primary-foreground`,
               },
             }}
           />
@@ -61,7 +61,7 @@ const Navbar = () => {
             }}
             variant={"outline"}
           >
-            <Sun className="w-4 h-4" />
+            <Sun className="mr-2 h-4 w-4" />
           </Button>
         ) : (
           <Button
@@ -71,7 +71,7 @@ const Navbar = () => {
             }}
             variant={"outline"}
           >
-            <Moon className="w-4 h-4" />
+            <Moon className="mr-2 h-4 w-4" />
           </Button>
         )}
         <Sidebar />

@@ -5,17 +5,17 @@ import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import SnippetDialog from "@components/SnippetDialog";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/Button";
+import { Button } from "@components/ui/button";
 import BaseLayout from "@layout/BaseLayout";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Cog, Copy, Flower, MoreVertical, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createDartClassFromJson } from "../../../../services/dart/dart";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { Label } from "@components/ui/Label";
-import Input from "@components/ui/Input";
-import { toast } from "react-toastify";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/Dropdown";
+import { Label } from "@components/ui/label";
+import { Input } from "@components/ui/Input";
+import { toast } from "sonner";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/dropdown";
 
 const JsonToDart = () => {
   const [json, setJson] = useState("");
@@ -91,15 +91,15 @@ const JsonToDart = () => {
         first={
           <>
             <Button size={"sm"} onClick={() => handleBeatify()}>
-              <Flower size={16} /> Beautify
+              <Flower className="mr-2 h-4 w-4" /> Beautify
             </Button>
-            <Button size={"sm"} onClick={() => onSubmit()}>
-              <Cog size={16} /> Generate
+            <Button size={"icon"} onClick={() => onSubmit()}>
+              <Cog className="h-4 w-4" /> Generate
             </Button>
             <Popover>
               <PopoverTrigger asChild>
-                <Button size={"sm"} className="w-9">
-                  <Settings size={16} />
+                <Button size={"icon"}>
+                  <Settings />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="grid gap-4">
@@ -124,7 +124,7 @@ const JsonToDart = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
-                  <MoreVertical size={16} />
+                  <MoreVertical className="mr-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -156,7 +156,7 @@ const JsonToDart = () => {
                 toast.success("Copied to clipboard");
               }}
             >
-              <Copy size={16} /> Copy
+              <Copy className="mr-2 h-4 w-4" /> Copy
             </Button>
           </>
         }

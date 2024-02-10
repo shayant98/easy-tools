@@ -4,16 +4,16 @@ import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import FilterInput from "@components/FilterInput/FilterInput";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/Button";
-import Input from "@components/ui/Input";
-import { Label } from "@components/ui/Label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/Select";
-import { Switch } from "@components/ui/Switch";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/Input";
+import { Label } from "@components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
+import { Switch } from "@components/ui/switch";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { buildUrl } from "@utils/odata";
 import { cn } from "@utils/utils";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/Card";
+import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import FilterTemplates from "modules/OdataGenerator/Filter/FilterTemplates";
 import { Cog, MinusCircle } from "lucide-react";
 
@@ -92,46 +92,6 @@ const OdataGenerator = () => {
     });
   };
 
-  // const addOptionalFilter = (id: number) => {
-  //   setfilterValue((prev) => {
-  //     const newFilter = prev?.map((filter) => {
-  //       if (filter.id === id) {
-  //         return {
-  //           ...filter,
-  //           optionalComparisons: [
-  //             ...(filter.optionalComparisons ?? []),
-  //             {
-  //               id: filter.optionalComparisons?.length || 0,
-  //               value: [""],
-  //               key: "",
-  //               type: "default",
-  //               comparator: "eq",
-  //               valueType: "string",
-  //             },
-  //           ],
-  //         };
-  //       }
-  //       return filter;
-  //     });
-  //     return newFilter;
-  //   });
-  // };
-
-  // const updateOptionalFilter = (id: number, newOptionalFilter: IFilter) => {
-  //   setfilterValue((prev) => {
-  //     const newFilter = prev?.map((f) => {
-  //       if (f.id === id) {
-  //         return {
-  //           ...f,
-  //           optionalComparisons: [...(f.optionalComparisons?.filter((of) => of.id !== newOptionalFilter.id) ?? []), newOptionalFilter],
-  //         };
-  //       }
-  //       return f;
-  //     });
-  //     return newFilter;
-  //   });
-  // };
-
   const deleteOptionalFilter = (id: number, optionalId: number) => {
     setfilterValue((prev) => {
       const newFilter = prev?.map((filter) => {
@@ -170,7 +130,7 @@ const OdataGenerator = () => {
       <ToolButtons
         first={
           <Button onClick={handleGenerate}>
-            <Cog />
+            <Cog className="mr-2 h-4 w-4" />
             Generate
           </Button>
         }
@@ -204,21 +164,29 @@ const OdataGenerator = () => {
                       {filterValue?.map((filter) => (
                         <div key={`filter-${filter.id}`} className=" w-full ">
                           <div className="flex w-full items-end justify-between gap-2">
-                            <FilterInput disabled={!filterIsActive} filter={filter} updateFilter={updateFilter} deleteFilter={deleteFilter} copyFilter={copyFilter} />
+                            <FilterInput
+                              isOptional={false}
+                              disabled={!filterIsActive}
+                              filter={filter}
+                              updateFilter={updateFilter}
+                              deleteFilter={deleteFilter}
+                              copyFilter={copyFilter}
+                            />
                           </div>
                           {filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0 && (
                             <div className="mt-2">
                               {filter.optionalComparisons?.map((optionalFilter, i) => (
-                                <Card key={`filter-optional-${optionalFilter.id}`} className="flex gap-2">
+                                <Card key={`filter-optional-${optionalFilter.id}`}>
                                   <CardHeader>
-                                    <div className="flex items-center justify-between">
+                                    <div className="flex w-full items-center justify-between">
                                       <CardTitle>Optional Comparison {i + 1}</CardTitle>{" "}
-                                      <Button onClick={() => deleteOptionalFilter(filter.id, optionalFilter.id)} variant={"default"}>
-                                        <MinusCircle />
-                                      </Button>
+                                      {/* <Button onClick={() => deleteOptionalFilter(filter.id, optionalFilter.id)} variant={"destructive"} size={"icon"}>
+                                        <MinusCircle className="h-4 w-4" />
+                                      </Button> */}
                                     </div>
                                     <CardContent>
                                       <FilterInput
+                                        isOptional={true}
                                         disabled={!filter}
                                         filter={optionalFilter}
                                         deleteFilter={() => deleteOptionalFilter(filter.id, optionalFilter.id)}

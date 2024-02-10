@@ -5,9 +5,9 @@ const TwoEditorLayout = ({ children, classNameForFirst, classNameForSecond }: Tw
     throw new Error("TwoEditorLayout requires exactly two children");
   }
   return (
-    <div className="flex flex-col md:flex-row  gap-x-2 grow">
-      <div className={cn(" md:w-1/2 grow", classNameForFirst)}>{children[0]}</div>
-      <div className={cn("md:w-1/2 grow", classNameForSecond)}>{children[1]} </div>
+    <div className="flex h-full grow flex-col  gap-x-2 md:flex-row">
+      <div className={cn(" grow md:w-1/2", classNameForFirst)}>{children[0]}</div>
+      <div className={cn("grow md:w-1/2", classNameForSecond)}>{children[1]} </div>
     </div>
   );
 };
