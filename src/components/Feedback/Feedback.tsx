@@ -4,10 +4,10 @@ import { IoThumbsDown, IoThumbsUp } from "react-icons/io5";
 const Feedback = () => {
   return (
     <>
-      <Button variant={"subtle"} size="sm">
+      <Button variant={"ghost"} size="sm">
         <IoThumbsDown />
       </Button>
-      <Button variant={"subtle"} size="sm">
+      <Button variant={"ghost"} size="sm">
         <IoThumbsUp />
       </Button>
     </>

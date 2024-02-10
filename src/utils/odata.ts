@@ -95,9 +95,7 @@ const buildUrl = (
   }
 
   if (url == "") {
-    toast("Please enter a valid URL", {
-      type: "error",
-    });
+    toast.error("Please enter a valid URL");
     return "";
   }
 

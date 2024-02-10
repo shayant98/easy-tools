@@ -31,11 +31,8 @@ const JsonToTs = () => {
       setoutputArea(tsObj.join("\n\n"));
       seterror("");
 
-      toast("TS successfully generated", {
-        toastId: "json-error",
-        type: "error",
-      });
-    } catch (error: any) {
+      toast.error("TS successfully generated");
+    } catch (error: unknown) {
       seterror("Invalid JSON");
     }
   }, [inputArea]);

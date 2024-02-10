@@ -39,7 +39,7 @@ const Form = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <Button onClick={addService} variant={"default"} size={"icon"} className="ml-3 ">
+          <Button onClick={() => addService({})} variant={"default"} size={"icon"} className="ml-3 ">
             <PlusCircle className=" h-4 w-4" />
           </Button>
         </div>

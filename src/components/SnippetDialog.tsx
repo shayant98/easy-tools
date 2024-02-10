@@ -22,22 +22,16 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
     e.preventDefault();
 
     if (snippetName.trim().length < 1) {
-      toast("Snippet name cannot be empty", {
-        toastId: "snippet-name-error",
-        type: "error",
-      });
+      toast.error("Snippet name cannot be empty");
       return;
     }
     if (value.trim().length < 1) {
-      toast("Snippet content cannot be empty", {
-        toastId: "snippet-content-error",
-        type: "error",
-      });
+      toast.error("Snippet content cannot be empty");
 
       return;
     }
     toast.promise(saveSnippet({ title: snippetName, content: value, language, desc: snippetDescription }), {
-      pending: "Saving snippet...",
+      loading: "Saving snippet...",
       success: "Snippet saved successfully",
       error: "Failed to save snippet",
     });
@@ -57,7 +51,7 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
           <DialogDescription>Enter a name, so you can identify your snippet later. Optionally you can add a description to further seperate your snippet</DialogDescription>
           <div className="">
             <Label>Name</Label>
-            <Input value={snippetName} onChange={(e) => setsnippetName(e.target.value)} title="Name" placeholder="Eg. foo snippet 1" showClear />
+            <Input value={snippetName} onChange={(e) => setsnippetName(e.target.value)} title="Name" placeholder="Eg. foo snippet 1" />
           </div>
           <div className="">
             <Label>Description</Label>

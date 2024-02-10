@@ -27,10 +27,10 @@ const JsonToZod = () => {
       const zod = jsonToZod(obj);
       setoutputArea(zod);
     } catch (error) {
-      if (typeof e === "string") {
-        e.toUpperCase(); // works, `e` narrowed to string
-      } else if (e instanceof Error) {
-        e.message; // works, `e` narrowed to Error
+      if (typeof error === "string") {
+        error.toUpperCase(); // works, `e` narrowed to string
+      } else if (error instanceof Error) {
+        error.message; // works, `e` narrowed to Error
       }
     }
   }, [inputArea]);

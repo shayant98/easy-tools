@@ -29,11 +29,11 @@ const Sidebar = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant={"subtle"}>
+        <Button variant={"ghost"}>
           <BiMenuAltRight size={24} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex h-screen flex-col" size={"sm"}>
+      <SheetContent className="flex h-screen flex-col">
         <SheetHeader className="border-b border-slate-500 pb-3">
           <SheetTitle>Easy Tools</SheetTitle>
           <SheetDescription>Find the tool you need...</SheetDescription>
@@ -46,7 +46,7 @@ const Sidebar = () => {
           </div>
         </SheetHeader>
         <div className="my-4">
-          <Input value={search} onChange={(e) => setsearch(e.target.value)} placeholder="Search..." icon={AiOutlineSearch} />
+          <Input value={search} onChange={(e) => setsearch(e.target.value)} placeholder="Search..." />
         </div>
 
         <div className="relative h-full overflow-auto after:top-10 after:bg-gradient-to-t after:from-black after:to-white">
