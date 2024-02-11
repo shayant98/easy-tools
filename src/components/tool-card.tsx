@@ -1,9 +1,7 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@components/ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@components/ui/card";
 import { type IMenuItem } from "@data/menuItems";
 import { useTool } from "context/ToolContext";
 import Link from "next/link";
-import { IconType } from "react-icons";
-import { SiTypescript } from "react-icons/si";
 
 const ToolCard = ({ menuItem }: IToolCardProps) => {
   const { title, subtitle, icon: Icon, link, tags } = menuItem;

@@ -93,13 +93,13 @@ const JsonToDart = () => {
             <Button size={"sm"} onClick={() => handleBeatify()}>
               <Flower className="mr-2 h-4 w-4" /> Beautify
             </Button>
-            <Button size={"icon"} onClick={() => onSubmit()}>
-              <Cog className="h-4 w-4" /> Generate
+            <Button onClick={() => onSubmit()}>
+              <Cog className="mr-2 h-4 w-4" /> Generate
             </Button>
             <Popover>
               <PopoverTrigger asChild>
                 <Button size={"icon"}>
-                  <Settings />
+                  <Settings className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="grid gap-4">
@@ -123,13 +123,11 @@ const JsonToDart = () => {
             </Popover>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  <MoreVertical className="mr-2 h-4 w-4" />
+                <Button variant="outline" size={"icon"}>
+                  <MoreVertical className=" h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Options</DropdownMenuLabel>
-                <DropdownMenuSeparator />
                 <DropdownMenuCheckboxItem checked={addJsonKey} onCheckedChange={setAddJsonKey}>
                   Add JSON keys
                 </DropdownMenuCheckboxItem>

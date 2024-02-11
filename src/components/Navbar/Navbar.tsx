@@ -32,7 +32,7 @@ const Navbar = () => {
           <div className="">
             <Link href="/">
               <Button variant="outline">
-                <Home className="mr-2 mr-2 h-4 w-4" /> Home
+                <Home className=" mr-2 h-4 w-4" /> Home
               </Button>
             </Link>
           </div>
@@ -60,8 +60,9 @@ const Navbar = () => {
               document.documentElement.setAttribute("data-color-mode", "light");
             }}
             variant={"outline"}
+            size={"icon"}
           >
-            <Sun className="mr-2 h-4 w-4" />
+            <Sun className=" h-4 w-4" />
           </Button>
         ) : (
           <Button

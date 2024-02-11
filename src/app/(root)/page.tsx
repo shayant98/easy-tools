@@ -3,7 +3,7 @@
 import type { NextPage } from "next";
 import { Input } from "@components/ui/Input";
 import { useEffect, useState } from "react";
-import ToolCard from "@components/ToolCard";
+import ToolCard from "@components/tool-card";
 import menuItems, { type IMenuItem } from "data/menuItems";
 import { Label } from "@components/ui/label";
 import { motion } from "framer-motion";
@@ -40,15 +40,15 @@ const Home: NextPage = () => {
   // }, []);
 
   return (
-    <main className="h-full w-full grow text-primary-foreground">
+    <main className="h-full w-full grow ">
       <div className="flex w-full items-end justify-center gap-2">
         <div className="flex w-full max-w-lg items-end gap-2 px-4 md:px-0">
           <div className="grow">
             <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={Search} />
           </div>
         </div>
-        <Button>
-          <Filter className="mr-2 h-4 w-4" />
+        <Button size={"icon"}>
+          <Filter className="h-4 w-4" />
         </Button>
       </div>
       {fitleredItems.length > 0 ? (
