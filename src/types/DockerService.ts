@@ -1,4 +1,4 @@
-export interface DockerServices {
+export interface DockerService {
   id: string;
   name: string;
   image: string;
@@ -13,4 +13,4 @@ export type ObtainKeys<Obj, Type> = {
   [Prop in keyof Obj]: Obj[Prop] extends Type ? Prop : never;
 }[keyof Obj];
 
-export type GetStringKeys = ObtainKeys<DockerServices, string>; //  "string1" | "string2"
+export type GetStringKeys = ObtainKeys<DockerService, string>; //  "string1" | "string2"
