@@ -8,7 +8,7 @@ const ToolCard = ({ menuItem }: IToolCardProps) => {
   const { setTool } = useTool();
   return (
     <Link key={title} href={link} onClick={() => setTool(menuItem)}>
-      <Card className="flex h-full w-80 flex-col justify-between">
+      <Card className="flex h-full w-80 flex-col justify-between hover:bg-primary/20 duration-200 hover:scale-105">
         <CardHeader>
           <CardTitle className="flex items-center gap-4">
             <Icon className="text-primary" />

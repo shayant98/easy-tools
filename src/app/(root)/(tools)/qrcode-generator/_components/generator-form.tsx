@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import QRCode from "qrcode";
 import Image from "next/image";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
@@ -20,45 +20,27 @@ const QrCodeGenerator = () => {
     downloadLink.click();
   };
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setqrCode(await QRCode.toDataURL("https://google.com"));
-      } catch (err) {
-        console.error(err);
-      }
-    })()
-      .then()
-      .catch(() => {
-        console.error("Error in generating QR code");
-      });
-
-    return () => {
-      setqrCode("");
-    };
+  const handleGenerateQrCode = useCallback(async (value: string) => {
+    if (value == "") {
+      setqrCode(await QRCode.toDataURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+      return;
+    }
+    setqrCode(await QRCode.toDataURL(value));
   }, []);
 
   useEffect(() => {
-    (async () => {
-      try {
-        if (input == "") {
-          setqrCode(await QRCode.toDataURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-          return;
-        }
-        setqrCode(await QRCode.toDataURL(input));
-      } catch (err) {
-        console.error(err);
-      }
-    })()
-      .then()
-      .catch(() => {
-        console.error("Error in generating QR code");
+    handleGenerateQrCode(input)
+      .then(() => {
+        console.log("QR Code Generated");
+      })
+      .catch((e) => {
+        console.error(e);
       });
 
     return () => {
       setqrCode("");
     };
-  }, [input]);
+  }, [handleGenerateQrCode, input]);
 
   return (
     <>
