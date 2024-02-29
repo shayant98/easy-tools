@@ -3,7 +3,11 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 
 // Generate OData filter string from string value
-const generateFilter = (filters: IFilter[]): string => {
+// param filters: Array of IFilter
+// param optional: Optional parameter to indicate if the filter is optional
+const generateFilter = (filters: IFilter[], { optional = false }): string => {
+  console.log(filters);
+
   if (filters.length === 0) {
     return "";
   }
@@ -18,11 +22,9 @@ const generateFilter = (filters: IFilter[]): string => {
     }
 
     if (filter.valueType == "date") {
-      console.log(filter);
-
       return handleDate({ key: filter.key, firstDate: filter.value[0] ?? "", secondDate: filter.value[1] ?? "", comparator: filter.comparator });
     }
-    const filterValue = filter.valueType == "string" ? `'${filter.value.toString()}'` : filter.value;
+    const filterValue = filter.valueType == "string" ? `'${filter.value.toString()}'` : filter.value[0];
 
     if (filter.comparator === "contains") {
       return `contains(${filter.key}, ${filterValue})`;
@@ -38,11 +40,7 @@ const generateFilter = (filters: IFilter[]): string => {
 
     if (filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0) {
       const optionalComparisons = filter.optionalComparisons.map((optionalComparison) => {
-        if (optionalComparison.valueType == "string") {
-          return `${optionalComparison.key} ${optionalComparison.comparator} '${optionalComparison.value}'`;
-        }
-
-        return `${optionalComparison.key} ${optionalComparison.comparator} ${optionalComparison.value}`;
+        return generateFilter([optionalComparison], { optional: true });
       });
 
       return `(${filter.key} ${filter.comparator} ${filterValue} or ${optionalComparisons.join(" or ")})`;
@@ -52,6 +50,10 @@ const generateFilter = (filters: IFilter[]): string => {
   });
 
   const filterString = filterStringArray.join(" and ");
+
+  if (optional) {
+    return `${filterString}`;
+  }
 
   return `$filter=${filterString}`;
 };
@@ -98,7 +100,9 @@ const buildUrl = (
   let searchString = "";
 
   if (filters != undefined && filters.length > 0) {
-    filterString = generateFilter(filters);
+    filterString = generateFilter(filters, {
+      optional: false,
+    });
     paramCount++;
   }
 
@@ -153,4 +157,20 @@ const buildUrl = (
   return `${url}?${filterString}${searchString}${countString}${orderBy}${topString}${skipString}`;
 };
 
-export { generateFilter, buildUrl };
+const comparatorOptions: {
+  value: string;
+  label: string;
+}[] = [
+  { value: "eq", label: "Equals" },
+  { value: "ne", label: "Not equals" },
+  { value: "gt", label: "Greater than" },
+  { value: "ge", label: "Greater than or equals" },
+  { value: "lt", label: "Less than" },
+  { value: "le", label: "Less than or equals" },
+  { value: "contains", label: "Contains" },
+  { value: "endswith", label: "Ends with" },
+  { value: "startswith", label: "Starts with" },
+  { value: "between", label: "Between" },
+];
+
+export { generateFilter, buildUrl, comparatorOptions };

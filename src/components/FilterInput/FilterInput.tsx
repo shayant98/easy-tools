@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from "@components/ui/Input";
 import { Label } from "@components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/select";
+import { comparatorOptions } from "@utils/odata";
 import { cn } from "@utils/utils";
 import { type IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
@@ -98,12 +99,13 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
                 <SelectValue className="" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="eq">Equals</SelectItem>
-                <SelectItem value="ne">Not equals</SelectItem>
-                <SelectItem value="contains">Contains</SelectItem>
-                <SelectItem value="endswith">Ends with</SelectItem>
-                <SelectItem value="startswith">Starts with</SelectItem>
-                <SelectItem value="between">Between</SelectItem>
+                {comparatorOptions.map((option) => {
+                  return (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
             {filter.valueType == "date" ? (
