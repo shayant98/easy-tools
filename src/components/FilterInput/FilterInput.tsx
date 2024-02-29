@@ -101,6 +101,8 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
                 <SelectItem value="eq">Equals</SelectItem>
                 <SelectItem value="ne">Not equals</SelectItem>
                 <SelectItem value="contains">Contains</SelectItem>
+                <SelectItem value="endswith">Ends with</SelectItem>
+                <SelectItem value="startswith">Starts with</SelectItem>
                 <SelectItem value="between">Between</SelectItem>
               </SelectContent>
             </Select>

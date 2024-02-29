@@ -28,6 +28,14 @@ const generateFilter = (filters: IFilter[]): string => {
       return `contains(${filter.key}, ${filterValue})`;
     }
 
+    if (filter.comparator === "endswith") {
+      return `endswith(${filter.key}, ${filterValue})`;
+    }
+
+    if (filter.comparator === "startswith") {
+      return `startswith(${filter.key}, ${filterValue})`;
+    }
+
     if (filter.optionalComparisons != undefined && filter.optionalComparisons.length > 0) {
       const optionalComparisons = filter.optionalComparisons.map((optionalComparison) => {
         if (optionalComparison.valueType == "string") {
