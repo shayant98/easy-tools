@@ -6,16 +6,16 @@ import { toast } from "sonner";
 const LOCAL_STORAGE_KEY = "savedTools";
 
 const useSaveTool = (tool?: number) => {
-  const [savedTools, setsavedTools] = useState<number[]>(() => {
-    return (JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "") as number[]) || [];
-  });
+  const [savedTools, setsavedTools] = useState<number[]>([]);
 
   useEffect(() => {
     setsavedTools(getToolsFromLocalStorage());
   }, []);
 
   const saveTool = (tool: number) => {
-    setsavedTools(() => [...new Set([...getToolsFromLocalStorage(), tool])]);
+    const newTools = [...new Set([...getToolsFromLocalStorage(), tool])];
+    setsavedTools(() => newTools);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTools));
 
     toast.success("Tool saved");
   };
@@ -27,8 +27,9 @@ const useSaveTool = (tool?: number) => {
 
   const removeTool = (tool: number) => {
     console.log("Removing tool  ");
-
-    setsavedTools(savedTools.filter((t) => t !== tool));
+    const newTools = savedTools.filter((t) => t !== tool);
+    setsavedTools(newTools);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTools));
 
     toast.success("Tool removed from saved list");
   };
@@ -42,14 +43,6 @@ const useSaveTool = (tool?: number) => {
   };
 
   const hasCurrentTool = tool != undefined ? hasTool(tool) : false;
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedTools));
-
-    return () => {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
-    };
-  }, [savedTools]);
 
   return {
     savedTools,

@@ -1,6 +1,5 @@
 "use client";
 
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@components/ui/button";
 import { useTheme } from "next-themes";
 
@@ -40,19 +39,6 @@ const Navbar = () => {
       </div>
 
       <div className="inline-flex items-center justify-end gap-4">
-        <SignedIn>
-          <UserButton
-            appearance={{
-              elements: {
-                userButtonPopoverCard: ` bg-background text-primary-foreground`,
-              },
-            }}
-          />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton redirectUrl="/" />
-        </SignedOut>
-
         {theme === "dark" ? (
           <Button
             onClick={() => {
