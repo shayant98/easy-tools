@@ -30,18 +30,18 @@ const Home: NextPage = () => {
     };
   }, [search]);
 
-  const savedMenuItems = useMemo(() => {
-    console.log("savedTools", savedTools);
-
-    return menuItems.filter((item) => savedTools.includes(item.id));
-  }, [savedTools]);
-
   return (
     <main className="h-full w-full grow ">
       <div className="flex w-full items-end justify-center gap-2">
         <div className="flex w-full max-w-lg items-end gap-2 px-4 md:px-0">
           <div className="grow">
-            <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." icon={Search} />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+              icon={Search}
+              trailing={<span className="bg-muted px-2 text-xs rounded py-1 text-nowrap ">{isWindows ? "Ctrl + /" : "CMD + /"}</span>}
+            />
           </div>
         </div>
         <Button size={"icon"}>

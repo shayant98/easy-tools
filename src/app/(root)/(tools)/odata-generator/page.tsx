@@ -15,7 +15,7 @@ import { cn } from "@utils/utils";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import FilterTemplates from "modules/OdataGenerator/Filter/FilterTemplates";
-import { Cog, MinusCircle } from "lucide-react";
+import { Cog } from "lucide-react";
 
 export interface IFilter {
   id: number;

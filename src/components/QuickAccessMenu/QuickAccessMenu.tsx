@@ -2,10 +2,10 @@
 
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/command";
 import { useEffect, useState } from "react";
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
 import menuItems from "@data/menuItems";
 import { useRouter } from "next/navigation";
-import { Home, LogIn, LogOut, UserPlus2 } from "lucide-react";
+import { Home } from "lucide-react";
 
 const QuickAccessMenu = () => {
   const router = useRouter();
@@ -36,40 +36,6 @@ const QuickAccessMenu = () => {
               <span className="mt-px text-xs font-thin">Base of operations</span>
             </div>
           </CommandItem>
-        </CommandGroup>
-        <CommandGroup heading="Account">
-          <SignedIn>
-            <CommandItem onClick={() => signOut()}>
-              <LogOut className="mr-2 h-4 w-4 " />
-              <div className="flex flex-col">
-                <span>Sign out</span>
-                <span className="mt-px text-xs font-thin">Sign out of your account</span>
-              </div>
-            </CommandItem>
-            {/* <CommandItem key={`general-snippets`} onSelect={() => router.push("/snippets")}>
-              <AiOutlineSnippets className="mr-2 h-4 w-4 " />
-              <div className="flex flex-col">
-                <span>Snippets</span>
-                <span className="text-xs mt-px font-thin">View your saved snippets</span>
-              </div>
-            </CommandItem> */}
-          </SignedIn>
-          <SignedOut>
-            <CommandItem key={`tool-login`} onSelect={() => router.push("/login")}>
-              <LogIn className="mr-2 h-4 w-4 " />
-              <div className="flex flex-col">
-                <span>Sign in</span>
-                <span className="mt-px text-xs font-thin">Sign in to save your work</span>
-              </div>
-            </CommandItem>
-            <CommandItem onSelect={() => router.push("/register")}>
-              <UserPlus2 className="mr-2 h-4 w-4 " />
-              <div className="flex flex-col">
-                <span>Create an account</span>
-                <span className="mt-px text-xs font-thin">Create an account to save your work</span>
-              </div>
-            </CommandItem>
-          </SignedOut>
         </CommandGroup>
 
         <CommandGroup heading="Tools">
