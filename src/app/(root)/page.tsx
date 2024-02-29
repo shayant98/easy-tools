@@ -2,7 +2,7 @@
 
 import type { NextPage } from "next";
 import { Input } from "@components/ui/Input";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ToolCard from "@components/tool-card";
 import menuItems, { type IMenuItem } from "data/menuItems";
 import { Label } from "@components/ui/label";
@@ -10,12 +10,13 @@ import { motion } from "framer-motion";
 import { useTool } from "context/ToolContext";
 import { Button } from "@components/ui/button";
 import { Filter, Search } from "lucide-react";
+import { useSaveTool } from "hooks/use-tool-save-hook";
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
   const [isWindows, setisWindows] = useState(false);
   const [fitleredItems, setfitleredItems] = useState<IMenuItem[]>(menuItems);
-  const { setTool } = useTool();
+  const { savedTools } = useSaveTool();
 
   useEffect(() => {
     if (search.trim().length > 0) {
@@ -29,15 +30,11 @@ const Home: NextPage = () => {
     };
   }, [search]);
 
-  // useEffect(() => {
-  //   if (typeof window === "undefined") return;
-  //   if (window.navigator.userAgent.indexOf("Windows") !== -1) {
-  //     setisWindows(true);
-  //   }
-  //   return () => {
-  //     setisWindows(false);
-  //   };
-  // }, []);
+  const savedMenuItems = useMemo(() => {
+    console.log("savedTools", savedTools);
+
+    return menuItems.filter((item) => savedTools.includes(item.id));
+  }, [savedTools]);
 
   return (
     <main className="h-full w-full grow ">
@@ -51,6 +48,8 @@ const Home: NextPage = () => {
           <Filter className="h-4 w-4" />
         </Button>
       </div>
+
+      <h2 className="px-4 text-2xl font-bold">All Tools</h2>
       {fitleredItems.length > 0 ? (
         <div className="mt-4 flex flex-col">
           <div className="flex grow flex-wrap justify-center gap-4">

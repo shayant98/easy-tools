@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { type DockerService, type GetStringKeys } from "types/DockerService";
+import { type DockerService, type GetStringKeys } from "types/docker-service";
 import { type ChangeEvent, createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import json2yaml from "json-to-pretty-yaml";
 

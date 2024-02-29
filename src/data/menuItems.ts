@@ -1,5 +1,5 @@
-import { LucideIcon } from "lucide-react";
-import { IconType } from "react-icons";
+import { type LucideIcon } from "lucide-react";
+import { type IconType } from "react-icons";
 import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
 import { MdEnhancedEncryption } from "react-icons/md";
@@ -7,6 +7,7 @@ import { SiDart, SiDocker, SiJavascript, SiJson, SiTailwindcss, SiTypescript } f
 import { VscJson, VscSymbolString } from "react-icons/vsc";
 
 export interface IMenuItem {
+  id: number;
   title: string;
   subtitle: string;
   icon: IconType | LucideIcon;
@@ -37,6 +38,7 @@ export type IToolTag = (typeof toolTags)[number];
 
 const menuItems: IMenuItem[] = [
   {
+    id: 0,
     title: "JSON To Typescript",
     subtitle: "Generate Typescript classes from JSON",
     icon: SiTypescript,
@@ -45,6 +47,7 @@ const menuItems: IMenuItem[] = [
     tags: ["TRANSFORMER", "JSON", "TYPESCRIPT"],
   },
   {
+    id: 1,
     title: "Javascript To Typescript",
     subtitle: "Generate Typescript classes from Javascript Objects",
     icon: SiJavascript,
@@ -53,6 +56,7 @@ const menuItems: IMenuItem[] = [
     tags: ["TRANSFORMER", "JAVASCRIPT", "TYPESCRIPT"],
   },
   {
+    id: 2,
     title: "Javascript To JSON",
     subtitle: "Generate JSON models from Javascript Objects",
     icon: SiJson,
@@ -61,6 +65,7 @@ const menuItems: IMenuItem[] = [
     tags: ["TRANSFORMER", "JAVASCRIPT", "JSON"],
   },
   {
+    id: 3,
     title: "QR Code Generator",
     subtitle: "Generate QR Codes",
     icon: AiOutlineQrcode,
@@ -69,6 +74,7 @@ const menuItems: IMenuItem[] = [
     description: "Generate QR Codes",
   },
   {
+    id: 4,
     title: "JSON To Dart",
     subtitle: "Generate Dart classes from JSON",
     icon: SiDart,
@@ -77,6 +83,7 @@ const menuItems: IMenuItem[] = [
     tags: ["TRANSFORMER", "JSON", "FLUTTER"],
   },
   {
+    id: 5,
     title: "URL Encoder/Decoder",
     subtitle: "Decode/Ecode URLs",
     icon: AiOutlineLink,
@@ -85,6 +92,7 @@ const menuItems: IMenuItem[] = [
     description: "Decode/Ecode URLs",
   },
   {
+    id: 6,
     title: "Readme Generator",
     subtitle: "Generate standardised readme's for your projects",
     icon: AiOutlineFileMarkdown,
@@ -93,6 +101,7 @@ const menuItems: IMenuItem[] = [
     description: "Generate standardised readme's for your projects",
   },
   {
+    id: 7,
     title: "Docker Compose Generator",
     subtitle: "Generate docker compose files",
     icon: SiDocker,
@@ -101,6 +110,7 @@ const menuItems: IMenuItem[] = [
     description: "Generate docker compose files",
   },
   {
+    id: 8,
     title: "Bcrypt",
     subtitle: "Generate or validate BCrypt hashes",
     icon: MdEnhancedEncryption,
@@ -109,6 +119,7 @@ const menuItems: IMenuItem[] = [
     description: "Generate or validate BCrypt hashes",
   },
   {
+    id: 9,
     title: "CSS to Tailwind",
     subtitle: "Generate Tailwind classes based on CSS",
     icon: SiTailwindcss,
@@ -117,6 +128,7 @@ const menuItems: IMenuItem[] = [
     description: "Generate Tailwind classes based on CSS",
   },
   {
+    id: 10,
     title: "JSON to ZOD",
     subtitle: "generate ZOD validation based on JSON model",
     icon: VscJson,
@@ -133,6 +145,7 @@ const menuItems: IMenuItem[] = [
   //   description: "use AI to translate natural language into a usable SQL query",
   // },
   {
+    id: 11,
     title: "Base64",
     subtitle: "Convert files to base64 or base64 to files",
     icon: VscSymbolString,
@@ -141,6 +154,7 @@ const menuItems: IMenuItem[] = [
     description: "Convert files to base64 or base64 to files",
   },
   {
+    id: 12,
     title: "ODATA Generator",
     subtitle: "GUI Based ODATA Generator",
     icon: AiOutlineApi,
@@ -149,6 +163,7 @@ const menuItems: IMenuItem[] = [
     description: "Generate ",
   },
   {
+    id: 13,
     title: "Key Generator",
     subtitle: "Generate random keys",
     icon: BiLockAlt,

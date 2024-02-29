@@ -1,25 +1,26 @@
-"use client";
 
-import { SignedIn } from "@clerk/nextjs";
-import Feedback from "@components/Feedback/Feedback";
-import { usePathname } from "next/navigation";
+import { Button } from "@components/ui/button";
+import { useSaveTool } from "hooks/use-tool-save-hook";
+import { Heart } from "lucide-react";
 
-const BaseLayout = ({ children, title, desc }: BaseLayoutProps) => {
-  const pathname = usePathname();
+
+const BaseLayout = ({ children, title, desc, toolId }: BaseLayoutProps) => {
+
+  const {hasCurrentTool, saveTool, removeTool} = useSaveTool(toolId);
 
   return (
     <>
       <div className=" pb-5">
-        <div className="flex justify-between">
+        <div className="flex gap-3">
           <h2 className="text-3xl font-bold tracking-tight text-foreground">{title}</h2>
-          {pathname?.trim() != "/" && (
-            <div className=" items-center gap-4  hidden md:flex">
-              <h1 className="scroll-m-20 text-slate-800 dark:text-slate-100 text-4xl font-extrabold tracking-tight lg:text-5xl"></h1>
-              <SignedIn>
-                <Feedback />
-              </SignedIn>
-            </div>
-          )}
+          {toolId != undefined ? (
+             <Button size={"icon"} variant={"ghost"} onClick={(e) => {
+            e.preventDefault();
+            hasCurrentTool ? removeTool(toolId) : saveTool(toolId);
+          }}>
+              {hasCurrentTool ? <Heart className="text-red-500" /> : <Heart className="text-gray-500" />}
+              </Button>
+          ) : null}
         </div>
         {desc && <p className="text-muted-foreground ">{desc}</p>}
       </div>
@@ -32,6 +33,7 @@ interface BaseLayoutProps {
   children: JSX.Element | JSX.Element[];
   title?: string;
   desc?: string;
+  toolId?: number;
 }
 
 export default BaseLayout;
