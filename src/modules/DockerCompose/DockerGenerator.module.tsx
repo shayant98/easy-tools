@@ -13,21 +13,21 @@ import CommandParser from "./command-parser";
 const DockerGenerator = () => {
   return (
     <DockerComposeContextProvider>
-      <BaseLayout title="Docker Compose Generator" desc="Generate docker-compose.yml files">
+      <BaseLayout title="Docker Compose Generator" desc="Generate docker-compose.yml files" toolId={7}>
         <TabbedLayout
-        defaultTab="gen"
-        options={[
-          {
-            label: "Generate docker file",
-            value: "gen",
-            child: <DockerFileGenerator />,
-          },
-          {
-            label: "Parse docker command",
-            value: "parse",
-            child: <CommandParser />,
-          },
-        ]}
+          defaultTab="gen"
+          options={[
+            {
+              label: "Generate docker file",
+              value: "gen",
+              child: <DockerFileGenerator />,
+            },
+            {
+              label: "Parse docker command",
+              value: "parse",
+              child: <CommandParser />,
+            },
+          ]}
         />
       </BaseLayout>
     </DockerComposeContextProvider>

@@ -4,7 +4,8 @@ import QrCodeGenerator from "./_components/generator-form";
 import QrDecoder from "./_components/decoder-form";
 
 const QrPage = () => {
-  return <BaseLayout title="QR Code Generator" desc="Generate QR Codes for your website, or decode QR Codes to get the data inside them.">
+  return (
+    <BaseLayout toolId={3} title="QR Code Generator" desc="Generate QR Codes for your website, or decode QR Codes to get the data inside them.">
       <TabbedLayout
         defaultTab="qr-generator"
         options={[
@@ -20,7 +21,8 @@ const QrPage = () => {
           },
         ]}
       />
-    </BaseLayout>;
+    </BaseLayout>
+  );
 };
 
 export default QrPage;

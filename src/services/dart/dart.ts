@@ -1,3 +1,13 @@
+/**
+ * Creates a Dart class from a JSON string.
+ *
+ * @param json - The JSON string.
+ * @param className - The name of the class.
+ * @param addConstructor - Optional. Whether to add a constructor to the class. Default is false.
+ * @param addJsonKey - Optional. Whether to add @JsonKey annotations to the class properties. Default is false.
+ * @param autoCamelCase - Optional. Whether to automatically convert property names to camel case. Default is false.
+ * @returns The Dart class as a string.
+ */
 export const createDartClassFromJson = ({
   json,
   className,
@@ -59,12 +69,12 @@ export const createDartClassFromJson = ({
   const dartClass = `\nclass ${className.charAt(0).toUpperCase() + className.slice(1)} with _\$${className.charAt(0).toUpperCase() + className.slice(1)} {
     ${addConstructor ? `const ${className.charAt(0).toUpperCase() + className.slice(1)}._();` : ""}
             \n  @JsonSerializable()\n  factory ${className.charAt(0).toUpperCase() + className.slice(1)}({\n        ${dartClassProperties.join("\n        ")}\n   }) = _${
-    className.charAt(0).toUpperCase() + className.slice(1)
-  }
+              className.charAt(0).toUpperCase() + className.slice(1)
+            }
 
             \n  factory ${className.charAt(0).toUpperCase() + className.slice(1)}.fromJson(Map<String, dynamic> json) => _\$${
-    className.charAt(0).toUpperCase() + className.slice(1)
-  }FromJson(json);
+              className.charAt(0).toUpperCase() + className.slice(1)
+            }FromJson(json);
 }`;
   return `
         ${dartClass}
@@ -72,6 +82,17 @@ export const createDartClassFromJson = ({
       `;
 };
 
+/**
+ * Generates Dart class properties from JSON.
+ *
+ * @param {Object} options - The options for generating the properties.
+ * @param {string} options.key - The key of the property.
+ * @param {unknown} options.value - The value of the property.
+ * @param {boolean} [options.isList=false] - Indicates if the property is a list.
+ * @param {boolean} [options.addJsonKey=false] - Indicates if the property should have a JSON key.
+ * @param {boolean} [options.autoCamelCase=false] - Indicates if the property key should be converted to camel case.
+ * @returns {string} The generated Dart class property.
+ */
 const generateDartClassPropertiesFromJson = ({
   key,
   value,

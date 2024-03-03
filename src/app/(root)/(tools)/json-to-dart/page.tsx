@@ -85,7 +85,7 @@ const JsonToDart = () => {
   }, [json]);
 
   return (
-    <BaseLayout title="Json to Dart" desc="Convert Json to Dart freezed classes">
+    <BaseLayout title="Json to Dart" desc="Convert Json to Dart freezed classes" toolId={4}>
       <ToolButtons
         first={
           <>
@@ -146,7 +146,7 @@ const JsonToDart = () => {
               size={"sm"}
               onClick={() => {
                 if (dart.trim().length < 1) return;
-                navigator.clipboard.writeText(dart);
+                void navigator.clipboard.writeText(dart);
                 toast.success("Copied to clipboard");
               }}
             >

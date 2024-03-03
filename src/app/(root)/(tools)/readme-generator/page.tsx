@@ -111,7 +111,7 @@ const ReadmeGenerator = () => {
   // };
 
   return (
-    <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease.">
+    <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease." toolId={6}>
       <ToolButtons
         first={
           <div className="flex gap-1">

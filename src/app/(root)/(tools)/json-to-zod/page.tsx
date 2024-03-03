@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import { jsonToZod } from "json-to-zod";
 import Editor from "../../../../components/Editor/Editor";
 import { toast } from "sonner";
 import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
@@ -10,6 +9,8 @@ import Container from "@components/Container/Container";
 import { Button } from "@components/ui/button";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Flower } from "lucide-react";
+import BaseLayout from "@layout/BaseLayout";
+import { createZodSchemaFromJson } from "@utils/zod";
 
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
@@ -22,7 +23,7 @@ const JsonToZod = () => {
         return;
       }
       const obj = JSON.parse(inputArea.trim()) as Record<string, unknown>;
-      const zod = jsonToZod(obj);
+      const zod = createZodSchemaFromJson({ json: obj });
       setoutputArea(zod);
     } catch (error) {
       if (typeof error === "string") {
@@ -50,7 +51,7 @@ const JsonToZod = () => {
   };
 
   return (
-    <>
+    <BaseLayout toolId={10} title="JSON to ZOD generator" desc="Convert JSON to ZOD schema">
       <ToolButtons
         first={
           <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
@@ -73,7 +74,7 @@ const JsonToZod = () => {
           />
         </Container>
       </TwoEditorLayout>
-    </>
+    </BaseLayout>
   );
 };
 

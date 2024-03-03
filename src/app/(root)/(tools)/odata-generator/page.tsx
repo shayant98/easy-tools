@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import FilterTemplates from "modules/OdataGenerator/Filter/FilterTemplates";
 import { Cog } from "lucide-react";
+import BaseLayout from "@layout/BaseLayout";
 
 export interface IFilter {
   id: number;
@@ -126,7 +127,7 @@ const OdataGenerator = () => {
   };
 
   return (
-    <>
+    <BaseLayout title="ODATA Generator" desc="Generate ODATA queries with ease." toolId={12}>
       <ToolButtons
         first={
           <Button onClick={handleGenerate}>
@@ -294,7 +295,7 @@ const OdataGenerator = () => {
       <div className="mt-4">
         <div className="mt-4 flex justify-end"></div>
       </div>
-    </>
+    </BaseLayout>
   );
 };
 

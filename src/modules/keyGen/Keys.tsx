@@ -6,30 +6,44 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
+import TabbedLayout from "@layout/TabbedLayout";
 
 const Keys = () => {
   const [uuids, setUuids] = useState<string[]>(Array.from({ length: 8 }).map(() => crypto.randomUUID()));
   const [cuids, setCuids] = useState<string[]>(Array.from({ length: 8 }).map(() => cuid2.createId()));
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-4 space-y-2">
-        <KeyContainer
-          ids={uuids}
-          setId={() => {
-            setUuids(Array.from({ length: 8 }).map(() => crypto.randomUUID()));
-          }}
-          title="UUID"
-        />
-        <KeyContainer
-          ids={cuids}
-          setId={() => {
-            setCuids(Array.from({ length: 8 }).map(() => cuid2.createId()));
-          }}
-          title="CUID"
-        />
-      </div>
-    </div>
+    <TabbedLayout
+      defaultTab="uuid"
+      options={[
+        {
+          value: "uuid",
+          label: "UUID",
+          child: (
+            <KeyContainer
+              ids={uuids}
+              setId={() => {
+                setUuids(Array.from({ length: 8 }).map(() => crypto.randomUUID()));
+              }}
+              title="UUID"
+            />
+          ),
+        },
+        {
+          value: "cuid",
+          label: "CUID",
+          child: (
+            <KeyContainer
+              ids={cuids}
+              setId={() => {
+                setCuids(Array.from({ length: 8 }).map(() => cuid2.createId()));
+              }}
+              title="CUID"
+            />
+          ),
+        },
+      ]}
+    />
   );
 };
 

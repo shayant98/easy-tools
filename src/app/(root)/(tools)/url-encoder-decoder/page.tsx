@@ -10,6 +10,7 @@ import { Button } from "@components/ui/button";
 import SnippetDialog from "@components/SnippetDialog";
 import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, Copy, Eraser } from "lucide-react";
+import BaseLayout from "@layout/BaseLayout";
 
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
@@ -54,7 +55,7 @@ const UrlEncoderDecoder = () => {
     toast.success("Copied to clipboard");
   };
   return (
-    <>
+    <BaseLayout toolId={5} title="URL encoder & decoder">
       <ToolButtons
         first={
           <>
@@ -93,7 +94,7 @@ const UrlEncoderDecoder = () => {
           <Editor placeholder="Enter decoded URL here" value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="html" />
         </Container>
       </TwoEditorLayout>
-    </>
+    </BaseLayout>
   );
 };
 

@@ -2,12 +2,9 @@
 
 import type { NextPage } from "next";
 import { Input } from "@components/ui/Input";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ToolCard from "@components/tool-card";
 import menuItems, { type IMenuItem } from "data/menuItems";
-import { Label } from "@components/ui/label";
-import { motion } from "framer-motion";
-import { useTool } from "context/ToolContext";
 import { Button } from "@components/ui/button";
 import { Filter, Search } from "lucide-react";
 import { useSaveTool } from "hooks/use-tool-save-hook";
@@ -54,16 +51,9 @@ const Home: NextPage = () => {
         <div className="mt-4 flex flex-col">
           <div className="flex grow flex-wrap justify-center gap-4">
             {fitleredItems.map((menuItem, i) => (
-              <motion.div
-                initial={{ opacity: 0, translateX: -50 }}
-                animate={{ opacity: 1, translateX: 0 }}
-                exit={{ opacity: 0, translateX: -50 }}
-                transition={{ duration: 0.5, delay: i * 0.04 }}
-                key={menuItem.title}
-                className="w-max"
-              >
+              <div key={menuItem.title} className="w-max">
                 <ToolCard menuItem={menuItem} />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

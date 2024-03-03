@@ -1,3 +1,4 @@
+import BaseLayout from "@layout/BaseLayout";
 import { Form } from "modules/CssToTailwind";
 
 export const metadata = {
@@ -7,9 +8,9 @@ export const metadata = {
 
 const TailwindConverters = () => {
   return (
-    <>
+    <BaseLayout title="CSS to Tailwind" toolId={9}>
       <Form />
-    </>
+    </BaseLayout>
   );
 };
 

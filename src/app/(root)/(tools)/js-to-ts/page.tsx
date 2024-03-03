@@ -39,7 +39,7 @@ const JsonToTs = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <BaseLayout title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
+    <BaseLayout toolId={1} title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
       <TwoEditorLayout>
         <Container errorMessage={error}>
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />

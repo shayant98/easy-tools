@@ -9,6 +9,7 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@components/ui/dropdown";
 import { ArrowDown, Copy, Download, Eraser, XCircle } from "lucide-react";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
 
 const ToBase64 = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -63,15 +64,19 @@ const ToBase64 = () => {
   }, [open]);
   return (
     <>
-      <div className="mb-2 flex gap-2 self-end">
-        <Button onClick={handleClear} variant={"outline"}>
-          <Eraser className="mr-2 h-4 w-4" /> Clear
-        </Button>
+      <ToolButtons
+        first={
+          <div className=" flex gap-2 self-end">
+            <Button onClick={handleDownload}>
+              <Download className="mr-2 h-4 w-4" /> Download TXT File
+            </Button>
+            <Button onClick={handleClear} variant={"outline"}>
+              <Eraser className="mr-2 h-4 w-4" /> Clear
+            </Button>
+          </div>
+        }
+      />
 
-        <Button onClick={handleDownload}>
-          <Download className="mr-2 h-4 w-4" /> Download TXT File
-        </Button>
-      </div>
       <TwoEditorLayout>
         <Container>
           <div

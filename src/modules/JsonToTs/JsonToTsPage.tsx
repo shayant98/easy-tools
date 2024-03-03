@@ -56,7 +56,7 @@ const JsonToTsPage = () => {
   };
 
   return (
-    <BaseLayout title="JSON to TypeScript" desc="Convert JSON to TypeScript interfaces" toolId={0}>
+    <BaseLayout title="JSON to TypeScript" desc="Convert JSON to TypeScript interfaces" toolId={2}>
       <ToolButtons
         first={
           <>
