@@ -2,7 +2,6 @@
 
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/command";
 import { useEffect, useState } from "react";
-import { useClerk } from "@clerk/nextjs";
 import menuItems from "@data/menuItems";
 import { useRouter } from "next/navigation";
 import { Home } from "lucide-react";
@@ -10,7 +9,6 @@ import { Home } from "lucide-react";
 const QuickAccessMenu = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const { signOut } = useClerk();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {

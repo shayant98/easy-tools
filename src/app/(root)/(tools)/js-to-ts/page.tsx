@@ -6,10 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";
 import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
-import { SignedIn } from "@clerk/nextjs";
-import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
 
 const JsonToTs = () => {
@@ -43,13 +40,6 @@ const JsonToTs = () => {
 
   return (
     <BaseLayout title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
-      <ToolButtons
-        second={
-          <SignedIn>
-            <SnippetDialog value={outputArea} language="TS" />
-          </SignedIn>
-        }
-      />
       <TwoEditorLayout>
         <Container errorMessage={error}>
           <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />

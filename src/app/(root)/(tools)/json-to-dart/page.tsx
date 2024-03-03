@@ -1,6 +1,5 @@
 "use client";
 
-import { SignedIn } from "@clerk/nextjs";
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import SnippetDialog from "@components/SnippetDialog";
@@ -143,9 +142,6 @@ const JsonToDart = () => {
         }
         second={
           <>
-            <SignedIn>
-              <SnippetDialog value={dart} language="TS" />
-            </SignedIn>
             <Button
               size={"sm"}
               onClick={() => {

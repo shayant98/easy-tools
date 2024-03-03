@@ -19,7 +19,6 @@
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 
 type CreateContextOptions = {
-  auth: SignedInAuthObject | SignedOutAuthObject;
   prisma: PrismaClient;
 };
 
@@ -32,9 +31,8 @@ type CreateContextOptions = {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = ({ auth, prisma }: CreateContextOptions) => {
+const createInnerTRPCContext = ({ prisma }: CreateContextOptions) => {
   return {
-    auth,
     prisma,
   };
 };
@@ -47,7 +45,7 @@ const createInnerTRPCContext = ({ auth, prisma }: CreateContextOptions) => {
 export const createTRPCContext = (opts: CreateNextContextOptions) => {
   // Get the session from the server using the unstable_getServerSession wrapper function
 
-  return createInnerTRPCContext({ auth: getAuth(opts.req), prisma });
+  return createInnerTRPCContext({ prisma });
 };
 
 /**
@@ -60,8 +58,7 @@ import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { type PrismaClient } from "@prisma/client";
 import { prisma } from "../db";
-import type { SignedInAuthObject, SignedOutAuthObject } from "@clerk/nextjs/server";
-import { getAuth } from "@clerk/nextjs/server";
+
 const t = initTRPC.context<Awaited<ReturnType<typeof createTRPCContext>>>().create({
   transformer: superjson,
   errorFormatter({ shape }) {

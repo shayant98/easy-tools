@@ -6,8 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Editor from "@components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
-import { SignedIn } from "@clerk/nextjs";
-import SnippetDialog from "@components/SnippetDialog";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
@@ -91,11 +89,6 @@ const JsonToTsPage = () => {
               </PopoverContent>
             </Popover>
           </>
-        }
-        second={
-          <SignedIn>
-            <SnippetDialog value={outputArea} language="TS" />
-          </SignedIn>
         }
       />
       <TwoEditorLayout>

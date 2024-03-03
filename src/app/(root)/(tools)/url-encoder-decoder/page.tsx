@@ -7,7 +7,6 @@ import ToolButtons from "@components/ToolButtons/ToolButtons";
 import Container from "@components/Container/Container";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { Button } from "@components/ui/button";
-import { SignedIn } from "@clerk/nextjs";
 import SnippetDialog from "@components/SnippetDialog";
 import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, Copy, Eraser } from "lucide-react";
@@ -83,9 +82,6 @@ const UrlEncoderDecoder = () => {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Decode
             </Button>
-            <SignedIn>
-              <SnippetDialog language="html" value={outputArea} />
-            </SignedIn>
           </>
         }
       />

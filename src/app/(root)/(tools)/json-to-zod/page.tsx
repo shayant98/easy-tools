@@ -9,8 +9,6 @@ import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/button";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { SignedIn } from "@clerk/nextjs";
-import SnippetDialog from "@components/SnippetDialog";
 import { Flower } from "lucide-react";
 
 const JsonToZod = () => {
@@ -58,11 +56,6 @@ const JsonToZod = () => {
           <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
             <Flower /> Beautify
           </Button>
-        }
-        second={
-          <SignedIn>
-            <SnippetDialog value={outputArea} language="TS" />
-          </SignedIn>
         }
       />
       <TwoEditorLayout>

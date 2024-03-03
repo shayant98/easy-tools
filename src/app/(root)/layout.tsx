@@ -1,4 +1,3 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -26,17 +25,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
       <body className={cn(`${inter.className} font-inter`, " min-h-screen bg-background antialiased")}>
-        <ClerkProvider>
-          <Providers>
-            <Navbar />
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-            <Footer />
-            <Toaster richColors />
-            <QuickAccessMenu />
+        <Providers>
+          <Navbar />
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Footer />
+          <Toaster richColors />
+          <QuickAccessMenu />
 
-            <Analytics />
-          </Providers>
-        </ClerkProvider>
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );

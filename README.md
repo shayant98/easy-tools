@@ -17,8 +17,6 @@ Easy Tools is a collection of web tools, resources, and tutorials aimed at helpi
 | Tool | Description | Link |
 | ------ | ------ | ------ |
 | NextJs | The React Framework for Production | [https://nextjs.org/](https://nextjs.org/) |
-| Upstash | Hosted Redis | [https://upstash.com/](https://upstash.com/) |
-| Clerk | Authentication | [https://clerk.dev/](https://clerk.dev/) |
 | TRPC | A React-first RPC | [https://trpc.io/](https://trpc.io/) |
 | Planetscale | The Database of Now | [https://planetscale.com/](https://planetscale.com/) |
 | Prisma | Next-generation Node.js and TypeScript ORM for PostgreSQL, MySQL, MariaDB, SQL Server, SQLite and MongoDB | [https://www.prisma.io/](https://www.prisma.io/) |

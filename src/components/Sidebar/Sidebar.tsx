@@ -7,7 +7,6 @@ import menuItems from "@data/menuItems";
 import { Input } from "@components/ui/Input";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Sidebar = () => {
@@ -37,13 +36,6 @@ const Sidebar = () => {
         <SheetHeader className="border-b border-slate-500 pb-3">
           <SheetTitle>Easy Tools</SheetTitle>
           <SheetDescription>Find the tool you need...</SheetDescription>
-          <div className="flex justify-between">
-            <SignedIn>
-              <Link href={"/snippets"}>
-                <Button>Snippets</Button>
-              </Link>
-            </SignedIn>
-          </div>
         </SheetHeader>
         <div className="my-4">
           <Input value={search} onChange={(e) => setsearch(e.target.value)} placeholder="Search..." />
