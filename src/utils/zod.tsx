@@ -1,23 +1,27 @@
 // Convert json schema to zod schema
 
+import { type ZodOptions } from "app/(root)/(tools)/json-to-zod/_components/options";
+
 export const createZodSchemaFromJson = ({
   json,
-  name = "Schema",
   subObject = false,
   level = 0,
+  options,
 }: {
   json: Record<string, unknown>;
-  name?: string;
+  options: ZodOptions;
   subObject?: boolean;
   level?: number;
 }) => {
-  const start = `${subObject ? "" : `const ${name} =`}z.object({`;
-  const end = generateEnd(subObject, level);
+  const start = generateStart({ options, subObject, level });
+  const end = generateEnd({ options, subObject, level });
   const keys = Object.keys(json);
 
   const zopProps = keys.map((key) => {
     const value = json[key];
-    const type = getType(value, level);
+    const type = getType(value, level, {
+      options,
+    });
     const numberOfTabs = level + 1;
     const tabs = Array(numberOfTabs).fill("\t").join("");
 
@@ -27,7 +31,7 @@ export const createZodSchemaFromJson = ({
   return [start, ...zopProps, end].join("\n");
 };
 
-const getType = (value: unknown, level: number): string => {
+const getType = (value: unknown, level: number, { options }: { options: ZodOptions }): string => {
   switch (typeof value) {
     case "string":
       return "z.string()";
@@ -39,22 +43,26 @@ const getType = (value: unknown, level: number): string => {
       if (Array.isArray(value)) {
         return "z.array(z.unknown())";
       }
-      return createZodSchemaFromJson({ json: value as Record<string, unknown>, subObject: true, level: level + 1 });
+      return createZodSchemaFromJson({ json: value as Record<string, unknown>, subObject: true, level: level + 1, options: options });
 
     default:
       return "z.unknown()";
   }
 };
 
-/**
- * Generates the end string for a given subObject and level.
- *
- * @param subObject - A boolean indicating whether the object is a subObject.
- * @param level - The level of the object.
- * @returns The generated end string.
- */
-const generateEnd = (subObject: boolean, level: number) => {
+const generateEnd = ({ options, subObject, level }: { subObject: boolean; options: ZodOptions; level: number }) => {
   const numberOfTabs = level;
   const tabs = Array(numberOfTabs).fill("\t").join("");
-  return `${tabs}})`;
+
+  const exportString = options.addExport && !subObject ? `\n\nexport { ${options.name} }` : "";
+
+  return `${tabs}})${exportString}`;
 };
+function generateStart({ options, subObject, level }: { subObject: boolean; options: ZodOptions; level: number }) {
+  if (subObject) {
+    return `z.object({`;
+  }
+  const importString = options.addImport ? `import * as z from "zod";\n\n` : "";
+
+  return `${importString}const ${options.name} = z.object({`;
+}

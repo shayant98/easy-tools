@@ -8,13 +8,16 @@ import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/button";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Flower } from "lucide-react";
+import { Flower, Settings } from "lucide-react";
 import BaseLayout from "@layout/BaseLayout";
 import { createZodSchemaFromJson } from "@utils/zod";
+import Options, { type ZodOptions } from "./_components/options";
 
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
+  const [options, setOptions] = useState<ZodOptions>({ addImport: false, name: "Schema", addExport: false });
+
   const [error, seterror] = useState("");
 
   const handleParsing = useCallback(() => {
@@ -23,7 +26,7 @@ const JsonToZod = () => {
         return;
       }
       const obj = JSON.parse(inputArea.trim()) as Record<string, unknown>;
-      const zod = createZodSchemaFromJson({ json: obj });
+      const zod = createZodSchemaFromJson({ json: obj, options: options });
       setoutputArea(zod);
     } catch (error) {
       if (typeof error === "string") {
@@ -32,7 +35,7 @@ const JsonToZod = () => {
         error.message; // works, `e` narrowed to Error
       }
     }
-  }, [inputArea]);
+  }, [inputArea, options]);
 
   useEffect(() => {
     handleParsing();
@@ -54,9 +57,12 @@ const JsonToZod = () => {
     <BaseLayout toolId={10} title="JSON to ZOD generator" desc="Convert JSON to ZOD schema">
       <ToolButtons
         first={
-          <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
-            <Flower /> Beautify
-          </Button>
+          <div>
+            <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
+              <Flower className="w-4 h-4" /> Beautify
+            </Button>
+            <Options options={options} setOptions={setOptions} />
+          </div>
         }
       />
       <TwoEditorLayout>

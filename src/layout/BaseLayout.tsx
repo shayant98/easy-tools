@@ -26,7 +26,7 @@ const BaseLayout = ({ children, title, desc, toolId }: BaseLayoutProps) => {
           ) : null}
         </div>
         {desc && <p className="text-muted-foreground mt-3 mb-5">{desc}</p>}
-        <hr className="border-muted" />
+        <hr className="border-muted mt-3" />
       </div>
       {children}
     </>

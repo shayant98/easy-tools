@@ -5,7 +5,6 @@ import { useTheme } from "next-themes";
 
 import Link from "next/link";
 import Sidebar from "@components/Sidebar/Sidebar";
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Home, Moon, Sun } from "lucide-react";
 
@@ -31,7 +30,6 @@ const Navbar = () => {
         <Button
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark");
-            document.documentElement.setAttribute("data-color-mode", theme === "dark" ? "light" : "dark");
           }}
           variant={"outline"}
           size={"icon"}
