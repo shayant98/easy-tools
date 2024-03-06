@@ -50,11 +50,15 @@ const Home: NextPage = () => {
       {fitleredItems.length > 0 ? (
         <div className="mt-4 flex flex-col">
           <div className="flex grow flex-wrap justify-center gap-4">
-            {fitleredItems.map((menuItem, i) => (
-              <div key={menuItem.title} className="w-max">
-                <ToolCard menuItem={menuItem} />
-              </div>
-            ))}
+            {fitleredItems
+              .sort((a, b) => {
+                return savedTools.includes(a.id) ? -1 : 1;
+              })
+              .map((menuItem, i) => (
+                <div key={menuItem.title} className="w-max">
+                  <ToolCard menuItem={menuItem} />
+                </div>
+              ))}
           </div>
         </div>
       ) : (

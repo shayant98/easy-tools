@@ -8,9 +8,11 @@ import { Button } from "@components/ui/button";
 import { Textarea } from "@components/ui/textarea";
 import Container from "@components/Container/Container";
 import { Download } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 const QrCodeGenerator = () => {
-  const [input, setinput] = useState("");
+  const searchParams = useSearchParams();
+  const [input, setinput] = useState(searchParams?.get("val") ?? "");
   const [qrCode, setqrCode] = useState("");
 
   const handleDownload = () => {
