@@ -3,6 +3,7 @@ import { Button } from "@components/ui/button";
 import { Label } from "@components/ui/label";
 import { Popover, PopoverTrigger, PopoverContent } from "@components/ui/popover";
 import { Switch } from "@components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@components/ui/tooltip";
 import { Cog } from "lucide-react";
 import { type Dispatch, type SetStateAction } from "react";
 
@@ -10,13 +11,14 @@ export type ZodOptions = {
   addImport: boolean;
   name: string;
   addExport: boolean;
+  camelCase: boolean;
 };
 
 type OptionsProps = {
   options: ZodOptions;
   setOptions: Dispatch<SetStateAction<ZodOptions>>;
 };
-const Options = ({ options: { addImport, name, addExport }, setOptions }: OptionsProps) => {
+const Options = ({ options: { addImport, name, addExport, camelCase }, setOptions }: OptionsProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -51,6 +53,33 @@ const Options = ({ options: { addImport, name, addExport }, setOptions }: Option
               setOptions((prev) => ({
                 ...prev,
                 addExport: v,
+              }))
+            }
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Label htmlFor="type-camelCase" className="cursor-pointer border-b border-dashed">
+                  Auto Camel Case
+                </Label>
+              </TooltipTrigger>
+              <TooltipContent className="bg-secondary text-secondary-foreground max-w-[200px]">
+                <p>
+                  Replace all keys seperated by <span className="font-bold">underscores</span> & <span className="font-bold">spaces</span> with camelCase.
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <Switch
+            id="type-camelCase"
+            checked={camelCase}
+            onCheckedChange={(v) =>
+              setOptions((prev) => ({
+                ...prev,
+                camelCase: v,
               }))
             }
           />

@@ -23,6 +23,7 @@ const config = {
     "@typescript-eslint/no-floating-promises": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "error",
     "@typescript-eslint/restrict-template-expressions": "warn",
     "@typescript-eslint/no-misused-promises": [
       "error",

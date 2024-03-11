@@ -1,27 +1,33 @@
+"use client";
+
+import { Textarea } from "@components/ui/textarea";
+import { type TextareaCodeEditorProps } from "@uiw/react-textarea-code-editor";
 import "@uiw/react-textarea-code-editor/dist.css";
 import { cn } from "@utils/utils";
 import dynamic from "next/dynamic";
-import { type ChangeEvent } from "react";
-const CodeEditor = dynamic(() => import("@uiw/react-textarea-code-editor").then((mod) => mod.default), { ssr: false });
-const Editor = ({ value, setValue, language = "js", disabled = false, placeholder = "Enter code here" }: EditorProps) => {
+import { forwardRef } from "react";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+const Editor = forwardRef<HTMLTextAreaElement, EditorProps>((props, ref) => {
+  const { value, setValue, language = "javascript", disabled = false, placeholder = "" } = props;
   return (
-    <>
-      <CodeEditor
-        disabled={disabled}
-        value={value}
-        language={language}
-        placeholder={placeholder}
-        onChange={setValue}
-        padding={15}
-        className={cn("h-full  min-h-64 rounded-md bg-secondary font-mono text-primary-foreground")}
-      />
-    </>
+    <CodeEditor
+      ref={ref}
+      disabled={disabled}
+      value={value}
+      language={language}
+      placeholder={placeholder}
+      onChange={setValue}
+      padding={15}
+      className={cn("h-full  min-h-64 rounded-md bg-secondary font-mono text-primary-foreground")}
+    />
   );
-};
+});
+
+Editor.displayName = "Editor";
 
 interface EditorProps {
   value: string;
-  setValue: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  setValue: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   language?: string;
   disabled?: boolean;
   placeholder?: string;

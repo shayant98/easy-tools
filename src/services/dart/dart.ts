@@ -1,3 +1,5 @@
+import { convertStringToCamelCase } from "@utils/utils";
+
 /**
  * Creates a Dart class from a JSON string.
  *
@@ -155,8 +157,4 @@ const checkIfArrayisArrayofObjects = (arr: unknown[]) => {
 
 const checkifArrayIsHomogenous = (arr: unknown[]) => {
   return arr.every((val) => typeof val === typeof arr[0]);
-};
-
-const convertStringToCamelCase = (str: string) => {
-  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr: string) => chr.toUpperCase());
 };
