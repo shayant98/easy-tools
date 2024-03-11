@@ -19,7 +19,7 @@ const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [mappedObject, setMappedObject] = useState<ZodKeyMappedObject[]>([]);
-  const [options, setOptions] = useState<ZodOptions>({ addImport: false, name: "Schema", addExport: false });
+  const [options, setOptions] = useState<ZodOptions>({ addImport: false, name: "Schema", addExport: false, camelCase: false });
 
   const [error, seterror] = useState("");
 
