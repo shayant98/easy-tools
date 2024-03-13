@@ -46,7 +46,7 @@ export const createStringZodSchemaFromMappedObject = ({
   const end = generateEnd({ options, subObject });
 
   const zopProps = json.map((key) => {
-    const flags = generateFlags(key.options);
+    const flags = generateFlags(key.options, key.zodType);
 
     const name = options.camelCase ? convertStringToCamelCase(key.name) : key.name;
 
@@ -188,7 +188,7 @@ const generateAdvancedFlags = (options: Record<string, { value: boolean; message
   return curValue;
 };
 
-const generateFlags = (options: Record<string, { value: boolean; message?: string; keyValue?: string }>) => {
+const generateFlags = (options: Record<string, { value: boolean; message?: string; keyValue?: string }>, type: string) => {
   let string = "";
   if (options.isOptional?.value) {
     string = `${string}.optional()`;
@@ -200,7 +200,7 @@ const generateFlags = (options: Record<string, { value: boolean; message?: strin
     string = `${string}.nullish()`;
   }
   if (options.default?.value) {
-    string = `${string}.default("${options.default.keyValue}")`;
+    string = `${string}.default(${type === "z.string()" ? `"${options.default.keyValue}"` : options.default.keyValue})`;
   }
 
   string = generateStringFlags(options, string);

@@ -1,8 +1,9 @@
 import { Input } from "@components/ui/Input";
 import { AccordionItem, AccordionContent, AccordionTrigger } from "@components/ui/accordion";
 import { Button } from "@components/ui/button";
+import { Select, SelectItem, SelectTrigger, SelectValue, SelectContent } from "@components/ui/select";
 import { Switch } from "@components/ui/switch";
-import { zodPropertyOptions } from "@data/zod-property-options";
+import { type zodPropertyOption, zodPropertyOptions } from "@data/zod-property-options";
 import { cn } from "@utils/utils";
 import { type ZodKeyMappedObject } from "@utils/zod";
 import { Reorder, useDragControls } from "framer-motion";
@@ -25,17 +26,6 @@ const ZodPropertiesListItem = ({ item, setMappedObject }: { item: ZodKeyMappedOb
     });
   };
 
-  const handleOptionsKeyValueChange = (e: React.ChangeEvent<HTMLInputElement>, key: string, id: string) => {
-    setMappedObject((prev) => {
-      const map = prev.map((i) => {
-        if (i.id === id) {
-          i.options[key] = { value: i.options[key]?.value ?? false, keyValue: e.target.value };
-        }
-        return i;
-      });
-      return map;
-    });
-  };
   return (
     <Reorder.Item value={item} dragListener={false} dragControls={controls}>
       <AccordionItem value={item.id} className="bg-primary-foreground pr-4 w-full rounded  items-center">
@@ -69,17 +59,7 @@ const ZodPropertiesListItem = ({ item, setMappedObject }: { item: ZodKeyMappedOb
                 <div className="flex justify-between">
                   <span>{option.title}</span>
                   <div className="flex gap-2 items-center">
-                    {option.hasKeyValue && (
-                      <Input
-                        disabled={!item.options[option.key]?.value}
-                        placeholder="Value"
-                        value={item.options[option.key]?.keyValue}
-                        onChange={(e) => handleOptionsKeyValueChange(e, option.key, item.id)}
-                        className={cn({
-                          hidden: !item.options[option.key]?.value,
-                        })}
-                      />
-                    )}
+                    {option.hasKeyValue && ZodKeyValueInput({ item, option, setMappedObject })}
                     <Switch
                       checked={item.options[option.key]?.value}
                       onCheckedChange={(v) => {
@@ -120,6 +100,62 @@ const ZodPropertiesListItem = ({ item, setMappedObject }: { item: ZodKeyMappedOb
 };
 
 export default ZodPropertiesListItem;
+
+const ZodKeyValueInput = ({
+  item,
+  option,
+  setMappedObject,
+}: {
+  item: ZodKeyMappedObject;
+  option: zodPropertyOption;
+  setMappedObject: Dispatch<SetStateAction<ZodKeyMappedObject[]>>;
+}) => {
+  const handleOptionsKeyValueChange = (val: string, key: string, id: string) => {
+    setMappedObject((prev) => {
+      const map = prev.map((i) => {
+        if (i.id === id) {
+          i.options[key] = { value: i.options[key]?.value ?? false, keyValue: val };
+        }
+        return i;
+      });
+      return map;
+    });
+  };
+
+  if (item.type == "boolean")
+    return (
+      <Select
+        disabled={!item.options[option.key]?.value}
+        defaultValue={item.options[option.key]?.keyValue}
+        onValueChange={(val) => handleOptionsKeyValueChange(val, option.key, item.id)}
+      >
+        <SelectTrigger
+          className={cn("w-[180px]", {
+            hidden: !item.options[option.key]?.value,
+          })}
+        >
+          <SelectValue placeholder="Value" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="true">True</SelectItem>
+          <SelectItem value="false">False</SelectItem>
+        </SelectContent>
+      </Select>
+    );
+
+  return (
+    <Input
+      disabled={!item.options[option.key]?.value}
+      placeholder="Value"
+      type={item.type === "string" ? "text" : "number"}
+      value={item.options[option.key]?.keyValue}
+      onChange={(e) => handleOptionsKeyValueChange(e.target.value, option.key, item.id)}
+      className={cn({
+        hidden: !item.options[option.key]?.value,
+      })}
+    />
+  );
+};
 
 const SelectedOptionsCounter = ({ options }: { options: Record<string, { value: boolean; message?: string; keyValue?: string }> }) => {
   return (

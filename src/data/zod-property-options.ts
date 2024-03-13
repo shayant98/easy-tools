@@ -117,4 +117,6 @@ export const zodPropertyOptions: {
     hasMessage: true,
     docsLink: "https://zod.dev/?id=refine",
   },
-];
+] as const;
+
+export type zodPropertyOption = (typeof zodPropertyOptions)[number];
