@@ -5,7 +5,7 @@ const MultiEditorLayout = ({ children }: TwoEditorLayoutProps) => {
     <ResizablePanelGroup direction="horizontal" className="flex h-full grow flex-col  gap-x-2 md:flex-row">
       {children.map((child, index) => (
         <>
-          <ResizablePanel minSize={35} key={index} className="h-full">
+          <ResizablePanel minSize={35} key={index} className="grow md:w-1/2">
             {child}
           </ResizablePanel>
           {index !== children.length - 1 && <ResizableHandle withHandle />}
