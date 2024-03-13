@@ -88,10 +88,10 @@ const UrlEncoderDecoder = () => {
       />
       <TwoEditorLayout>
         <Container>
-          <Editor placeholder="Enter encoded URL here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="html" />
+          <Editor placeholder="Enter encoded URL here" value={inputArea} setValue={setinputArea} />
         </Container>
         <Container>
-          <Editor placeholder="Enter decoded URL here" value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="html" />
+          <Editor placeholder="Enter decoded URL here" value={outputArea} setValue={setoutputArea} />
         </Container>
       </TwoEditorLayout>
     </BaseLayout>

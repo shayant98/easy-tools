@@ -280,15 +280,7 @@ const OdataGenerator = () => {
           </div>
         </Container>
         <Container>
-          <Editor
-            disabled
-            value={generatedUrl}
-            setValue={() => {
-              return;
-            }}
-            placeholder="Generated URL will appear here"
-            language="js"
-          />
+          <Editor disabled value={generatedUrl} setValue={setgeneratedUrl} placeholder="Generated URL will appear here" />
         </Container>
       </TwoEditorLayout>
 

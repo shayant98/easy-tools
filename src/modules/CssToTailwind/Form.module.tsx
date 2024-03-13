@@ -8,6 +8,7 @@ import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { TailwindConverter } from "css-to-tailwindcss";
 import { Copy } from "lucide-react";
 import { useState, useMemo, useCallback, useEffect } from "react";
+import { css } from "@codemirror/lang-css";
 
 const CssToTailwindForm = () => {
   const [inputArea, setinputArea] = useState("");
@@ -72,10 +73,10 @@ const CssToTailwindForm = () => {
       />
       <TwoEditorLayout>
         <Container>
-          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="css" placeholder="Enter CSS here" />
+          <Editor value={inputArea} setValue={setinputArea} language={css()} placeholder="Enter CSS here" />
         </Container>
         <Container>
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="css" disabled />
+          <Editor value={outputArea} setValue={setoutputArea} language={css()} disabled />
         </Container>
       </TwoEditorLayout>
     </>

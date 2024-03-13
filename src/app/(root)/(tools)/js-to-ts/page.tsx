@@ -2,6 +2,7 @@
 
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
+import { json } from "@codemirror/lang-json";
 
 import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";
@@ -42,10 +43,10 @@ const JsonToTs = () => {
     <BaseLayout toolId={1} title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
       <TwoEditorLayout>
         <Container errorMessage={error}>
-          <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" placeholder="Enter JSON here" />
+          <Editor value={inputArea} setValue={setinputArea} language={json()} placeholder="Enter JSON here" />
         </Container>
         <Container>
-          <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="ts" disabled placeholder="TS will appear here" />
+          <Editor value={outputArea} setValue={setoutputArea} disabled placeholder="TS will appear here" />
         </Container>
       </TwoEditorLayout>
     </BaseLayout>

@@ -73,13 +73,7 @@ const BcryptGenerator = () => {
           </div>
         </Container>
         <Container>
-          <Editor
-            disabled
-            value={hash}
-            setValue={() => {
-              return;
-            }}
-          />
+          <Editor disabled value={hash} setValue={setHash} />
         </Container>
       </TwoEditorLayout>
     </>

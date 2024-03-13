@@ -3,6 +3,7 @@
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import SnippetDialog from "@components/SnippetDialog";
+import { json } from "@codemirror/lang-json";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/button";
 import BaseLayout from "@layout/BaseLayout";
@@ -17,7 +18,7 @@ import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/dropdown";
 
 const JsonToDart = () => {
-  const [json, setJson] = useState("");
+  const [jsonValue, setJsonValue] = useState("");
   const [dart, setDart] = useState("");
   const [className, setclassName] = useState("root");
   const [error, seterror] = useState("");
@@ -26,17 +27,17 @@ const JsonToDart = () => {
   const [addConstructor, setAddConstructor] = useState(false);
 
   const onSubmit = () => {
-    if (json.trim().length < 1) {
+    if (jsonValue.trim().length < 1) {
       seterror("");
 
       toast.error("Please enter JSON first");
       return;
     }
     try {
-      JSON.stringify(JSON.parse(json), null, 2);
+      JSON.stringify(JSON.parse(jsonValue), null, 2);
 
       const dartClass = createDartClassFromJson({
-        json: json,
+        json: jsonValue,
         className: className,
         addJsonKey: addJsonKey,
         autoCamelCase: autoCamelCase,
@@ -53,7 +54,7 @@ const JsonToDart = () => {
 
   const handleBeatify = async () => {
     try {
-      if (json.trim().length < 1) {
+      if (jsonValue.trim().length < 1) {
         seterror("");
         toast.error("Please enter JSON first");
         return;
@@ -62,27 +63,27 @@ const JsonToDart = () => {
         toast.error("Please fix the error first");
         return;
       }
-      const beatified = JSON.stringify(JSON.parse(json), null, 2);
+      const beatified = JSON.stringify(JSON.parse(jsonValue), null, 2);
 
-      setJson(beatified);
+      setJsonValue(beatified);
     } catch (error: any) {}
   };
 
   useEffect(() => {
-    if (json.trim().length < 1) {
+    if (jsonValue.trim().length < 1) {
       seterror("");
       return;
     }
 
     try {
-      JSON.stringify(JSON.parse(json), null, 2);
+      JSON.stringify(JSON.parse(jsonValue), null, 2);
       seterror("");
     } catch (error: unknown) {}
 
     return () => {
       return;
     };
-  }, [json]);
+  }, [jsonValue]);
 
   return (
     <BaseLayout title="Json to Dart" desc="Convert Json to Dart freezed classes" toolId={4}>
@@ -157,10 +158,10 @@ const JsonToDart = () => {
       />
       <TwoEditorLayout>
         <Container errorMessage={error}>
-          <Editor value={json} setValue={(e) => setJson(e.target.value)} language="json" placeholder="Enter JSON here" />
+          <Editor value={jsonValue} setValue={setJsonValue} language={json()} placeholder="Enter JSON here" />
         </Container>
         <Container>
-          <Editor value={dart} setValue={(e) => setDart(e.target.value)} language="dart" disabled placeholder="Dart will appear here" />
+          <Editor value={dart} setValue={setDart} disabled placeholder="Dart will appear here" />
         </Container>
       </TwoEditorLayout>
     </BaseLayout>

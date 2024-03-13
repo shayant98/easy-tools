@@ -5,6 +5,7 @@ import Editor from "@components/Editor/Editor";
 import TwoEditorLayout from "@layout/TwoEditorLayout";
 import { stringToJsonString } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
+import { json } from "@codemirror/lang-json";
 
 const JsToJsonPage = () => {
   const [inputArea, setinputArea] = useState("");
@@ -33,10 +34,10 @@ const JsToJsonPage = () => {
   return (
     <TwoEditorLayout>
       <Container errorMessage={error}>
-        <Editor value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="js" placeholder="Enter JS here" />
+        <Editor value={inputArea} setValue={setinputArea} placeholder="Enter JS here" />
       </Container>
       <Container>
-        <Editor value={outputArea} setValue={(e) => setoutputArea(e.target.value)} language="json" disabled placeholder="JSON will apear here" />
+        <Editor value={outputArea} setValue={setoutputArea} language={json()} disabled placeholder="JSON will apear here" />
       </Container>
     </TwoEditorLayout>
   );

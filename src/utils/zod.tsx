@@ -23,7 +23,7 @@ export const createMappedObjectFromJson = (json: Record<string, unknown>, level 
     if (value === undefined) {
       throw new Error("Value is undefined");
     }
-    const zodType = getTypeAsString(value, level, { options });
+    const zodType = getTypeAsString(value);
 
     tabbedObject = [...tabbedObject, { name: key, type: typeof value, zodType, id: Math.random().toString(), options: {} }];
   });
@@ -42,23 +42,37 @@ export const createStringZodSchemaFromMappedObject = ({
   subObject?: boolean;
   level?: number;
 }) => {
-  const start = generateStart({ options, subObject, level });
-  const end = generateEnd({ options, subObject, level });
+  const start = generateStart({ options, subObject });
+  const end = generateEnd({ options, subObject });
 
   const zopProps = json.map((key) => {
-    const numberOfTabs = level + 1;
-    const tabs = Array(numberOfTabs).fill("\t").join("");
     const flags = generateFlags(key.options);
 
     const name = options.camelCase ? convertStringToCamelCase(key.name) : key.name;
 
-    return `${tabs} ${name}: ${key.zodType}${flags.trim()},`;
+    return ` ${name}: ${key.zodType}${flags.trim()},`;
   });
 
   return [start, ...zopProps, end].join("\n");
 };
 
-const getTypeAsString = (value: unknown, level: number, { options }: { options: ZodOptions }) => {
+const getArrayContent = (value: unknown): string => {
+  const val = value as unknown[];
+
+  if (val.length === 0) {
+    return "z.array(z.any())";
+  }
+
+  const isSameType = val.every((v) => typeof v === typeof val[0]);
+
+  if (isSameType) {
+    return `z.array(${getTypeAsString(val[0])})`;
+  }
+
+  return "z.array(z.any())";
+};
+
+const getTypeAsString = (value: unknown) => {
   switch (typeof value) {
     case "string":
       return "z.string()";
@@ -68,24 +82,26 @@ const getTypeAsString = (value: unknown, level: number, { options }: { options: 
       return "z.boolean()";
     case "object":
       if (Array.isArray(value)) {
-        return "z.array(z.unknown())";
+        return getArrayContent(value);
       }
-
+      if (value === null) {
+        return "z.any()";
+      }
+      return "z.object({})";
+    case "undefined":
+      return "z.any()";
     // return createMappedObjectFromJson(value as Record<string, unknown>, level + 1, options);
     default:
       return "z.unknown()";
   }
 };
 
-const generateEnd = ({ options, subObject, level }: { subObject: boolean; options: ZodOptions; level: number }) => {
-  const numberOfTabs = level;
-  const tabs = Array(numberOfTabs).fill("\t").join("");
-
+const generateEnd = ({ options, subObject }: { subObject: boolean; options: ZodOptions }) => {
   const exportString = options.addExport && !subObject ? `\n\nexport { ${options.name} }` : "";
 
-  return `${tabs}})${exportString}`;
+  return `})${exportString}`;
 };
-function generateStart({ options, subObject, level }: { subObject: boolean; options: ZodOptions; level: number }) {
+function generateStart({ options, subObject }: { subObject: boolean; options: ZodOptions }) {
   if (subObject) {
     return `z.object({`;
   }

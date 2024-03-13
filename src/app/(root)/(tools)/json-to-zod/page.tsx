@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { json } from "@codemirror/lang-json";
 
 import Editor from "../../../../components/Editor/Editor";
 import { toast } from "sonner";
@@ -92,7 +93,7 @@ const JsonToZod = () => {
       />
       <TwoEditorLayout>
         <Container errorMessage={error}>
-          <Editor placeholder="Enter JSON here" value={inputArea} setValue={(e) => setinputArea(e.target.value)} language="json" />
+          <Editor placeholder="Enter JSON here" value={inputArea} setValue={setinputArea} language={json()} />
         </Container>
         <Container>
           <TabbedLayout
@@ -103,15 +104,7 @@ const JsonToZod = () => {
                 label: "Schema",
                 child: (
                   <>
-                    <Editor
-                      disabled
-                      placeholder="Output"
-                      value={outputArea}
-                      setValue={() => {
-                        return;
-                      }}
-                      language="typescript"
-                    />
+                    <Editor disabled placeholder="Output" value={outputArea} setValue={setoutputArea} />
                   </>
                 ),
               },

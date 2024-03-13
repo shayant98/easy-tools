@@ -14,6 +14,7 @@ import BaseLayout from "@layout/BaseLayout";
 import { Copy, Download, Trash, Undo2 } from "lucide-react";
 import { Card, CardHeader, CardTitle } from "@components/ui/card";
 import { toast } from "sonner";
+import { markdown } from "@codemirror/lang-markdown";
 
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
@@ -163,8 +164,8 @@ const ReadmeGenerator = () => {
               <Editor
                 placeholder="Enter encoded URL here"
                 value={currentlySelectedPreset?.value ?? ""}
-                setValue={(e) => handlePresetEdit(e.target.value, currentlySelectedPreset)}
-                language="markdown"
+                setValue={(val: string) => handlePresetEdit(val, currentlySelectedPreset)}
+                language={markdown()}
               />
             </div>
           </div>

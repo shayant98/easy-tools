@@ -34,7 +34,7 @@ const QrDecoder = () => {
           <Dropzone getInputProps={getInputProps} isDragActive={isDragActive} getRootProps={getRootProps} />
         </Container>
         <Container>
-          <Editor value={value} setValue={(e) => setvalue(e.target.value)} disabled placeholder="Content will apear here" />
+          <Editor value={value} setValue={setvalue} disabled placeholder="Content will apear here" />
         </Container>
       </TwoEditorLayout>
     </>
