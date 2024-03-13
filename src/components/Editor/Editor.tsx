@@ -9,16 +9,6 @@ import CodeMirror, { type Extension, type ViewUpdate, type ReactCodeMirrorRef } 
 const Editor = forwardRef<ReactCodeMirrorRef, EditorProps>((props, ref) => {
   const { value, setValue, language = javascript({ typescript: true }), disabled = false, placeholder = "" } = props;
   return (
-    // <CodeEditor
-    //   ref={ref}
-    //   disabled={disabled}
-    //   value={value}
-    //   language={language}
-    //   placeholder={placeholder}
-    //   onChange={setValue}
-    //   padding={15}
-    //   className={cn("h-full  min-h-64 rounded-md bg-secondary font-mono text-primary-foreground")}
-    // />
     <CodeMirror
       className="overflow-hidden h-full overflow-x"
       readOnly={disabled}

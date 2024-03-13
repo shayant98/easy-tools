@@ -43,7 +43,7 @@ const JsonToTs = () => {
     <BaseLayout toolId={1} title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor value={inputArea} setValue={setinputArea} language={json()} placeholder="Enter JSON here" />
+          <Editor value={inputArea} setValue={setinputArea} language={json()} placeholder="Enter JS here" />
         </Container>
         <Container>
           <Editor value={outputArea} setValue={setoutputArea} disabled placeholder="TS will appear here" />
