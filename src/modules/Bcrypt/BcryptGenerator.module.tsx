@@ -4,7 +4,7 @@ import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/Input";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { Label } from "@components/ui/label";
 import * as bcrypt from "bcryptjs";
 import { useState } from "react";
@@ -51,7 +51,7 @@ const BcryptGenerator = () => {
           Copy
         </Button>
       </div>
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <div className="">
             <Label>Rounds</Label>
@@ -75,7 +75,7 @@ const BcryptGenerator = () => {
         <Container>
           <Editor disabled value={hash} setValue={setHash} />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </>
   );
 };

@@ -6,7 +6,7 @@ import { json } from "@codemirror/lang-json";
 
 import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";
-import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
+import MultiEditorLayout from "../../../../layout/multi-editor-layout";
 import Container from "@components/Container/Container";
 import BaseLayout from "@layout/BaseLayout";
 
@@ -41,14 +41,14 @@ const JsonToTs = () => {
 
   return (
     <BaseLayout toolId={1} title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container errorMessage={error}>
           <Editor value={inputArea} setValue={setinputArea} language={json()} placeholder="Enter JSON here" />
         </Container>
         <Container>
           <Editor value={outputArea} setValue={setoutputArea} disabled placeholder="TS will appear here" />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </BaseLayout>
   );
 };

@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
-import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@components/Navbar/Navbar";
 import Providers from "../providers";
 import { cn } from "@utils/utils";
@@ -31,8 +30,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <Footer />
           <Toaster richColors />
           <QuickAccessMenu />
-
-          <Analytics />
         </Providers>
       </body>
     </html>

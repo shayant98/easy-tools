@@ -7,7 +7,7 @@ import { json } from "@codemirror/lang-json";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/button";
 import BaseLayout from "@layout/BaseLayout";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { Cog, Copy, Flower, MoreVertical, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createDartClassFromJson } from "../../../../services/dart/dart";
@@ -156,14 +156,14 @@ const JsonToDart = () => {
           </>
         }
       />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container errorMessage={error}>
           <Editor value={jsonValue} setValue={setJsonValue} language={json()} placeholder="Enter JSON here" />
         </Container>
         <Container>
           <Editor value={dart} setValue={setDart} disabled placeholder="Dart will appear here" />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </BaseLayout>
   );
 };

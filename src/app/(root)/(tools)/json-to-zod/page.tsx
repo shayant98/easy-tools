@@ -5,7 +5,7 @@ import { json } from "@codemirror/lang-json";
 
 import Editor from "../../../../components/Editor/Editor";
 import { toast } from "sonner";
-import TwoEditorLayout from "../../../../layout/TwoEditorLayout";
+import MultiEditorLayout from "../../../../layout/multi-editor-layout";
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/button";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
@@ -91,7 +91,7 @@ const JsonToZod = () => {
           </div>
         }
       />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container errorMessage={error}>
           <Editor placeholder="Enter JSON here" value={inputArea} setValue={setinputArea} language={json()} />
         </Container>
@@ -120,7 +120,7 @@ const JsonToZod = () => {
             ]}
           />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </BaseLayout>
   );
 };

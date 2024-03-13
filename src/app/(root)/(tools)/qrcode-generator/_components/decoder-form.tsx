@@ -3,7 +3,7 @@
 
 import Container from "@components/Container/Container";
 import Dropzone from "@components/Dropzone/Dropzone";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import QrScanner from "qr-scanner"; // if installed via package and bundling with a module bundler like webpack or rollup
@@ -29,14 +29,14 @@ const QrDecoder = () => {
   return (
     <>
       <ToolButtons first={<QrCameraDialog />} />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <Dropzone getInputProps={getInputProps} isDragActive={isDragActive} getRootProps={getRootProps} />
         </Container>
         <Container>
           <Editor value={value} setValue={setvalue} disabled placeholder="Content will apear here" />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </>
   );
 };

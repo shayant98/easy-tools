@@ -2,7 +2,7 @@
 
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { useEffect, useState } from "react";
 import Output from "./Output.module";
 import { useDockerCompose } from "./DockerComposeContext";
@@ -29,12 +29,12 @@ const CommandParser = () => {
           </Button>
         }
       />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <Editor value={commandInput} setValue={setcommandInput} language={yaml()} />
         </Container>
         <Output />
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </div>
   );
 };

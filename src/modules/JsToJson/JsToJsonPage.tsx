@@ -2,7 +2,7 @@
 
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { stringToJsonString } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
 import { json } from "@codemirror/lang-json";
@@ -32,14 +32,14 @@ const JsToJsonPage = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <TwoEditorLayout>
+    <MultiEditorLayout>
       <Container errorMessage={error}>
         <Editor value={inputArea} setValue={setinputArea} placeholder="Enter JS here" />
       </Container>
       <Container>
         <Editor value={outputArea} setValue={setoutputArea} language={json()} disabled placeholder="JSON will apear here" />
       </Container>
-    </TwoEditorLayout>
+    </MultiEditorLayout>
   );
 };
 

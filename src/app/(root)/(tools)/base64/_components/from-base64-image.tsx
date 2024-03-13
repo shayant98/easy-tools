@@ -6,7 +6,7 @@ import { Input } from "@components/ui/Input";
 import { Label } from "@components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
 import { Textarea } from "@components/ui/textarea";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { base64toFile } from "@utils/formatters";
 import JSZip from "jszip";
 import { ArrowRight, Cog, Download, FileArchive } from "lucide-react";
@@ -110,7 +110,7 @@ const FromBase64 = () => {
           </Button>
         </div>
       </div>
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <Textarea className="h-full  " value={input} onChange={(e) => setinput(e.target.value)} placeholder="Enter base64 string here" />
         </Container>
@@ -128,7 +128,7 @@ const FromBase64 = () => {
             ))}
           </div>
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </>
   );
 };

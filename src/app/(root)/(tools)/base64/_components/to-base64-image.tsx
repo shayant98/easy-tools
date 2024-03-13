@@ -2,7 +2,7 @@
 
 import Container from "@components/Container/Container";
 import { Button } from "@components/ui/button";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { toBase64 } from "@utils/formatters";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -77,7 +77,7 @@ const ToBase64 = () => {
         }
       />
 
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <div
             {...getRootProps({
@@ -120,7 +120,7 @@ const ToBase64 = () => {
             ))}
           </div>
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </>
   );
 };

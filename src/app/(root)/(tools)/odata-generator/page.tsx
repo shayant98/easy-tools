@@ -9,7 +9,7 @@ import { Input } from "@components/ui/Input";
 import { Label } from "@components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
 import { Switch } from "@components/ui/switch";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { buildUrl } from "@utils/odata";
 import { cn } from "@utils/utils";
 import { useEffect, useState } from "react";
@@ -136,7 +136,7 @@ const OdataGenerator = () => {
           </Button>
         }
       />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <div className="flex flex-col gap-3">
             <Label className="">Base URL</Label>
@@ -282,7 +282,7 @@ const OdataGenerator = () => {
         <Container>
           <Editor disabled value={generatedUrl} setValue={setgeneratedUrl} placeholder="Generated URL will appear here" />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
 
       <div className="mt-4">
         <div className="mt-4 flex justify-end"></div>

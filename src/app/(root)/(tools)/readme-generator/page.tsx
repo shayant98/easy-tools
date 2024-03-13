@@ -8,7 +8,7 @@ import presets from "../../../../data/markdown-presets";
 import Editor from "../../../../components/Editor/Editor";
 import { Button } from "@components/ui/button";
 import Container from "@components/Container/Container";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
 import { Copy, Download, Trash, Undo2 } from "lucide-react";
@@ -135,47 +135,60 @@ const ReadmeGenerator = () => {
           </div>
         }
       />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
-          <div className="flex h-full w-full gap-2 ">
-            <div className="hidden  flex-col gap-2 md:flex">
-              {availablePresets.map((preset) => (
-                <Card key={preset.title} onClick={() => handlePresetSelection(preset)} className={`cursor-pointer `}>
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-2">
-                      <CardTitle className="text-nowrap">{preset.title}</CardTitle>
-                      {new Set(selectedPresets).has(preset) && (
-                        <Button
-                          variant={"destructive"}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            removeselectedPreset(preset);
-                          }}
-                        >
-                          <Trash className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-            <div className="grow">
-              <Editor
-                placeholder="Enter encoded URL here"
-                value={currentlySelectedPreset?.value ?? ""}
-                setValue={(val: string) => handlePresetEdit(val, currentlySelectedPreset)}
-                language={markdown()}
-              />
-            </div>
+          <div className="hidden  flex-col gap-2 md:flex h-min">
+            {availablePresets.map((preset) => (
+              // <Card key={preset.title}  >
+              //   <CardHeader>
+              //     <div className="flex items-center justify-between">
+              //       <CardTitle className="text-nowrap">{preset.title}</CardTitle>
+              //       {new Set(selectedPresets).has(preset) && (
+              //         <Button
+              //           variant={"destructive"}
+              //           onClick={(e) => {
+              //             e.stopPropagation();
+              //             removeselectedPreset(preset);
+              //           }}
+              //         >
+              //           <Trash className="h-4 w-4" />
+              //         </Button>
+              //       )}
+              //     </div>
+              //   </CardHeader>
+              // </Card>
+              <div className="bg-secondary cursor-pointer flex items-center justify-between px-4 py-2 rounded" key={preset.title} onClick={() => handlePresetSelection(preset)}>
+                <span className="leading-7 [&:not(:first-child)]:mt-6">{preset.title}</span>
+                {new Set(selectedPresets).has(preset) && (
+                  <Button
+                    variant={"destructive"}
+                    size={"sm"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeselectedPreset(preset);
+                    }}
+                  >
+                    <Trash className="h-3 w-3" />
+                  </Button>
+                )}
+              </div>
+            ))}
           </div>
+        </Container>
+        <Container>
+          <Editor
+            placeholder="Enter encoded URL here"
+            value={currentlySelectedPreset?.value.trim() ?? ""}
+            setValue={(val: string) => handlePresetEdit(val, currentlySelectedPreset)}
+            language={markdown()}
+          />
         </Container>
         <Container>
           <ReactMarkdown className="markdown-body h-full rounded bg-secondary p-4" remarkPlugins={[remarkGfm]}>
             {selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}
           </ReactMarkdown>
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </BaseLayout>
   );
 };

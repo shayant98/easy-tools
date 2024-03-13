@@ -1,6 +1,6 @@
 "use client";
 
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { DockerComposeContextProvider } from "./DockerComposeContext";
 import Form from "./Form.module";
 import Output from "./Output.module";

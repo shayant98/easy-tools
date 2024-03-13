@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import QRCode from "qrcode";
 import Image from "next/image";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { Button } from "@components/ui/button";
 import { Textarea } from "@components/ui/textarea";
 import Container from "@components/Container/Container";
@@ -51,7 +51,7 @@ const QrCodeGenerator = () => {
           <Download className="mr-2 h-4 w-4" /> Download Image
         </Button>
       </div>
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <Textarea className="h-full  " value={input} onChange={(e) => setinput(e.target.value)} placeholder="Type your message here." />
         </Container>
@@ -60,7 +60,7 @@ const QrCodeGenerator = () => {
             <div className="relative h-32 w-32 md:h-80 md:w-80">{qrCode && <Image className="rounded" src={qrCode} alt="QRCode" fill sizes="1vw" />}</div>
           </div>
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </>
   );
 };

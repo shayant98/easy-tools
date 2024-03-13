@@ -5,7 +5,7 @@ import Editor from "@components/Editor/Editor";
 
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import Container from "@components/Container/Container";
-import TwoEditorLayout from "@layout/TwoEditorLayout";
+import MultiEditorLayout from "@layout/multi-editor-layout";
 import { Button } from "@components/ui/button";
 import SnippetDialog from "@components/SnippetDialog";
 import { toast } from "sonner";
@@ -86,14 +86,14 @@ const UrlEncoderDecoder = () => {
           </>
         }
       />
-      <TwoEditorLayout>
+      <MultiEditorLayout>
         <Container>
           <Editor placeholder="Enter encoded URL here" value={inputArea} setValue={setinputArea} />
         </Container>
         <Container>
           <Editor placeholder="Enter decoded URL here" value={outputArea} setValue={setoutputArea} />
         </Container>
-      </TwoEditorLayout>
+      </MultiEditorLayout>
     </BaseLayout>
   );
 };
