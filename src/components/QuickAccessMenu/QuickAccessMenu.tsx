@@ -27,7 +27,12 @@ const QuickAccessMenu = () => {
       <CommandList>
         <CommandEmpty className="py-5 text-center text-xs text-slate-500 opacity-40 dark:text-slate-200">No results found.</CommandEmpty>
         <CommandGroup heading="General">
-          <CommandItem onSelect={() => router.push("/")}>
+          <CommandItem
+            onSelect={() => {
+              setOpen(false);
+              router.push("/");
+            }}
+          >
             <Home className="mr-2 h-4 w-4 " />
             <div className="flex flex-col">
               <span>Home</span>
@@ -41,8 +46,9 @@ const QuickAccessMenu = () => {
             <CommandItem
               key={`tool-${title}`}
               onSelect={() => {
-                router.push(link);
                 setOpen(false);
+
+                router.push(link);
               }}
             >
               <Icon className="mr-2 h-4 w-4 " />

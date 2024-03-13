@@ -37,7 +37,7 @@ const Home: NextPage = () => {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
               icon={Search}
-              trailing={<span className="bg-muted px-2 text-xs rounded py-1 text-nowrap ">{isWindows ? "Ctrl + /" : "CMD + /"}</span>}
+              trailing={<span className="bg-muted px-2 text-xs rounded py-1 text-nowrap ">{isWindows ? "Ctrl + K" : "CMD + Kui"}</span>}
             />
           </div>
         </div>
