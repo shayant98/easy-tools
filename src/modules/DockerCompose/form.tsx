@@ -67,17 +67,22 @@ const Form = () => {
               </div>
               <div className="">
                 <div className="mb-2  flex items-center justify-between gap-4">
-                  <Label>Volume</Label>
+                  <Label>Volumes</Label>
                   <Button onClick={() => addVolumeToService(service.name)} size={"icon"} variant={"default"}>
                     <PlusCircle className=" h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col gap-10">
                   {service.volumes.map((volume, i) => (
                     <div key={`volume-${volume.id}-${service.id}`} className="flex gap-2">
-                      <Input placeholder="internal" value={volume.internal} onChange={(e) => updateVolumeOfService(e, service.name, i, "internal")} />
-                      <Input placeholder="external" value={volume.external} onChange={(e) => updateVolumeOfService(e, service.name, i, "external")} />
-                      <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"destructive"}>
+                      <div className="flex gap-2 grow">
+                        <Input placeholder="internal" value={volume.internal} onChange={(e) => updateVolumeOfService(e, service.name, i, "internal")} />
+                        <div className="w-9 h-9 p-4 rounded bg-secondary flex items-center justify-center">
+                          <span className="text-secondary-foreground">:</span>
+                        </div>
+                        <Input placeholder="external" value={volume.external} onChange={(e) => updateVolumeOfService(e, service.name, i, "external")} />
+                      </div>
+                      <Button onClick={() => removeVolumeFromService(service.name, i)} variant={"destructive"} size={"icon"}>
                         <Trash className="h-4 w-4" />
                       </Button>
                     </div>
@@ -91,12 +96,17 @@ const Form = () => {
                     <PlusCircle className=" h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex flex-col space-y-2 ">
+                <div className="flex flex-col gap-10 ">
                   {service.ports.map((port, i) => (
                     <div key={`port-${port.id}-${service.id}`} className="flex gap-2">
-                      <Input placeholder="internal" value={port.internal} onChange={(e) => updatePortOfService(e, service.name, i, "internal")} />
-                      <Input placeholder="external" value={port.external} onChange={(e) => updatePortOfService(e, service.name, i, "external")} />
-                      <Button onClick={() => removePortFromService(service.name, i)} variant={"destructive"}>
+                      <div className="flex gap-2 grow">
+                        <Input placeholder="internal" value={port.internal} onChange={(e) => updatePortOfService(e, service.name, i, "internal")} />
+                        <div className="w-9 h-9 p-4 rounded bg-secondary flex items-center justify-center">
+                          <span className="text-secondary-foreground">:</span>
+                        </div>
+                        <Input placeholder="external" value={port.external} onChange={(e) => updatePortOfService(e, service.name, i, "external")} />
+                      </div>
+                      <Button onClick={() => removePortFromService(service.name, i)} variant={"destructive"} size={"icon"}>
                         <Trash className=" h-4 w-4" />
                       </Button>
                     </div>
@@ -110,12 +120,14 @@ const Form = () => {
                     <PlusCircle className=" h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col gap-10">
                   {service.env.map((env, i) => (
                     <div key={`env-${env.id}-${service.id}`} className="flex gap-2">
-                      <Input placeholder="Label" value={env.label} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
-                      <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
-                      <Button onClick={() => removeEnvFromService(service.name, i)} variant={"destructive"}>
+                      <div className="flex gap-2 grow">
+                        <Input placeholder="Label" value={env.label} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
+                        <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
+                      </div>
+                      <Button onClick={() => removeEnvFromService(service.name, i)} variant={"destructive"} size={"icon"}>
                         <Trash className=" h-4 w-4" />
                       </Button>
                     </div>
@@ -125,16 +137,18 @@ const Form = () => {
               <div className="">
                 <div className="mb-2  flex items-center justify-between gap-4">
                   <Label>Label</Label>
-                  <Button onClick={() => addLabelToService(service.name)} variant={"default"}>
+                  <Button onClick={() => addLabelToService(service.name)} variant={"default"} size={"icon"}>
                     <PlusCircle className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col gap-10">
                   {service.labels.map((label, i) => (
                     <div key={`label-${label.id}-${service.id}`} className="flex gap-2">
-                      <Input placeholder="Label" value={label.label} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
-                      <Input placeholder="Value" value={label.value} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
-                      <Button onClick={() => removeLabelFromService(service.name, i)} variant={"destructive"}>
+                      <div className="flex gap-2 grow">
+                        <Input placeholder="Label" value={label.label} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
+                        <Input placeholder="Value" value={label.value} onChange={(e) => updateLabelOfService(e, service.name, i, "label")} />
+                      </div>
+                      <Button onClick={() => removeLabelFromService(service.name, i)} variant={"destructive"} size={"icon"}>
                         <Trash className="h-4 w-4" />
                       </Button>
                     </div>

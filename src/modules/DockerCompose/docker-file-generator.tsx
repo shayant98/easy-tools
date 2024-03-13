@@ -1,7 +1,7 @@
 "use client";
 
 import MultiEditorLayout from "@layout/multi-editor-layout";
-import Form from "./Form.module";
+import Form from "./form";
 import Output from "./Output.module";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { useDockerCompose } from "./DockerComposeContext";

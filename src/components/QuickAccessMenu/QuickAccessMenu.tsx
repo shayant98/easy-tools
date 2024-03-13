@@ -12,7 +12,7 @@ const QuickAccessMenu = () => {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "/" && e.metaKey) {
+      if (e.key === "k" && e.metaKey) {
         setOpen((open) => !open);
       }
     };
@@ -38,7 +38,13 @@ const QuickAccessMenu = () => {
 
         <CommandGroup heading="Tools">
           {menuItems.map(({ icon: Icon, title, subtitle, link }) => (
-            <CommandItem key={`tool-${title}`} onSelect={() => router.push(link)}>
+            <CommandItem
+              key={`tool-${title}`}
+              onSelect={() => {
+                router.push(link);
+                setOpen(false);
+              }}
+            >
               <Icon className="mr-2 h-4 w-4 " />
               <div className="flex flex-col">
                 <span>{title}</span>
