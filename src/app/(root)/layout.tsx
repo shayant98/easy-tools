@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
-import Navbar from "@components/Navbar/Navbar";
+import Navbar from "app/_components/navbar";
 import Providers from "../providers";
 import { cn } from "@utils/utils";
-import QuickAccessMenu from "@components/QuickAccessMenu/QuickAccessMenu";
-import Footer from "@components/Footer/footer";
+import QuickAccessMenu from "app/_components/quick-access-menu";
+import Footer from "app/_components/footer";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Toaster } from "@components/ui/sonner";

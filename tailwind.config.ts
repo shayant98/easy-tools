@@ -68,5 +68,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-bg-patterns")],
 } satisfies Config;

@@ -12,7 +12,7 @@ const ToolCard = ({ menuItem }: IToolCardProps) => {
 
   return (
     <Link key={title} href={link}>
-      <Card className="flex h-full w-80 flex-col justify-between hover:bg-primary/20 duration-200 hover:scale-105">
+      <Card className="flex h-full w-80 flex-col justify-between bg-secondary border-none hover:bg-primary/20 duration-200 hover:scale-105">
         <CardHeader>
           <CardTitle className="flex items-center gap-4">
             <Icon className="text-primary" />
@@ -24,7 +24,7 @@ const ToolCard = ({ menuItem }: IToolCardProps) => {
         <CardFooter className="flex gap-10 justify-between">
           <div className="flex flex-wrap gap-1">
             {tags.slice(0, 3).map((tag) => (
-              <div key={`${tag}`} className="rounded-full bg-secondary px-2 py-1 text-xs">
+              <div key={`${tag}`} className="rounded-full bg-primary/20 px-2 py-1 text-xs">
                 {tag}
               </div>
             ))}
