@@ -7,8 +7,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Moon, Sun } from "lucide-react";
 import Sidebar from "./sidebar";
-import { cn } from "@utils/utils";
-import { Switch } from "@components/ui/switch";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@components/ui/skeleton";
 
