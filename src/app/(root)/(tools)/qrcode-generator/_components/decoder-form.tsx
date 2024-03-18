@@ -28,7 +28,7 @@ const QrDecoder = () => {
 
   return (
     <>
-      <ToolButtons first={<QrCameraDialog />} />
+      {/* <ToolButtons first={<QrCameraDialog />} /> */}
       <MultiEditorLayout>
         <Container>
           <Dropzone getInputProps={getInputProps} isDragActive={isDragActive} getRootProps={getRootProps} />

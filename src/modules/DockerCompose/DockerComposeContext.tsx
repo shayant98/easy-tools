@@ -10,25 +10,23 @@ export type dockerComposeContextType = {
   generateDockerComposeFromServices: () => void;
   parseDockerCommand: (cmd: string) => void;
   downloadYaml: () => void;
-  addService: (
-    {
-      name,
-      image,
-      container_name,
-      ports,
-      volumes,
-      env,
-      labels,
-    }: {
-      name?: string;
-      image?: string;
-      container_name?: string;
-      ports?: { id: string; external: string; internal: string }[];
-      volumes?: { id: string; external: string; internal: string }[];
-      env?: { id: string; label: string; value: string }[];
-      labels?: { id: string; label: string; value: string }[];
-    }
-  ) => void;
+  addService: ({
+    name,
+    image,
+    container_name,
+    ports,
+    volumes,
+    env,
+    labels,
+  }: {
+    name?: string;
+    image?: string;
+    container_name?: string;
+    ports?: { id: string; external: string; internal: string }[];
+    volumes?: { id: string; external: string; internal: string }[];
+    env?: { id: string; label: string; value: string }[];
+    labels?: { id: string; label: string; value: string }[];
+  }) => void;
   removeService: (name: string) => void;
   getValueOfService: (name: string, key: GetStringKeys) => string;
   handleNameOfServiceChange: (e: ChangeEvent<HTMLInputElement>, name: string, key: GetStringKeys) => void;
@@ -118,7 +116,6 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
   const [services, setServices] = useState<DockerService[]>([]);
   const [yaml, setYaml] = useState("");
 
-
   const parseDockerCommand = (cmd: string) => {
     //Sanitize the input
     cmd = cmd.trim();
@@ -159,19 +156,19 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
       prefixes: ["--net"],
     });
 
-
-
-
-    const object: Record<string, {
+    const object: Record<
+      string,
+      {
         image: string;
         container_name: string;
         ports?: string[];
         volumes?: string[];
         environment?: string[];
-      labels?: string[];
-      restart?: string;
-      network_mode?: string;
-      }> = {
+        labels?: string[];
+        restart?: string;
+        network_mode?: string;
+      }
+    > = {
       [name]: {
         image,
         container_name: name,
@@ -179,7 +176,7 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
         // volumes: volumes.map((volume) => `${volume.label}:${volume.value}`),
         // environment: env.map((env) => `${env.label}=${env.value}`),
         // labels: labels.map((label) => `${label.label}=${label.value}`),
-      }
+      },
     };
 
     const service = object[name];
@@ -201,7 +198,14 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
     }
 
     if (labels.length > 0) {
-      service.labels = labels.map((label) => `${label.label}=${label.value}`);
+      service.labels = labels.map((label) => {
+        console.log(label);
+
+        if (label.label === "" || label.value === "") {
+          return "ddd";
+        }
+        return `${label.label}=${label.value}`;
+      });
     }
 
     if (restart !== "") {
@@ -212,20 +216,17 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
       service.network_mode = network?.split("=")[1];
     }
 
-
-
+    console.log(service);
 
     const yaml = json2yaml.stringify(service) as string;
 
     setYaml(yaml);
-
-  }
+  };
 
   const getNameFromCommand = (cmd: string) => {
-
     const namePrefixes = ["--name", "-n"];
 
-   const  contains = namePrefixes.some((prefix) => cmd.includes(prefix));
+    const contains = namePrefixes.some((prefix) => cmd.includes(prefix));
 
     if (!contains) {
       return "";
@@ -237,7 +238,7 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
       return "";
     }
 
-    const everythingAfterNameFlag = cmd.split(`${nameFlag}=`)[1]
+    const everythingAfterNameFlag = cmd.split(`${nameFlag}=`)[1];
 
     if (everythingAfterNameFlag === undefined) {
       return "";
@@ -246,14 +247,9 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
     const name = everythingAfterNameFlag.split(" ")[0];
 
     return name;
-
-
-
-
-  }
+  };
 
   const getContainerImageFromCommand = (cmd: string) => {
-
     const split = cmd.split(" ");
     const last = split[split.length - 1];
 
@@ -269,10 +265,14 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
     return "";
   };
 
-  const getConfigFromCommand = (cmd: string, {
-    prefixes }: {
+  const getConfigFromCommand = (
+    cmd: string,
+    {
+      prefixes,
+    }: {
       prefixes: string[];
-    }) => {
+    }
+  ) => {
     const contains = prefixes.some((prefix) => cmd.includes(prefix));
 
     if (!contains) {
@@ -287,30 +287,29 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
 
     const everythingAfterFlag = cmd.split(`${prefixFlag}`)[1];
 
-
     if (everythingAfterFlag === undefined) {
       return "";
     }
 
     const config = everythingAfterFlag.trim().split(" ")[0];
 
-
     return config;
+  };
 
-  }
-
-  const getValueFromCommand = (cmd: string, {
-    prefixes,
-    seperator = ":",
-  }: {
-    prefixes: string[];
-    seperator?: string;
-    }): {
-      id: string;
-      label: string;
-      value: string;
+  const getValueFromCommand = (
+    cmd: string,
+    {
+      prefixes,
+      seperator = ":",
+    }: {
+      prefixes: string[];
+      seperator?: string;
+    }
+  ): {
+    id: string;
+    label: string;
+    value: string;
   }[] => {
-
     const contains = prefixes.some((prefix) => cmd.includes(prefix));
 
     if (!contains) {
@@ -323,53 +322,81 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
       return [];
     }
 
-    const commandSplitOnFlag = cmd.split(`${envFlag}`)
+    const commandSplitOnFlag = cmd.split(`${envFlag}`);
 
     if (commandSplitOnFlag === undefined) {
       return [];
     }
 
-
     //Remove everything before the first env flag
     commandSplitOnFlag.shift();
 
-    const parsedValues= commandSplitOnFlag.map((env, i) => {
+    const parsedValues = commandSplitOnFlag.map((env, i) => {
       env = env.trim();
 
       const label = env.split(seperator)[0];
       const value = env.split(seperator)[1]?.split(" ")[0];
 
       if (label === undefined || value === undefined) {
-        return {id:"" , label: "", value: "" };
+        return { id: "", label: "", value: "" };
       }
 
-
-      return {id: i.toString(), label, value };
-    } );
-
+      return { id: i.toString(), label, value };
+    });
 
     return parsedValues;
-
   };
-
 
   const generateDockerComposeFromServices = () => {
     const serviceJson = services.map((service) => {
       const { name } = service;
 
-      const mainObject = {
+      const mainObject: Record<
+        string,
+        {
+          image: string;
+          user: string;
+          container_name: string;
+          ports?: string[];
+          volumes?: string[];
+          environment?: string[];
+          labels?: string[];
+        }
+      > = {
         [name]: {
           image: service.image,
-
           user: "1000",
           // working_dir: null,
           container_name: service.container_name,
-          ports: service.ports.map((port) => `${port.external}:${port.internal}`),
-          volumes: service.volumes.map((volume) => `${volume.external}:${volume.internal}`),
-          environment: service.env.map((env) => `${env.label}=${env.value}`),
-          labels: service.labels.map((label) => `${label.label}=${label.value}`),
+          ports: service.ports.filter((port) => port.external != "" || port.internal != "").map((port) => `${port.external}:${port.internal}`),
+          volumes: service.volumes.filter((port) => port.external != "" || port.internal != "").map((volume) => `${volume.external}:${volume.internal}`),
+          environment: service.env.filter((port) => port.label != "" || port.value != "").map((env) => `${env.label}=${env.value}`),
+          labels: service.labels.filter((port) => port.label != "" || port.value != "").map((label) => `${label.label}=${label.value}`),
         },
       };
+
+      const serviceObject = mainObject[name];
+
+      //Should not happen, if it did. i doe wan koulo san verkeerd
+      if (serviceObject === undefined) {
+        return {};
+      }
+
+      if (serviceObject.ports != undefined && serviceObject.ports.length === 0) {
+        delete serviceObject.ports;
+      }
+
+      if (serviceObject.volumes != undefined && serviceObject.volumes.length === 0) {
+        delete serviceObject.volumes;
+      }
+
+      if (serviceObject.environment != undefined && serviceObject.environment.length === 0) {
+        delete serviceObject.environment;
+      }
+
+      if (serviceObject.labels != undefined && serviceObject.labels.length === 0) {
+        delete serviceObject.labels;
+      }
 
       return mainObject;
     });
@@ -406,12 +433,12 @@ const DockerComposeContextProvider = ({ children }: { children: ReactNode }) => 
     volumes?: { id: string; external: string; internal: string }[];
     env?: { id: string; label: string; value: string }[];
     labels?: { id: string; label: string; value: string }[];
-    }) => {
+  }) => {
     console.log(name);
 
     const newService = {
       id: services.length.toString(),
-      name: name ??  `service-${services.length}`,
+      name: name ?? `service-${services.length}`,
       image: image,
       container_name: container_name,
       ports: ports,

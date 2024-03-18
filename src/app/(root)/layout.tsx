@@ -23,7 +23,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
-      <body className={cn(`${inter.className} font-inter`, " min-h-screen bg-background antialiased")}>
+      <body className={cn(`${inter.className} font-inter`, "flex flex-col min-h-screen bg-background antialiased")}>
         <Providers>
           <Navbar />
           <Suspense fallback={<Loading />}>{children}</Suspense>

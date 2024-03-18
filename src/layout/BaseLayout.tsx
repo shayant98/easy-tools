@@ -9,7 +9,7 @@ const BaseLayout = ({ children, title, desc, toolId }: BaseLayoutProps) => {
 
   return (
     <>
-      <div className=" pb-5">
+      <div className=" pb-5 h-full">
         <div className="flex gap-3">
           <h2 className="text-3xl font-bold tracking-tight text-foreground">{title}</h2>
           {toolId != undefined ? (

@@ -125,7 +125,7 @@ const Form = () => {
                     <div key={`env-${env.id}-${service.id}`} className="flex gap-2">
                       <div className="flex gap-2 grow">
                         <Input placeholder="Label" value={env.label} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
-                        <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "label")} />
+                        <Input placeholder="Value" value={env.value} onChange={(e) => updateEnvOfService(e, service.name, i, "value")} />
                       </div>
                       <Button onClick={() => removeEnvFromService(service.name, i)} variant={"destructive"} size={"icon"}>
                         <Trash className=" h-4 w-4" />
