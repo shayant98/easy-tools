@@ -5,7 +5,7 @@ import { useState } from "react";
 const Container = ({ children, errorMessage, className }: ContainerProps) => {
   const [showFullError, setshowFullError] = useState(false);
   return (
-    <div className={cn(className, "relative flex   min-h-80 h-full flex-col overflow-auto rounded-md border border-slate-500  p-1  dark:border-slate-700 md:p-6")}>
+    <div className={cn(className, "relative flex h-full  min-h-80 h-full flex-col overflow-auto rounded-md border border-slate-500  p-1  dark:border-slate-700 md:p-6")}>
       {children}
       <div
         onClick={() => setshowFullError(!showFullError)}

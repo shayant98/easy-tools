@@ -1,15 +1,17 @@
 "use client";
 
-import { Panel, Position, getRectOfNodes, getViewportForBounds, useReactFlow } from "reactflow";
+import { Panel, Position, type ReactFlowJsonObject, getRectOfNodes, getViewportForBounds, useReactFlow } from "reactflow";
 import { toJpeg, toPng } from "html-to-image";
 import { Button } from "@components/ui/button";
-import { Download, MoreVertical, Plus, Settings, Upload, X } from "lucide-react";
+import { Download, Globe, MoreVertical, Plus, PlusCircle, Settings, Upload, X } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/dropdown";
 import { useDiagramContext } from "./diagram-context";
 import { toast } from "sonner";
 import cuid2 from "@paralleldrive/cuid2";
 import { SelectSeparator } from "@components/ui/select";
 import { type NodeData } from "./custom-node";
+import { services } from "@data/arch-services";
+import { useFilePicker } from "use-file-picker";
 
 const downloadImage = (
   dataUrl: string,
@@ -46,6 +48,13 @@ const imageWidth = 1024;
 const imageHeight = 768;
 
 const DiagramOptions = () => {
+  const { openFilePicker, filesContent } = useFilePicker({
+    accept: ".json",
+    multiple: false,
+    onFilesSelected: () => {
+      handleImport();
+    },
+  });
   const { title } = useDiagramContext();
   const { getNodes, toObject, setNodes, screenToFlowPosition, setEdges } = useReactFlow<NodeData>();
 
@@ -108,7 +117,8 @@ const DiagramOptions = () => {
   const handleAddNode = () => {
     const nodes = getNodes();
     const position = screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-
+    const firstService = services[0];
+    if (firstService == undefined) return;
     setNodes([
       ...nodes,
       {
@@ -116,6 +126,7 @@ const DiagramOptions = () => {
         position,
         type: "customNode",
         data: {
+          service: 1,
           label: `Node ${nodes.length + 1}`,
           handles: [
             {
@@ -142,7 +153,34 @@ const DiagramOptions = () => {
   };
 
   const handleImport = () => {
-    console.log("Import");
+    if (!filesContent) {
+      return;
+    }
+
+    if (filesContent.length === 0) {
+      return;
+    }
+
+    const importFile = filesContent.at(0);
+
+    if (importFile === null) {
+      return;
+    }
+
+    try {
+      const flow: ReactFlowJsonObject = JSON.parse(importFile?.content ?? "") as ReactFlowJsonObject;
+      if (!flow) {
+        return;
+      }
+
+      setNodes(flow.nodes);
+      setEdges(flow.edges);
+
+      toast.success("Flow imported");
+    } catch (error) {
+      toast.error("Error importing flow");
+      return;
+    }
   };
   return (
     <Panel position="top-center">
@@ -165,6 +203,7 @@ const DiagramOptions = () => {
         <Button size={"icon"} variant={"outline"} onClick={handleAddNode}>
           <Plus size={16} />
         </Button>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size={"icon"} variant={"outline"}>
@@ -172,7 +211,7 @@ const DiagramOptions = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-[200px]">
-            <DropdownMenuItem onClick={handleImport}>
+            <DropdownMenuItem onClick={openFilePicker}>
               <Upload size={16} className="mr-2" />
               Import
             </DropdownMenuItem>

@@ -1,52 +1,39 @@
 import { cn } from "@utils/utils";
-import { Plus, Save } from "lucide-react";
-import { useState } from "react";
-import { Handle, type NodeProps, type Position, NodeResizer } from "reactflow";
-import NodeOptions from "./node-options";
-import { Input } from "@components/ui/Input";
-import { Button } from "@components/ui/button";
+import { Handle, type NodeProps, type Position, NodeResizer, type HandleType } from "reactflow";
 import { SiAzuredevops } from "react-icons/si";
-import { type IconType } from "react-icons";
+import { services } from "@data/arch-services";
 
 export type NodeData = {
   label: string;
   color?: string;
+  service: number;
   handles: {
     id: string;
     location: Position;
-    type: "source" | "target";
+    type: HandleType;
   }[];
 };
 
 const CustomNode = (props: NodeProps<NodeData>) => {
-  const [showMenu, setshowMenu] = useState(false);
+  const Icon = services.find((v) => v.id == props.data.service)?.icon;
 
   return (
     <>
       <NodeResizer isVisible={props.selected} minHeight={32} minWidth={112} />
 
       <div
-        onMouseEnter={(e) => {
-          e.stopPropagation();
-          setshowMenu(true);
-        }}
-        onMouseLeave={(e) => {
-          e.stopPropagation();
-          setshowMenu(false);
-        }}
         className={cn("relative flex items-center justify-center px-4 min-w-28 min-h-8 h-full py-2 rounded shadow  text-secondary-foreground", {
           "border-2 border-secondary-foreground": props.selected,
           "border-2 border-secondary": !props.selected,
         })}
         style={{
-          backgroundColor: props.data.color ?? "var(--color-secondary)",
+          background: props.data.color ?? "hsl(var(--secondary))",
         }}
       >
-        <NodeOptions showMenu={showMenu} id={props.id} />
         <div className="flex justify-between gap-3 items-center rounded">
           <div className="bg-muted rounded">
-            <div className="bg-yellow-500 rounded p-2 flex items-center justify-center">
-              <SiAzuredevops size={10} />
+            <div className="bg-yellow-500 rounded p-1.5 flex items-center justify-center">
+              {Icon != undefined ? <Icon className="w-2 h-2" /> : <SiAzuredevops className="w-2 h-2" />}
             </div>
           </div>
           <p className={cn("text-xs font-bold")}>{props.data.label} </p>

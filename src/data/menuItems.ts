@@ -171,6 +171,15 @@ const menuItems: IMenuItem[] = [
     tags: ["GENERATOR"],
     description: "Generate",
   },
+  {
+    id: 14,
+    title: "Architectural Designer",
+    subtitle: "Create top-level architecture diagrams",
+    icon: BiLockAlt,
+    link: "/arch-designer",
+    tags: ["DEVOPS"],
+    description: "Create top-level architecture diagrams",
+  },
 ];
 
 export default menuItems;
