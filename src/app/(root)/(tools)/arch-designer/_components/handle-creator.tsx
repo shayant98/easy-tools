@@ -43,10 +43,6 @@ const HandleCreator = ({ node }: { node: Node<NodeData> }) => {
   };
 
   const handleHandlePositionChange = (position: Position, id: string) => {
-    if (!node) {
-      return;
-    }
-
     const updatedHandles = node.data.handles?.map((handle) => {
       if (handle.id === id) {
         return {
@@ -72,11 +68,13 @@ const HandleCreator = ({ node }: { node: Node<NodeData> }) => {
   };
 
   const addHandle = () => {
+    console.log(node);
+
     if (!node) {
       return;
     }
 
-    const updatedNode = {
+    const updatedNode: Node = {
       ...node,
       data: {
         ...node.data,
@@ -92,6 +90,7 @@ const HandleCreator = ({ node }: { node: Node<NodeData> }) => {
     };
 
     setNodes((nodes) => nodes.map((n) => (n.id === node.id ? updatedNode : n)));
+    setSelectedNode(updatedNode);
     updateNodeInternals(node.id);
   };
 
@@ -112,6 +111,7 @@ const HandleCreator = ({ node }: { node: Node<NodeData> }) => {
 
     setNodes((nodes) => nodes.map((n) => (n.id === node.id ? updatedNode : n)));
     updateNodeInternals(node.id);
+    setSelectedNode(updatedNode);
   };
 
   return (
