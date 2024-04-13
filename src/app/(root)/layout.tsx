@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import Navbar from "app/_components/navbar";
-import Providers from "../providers";
+import Providers from "../_components/providers";
 import { cn } from "@utils/utils";
 import QuickAccessMenu from "app/_components/quick-access-menu";
 import Footer from "app/_components/footer";
@@ -13,6 +13,12 @@ const inter = Inter({
   display: "swap",
 });
 export const metadata = {
+  icons: {
+    icon: ["/favicon/favicon.ico?v=4"],
+    apple: ["/favicon/apple-touch-icon.png?v=4"],
+    shortcut: ["/favicon/apple-touch-icon.png"],
+  },
+  manifest: "/site.webmanifest",
   title: "Easy Tools",
   description: "Easy Tools is a collection of tools for developers.",
   applicationName: "Easy Tools",
