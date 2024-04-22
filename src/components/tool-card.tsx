@@ -5,6 +5,7 @@ import { useSaveTool } from "hooks/use-tool-save-hook";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 const ToolCard = ({ menuItem }: IToolCardProps) => {
   const { title, subtitle, icon: Icon, link, tags } = menuItem;
@@ -15,19 +16,20 @@ const ToolCard = ({ menuItem }: IToolCardProps) => {
       <Card className="flex h-full w-80 flex-col justify-between bg-secondary border-none hover:bg-primary/20 duration-200 hover:scale-105">
         <CardHeader>
           <CardTitle className="flex items-center gap-4">
-            <Icon className="text-primary" />
-            <span className="border-l-2  border-primary pl-5 text-2xl  ">{title}</span>
+            <Icon className="text-primary w-10 h-10" />
+            <span className="border-primary text-2xl  ">{title}</span>
           </CardTitle>
 
           <CardDescription>{subtitle}</CardDescription>
         </CardHeader>
         <CardFooter className="flex gap-10 justify-between">
-          <div className="flex flex-wrap gap-1">
-            {tags.slice(0, 3).map((tag) => (
-              <div key={`${tag}`} className="rounded-full bg-primary/20 px-2 py-1 text-xs">
+          <div className="flex flex-wrap gap-1 flex-1">
+            {tags.slice(0, 2).map((tag) => (
+              <Badge key={`${tag}`} className="text-[10px]">
                 {tag}
-              </div>
+              </Badge>
             ))}
+            {/* {tags.length > 2 && <Badge>+{tags.length - 2}</Badge>} */}
           </div>
           <Button
             size={"icon"}

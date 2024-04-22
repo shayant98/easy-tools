@@ -4,6 +4,7 @@ import { type NodeProps, NodeResizer } from "reactflow";
 export type NodeParentData = {
   label: string;
   labelPosition: "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "center";
+  showLabel: boolean;
 };
 
 const CustomParentNode = (props: NodeProps<NodeParentData>) => {
@@ -12,7 +13,7 @@ const CustomParentNode = (props: NodeProps<NodeParentData>) => {
       <NodeResizer isVisible={props.selected} minHeight={32} minWidth={112} />
 
       <div
-        className={cn("relative  px-4 min-w-28 min-h-8 h-full py-2 rounded shadow  text-secondary-foreground", {
+        className={cn("relative  px-4 min-w-28 min-h-8 h-full py-2 rounded shadow border-dashed border-primary  text-secondary-foreground", {
           "border-2 border-secondary-foreground": props.selected,
           "border-2 border-secondary": !props.selected,
         })}
@@ -24,10 +25,10 @@ const CustomParentNode = (props: NodeProps<NodeParentData>) => {
       >
         <div
           className={cn("absolute font-bold text-sm text-secondary-foreground opacity-100", {
-            "top-0 left-2": props.data.labelPosition == "topLeft",
-            "top-0 right-2": props.data.labelPosition == "topRight",
-            "bottom-0 right-2": props.data.labelPosition == "bottomRight",
-            "bottom-0 left-2": props.data.labelPosition == "bottomLeft",
+            "top-2 left-4": props.data.labelPosition == "topLeft",
+            "top-2 right-4": props.data.labelPosition == "topRight",
+            "bottom-2 right-4": props.data.labelPosition == "bottomRight",
+            "bottom-2 left-4": props.data.labelPosition == "bottomLeft",
           })}
         >
           {props.data.label}

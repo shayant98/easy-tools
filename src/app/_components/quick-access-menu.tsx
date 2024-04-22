@@ -36,7 +36,7 @@ const QuickAccessMenu = () => {
             <Home className="mr-2 h-4 w-4 " />
             <div className="flex flex-col">
               <span>Home</span>
-              <span className="mt-px text-xs font-thin">Base of operations</span>
+              <span className="text-muted-foreground mt-1 text-xs">Base of operations</span>
             </div>
           </CommandItem>
         </CommandGroup>
@@ -54,7 +54,7 @@ const QuickAccessMenu = () => {
               <Icon className="mr-2 h-4 w-4 " />
               <div className="flex flex-col">
                 <span>{title}</span>
-                <span className="mt-px text-xs font-thin">{subtitle}</span>
+                <span className="text-muted-foreground mt-1 text-xs">{subtitle}</span>
               </div>
             </CommandItem>
           ))}

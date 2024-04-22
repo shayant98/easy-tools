@@ -124,37 +124,37 @@ export const DiagramContextProvider: React.FC<DiagramContextProviderProps> = ({ 
    * Additionally, the converted diagram is added to the `history` state array.
    *
    */
-  const saveDiagramState = useCallback(() => {
+  const saveDiagramState = () => {
+    console.log("Saving diagram state");
+
     if (!rfInstance) {
       return;
     }
     const flow = rfInstance.toObject();
 
+    console.log("Flow", flow);
+
     // save most current to LS
     localStorage.setItem(FLOW_KEY, JSON.stringify(flow));
 
     setHistory((prev) => [...prev, flow]);
-  }, [rfInstance]);
+  };
 
-  const onNodesChange: OnNodesChange = useCallback(
-    (changes) => {
-      setNodes((nds) => applyNodeChanges(changes, nds));
-      saveDiagramState();
-    },
-    [saveDiagramState]
-  );
-  const onEdgesChange: OnEdgesChange = useCallback(
-    (changes) => {
-      setEdges((eds) => applyEdgeChanges(changes, eds));
-      saveDiagramState();
-    },
-    [saveDiagramState]
-  );
+  const onNodesChange: OnNodesChange = (changes) => {
+    setNodes((nds) => applyNodeChanges(changes, nds));
+    saveDiagramState();
+  };
+  const onEdgesChange: OnEdgesChange = (changes) => {
+    setEdges((eds) => applyEdgeChanges(changes, eds));
+    saveDiagramState();
+  };
 
   const nodeTypes = useMemo(() => ({ customNode: CustomNode, archParentNode: CustomParentNode }), []);
   const edgeTypes = useMemo(() => ({ singleDirectionEdge: SingleDirEdge }), []);
 
   const onDelete = (nodes: Node[]) => {
+    console.log("Deleting nodes", nodes);
+
     saveDiagramState();
   };
 

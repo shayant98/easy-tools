@@ -28,6 +28,10 @@ const Home: NextPage = () => {
     };
   }, [search]);
 
+  useEffect(() => {
+    setisWindows(navigator.userAgentData?.platform != "macOS");
+  }, []);
+
   return (
     <main className="h-full w-full grow ">
       <div className="flex w-full items-end justify-center gap-2">
@@ -38,7 +42,7 @@ const Home: NextPage = () => {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
               icon={Search}
-              trailing={<span className="bg-muted px-2 text-xs rounded py-1 text-nowrap ">{isWindows ? "Ctrl + K" : "CMD + K"}</span>}
+              trailing={<span className="bg-muted/20 px-8 text-xs  py-2 text-nowrap ">{isWindows ? "Ctrl + K" : "CMD + K"}</span>}
             />
           </motion.div>
         </div>
@@ -54,7 +58,7 @@ const Home: NextPage = () => {
       </motion.h2>
       {fitleredItems.length > 0 ? (
         <div className="mt-4 flex flex-col">
-          <div className="flex grow flex-wrap justify-center gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-4">
             {fitleredItems
               .sort((a, b) => {
                 return savedTools.includes(a.id) ? -1 : 1;

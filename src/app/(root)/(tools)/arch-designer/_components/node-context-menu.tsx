@@ -44,6 +44,7 @@ const NodeContextMenu = () => {
       data: {
         label: `Group ${numberOfGroups.length + 1}`,
         labelPosition: "topRight",
+        showLabel: true,
       },
       style: {
         height: bounds.height + 10,

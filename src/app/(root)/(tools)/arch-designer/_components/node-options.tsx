@@ -11,11 +11,13 @@ import ColorPicker from "app/_components/color-picker";
 import ServicePicker from "./service-picker";
 import HandleCreator from "./handle-creator";
 import { useDiagramContext } from "./diagram-context";
+import { Switch } from "@components/ui/switch";
+import { type NodeParentData } from "./custom-parent-node";
 
 const NodeOptions = () => {
   const { showNodeOptions, setShowNodeOptions, selectedNode: node, setSelectedNode } = useDiagramContext();
 
-  const { setNodes } = useReactFlow();
+  const { setNodes, getNodes, deleteElements } = useReactFlow();
 
   if (!node) {
     return null;
@@ -43,7 +45,18 @@ const NodeOptions = () => {
       return;
     }
 
-    setNodes((nodes) => nodes.filter((n) => n.id !== node.id));
+    //check if node has children
+    const updatedNodes = getNodes()
+      .map((n) => {
+        if (n.parentNode === node.id) {
+          n.parentNode = undefined;
+          n.extent = undefined;
+        }
+        return n;
+      })
+      .filter((n) => n.id !== node.id);
+
+    setNodes((nodes) => updatedNodes);
     toast.success("Node deleted");
   };
 
@@ -72,16 +85,37 @@ const NodeOptions = () => {
                   handleDataChange(e.target.value, "label");
                 }}
               />
-              <div className="">
-                <Label>Color</Label>
-              </div>
-              {node.type !== "archParentNode" && <ColorPicker background={(node as Node<NodeData>).data.color ?? ""} setBackground={(v) => handleDataChange(v, "color")} />}
+              <Separator className="mb-10" />
+
+              {node.type === "archParentNode" && (
+                <>
+                  <div className="flex flex-row items-center justify-between rounded-lg border border-muted p-3 mt-10 shadow-sm">
+                    <div className="space-y-0.5">
+                      <Label>Show Label</Label>
+                    </div>
+                    <Switch checked={(node as Node<NodeParentData>).data.showLabel} onCheckedChange={(val) => handleDataChange(val, "showLabel")} />
+                  </div>
+                </>
+              )}
+
+              {node.type !== "archParentNode" && (
+                <>
+                  <div className="">
+                    <Label>Color</Label>
+                  </div>
+                  <ColorPicker background={(node as Node<NodeData>).data.color ?? ""} setBackground={(v) => handleDataChange(v, "color")} />
+                  <Separator className="my-5" />
+                </>
+              )}
             </div>
-            <Separator className="my-5" />
 
-            {node.type !== "archParentNode" && <HandleCreator node={node as Node<NodeData>} />}
+            {node.type !== "archParentNode" && (
+              <>
+                <HandleCreator node={node as Node<NodeData>} />
+                <Separator className="my-2.5" />
+              </>
+            )}
 
-            <Separator className="my-2.5" />
             {node.type !== "archParentNode" && <ServicePicker node={node as Node<NodeData>} />}
           </div>
         </div>
