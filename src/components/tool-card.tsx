@@ -13,11 +13,11 @@ const ToolCard = ({ menuItem }: IToolCardProps) => {
 
   return (
     <Link key={title} href={link}>
-      <Card className="flex h-full w-80 flex-col justify-between bg-secondary border-none hover:bg-primary/20 duration-200 hover:scale-105">
+      <Card className="flex h-full w-60 sm:w-80   flex-col justify-between bg-secondary border-none hover:bg-primary/20 duration-200 hover:scale-105">
         <CardHeader>
           <CardTitle className="flex items-center gap-4">
-            <Icon className="text-primary w-10 h-10" />
-            <span className="border-primary text-2xl  ">{title}</span>
+            <Icon className="text-primary w-8 h-8 md:w-10 md:h-10" />
+            <span className="border-primary text-lg md:text-2xl  ">{title}</span>
           </CardTitle>
 
           <CardDescription>{subtitle}</CardDescription>

@@ -1,3 +1,4 @@
+import { capitalize } from "@utils/formatters";
 import { convertStringToCamelCase } from "@utils/utils";
 
 /**
@@ -16,12 +17,16 @@ export const createDartClassFromJson = ({
   addConstructor = false,
   addJsonKey = false,
   autoCamelCase = false,
+  addFreezedImport = false,
+  addGeneratedParts = false,
 }: {
   json: string;
   className: string;
   addConstructor?: boolean;
   addJsonKey?: boolean;
   autoCamelCase?: boolean;
+  addFreezedImport?: boolean;
+  addGeneratedParts?: boolean;
 }) => {
   const jsonMap: Record<string, unknown> = JSON.parse(json) as Record<string, unknown>;
 
@@ -68,20 +73,24 @@ export const createDartClassFromJson = ({
     }
   }
 
-  const dartClass = `\nclass ${className.charAt(0).toUpperCase() + className.slice(1)} with _\$${className.charAt(0).toUpperCase() + className.slice(1)} {
-    ${addConstructor ? `const ${className.charAt(0).toUpperCase() + className.slice(1)}._();` : ""}
-            \n  @JsonSerializable()\n  factory ${className.charAt(0).toUpperCase() + className.slice(1)}({\n        ${dartClassProperties.join("\n        ")}\n   }) = _${
-              className.charAt(0).toUpperCase() + className.slice(1)
-            }
+  const dartClass = `
+${addFreezedImport ? generateFreezedImport() : ""}
 
-            \n  factory ${className.charAt(0).toUpperCase() + className.slice(1)}.fromJson(Map<String, dynamic> json) => _\$${
-              className.charAt(0).toUpperCase() + className.slice(1)
-            }FromJson(json);
+${addGeneratedParts ? generateGeneratedParts(className) : ""}
+
+class ${capitalize({ string: className })} with _\$${capitalize({ string: className })} {
+  ${addConstructor ? `const ${capitalize({ string: className })}._();\n` : ""}
+  @JsonSerializable()
+  factory ${capitalize({ string: className })}({
+  ${dartClassProperties.join("\n    ")}
+  }) = _${capitalize({ string: className })}
+
+  factory ${capitalize({ string: className })}.fromJson(Map<String, dynamic> json) => _\$${capitalize({ string: className })}FromJson(json);
 }`;
   return `
         ${dartClass}
         ${subClasses.join("\n")}
-      `;
+      `.trim();
 };
 
 /**
@@ -157,4 +166,16 @@ const checkIfArrayisArrayofObjects = (arr: unknown[]) => {
 
 const checkifArrayIsHomogenous = (arr: unknown[]) => {
   return arr.every((val) => typeof val === typeof arr[0]);
+};
+
+const generateFreezedImport = () => {
+  return "import 'package:freezed_annotation/freezed_annotation.dart';";
+};
+
+const generateGeneratedParts = (className: string) => {
+  return `
+
+part '${className.toLowerCase()}.g.dart';
+part '${className.toLowerCase()}.freezed.dart';
+  `.trim();
 };

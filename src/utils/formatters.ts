@@ -57,4 +57,8 @@ const generateFileNameFromMimeType = (file: Blob): string => {
   return fileName;
 };
 
-export { stringToJsonString, toBase64, base64toFile };
+const capitalize = ({ string }: { string: string }): string => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export { stringToJsonString, toBase64, base64toFile, capitalize };

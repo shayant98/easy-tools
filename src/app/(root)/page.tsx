@@ -33,9 +33,9 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <main className="h-full w-full grow ">
-      <div className="flex w-full items-end justify-center gap-2">
-        <div className="flex w-full max-w-lg items-end gap-2 px-4 md:px-0">
+    <main className="h-full w-full  ">
+      <div className="flex w-full items-end justify-center gap-2 px-10">
+        <div className="flex w-full max-w-lg items-end ">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.1, ease: "easeInOut" }} className="grow">
             <Input
               value={search}
@@ -53,12 +53,12 @@ const Home: NextPage = () => {
         </motion.div>
       </div>
 
-      <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }} className="px-20 text-3xl font-bold">
+      <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }} className="px-20 mt-5 text-3xl font-bold">
         All Tools
       </motion.h2>
       {fitleredItems.length > 0 ? (
         <div className="mt-4 flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-4">
+          <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-5 3xl:grid-cols-6 gap-4 px-4">
             {fitleredItems
               .sort((a, b) => {
                 return savedTools.includes(a.id) ? -1 : 1;

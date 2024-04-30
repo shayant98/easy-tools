@@ -16,6 +16,7 @@ import { Label } from "@components/ui/label";
 import { Input } from "@components/ui/Input";
 import { toast } from "sonner";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/dropdown";
+import OptionsMenu from "./_components/options-menu";
 
 const JsonToDart = () => {
   const [jsonValue, setJsonValue] = useState("");
@@ -25,6 +26,8 @@ const JsonToDart = () => {
   const [addJsonKey, setAddJsonKey] = useState(true);
   const [autoCamelCase, setAutoCamelCase] = useState(true);
   const [addConstructor, setAddConstructor] = useState(false);
+  const [addGeneratedParts, setaddGeneratedParts] = useState(true);
+  const [addFreezedImport, setAddFreezedImport] = useState(true);
 
   const onSubmit = () => {
     if (jsonValue.trim().length < 1) {
@@ -42,6 +45,8 @@ const JsonToDart = () => {
         addJsonKey: addJsonKey,
         autoCamelCase: autoCamelCase,
         addConstructor: addConstructor,
+        addFreezedImport: addFreezedImport,
+        addGeneratedParts: addGeneratedParts,
       });
 
       setDart(dartClass.trim());
@@ -90,68 +95,39 @@ const JsonToDart = () => {
       <ToolButtons
         first={
           <>
-            <Button size={"sm"} onClick={() => handleBeatify()}>
-              <Flower className="mr-2 h-4 w-4" /> Beautify
-            </Button>
             <Button onClick={() => onSubmit()}>
               <Cog className="mr-2 h-4 w-4" /> Generate
             </Button>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button size={"icon"}>
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="grid gap-4">
-                <div className="space-y-2">
-                  <h4 className="font-medium leading-none">Settings</h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Set properties of on the type object</p>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="type-name">Name</Label>
-                  <Input
-                    id="type-name"
-                    placeholder="Enter name"
-                    className="col-span-1 h-8"
-                    defaultValue={className}
-                    onChange={(e) => {
-                      setclassName(e.target.value);
-                    }}
-                  />
-                </div>
-              </PopoverContent>
-            </Popover>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size={"icon"}>
-                  <MoreVertical className=" h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuCheckboxItem checked={addJsonKey} onCheckedChange={setAddJsonKey}>
-                  Add JSON keys
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem checked={autoCamelCase} onCheckedChange={setAutoCamelCase}>
-                  Auto camelcase
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem checked={addConstructor} onCheckedChange={setAddConstructor}>
-                  Add empty constructor
-                </DropdownMenuCheckboxItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button className="ml-5" variant={"secondary"} onClick={() => handleBeatify()}>
+              <Flower className="mr-2 h-4 w-4" /> Beautify
+            </Button>
+            <OptionsMenu
+              className={className}
+              setclassName={setclassName}
+              addJsonKey={addJsonKey}
+              setaddJsonKey={setAddJsonKey}
+              autoCamelCase={autoCamelCase}
+              setAutoCamelCase={setAutoCamelCase}
+              addConstructor={addConstructor}
+              setAddConstructor={setAddConstructor}
+              addFreezedImport={addFreezedImport}
+              setAddFreezedImport={setAddFreezedImport}
+              addGeneratedParts={addGeneratedParts}
+              setaddGeneratedParts={setaddGeneratedParts}
+            />
           </>
         }
         second={
           <>
             <Button
-              size={"sm"}
+              size={"icon"}
               onClick={() => {
                 if (dart.trim().length < 1) return;
                 void navigator.clipboard.writeText(dart);
                 toast.success("Copied to clipboard");
               }}
             >
-              <Copy className="mr-2 h-4 w-4" /> Copy
+              <Copy className=" h-4 w-4" />
             </Button>
           </>
         }
