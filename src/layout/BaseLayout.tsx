@@ -1,5 +1,6 @@
 "use client";
 
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@components/ui/breadcrumb";
 import { Button } from "@components/ui/button";
 import { useSaveTool } from "hooks/use-tool-save-hook";
 import { Heart } from "lucide-react";
@@ -25,7 +26,20 @@ const BaseLayout = ({ children, title, desc, toolId }: BaseLayoutProps) => {
             </Button>
           ) : null}
         </div>
+
         {desc && <p className="text-muted-foreground mt-3 mb-5">{desc}</p>}
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
+              <BreadcrumbPage>{title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <hr className="border-muted mt-3" />
       </div>
       {children}

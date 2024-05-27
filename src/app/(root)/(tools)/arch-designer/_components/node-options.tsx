@@ -65,17 +65,16 @@ const NodeOptions = () => {
       <SheetContent className="flex h-screen flex-col border-none">
         <SheetHeader>
           <SheetTitle>{node?.data.label}</SheetTitle>
-          <SheetDescription>Modify node data</SheetDescription>
-        </SheetHeader>
-
-        <div className="flex flex-col gap-5 mt-5 h-full">
-          <div className="flex justify-end">
+          <div className="flex items-center justify-between">
+            <SheetDescription>Modify node data</SheetDescription>
             <Button variant="destructive" onClick={handleDelete}>
               <Trash2 size={16} className="mr-2" />
               <span>Delete</span>
             </Button>
           </div>
-          <Separator className="mt-5" />
+        </SheetHeader>
+
+        <div className="flex flex-col gap-5 h-full">
           <div className="relative h-full overflow-scroll flex flex-col gap-5">
             <div className="space-y-2">
               <Label>Title</Label>

@@ -104,7 +104,11 @@ const NodeContextMenu = () => {
   };
 
   const deleteNodes = () => {
-    const updatedNodes = nodes.filter((node) => !node.selected);
+    console.log("deleting nodes" + selectedNodes.length);
+
+    const updatedNodes = nodes.filter((node) => selectedNodes.filter((selectedNode) => selectedNode.id != node.id));
+    console.log(updatedNodes, selectedNodes);
+
     setNodes(updatedNodes);
     toast.success(`${selectedNodes.length} nodes deleted`);
   };
@@ -125,7 +129,9 @@ const NodeContextMenu = () => {
   if (selectedNodes.length == 1)
     return (
       <ContextMenuContent className="w-64">
-        <ContextMenuItem inset>Delete Node</ContextMenuItem>
+        <ContextMenuItem inset onClick={deleteNodes}>
+          Delete Node
+        </ContextMenuItem>
         <ContextMenuItem inset>Duplicate Node</ContextMenuItem>
         {selectedNodes[0]?.parentNode != undefined && (
           <ContextMenuItem onClick={() => removeFromParent(selectedNodes[0]?.id ?? "")} inset>

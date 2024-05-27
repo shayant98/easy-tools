@@ -50,7 +50,7 @@ const ServicePicker = ({ node }: { node: Node<NodeData> }) => {
   };
 
   return (
-    <div className="border rounded border-secondary p-2">
+    <div className="border rounded-lg border-secondary p-2">
       <Input placeholder="Search" icon={Search} value={search} onChange={(e) => setsearch(e.target.value)} />
       <ScrollArea className="h-72 mt-2 px-2 ">
         {filteredServices.map((service) => (
