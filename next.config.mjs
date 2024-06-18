@@ -8,6 +8,22 @@
  */
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
+  images: {
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+        pathname: "/**/**",
+      },
+    ],
+  },
+};
 
 export default config;

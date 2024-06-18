@@ -1,6 +1,6 @@
 import { type LucideIcon } from "lucide-react";
 import { type IconType } from "react-icons";
-import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode } from "react-icons/ai";
+import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode, AiOutlineTags } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
 import { MdEnhancedEncryption } from "react-icons/md";
 import { SiDart, SiDocker, SiJavascript, SiJson, SiTailwindcss, SiTypescript } from "react-icons/si";
@@ -179,6 +179,15 @@ const menuItems: IMenuItem[] = [
     link: "/arch-designer",
     tags: ["DEVOPS"],
     description: "Create top-level architecture diagrams",
+  },
+  {
+    id: 15,
+    title: "Open Graph Generator",
+    subtitle: "A tool to generate Open Graph images for your website.",
+    icon: AiOutlineTags,
+    link: "/open-graph-generator",
+    tags: ["GENERATOR"],
+    description: " A tool to generate Open Graph images for your website.",
   },
 ];
 

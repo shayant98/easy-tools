@@ -2,10 +2,10 @@ import { cn } from "@utils/utils";
 import { AlertOctagon } from "lucide-react";
 import { useState } from "react";
 
-const Container = ({ children, errorMessage, className }: ContainerProps) => {
+const Container = ({ children, errorMessage, className, style }: ContainerProps) => {
   const [showFullError, setshowFullError] = useState(false);
   return (
-    <div className={cn(className, "relative flex h-full  min-h-80 h-full flex-col overflow-auto rounded-md border border-slate-500  p-1  dark:border-slate-700 md:p-6")}>
+    <div style={style} className={cn(className, "relative flex    flex-col overflow-auto rounded-md border border-slate-500  p-1  dark:border-slate-700 md:p-6")}>
       {children}
       <div
         onClick={() => setshowFullError(!showFullError)}
@@ -24,6 +24,7 @@ const Container = ({ children, errorMessage, className }: ContainerProps) => {
 interface ContainerProps {
   className?: string;
   children: React.ReactNode;
+  style?: React.CSSProperties;
   errorMessage?: string;
 }
 

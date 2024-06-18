@@ -7,10 +7,12 @@ import { toast } from "sonner";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import TabbedLayout from "@layout/TabbedLayout";
+import { ulid } from "ulid";
 
 const Keys = () => {
   const [uuids, setUuids] = useState<string[]>(Array.from({ length: 8 }).map(() => crypto.randomUUID()));
   const [cuids, setCuids] = useState<string[]>(Array.from({ length: 8 }).map(() => cuid2.createId()));
+  const [ulids, setUlids] = useState<string[]>(Array.from({ length: 8 }).map(() => ulid()));
 
   return (
     <TabbedLayout
@@ -25,7 +27,7 @@ const Keys = () => {
               setId={() => {
                 setUuids(Array.from({ length: 8 }).map(() => crypto.randomUUID()));
               }}
-              title="UUID"
+              title="UUID - Universally Unique Identifier"
             />
           ),
         },
@@ -38,7 +40,20 @@ const Keys = () => {
               setId={() => {
                 setCuids(Array.from({ length: 8 }).map(() => cuid2.createId()));
               }}
-              title="CUID"
+              title="CUID - Collision-resistant Unique Identifiers"
+            />
+          ),
+        },
+        {
+          value: "ulid",
+          label: "ULID",
+          child: (
+            <KeyContainer
+              ids={ulids}
+              setId={() => {
+                setUlids(Array.from({ length: 8 }).map(() => ulid()));
+              }}
+              title="ULID - Universally Unique Lexicographically Sortable Identifier"
             />
           ),
         },
@@ -55,16 +70,16 @@ const KeyContainer = ({ ids, setId, title }: { ids: string[]; setId: () => void;
           <CardTitle>{title}</CardTitle>
           <div className="flex space-x-2">
             <Button
-              size={"sm"}
+              size={"icon"}
               onClick={async () => {
                 await navigator.clipboard.writeText(ids.join("\n"));
                 toast.success("Copied to clipboard");
               }}
             >
-              <Copy className="mr-2 h-4 w-4" /> Copy all
+              <Copy className=" h-4 w-4" />
             </Button>
-            <Button size={"sm"} onClick={setId}>
-              <RefreshCcw className="mr-2 h-4 w-4" />
+            <Button size={"icon"} onClick={setId}>
+              <RefreshCcw className=" h-3 w-3" />
             </Button>
           </div>
         </div>
