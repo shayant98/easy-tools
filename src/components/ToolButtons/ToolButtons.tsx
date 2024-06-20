@@ -3,9 +3,9 @@ import { type ReactNode } from "react";
 
 const ToolButtons = ({ first, second }: ToolButtonsProps) => {
   return (
-    <div className="flex gap-2 mb-2 justify-end">
+    <div className="flex gap-2 mb-2 justify-end h-full">
       {first}
-      <Separator orientation="vertical" />
+      <Separator orientation="vertical" className="h-10 " />
       {second}
     </div>
   );

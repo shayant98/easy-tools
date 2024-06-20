@@ -2,6 +2,8 @@ import BaseLayout from "@layout/BaseLayout";
 import TabbedLayout from "@layout/TabbedLayout";
 import FromBase64 from "./_components/from-base64-image";
 import ToBase64 from "./_components/to-base64-image";
+import ToBase64String from "./_components/to-base64-string";
+import FromBase64String from "./_components/from-base64-string";
 
 export const metadata = {
   title: "Tools | Base64 converter",
@@ -23,6 +25,16 @@ const ImageToBase64 = () => {
             label: "Image from Base64",
             value: "from",
             child: <FromBase64 />,
+          },
+          {
+            label: "String to Base64",
+            value: "fromString",
+            child: <ToBase64String />,
+          },
+          {
+            label: "String from Base64",
+            value: "toString",
+            child: <FromBase64String />,
           },
         ]}
       />

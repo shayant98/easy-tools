@@ -1,6 +1,7 @@
 "use client";
 
 import Container from "@components/Container/Container";
+import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/Input";
 import { Label } from "@components/ui/label";
@@ -73,49 +74,51 @@ const FromBase64 = () => {
 
   return (
     <>
-      <div className="mb-2 flex gap-2">
-        <div className="flex basis-1/2 justify-end ">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button className="mr-1 w-9 self-end rounded-md p-0">
-                <Cog className="h-4 w-4" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent align="end" className="grid gap-4">
-              <div className="space-y-2">
-                <h4 className="font-medium leading-none">Settings</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Set options for Base64 string</p>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="type-seperator">Seperator</Label>
-                <Input
-                  id="type-seperator"
-                  placeholder="Enter seperator value (Optional)"
-                  className="col-span-1 h-8"
-                  defaultValue={seperator}
-                  onChange={(e) => {
-                    setseperator(e.target.value);
-                  }}
-                />
-              </div>
-            </PopoverContent>
-          </Popover>
-          <Button onClick={handleConversion}>
-            <ArrowRight className="mr-2 h-4 w-4" /> Generate
+      <ToolButtons
+        first={
+          <div className="mb-2 flex gap-2">
+            <Button onClick={handleConversion}>
+              <ArrowRight className="mr-2 h-4 w-4" /> Generate
+            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant={"secondary"} size={"icon"}>
+                  <Cog className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="grid gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-medium leading-none">Settings</h4>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Set options for Base64 string</p>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="type-seperator">Seperator</Label>
+                  <Input
+                    id="type-seperator"
+                    placeholder="Enter seperator value (Optional)"
+                    className="col-span-1 h-8"
+                    defaultValue={seperator}
+                    onChange={(e) => {
+                      setseperator(e.target.value);
+                    }}
+                  />
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
+        }
+        second={
+          <Button onClick={handledownload} variant={"secondary"}>
+            <FileArchive className="mr-2 h-4 w-4" /> Download All
           </Button>
-        </div>
-        <div className="flex basis-1/2 justify-end">
-          <Button onClick={handledownload}>
-            <FileArchive className="mr-2 h-4 w-4" /> Download all
-          </Button>
-        </div>
-      </div>
+        }
+      />
       <MultiEditorLayout>
         <Container>
-          <Textarea className="h-full  " value={input} onChange={(e) => setinput(e.target.value)} placeholder="Enter base64 string here" />
+          <Textarea value={input} onChange={(e) => setinput(e.target.value)} placeholder="Enter base64 string here" />
         </Container>
-        <Container>
-          <div className="grid grid-cols-3 gap-2">
+        <Container className="h-full">
+          <div className="grid grid-cols-3 gap-2 h-full">
             {generatedFiles.map((file) => (
               <div key={`converted-file-${file.name}`} className="flex flex-col justify-between gap-2  rounded bg-slate-100 p-2 text-xs leading-7 dark:bg-slate-700">
                 <p className="leading-2 overflow-hidden overflow-ellipsis text-sm font-medium text-slate-800 dark:text-slate-100">Name: {file.name}</p>

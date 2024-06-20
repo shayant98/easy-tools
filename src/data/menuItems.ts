@@ -189,6 +189,15 @@ const menuItems: IMenuItem[] = [
     tags: ["GENERATOR"],
     description: " A tool to generate Open Graph images for your website.",
   },
+  {
+    id: 16,
+    title: "JWT Parser",
+    subtitle: "A tool to parse JSON Web Tokens",
+    icon: AiOutlineTags,
+    link: "/jwt-parser",
+    tags: ["GENERATOR"],
+    description: " A tool to generate Open Graph images for your website.",
+  },
 ];
 
 export default menuItems;
