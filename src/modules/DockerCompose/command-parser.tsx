@@ -20,7 +20,7 @@ const CommandParser = () => {
   };
 
   return (
-    <div>
+    <>
       <ToolButtons
         first={
           <Button onClick={onSubmit}>
@@ -35,7 +35,7 @@ const CommandParser = () => {
         </Container>
         <Output />
       </MultiEditorLayout>
-    </div>
+    </>
   );
 };
 

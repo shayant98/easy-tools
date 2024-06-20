@@ -54,7 +54,7 @@ const Home: NextPage = () => {
       </div>
 
       <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }} className="px-20 mt-5 text-3xl font-bold">
-        All Tools
+        All Tools ({fitleredItems.length})
       </motion.h2>
       {fitleredItems.length > 0 ? (
         <div className="mt-4 flex flex-col">

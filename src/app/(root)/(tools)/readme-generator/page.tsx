@@ -11,10 +11,11 @@ import Container from "@components/Container/Container";
 import MultiEditorLayout from "@layout/multi-editor-layout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
-import { Copy, Download, Trash, Undo2 } from "lucide-react";
+import { Copy, DotSquare, Download, GripVertical, Trash, Undo2 } from "lucide-react";
 import { Card, CardHeader, CardTitle } from "@components/ui/card";
 import { toast } from "sonner";
 import { markdown } from "@codemirror/lang-markdown";
+import { Reorder, useDragControls } from "framer-motion";
 
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
@@ -34,6 +35,8 @@ const ReadmeGenerator = () => {
     title: string;
     value: string;
   }>();
+
+  const controls = useDragControls();
 
   const handlePresetSelection = (preset: { title: string; value: string }) => {
     setCurrentlySelectedPreset(preset);
@@ -60,11 +63,11 @@ const ReadmeGenerator = () => {
     if (preset === undefined) {
       return;
     }
-    setCurrentlySelectedPreset({ ...preset, value: newValue });
+    setCurrentlySelectedPreset({ ...preset, value: `\n${newValue}\n` });
     setSelectedPresets(
       selectedPresets.map((presets) => {
         if (presets.title === preset.title) {
-          presets.value = newValue;
+          presets.value = `\n${newValue}\n`;
         }
         return presets;
       })
@@ -119,18 +122,18 @@ const ReadmeGenerator = () => {
             <Button className="flex md:hidden" onClick={handleOnClear}>
               <Undo2 className="mr-2 h-4 w-4" /> Templates
             </Button>
-            <Button onClick={handleOnClear}>
+            <Button onClick={handleOnClear} variant={"secondary"}>
               <Undo2 className="mr-2 h-4 w-4" /> Undo
             </Button>
           </div>
         }
         second={
           <div className="flex gap-1">
-            <Button onClick={handleDownload}>
-              <Download className="mr-2 h-4 w-4" /> Download
+            <Button size={"icon"} onClick={handleDownload}>
+              <Download className=" h-4 w-4" />
             </Button>
-            <Button onClick={handleCopy}>
-              <Copy className="mr-2 h-4 w-4" /> Copy
+            <Button size={"icon"} onClick={handleCopy}>
+              <Copy className=" h-4 w-4" />
             </Button>
           </div>
         }
@@ -138,41 +141,38 @@ const ReadmeGenerator = () => {
       <MultiEditorLayout>
         <Container>
           <div className="hidden  flex-col gap-2 md:flex h-min">
-            {availablePresets.map((preset) => (
-              // <Card key={preset.title}  >
-              //   <CardHeader>
-              //     <div className="flex items-center justify-between">
-              //       <CardTitle className="text-nowrap">{preset.title}</CardTitle>
-              //       {new Set(selectedPresets).has(preset) && (
-              //         <Button
-              //           variant={"destructive"}
-              //           onClick={(e) => {
-              //             e.stopPropagation();
-              //             removeselectedPreset(preset);
-              //           }}
-              //         >
-              //           <Trash className="h-4 w-4" />
-              //         </Button>
-              //       )}
-              //     </div>
-              //   </CardHeader>
-              // </Card>
-              <div className="bg-secondary cursor-pointer flex items-center justify-between px-4 py-2 rounded" key={preset.title} onClick={() => handlePresetSelection(preset)}>
-                <span className="leading-7 [&:not(:first-child)]:mt-6">{preset.title}</span>
-                {new Set(selectedPresets).has(preset) && (
-                  <Button
-                    variant={"destructive"}
-                    size={"sm"}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeselectedPreset(preset);
-                    }}
-                  >
-                    <Trash className="h-3 w-3" />
-                  </Button>
-                )}
-              </div>
-            ))}
+            <Reorder.Group values={availablePresets} onReorder={setavailablePresets} className="grid gap-4 max-h-[20vh]">
+              {availablePresets.map((preset) => (
+                <Reorder.Item key={preset.title} value={preset} dragListener={false} dragControls={controls}>
+                  <div className="bg-secondary cursor-pointer flex items-center justify-between px-4 py-2 rounded" onClick={() => handlePresetSelection(preset)}>
+                    <span className="leading-7 [&:not(:first-child)]:mt-6">{preset.title}</span>
+                    {new Set(selectedPresets).has(preset) && (
+                      <div className="">
+                        <Button
+                          variant={"destructive"}
+                          size={"sm"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeselectedPreset(preset);
+                          }}
+                        >
+                          <Trash className="h-3 w-3" />
+                        </Button>
+                        {/* <Button
+                          size={"icon"}
+                          variant={"ghost"}
+                          onPointerDown={(e) => {
+                            controls.start(e);
+                          }}
+                        >
+                          <GripVertical className="w-4 h-4" />
+                        </Button> */}
+                      </div>
+                    )}
+                  </div>
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
           </div>
         </Container>
         <Container>

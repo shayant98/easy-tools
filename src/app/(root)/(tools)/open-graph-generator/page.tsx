@@ -326,17 +326,22 @@ const Page = () => {
         <div className="h-full">
           <ResizablePanelGroup direction="vertical">
             <ResizablePanel minSize={25}>
-              <Container>
+              <Container className="h-full">
                 <Editor value={output} setValue={setOutput} language={html()} />
               </Container>
             </ResizablePanel>
-            <ResizableHandle className="mt-5" withHandle />
-            <ResizablePanel minSize={50}>
-              <Container className="mt-5 max-h-fit ">
-                <Carousel>
-                  <CarouselContent>
-                    <CarouselItem>
-                      <h4 className="my-2 font-bold text-lg">Facebook </h4>
+            <ResizableHandle className="my-5" withHandle />
+            <ResizablePanel minSize={55}>
+              <Container className="">
+                <h3 className="mb-4 font-bold text-xl">Preview</h3>
+                <Tabs>
+                  <TabsList>
+                    <TabsTrigger value="facebook">Facebook</TabsTrigger>
+                    <TabsTrigger value="twitter">Twitter</TabsTrigger>
+                    {/* <TabsTrigger value="discord">Discord</TabsTrigger> */}
+                  </TabsList>
+                  <TabsContent value="facebook">
+                    <div>
                       <div className="w-[524px] max-w-full cursor-pointer font-[Helvetica]">
                         <div className="border-[1px]  border-b-0 border-[#dadde1] bg-cover bg-center bg-no-repeat">
                           <div className="relative h-32">
@@ -353,9 +358,10 @@ const Page = () => {
                           </div>
                         </div>
                       </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      <h4 className=" mb-2 font-bold text-lg">Twitter </h4>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="twitter">
+                    <div>
                       <div className="-outline-offset-1 relative w-[438px] max-w-full cursor-pointer overflow-hidden rounded-[0.85714em] border-[1px] border-[#e1e8ed] leading-[1.3em] text-black font-[Helvetica]">
                         <div className="bg-cover bg-center bg-no-repeat">
                           <div className="w-full relative h-56">
@@ -364,9 +370,10 @@ const Page = () => {
                         </div>
                         <div className="absolute bottom-2 left-2 text-xs text-white bg-black bg-opacity-40 px-[4px] py-[2px] rounded">{info.url}</div>
                       </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      <h4 className=" mb-2 font-bold text-lg">Discord </h4>
+                    </div>
+                  </TabsContent>
+                  {/* <TabsContent value="discord">
+                    <div>
                       <div className="grid w-[432px] max-w-full cursor-pointer items-start justify-self-start overflow-hidden rounded-[4px] border-l-[4px] border-[#202225] bg-[#2f3136] font-[Helvetica]">
                         <div className="inline-grid grid-cols-[auto] grid-rows-[auto] overflow-hidden pt-2 pr-4 pb-4 pl-3">
                           <div
@@ -394,11 +401,9 @@ const Page = () => {
                           </div>
                         </div>
                       </div>
-                    </CarouselItem>
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
+                    </div>
+                  </TabsContent> */}
+                </Tabs>
               </Container>
             </ResizablePanel>
           </ResizablePanelGroup>

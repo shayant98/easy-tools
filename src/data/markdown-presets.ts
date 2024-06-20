@@ -146,6 +146,32 @@ Install my-project with npm
 
 `,
   },
+  {
+    title: "Authors",
+    value: `## Authors
+     - [@yltsakcir](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+    `,
+  },
+  {
+    title: "License",
+    value: `## License
+    [MIT](https://choosealicense.com/licenses/mit/)
+    `,
+  },
+  {
+    title: "Acknowledgements",
+    value: `## Acknowledgements
+    - [awesome-readme](https://www.youtube.com/watch?v=dQw4w9WgXcQ)`,
+  },
+
+  {
+    title: "Support",
+    value: `## Support
+
+
+    `,
+  },
 ];
 
 export default presets;

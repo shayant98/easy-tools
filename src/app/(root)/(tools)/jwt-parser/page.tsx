@@ -12,6 +12,7 @@ import { toast } from "sonner";
 const Page = () => {
   const [secret, setSecret] = useState("");
   const [token, setToken] = useState("");
+  const [error, seterror] = useState("");
   const [values, setValues] = useState<{
     header: { alg: string; typ: string };
     payload: Map<string, unknown>;
@@ -23,7 +24,7 @@ const Page = () => {
     const [header, payload, signature] = token.split(".");
 
     if (!header || !payload || !signature) {
-      toast.error("Invalid JWT token");
+      seterror("Invalid JWT token");
       return;
     }
 
@@ -42,7 +43,7 @@ const Page = () => {
     } catch (error) {
       console.log(error);
 
-      toast.error("Invalid JWT token");
+      seterror("Invalid JWT token");
       return;
     }
 
@@ -57,7 +58,7 @@ const Page = () => {
   return (
     <BaseLayout title="JWT Parser" desc="JWT Parser">
       <MultiEditorLayout>
-        <Container>
+        <Container errorMessage={error}>
           <Textarea className="h-full" placeholder="Paste your JWT token here" value={token} onChange={(e) => setToken(e.target.value)} />
           <div className="mt-4 space-y-2">
             <Label>Secret</Label>

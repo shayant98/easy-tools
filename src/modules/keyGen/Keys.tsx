@@ -66,7 +66,7 @@ const KeyContainer = ({ ids, setId, title }: { ids: string[]; setId: () => void;
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center  justify-between">
           <CardTitle>{title}</CardTitle>
           <div className="flex space-x-2">
             <Button
@@ -78,7 +78,7 @@ const KeyContainer = ({ ids, setId, title }: { ids: string[]; setId: () => void;
             >
               <Copy className=" h-4 w-4" />
             </Button>
-            <Button size={"icon"} onClick={setId}>
+            <Button variant={"ghost"} size={"icon"} onClick={setId}>
               <RefreshCcw className=" h-3 w-3" />
             </Button>
           </div>
