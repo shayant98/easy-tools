@@ -4,12 +4,29 @@ import { Reorder } from "framer-motion";
 import { type Dispatch, type SetStateAction } from "react";
 import ZodPropertiesListItem from "./zod-properties-list-item";
 
-const ZodPropertiesList = ({ mappedObject, setMappedObject }: { mappedObject: ZodKeyMappedObject[]; setMappedObject: Dispatch<SetStateAction<ZodKeyMappedObject[]>> }) => {
+const ZodPropertiesList = ({
+  mappedObject,
+  setMappedObject,
+}: {
+  mappedObject: ZodKeyMappedObject[];
+  setMappedObject: Dispatch<SetStateAction<ZodKeyMappedObject[]>>;
+}) => {
   return (
     <Accordion type="single" collapsible>
-      <Reorder.Group values={mappedObject} onReorder={setMappedObject} className="flex flex-col gap-3" layoutScroll>
+      <Reorder.Group
+        values={mappedObject}
+        onReorder={setMappedObject}
+        className="flex flex-col gap-3"
+        layoutScroll
+      >
         {mappedObject.map((item) => {
-          return <ZodPropertiesListItem key={item.id} item={item} setMappedObject={setMappedObject} />;
+          return (
+            <ZodPropertiesListItem
+              key={item.id}
+              item={item}
+              setMappedObject={setMappedObject}
+            />
+          );
         })}
       </Reorder.Group>
     </Accordion>

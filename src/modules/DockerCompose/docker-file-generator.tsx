@@ -9,7 +9,8 @@ import { Button } from "@components/ui/button";
 import { Cog, Download } from "lucide-react";
 
 const DockerFileGenerator = () => {
-  const { generateDockerComposeFromServices, downloadYaml } = useDockerCompose();
+  const { generateDockerComposeFromServices, downloadYaml } =
+    useDockerCompose();
 
   return (
     <>

@@ -2,20 +2,15 @@
 
 import Container from "@components/Container/Container";
 import Editor from "@components/Editor/Editor";
-import SnippetDialog from "@components/SnippetDialog";
 import { json } from "@codemirror/lang-json";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Button } from "@components/ui/button";
 import BaseLayout from "@layout/BaseLayout";
 import MultiEditorLayout from "@layout/multi-editor-layout";
-import { Cog, Copy, Flower, MoreVertical, Settings } from "lucide-react";
+import { Cog, Copy, Flower } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createDartClassFromJson } from "../../../../services/dart/dart";
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { Label } from "@components/ui/label";
-import { Input } from "@components/ui/Input";
 import { toast } from "sonner";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@components/ui/dropdown";
 import OptionsMenu from "./_components/options-menu";
 
 const JsonToDart = () => {
@@ -91,14 +86,22 @@ const JsonToDart = () => {
   }, [jsonValue]);
 
   return (
-    <BaseLayout title="Json to Dart" desc="Convert Json to Dart freezed classes" toolId={4}>
+    <BaseLayout
+      title="Json to Dart"
+      desc="Convert Json to Dart freezed classes"
+      toolId={4}
+    >
       <ToolButtons
         first={
           <>
             <Button onClick={() => onSubmit()}>
               <Cog className="mr-2 h-4 w-4" /> Generate
             </Button>
-            <Button className="ml-5" variant={"secondary"} onClick={() => handleBeatify()}>
+            <Button
+              className="ml-5"
+              variant={"secondary"}
+              onClick={() => handleBeatify()}
+            >
               <Flower className="mr-2 h-4 w-4" /> Beautify
             </Button>
             <OptionsMenu
@@ -127,17 +130,27 @@ const JsonToDart = () => {
                 toast.success("Copied to clipboard");
               }}
             >
-              <Copy className=" h-4 w-4" />
+              <Copy className="h-4 w-4" />
             </Button>
           </>
         }
       />
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor value={jsonValue} setValue={setJsonValue} language={json()} placeholder="Enter JSON here" />
+          <Editor
+            value={jsonValue}
+            setValue={setJsonValue}
+            language={json()}
+            placeholder="Enter JSON here"
+          />
         </Container>
         <Container>
-          <Editor value={dart} setValue={setDart} disabled placeholder="Dart will appear here" />
+          <Editor
+            value={dart}
+            setValue={setDart}
+            disabled
+            placeholder="Dart will appear here"
+          />
         </Container>
       </MultiEditorLayout>
     </BaseLayout>

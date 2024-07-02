@@ -20,10 +20,18 @@ const ToBase64String = () => {
   return (
     <MultiEditorLayout>
       <Container>
-        <Textarea value={input} onChange={(e) => setinput(e.target.value)} placeholder="Enter your text here..." />
+        <Textarea
+          value={input}
+          onChange={(e) => setinput(e.target.value)}
+          placeholder="Enter your text here..."
+        />
       </Container>
       <Container>
-        <Textarea value={output} onChange={(e) => setoutput(e.target.value)} placeholder="Your base64 string will appear here..." />
+        <Textarea
+          value={output}
+          onChange={(e) => setoutput(e.target.value)}
+          placeholder="Your base64 string will appear here..."
+        />
       </Container>
     </MultiEditorLayout>
   );

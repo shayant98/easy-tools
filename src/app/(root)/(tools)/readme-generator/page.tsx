@@ -11,7 +11,14 @@ import Container from "@components/Container/Container";
 import MultiEditorLayout from "@layout/multi-editor-layout";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import BaseLayout from "@layout/BaseLayout";
-import { Copy, DotSquare, Download, GripVertical, Trash, Undo2 } from "lucide-react";
+import {
+  Copy,
+  DotSquare,
+  Download,
+  GripVertical,
+  Trash,
+  Undo2,
+} from "lucide-react";
 import { Card, CardHeader, CardTitle } from "@components/ui/card";
 import { toast } from "sonner";
 import { markdown } from "@codemirror/lang-markdown";
@@ -59,7 +66,10 @@ const ReadmeGenerator = () => {
     toast.success("Copied Markdown");
   };
 
-  const handlePresetEdit = (newValue: string, preset?: { title: string; value: string }) => {
+  const handlePresetEdit = (
+    newValue: string,
+    preset?: { title: string; value: string },
+  ) => {
     if (preset === undefined) {
       return;
     }
@@ -70,7 +80,7 @@ const ReadmeGenerator = () => {
           presets.value = `\n${newValue}\n`;
         }
         return presets;
-      })
+      }),
     );
   };
 
@@ -115,7 +125,11 @@ const ReadmeGenerator = () => {
   // };
 
   return (
-    <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease." toolId={6}>
+    <BaseLayout
+      title="Readme Generator"
+      desc="Generate a readme for your project with ease."
+      toolId={6}
+    >
       <ToolButtons
         first={
           <div className="flex gap-1">
@@ -130,22 +144,36 @@ const ReadmeGenerator = () => {
         second={
           <div className="flex gap-1">
             <Button size={"icon"} onClick={handleDownload}>
-              <Download className=" h-4 w-4" />
+              <Download className="h-4 w-4" />
             </Button>
             <Button size={"icon"} onClick={handleCopy}>
-              <Copy className=" h-4 w-4" />
+              <Copy className="h-4 w-4" />
             </Button>
           </div>
         }
       />
       <MultiEditorLayout>
         <Container>
-          <div className="hidden  flex-col gap-2 md:flex h-min">
-            <Reorder.Group values={availablePresets} onReorder={setavailablePresets} className="grid gap-4 max-h-[20vh]">
+          <div className="hidden flex-col gap-2 md:flex">
+            <Reorder.Group
+              values={availablePresets}
+              onReorder={setavailablePresets}
+              className="grid max-h-[20vh] gap-4"
+            >
               {availablePresets.map((preset) => (
-                <Reorder.Item key={preset.title} value={preset} dragListener={false} dragControls={controls}>
-                  <div className="bg-secondary cursor-pointer flex items-center justify-between px-4 py-2 rounded" onClick={() => handlePresetSelection(preset)}>
-                    <span className="leading-7 [&:not(:first-child)]:mt-6">{preset.title}</span>
+                <Reorder.Item
+                  key={preset.title}
+                  value={preset}
+                  dragListener={false}
+                  dragControls={controls}
+                >
+                  <div
+                    className="flex cursor-pointer items-center justify-between rounded bg-secondary px-4 py-2"
+                    onClick={() => handlePresetSelection(preset)}
+                  >
+                    <span className="leading-7 [&:not(:first-child)]:mt-6">
+                      {preset.title}
+                    </span>
                     {new Set(selectedPresets).has(preset) && (
                       <div className="">
                         <Button
@@ -179,13 +207,20 @@ const ReadmeGenerator = () => {
           <Editor
             placeholder="Enter encoded URL here"
             value={currentlySelectedPreset?.value.trim() ?? ""}
-            setValue={(val: string) => handlePresetEdit(val, currentlySelectedPreset)}
+            setValue={(val: string) =>
+              handlePresetEdit(val, currentlySelectedPreset)
+            }
             language={markdown()}
           />
         </Container>
         <Container>
-          <ReactMarkdown className="markdown-body h-full rounded bg-secondary p-4" remarkPlugins={[remarkGfm]}>
-            {selectedPresets.map((selectedPresets) => selectedPresets.value).join("")}
+          <ReactMarkdown
+            className="markdown-body h-full rounded bg-secondary p-4"
+            remarkPlugins={[remarkGfm]}
+          >
+            {selectedPresets
+              .map((selectedPresets) => selectedPresets.value)
+              .join("")}
           </ReactMarkdown>
         </Container>
       </MultiEditorLayout>

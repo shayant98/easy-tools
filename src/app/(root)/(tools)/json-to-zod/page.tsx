@@ -11,7 +11,11 @@ import { Button } from "@components/ui/button";
 import ToolButtons from "@components/ToolButtons/ToolButtons";
 import { Flower } from "lucide-react";
 import BaseLayout from "@layout/BaseLayout";
-import { type ZodKeyMappedObject, createMappedObjectFromJson, createStringZodSchemaFromMappedObject } from "@utils/zod";
+import {
+  type ZodKeyMappedObject,
+  createMappedObjectFromJson,
+  createStringZodSchemaFromMappedObject,
+} from "@utils/zod";
 import Options, { type ZodOptions } from "./_components/options";
 import TabbedLayout from "@layout/TabbedLayout";
 import ZodPropertiesList from "./_components/zod-properties-list";
@@ -20,7 +24,12 @@ const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");
   const [outputArea, setoutputArea] = useState("");
   const [mappedObject, setMappedObject] = useState<ZodKeyMappedObject[]>([]);
-  const [options, setOptions] = useState<ZodOptions>({ addImport: false, name: "Schema", addExport: false, camelCase: false });
+  const [options, setOptions] = useState<ZodOptions>({
+    addImport: false,
+    name: "Schema",
+    addExport: false,
+    camelCase: false,
+  });
 
   const [error, seterror] = useState("");
 
@@ -46,7 +55,10 @@ const JsonToZod = () => {
 
   const handleMappedObjectToString = useCallback(() => {
     try {
-      const string = createStringZodSchemaFromMappedObject({ json: mappedObject, options });
+      const string = createStringZodSchemaFromMappedObject({
+        json: mappedObject,
+        options,
+      });
       setoutputArea(string);
     } catch (error) {
       if (typeof error === "string") {
@@ -80,12 +92,16 @@ const JsonToZod = () => {
   };
 
   return (
-    <BaseLayout toolId={10} title="JSON to ZOD generator" desc="Convert JSON to ZOD schema">
+    <BaseLayout
+      toolId={10}
+      title="JSON to ZOD generator"
+      desc="Convert JSON to ZOD schema"
+    >
       <ToolButtons
         first={
           <div>
             <Button className="mr-1" size={"sm"} onClick={handleBeatify}>
-              <Flower className="w-4 h-4" /> Beautify
+              <Flower className="h-4 w-4" /> Beautify
             </Button>
             <Options options={options} setOptions={setOptions} />
           </div>
@@ -93,7 +109,12 @@ const JsonToZod = () => {
       />
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor placeholder="Enter JSON here" value={inputArea} setValue={setinputArea} language={json()} />
+          <Editor
+            placeholder="Enter JSON here"
+            value={inputArea}
+            setValue={setinputArea}
+            language={json()}
+          />
         </Container>
         <Container>
           <TabbedLayout
@@ -104,7 +125,12 @@ const JsonToZod = () => {
                 label: "Schema",
                 child: (
                   <>
-                    <Editor disabled placeholder="Output" value={outputArea} setValue={setoutputArea} />
+                    <Editor
+                      disabled
+                      placeholder="Output"
+                      value={outputArea}
+                      setValue={setoutputArea}
+                    />
                   </>
                 ),
               },
@@ -113,7 +139,10 @@ const JsonToZod = () => {
                 label: "Playground",
                 child: (
                   <>
-                    <ZodPropertiesList mappedObject={mappedObject} setMappedObject={setMappedObject} />
+                    <ZodPropertiesList
+                      mappedObject={mappedObject}
+                      setMappedObject={setMappedObject}
+                    />
                   </>
                 ),
               },

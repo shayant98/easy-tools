@@ -9,7 +9,11 @@ import CommandParser from "./command-parser";
 const DockerGenerator = () => {
   return (
     <DockerComposeContextProvider>
-      <BaseLayout title="Docker Compose Generator" desc="Generate docker-compose.yml files" toolId={7}>
+      <BaseLayout
+        title="Docker Compose Generator"
+        desc="Generate docker-compose.yml files"
+        toolId={7}
+      >
         <TabbedLayout
           defaultTab="gen"
           options={[
