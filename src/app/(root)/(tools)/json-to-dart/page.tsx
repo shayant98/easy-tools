@@ -12,6 +12,15 @@ import { useEffect, useState } from "react";
 import { createDartClassFromJson } from "../../../../services/dart/dart";
 import { toast } from "sonner";
 import OptionsMenu from "./_components/options-menu";
+import { useClipboard } from "hooks/use-clipboard";
+import CopyButton from "app/_components/basic-buttons/copy-button";
+import {
+  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
+  ToolbarSeparator,
+} from "@components/ui/toolbar";
+import BeautifyButton from "app/_components/basic-buttons/beautify-button";
 
 const JsonToDart = () => {
   const [jsonValue, setJsonValue] = useState("");
@@ -23,6 +32,8 @@ const JsonToDart = () => {
   const [addConstructor, setAddConstructor] = useState(false);
   const [addGeneratedParts, setaddGeneratedParts] = useState(true);
   const [addFreezedImport, setAddFreezedImport] = useState(true);
+
+  const { copy } = useClipboard();
 
   const onSubmit = () => {
     if (jsonValue.trim().length < 1) {
@@ -47,26 +58,11 @@ const JsonToDart = () => {
       setDart(dartClass.trim());
       return;
     } catch (error: unknown) {
+      console.log(error);
+
       toast.error("Please enter valid JSON");
       return;
     }
-  };
-
-  const handleBeatify = async () => {
-    try {
-      if (jsonValue.trim().length < 1) {
-        seterror("");
-        toast.error("Please enter JSON first");
-        return;
-      }
-      if (error !== "") {
-        toast.error("Please fix the error first");
-        return;
-      }
-      const beatified = JSON.stringify(JSON.parse(jsonValue), null, 2);
-
-      setJsonValue(beatified);
-    } catch (error: any) {}
   };
 
   useEffect(() => {
@@ -91,19 +87,15 @@ const JsonToDart = () => {
       desc="Convert Json to Dart freezed classes"
       toolId={4}
     >
-      <ToolButtons
-        first={
-          <>
-            <Button onClick={() => onSubmit()}>
-              <Cog className="mr-2 h-4 w-4" /> Generate
-            </Button>
-            <Button
-              className="ml-5"
-              variant={"secondary"}
-              onClick={() => handleBeatify()}
-            >
-              <Flower className="mr-2 h-4 w-4" /> Beautify
-            </Button>
+      <Toolbar>
+        <ToolbarButton asChild>
+          <Button onClick={() => onSubmit()}>
+            <Cog className="mr-2 h-4 w-4" /> Generate
+          </Button>
+        </ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarGroup type="multiple" className="space-x-2">
+          <ToolbarButton asChild>
             <OptionsMenu
               className={className}
               setclassName={setclassName}
@@ -118,23 +110,17 @@ const JsonToDart = () => {
               addGeneratedParts={addGeneratedParts}
               setaddGeneratedParts={setaddGeneratedParts}
             />
-          </>
-        }
-        second={
-          <>
-            <Button
-              size={"icon"}
-              onClick={() => {
-                if (dart.trim().length < 1) return;
-                void navigator.clipboard.writeText(dart);
-                toast.success("Copied to clipboard");
-              }}
-            >
-              <Copy className="h-4 w-4" />
-            </Button>
-          </>
-        }
-      />
+          </ToolbarButton>
+          <ToolbarButton asChild>
+            <BeautifyButton value={jsonValue} setValue={setJsonValue} />
+          </ToolbarButton>
+        </ToolbarGroup>
+        <ToolbarSeparator />
+        <ToolbarButton asChild>
+          <CopyButton onClick={() => dart} />
+        </ToolbarButton>
+      </Toolbar>
+
       <MultiEditorLayout>
         <Container errorMessage={error}>
           <Editor

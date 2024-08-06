@@ -116,7 +116,7 @@ Answer 2
   },
   {
     title: "Features",
-    value: `## Features
+    value: ` ## Features
 
 - Light/dark mode toggle
 - Live previews
@@ -128,7 +128,8 @@ Answer 2
 
   {
     title: "Installation",
-    value: `## Installation
+    value: `
+    ## Installation
 
 Install my-project with npm
 
@@ -148,14 +149,16 @@ Install my-project with npm
   },
   {
     title: "Authors",
-    value: `## Authors
+    value: `
+    ## Authors
      - [@yltsakcir](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
     `,
   },
   {
     title: "License",
-    value: `## License
+    value: `
+    ## License
     [MIT](https://choosealicense.com/licenses/mit/)
     `,
   },
@@ -168,7 +171,6 @@ Install my-project with npm
   {
     title: "Support",
     value: `## Support
-
 
     `,
   },

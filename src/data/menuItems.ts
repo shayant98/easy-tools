@@ -1,9 +1,22 @@
 import { type LucideIcon } from "lucide-react";
 import { type IconType } from "react-icons";
-import { AiOutlineApi, AiOutlineFileMarkdown, AiOutlineLink, AiOutlineQrcode, AiOutlineTags } from "react-icons/ai";
+import {
+  AiOutlineApi,
+  AiOutlineFileMarkdown,
+  AiOutlineLink,
+  AiOutlineQrcode,
+  AiOutlineTags,
+} from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
 import { MdEnhancedEncryption } from "react-icons/md";
-import { SiDart, SiDocker, SiJavascript, SiJson, SiTailwindcss, SiTypescript } from "react-icons/si";
+import {
+  SiDart,
+  SiDocker,
+  SiJavascript,
+  SiJson,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 import { VscJson, VscSymbolString } from "react-icons/vsc";
 
 export interface IMenuItem {
@@ -183,7 +196,7 @@ const menuItems: IMenuItem[] = [
   {
     id: 15,
     title: "Open Graph Generator",
-    subtitle: "A tool to generate Open Graph images for your website.",
+    subtitle: "A tool to generate Open Graph tags for your website.",
     icon: AiOutlineTags,
     link: "/open-graph-generator",
     tags: ["GENERATOR"],
