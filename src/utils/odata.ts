@@ -1,13 +1,12 @@
 import type { IODataFilter } from "@/types/odata-filter";
 import { format } from "date-fns";
+import { s } from "node_modules/framer-motion/dist/types.d-Bq-Qm38R";
 import { toast } from "sonner";
 
 // Generate OData filter string from string value
 // param filters: Array of IODataFilter objects
 // param optional: Optional parameter to indicate if the filter is optional
 const generateFilter = (filters: IODataFilter[], { optional = false }): string => {
-  console.log(filters);
-
   if (filters.length === 0) {
     return "";
   }
@@ -26,16 +25,20 @@ const generateFilter = (filters: IODataFilter[], { optional = false }): string =
     }
     const filterValue = filter.valueType === "string" ? `'${filter.value.toString()}'` : filter.value[0];
 
+    let filterParam = "";
+
     if (filter.comparator === "contains") {
-      return `contains(${filter.key}, ${filterValue})`;
-    }
-
-    if (filter.comparator === "endswith") {
-      return `endswith(${filter.key}, ${filterValue})`;
-    }
-
-    if (filter.comparator === "startswith") {
-      return `startswith(${filter.key}, ${filterValue})`;
+      filterParam = `contains(${filter.key}, ${filterValue})`;
+    } else if (filter.comparator === "endswith") {
+      filterParam = `endswith(${filter.key}, ${filterValue})`;
+    } else if (filter.comparator === "startswith") {
+      filterParam = `startswith(${filter.key}, ${filterValue})`;
+    } else if (filter.comparator === "between") {
+      const fistValue = filter.value[0] ?? "";
+      const sendValue = filter.value[1] ?? "";
+      filterParam = `${filter.key} ge ${fistValue} and ${filter.key} le ${sendValue}`;
+    } else {
+      filterParam = `${filter.key} ${filter.comparator} ${filterValue}`;
     }
 
     if (filter.optionalComparisons !== undefined && filter.optionalComparisons.length > 0) {
@@ -43,10 +46,10 @@ const generateFilter = (filters: IODataFilter[], { optional = false }): string =
         return generateFilter([optionalComparison], { optional: true });
       });
 
-      return `(${filter.key} ${filter.comparator} ${filterValue} or ${optionalComparisons.join(" or ")})`;
+      return `(${filterParam} or ${optionalComparisons.join(" or ")})`;
     }
 
-    return `${filter.key} ${filter.comparator} ${filterValue}`;
+    return `${filterParam}`;
   });
 
   const filterString = filterStringArray.join(" and ");
