@@ -65,7 +65,7 @@ const QrCameraDialog = () => {
 		return () => {
 			if (scanner) scanner.destroy();
 		};
-	}, [videoRef]);
+	}, []);
 
 	return (
 		<Dialog>

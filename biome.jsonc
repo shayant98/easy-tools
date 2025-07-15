@@ -1,23 +1,25 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"vcs": {
-		"enabled": true,
-		"clientKind": "git",
-		"useIgnoreFile": true
-	},
+	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
 	"files": { "ignoreUnknown": false, "ignore": [] },
 	"formatter": { "enabled": true },
 	"organizeImports": { "enabled": true },
 	"linter": {
 		"enabled": true,
+
 		"rules": {
+			"suspicious": { "noArrayIndexKey": "warn" },
+			"a11y": {
+				"useSemanticElements": "warn",
+				"useFocusableInteractive": "warn",
+				"useMediaCaption": "warn"
+			},
+			"security": { "noDangerouslySetInnerHtml": "off" },
 			"nursery": {
 				"useSortedClasses": {
 					"level": "warn",
 					"fix": "safe",
-					"options": {
-						"functions": ["clsx", "cva", "cn"]
-					}
+					"options": { "functions": ["clsx", "cva", "cn"] }
 				}
 			},
 			"recommended": true

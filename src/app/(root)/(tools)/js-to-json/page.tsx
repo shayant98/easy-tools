@@ -1,7 +1,7 @@
 import JsonToTsPage from "@/modules/JsonToTs/JsonToTsPage";
 
 const JsonToTs = () => {
-  return <JsonToTsPage />;
+	return <JsonToTsPage />;
 };
 
 export default JsonToTs;

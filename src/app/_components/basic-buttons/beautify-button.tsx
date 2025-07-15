@@ -15,7 +15,7 @@ const BeautifyButton = ({
 			const beatified = JSON.stringify(JSON.parse(value), null, 2);
 
 			setValue(beatified);
-		} catch (error: any) {}
+		} catch (error: unknown) {}
 	};
 
 	return (

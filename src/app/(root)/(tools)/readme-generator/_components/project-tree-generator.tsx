@@ -14,11 +14,7 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 import { Folder, PlusCircle, Trash } from "lucide-react";
 import { type Dispatch, type SetStateAction, useState } from "react";
 
-type ProjectFolder = {
-	id: string;
-	name: string;
-	children?: ProjectFolder[];
-};
+type ProjectFolder = { id: string; name: string; children?: ProjectFolder[] };
 
 type ProjectTree = ProjectFolder[];
 
@@ -26,24 +22,16 @@ const ProjectTreeGen = ({
 	setSelectedPresets,
 }: {
 	setSelectedPresets: Dispatch<
-		SetStateAction<
-			{
-				title: string;
-				value: string;
-			}[]
-		>
+		SetStateAction<{ title: string; value: string }[]>
 	>;
 }) => {
 	const [project, setProject] = useState<ProjectTree>([
-		{
-			id: cuid2.createId(),
-			name: "",
-		},
+		{ id: cuid2.createId(), name: "" },
 	]);
 
 	const [open, setOpen] = useState(false);
 
-	const addFolder = ({}) => {
+	const addFolder = () => {
 		const newProject = [...project];
 		newProject.push({ name: "", id: cuid2.createId() });
 		setProject(newProject);
@@ -58,17 +46,9 @@ const ProjectTreeGen = ({
 			return;
 		}
 		if (folder.children === undefined) {
-			folder.children = [
-				{
-					id: cuid2.createId(),
-					name: "",
-				},
-			];
+			folder.children = [{ id: cuid2.createId(), name: "" }];
 		} else {
-			folder.children.push({
-				id: cuid2.createId(),
-				name: "",
-			});
+			folder.children.push({ id: cuid2.createId(), name: "" });
 		}
 		setProject(newProject);
 	};
@@ -82,13 +62,15 @@ const ProjectTreeGen = ({
 		) => {
 			markdown += `${"  ".repeat(depth)}${isFinal ? "┗ " : "┣"}📁 ${folder.name}\n`;
 
-			if (folder.children) {
+			if (folder.children?.length) {
 				folder.children.forEach((child, index) => {
-					generateRecord(
-						child,
-						depth + 1,
-						index === folder.children?.length - 1,
-					);
+					if (folder.children !== undefined) {
+						generateRecord(
+							child,
+							depth + 1,
+							index === folder.children.length - 1,
+						);
+					}
 				});
 			}
 		};
@@ -218,7 +200,7 @@ const ProjectTreeGen = ({
 
 				{project.map((folder, index) => (
 					<div
-						key={index}
+						key={folder.id}
 						className="grid items-center gap-2 rounded-md bg-secondary/20 px-4 py-2"
 					>
 						<div className="flex items-center gap-2">
@@ -231,7 +213,7 @@ const ProjectTreeGen = ({
 									if (newProject[index] === undefined) {
 										return;
 									}
-									newProject[index]!.name = e.target.value;
+									newProject[index].name = e.target.value;
 									setProject(newProject);
 								}}
 								placeholder="Folder Name"
@@ -246,17 +228,13 @@ const ProjectTreeGen = ({
 							<Button
 								variant={"destructive"}
 								size={"icon"}
-								onClick={() =>
-									removeFolder({
-										id: folder.id,
-									})
-								}
+								onClick={() => removeFolder({ id: folder.id })}
 							>
 								<Trash className="h-4 w-4" />
 							</Button>
 						</div>
 						{folder.children?.map((subFolder, subIndex) => (
-							<div key={subIndex} className="">
+							<div key={subFolder.id} className="">
 								<div className="ml-4 flex items-center gap-2">
 									<Folder />
 									<Input
@@ -266,8 +244,11 @@ const ProjectTreeGen = ({
 											if (newProject[index]?.children === undefined) {
 												return;
 											}
+											if (newProject[index].children[subIndex] === undefined) {
+												return;
+											}
 
-											newProject[index]?.children?.[subIndex]!.name =
+											newProject[index].children[subIndex].name =
 												e.target.value;
 											setProject(newProject);
 										}}
@@ -277,10 +258,7 @@ const ProjectTreeGen = ({
 										variant={"destructive"}
 										size={"icon"}
 										onClick={() =>
-											removeFolder({
-												id: subFolder.id,
-												parentId: folder.id,
-											})
+											removeFolder({ id: subFolder.id, parentId: folder.id })
 										}
 									>
 										<Trash className="h-4 w-4" />

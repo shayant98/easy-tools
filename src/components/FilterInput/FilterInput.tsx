@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { comparatorOptions } from "@/utils/odata";
 import { cn } from "@/lib/utils";
-import type { IFilter } from "app/(root)/(tools)/odata-generator/page";
+import { comparatorOptions } from "@/utils/odata";
+import type { IFilter } from "@/app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
 import { Copy, ListEnd, MoreVertical, Trash } from "lucide-react";
 
@@ -52,9 +52,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
-                  className={cn("cursor-pointer gap-2", {
-                    hidden: isOptional,
-                  })}
+                  className={cn("cursor-pointer gap-2", { hidden: isOptional })}
                   onClick={() =>
                     updateFilter({
                       ...filter,
@@ -88,11 +86,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
               defaultValue={filter.comparator}
               onValueChange={(v) => {
                 if (v !== "between" && filter.value.length > 1) {
-                  updateFilter({
-                    ...filter,
-                    comparator: v,
-                    value: [filter.value[0] ?? ""],
-                  });
+                  updateFilter({ ...filter, comparator: v, value: [filter.value[0] ?? ""] });
                   return;
                 }
 

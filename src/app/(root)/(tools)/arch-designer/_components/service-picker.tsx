@@ -5,10 +5,10 @@ import { services } from "@/data/arch-services";
 import { cn } from "@/lib/utils";
 import { CheckCircleIcon, Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SiFirebase } from "react-icons/si";
 import { type Node, useReactFlow } from "reactflow";
 import type { NodeData } from "./custom-node";
 import { useDiagramContext } from "./diagram-context";
-import { SiFirebase } from "react-icons/si";
 
 const ServicePicker = ({ node }: { node: Node<NodeData> }) => {
   const { setNodes } = useReactFlow<NodeData>();
@@ -37,13 +37,7 @@ const ServicePicker = ({ node }: { node: Node<NodeData> }) => {
       return;
     }
 
-    const updatedNode = {
-      ...node,
-      data: {
-        ...node.data,
-        service: serviceId,
-      },
-    };
+    const updatedNode = { ...node, data: { ...node.data, service: serviceId } };
 
     setNodes((nodes) => nodes.map((n) => (n.id === node.id ? updatedNode : n)));
     setSelectedNode(updatedNode);
@@ -51,7 +45,7 @@ const ServicePicker = ({ node }: { node: Node<NodeData> }) => {
 
   return (
     <div className="rounded-lg border border-secondary p-2">
-      <Input placeholder="Search" icon={Search} value={search} onChange={(e) => setsearch(e.target.value)} />
+      <Input placeholder="Search" value={search} onChange={(e) => setsearch(e.target.value)} />
       <ScrollArea className="mt-2 h-72 px-2 ">
         {filteredServices.map((service) => (
           <button
@@ -65,11 +59,7 @@ const ServicePicker = ({ node }: { node: Node<NodeData> }) => {
                 <div className=" ">{service.icon !== undefined ? <service.icon className="h-4 w-4 " /> : <SiFirebase className="h-4 w-4 " />}</div>
                 <p className="font-bold text-sm">{service.name}</p>
               </div>
-              <CheckCircleIcon
-                className={cn("hidden h-4 w-4", {
-                  block: node?.data.service === service.id,
-                })}
-              />
+              <CheckCircleIcon className={cn("hidden h-4 w-4", { block: node?.data.service === service.id })} />
             </div>
             <div className="mt-1">
               {service.tags.map((tag) => (

@@ -6,21 +6,21 @@ import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "10mb",
-    },
-  },
-  images: {
-    dangerouslyAllowSVG: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-        pathname: "/**/**",
-      },
-    ],
-  },
+	experimental: {
+		serverActions: {
+			bodySizeLimit: "10mb",
+		},
+	},
+	images: {
+		dangerouslyAllowSVG: true,
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "placehold.co",
+				pathname: "/**/**",
+			},
+		],
+	},
 };
 
 export default config;

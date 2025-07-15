@@ -24,6 +24,10 @@ const BcryptGenerator = () => {
       console.log(err);
 
       if (err) return;
+      if (hash === undefined || hash === "") {
+        toast.error("Hash generation failed");
+        return;
+      }
       setHash(hash);
     });
   };

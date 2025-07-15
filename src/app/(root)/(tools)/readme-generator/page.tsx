@@ -9,36 +9,22 @@ import ToolButtons from "@/components/ToolButtons/ToolButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { markdown } from "@codemirror/lang-markdown";
+import presets from "@/data/markdown-presets";
 import BaseLayout from "@/layout/BaseLayout";
 import TabbedLayout from "@/layout/TabbedLayout";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
+import { markdown } from "@codemirror/lang-markdown";
 import { Reorder, useDragControls } from "framer-motion";
 import { Copy, DotSquare, Download, Edit, GripVertical, Trash, Undo2 } from "lucide-react";
 import { toast } from "sonner";
-import presets from "@/data/markdown-presets";
 import Editor from "../../../../components/Editor/Editor";
 import ProjectTreeGen from "./_components/project-tree-generator";
 
 const ReadmeGenerator = () => {
   const [value, setValue] = useState("");
-  const [availablePresets, setavailablePresets] = useState<
-    {
-      title: string;
-      value: string;
-    }[]
-  >([]);
-  const [selectedPresets, setSelectedPresets] = useState<
-    {
-      title: string;
-      onClick?: () => void;
-      value: string;
-    }[]
-  >([]);
-  const [currentlySelectedPreset, setCurrentlySelectedPreset] = useState<{
-    title: string;
-    value: string;
-  }>();
+  const [availablePresets, setavailablePresets] = useState<{ title: string; value: string }[]>([]);
+  const [selectedPresets, setSelectedPresets] = useState<{ title: string; onClick?: () => void; value: string }[]>([]);
+  const [currentlySelectedPreset, setCurrentlySelectedPreset] = useState<{ title: string; value: string }>();
 
   const controls = useDragControls();
 
@@ -206,7 +192,10 @@ const ReadmeGenerator = () => {
                 label: "Preview",
                 value: "preview",
                 child: (
-                  <ReactMarkdown className="markdown-body h-full rounded bg-secondary p-4" remarkPlugins={[remarkGfm]}>
+                  <ReactMarkdown
+                    // className="markdown-body h-full rounded bg-secondary p-4"
+                    remarkPlugins={[remarkGfm]}
+                  >
                     {selectedPresets.map((selectedPresets) => selectedPresets.value).join("\n")}
                   </ReactMarkdown>
                 ),

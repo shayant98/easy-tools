@@ -16,7 +16,7 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
   const [snippetDescription, setsnippetDescription] = useState("");
   const [snippetLanguage, setsnippetLanguage] = useState(language);
 
-  const { mutateAsync: saveSnippet, isLoading: isSavingSnippet } = api.snippet.saveSnippet.useMutation();
+  const { mutateAsync: saveSnippet, isPending: isSavingSnippet } = api.snippet.saveSnippet.useMutation();
 
   const handleSubmission = (e: FormEvent) => {
     e.preventDefault();
@@ -30,19 +30,11 @@ const SnippetDialog = ({ value, language }: SnippetDialogProps) => {
 
       return;
     }
-    toast.promise(
-      saveSnippet({
-        title: snippetName,
-        content: value,
-        language,
-        desc: snippetDescription,
-      }),
-      {
-        loading: "Saving snippet...",
-        success: "Snippet saved successfully",
-        error: "Failed to save snippet",
-      }
-    );
+    toast.promise(saveSnippet({ title: snippetName, content: value, language, desc: snippetDescription }), {
+      loading: "Saving snippet...",
+      success: "Snippet saved successfully",
+      error: "Failed to save snippet",
+    });
 
     setOpen(false);
   };

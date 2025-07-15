@@ -13,17 +13,17 @@
 // });
 
 export const metadata: Metadata = {
-  icons: {
-    icon: ["/favicon/favicon.ico?v=4"],
-    apple: ["/favicon/apple-touch-icon.png?v=4"],
-    shortcut: ["/favicon/apple-touch-icon.png"],
-  },
-  manifest: "/site.webmanifest",
-  title: "Easy Tools",
-  description: "Easy Tools is a collection of tools for developers.",
-  applicationName: "Easy Tools",
-  keywords:
-    "tools, developer, developer tools, easy tools, easytools, easy tools for developers, easytools for developers, qr code, qr code generator, json, json to js, js to json, docker, docker compose, docker compose generator, docker compose file, docker compose file generator, docker compose file generator",
+	icons: {
+		icon: ["/favicon/favicon.ico?v=4"],
+		apple: ["/favicon/apple-touch-icon.png?v=4"],
+		shortcut: ["/favicon/apple-touch-icon.png"],
+	},
+	manifest: "/site.webmanifest",
+	title: "Easy Tools",
+	description: "Easy Tools is a collection of tools for developers.",
+	applicationName: "Easy Tools",
+	keywords:
+		"tools, developer, developer tools, easy tools, easytools, easy tools for developers, easytools for developers, qr code, qr code generator, json, json to js, js to json, docker, docker compose, docker compose generator, docker compose file, docker compose file generator, docker compose file generator",
 };
 
 import "@/styles/globals.css";
@@ -35,30 +35,39 @@ import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { Footer } from "react-day-picker";
 import { Toaster } from "sonner";
+import BaseComponent from "../_components/base-component";
 import Navbar from "../_components/navbar";
 import QuickAccessMenu from "../_components/quick-access-menu";
 import Loading from "./loading";
-import BaseComponent from "../_components/base-component";
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+	subsets: ["latin"],
+	variable: "--font-inter",
 });
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html suppressHydrationWarning lang="en" className={cn(`${inter.className} font-inter`, "flex min-h-screen flex-col bg-background antialiased")}>
-      <body>
-        {/* <Providers> */}
-        <Navbar />
-        <Suspense fallback={<Loading />}>
-          <BaseComponent>{children}</BaseComponent>
-        </Suspense>
-        <Footer />
-        <Toaster richColors />
-        <QuickAccessMenu />
-        {/* </Providers> */}
-      </body>
-    </html>
-  );
+export default function RootLayout({
+	children,
+}: Readonly<{ children: React.ReactNode }>) {
+	return (
+		<html
+			suppressHydrationWarning
+			lang="en"
+			className={cn(
+				`${inter.className} font-inter`,
+				"flex min-h-screen flex-col bg-background antialiased",
+			)}
+		>
+			<body>
+				{/* <Providers> */}
+				<Navbar />
+				<Suspense fallback={<Loading />}>
+					<BaseComponent>{children}</BaseComponent>
+				</Suspense>
+				<Footer />
+				<Toaster richColors />
+				<QuickAccessMenu />
+				{/* </Providers> */}
+			</body>
+		</html>
+	);
 }

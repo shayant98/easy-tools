@@ -12,36 +12,45 @@ import { useDropzone } from "react-dropzone";
 import QrCameraDialog from "./qr-camera-dialog";
 
 const QrDecoder = () => {
-  const [value, setvalue] = useState("");
+	const [value, setvalue] = useState("");
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    if (acceptedFiles.length === 0) return;
-    if (acceptedFiles[0] === undefined) return;
-    const res = await QrScanner.scanImage(acceptedFiles[0], {
-      returnDetailedScanResult: true,
-    });
+	const onDrop = useCallback(async (acceptedFiles: File[]) => {
+		if (acceptedFiles.length === 0) return;
+		if (acceptedFiles[0] === undefined) return;
+		const res = await QrScanner.scanImage(acceptedFiles[0], {
+			returnDetailedScanResult: true,
+		});
 
-    setvalue(res.data);
-  }, []);
+		setvalue(res.data);
+	}, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    maxFiles: 1,
-  });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+		maxFiles: 1,
+	});
 
-  return (
-    <>
-      {/* <ToolButtons first={<QrCameraDialog />} /> */}
-      <MultiEditorLayout>
-        <Container>
-          <Dropzone getInputProps={getInputProps} isDragActive={isDragActive} getRootProps={getRootProps} />
-        </Container>
-        <Container>
-          <Editor value={value} setValue={setvalue} disabled placeholder="Content will apear here" />
-        </Container>
-      </MultiEditorLayout>
-    </>
-  );
+	return (
+		<>
+			{/* <ToolButtons first={<QrCameraDialog />} /> */}
+			<MultiEditorLayout>
+				<Container>
+					<Dropzone
+						getInputProps={getInputProps}
+						isDragActive={isDragActive}
+						getRootProps={getRootProps}
+					/>
+				</Container>
+				<Container>
+					<Editor
+						value={value}
+						setValue={setvalue}
+						disabled
+						placeholder="Content will apear here"
+					/>
+				</Container>
+			</MultiEditorLayout>
+		</>
+	);
 };
 
 export default QrDecoder;
