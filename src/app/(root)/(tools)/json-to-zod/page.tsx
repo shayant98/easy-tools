@@ -13,8 +13,9 @@ import { Flower } from "lucide-react";
 import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";
 import MultiEditorLayout from "../../../../layout/multi-editor-layout";
-import Options, { type ZodOptions } from "./_components/options";
+import Options from "./_components/options";
 import ZodPropertiesList from "./_components/zod-properties-list";
+import type { ZodOptions } from "@/types/zod-options";
 
 const JsonToZod = () => {
   const [inputArea, setinputArea] = useState("");

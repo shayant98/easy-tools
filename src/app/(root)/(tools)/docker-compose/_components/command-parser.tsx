@@ -8,40 +8,35 @@ import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { yaml } from "@codemirror/lang-yaml";
 import { Cog } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDockerCompose } from "./DockerComposeContext";
-import Output from "./Output.module";
+import { useDockerCompose } from "./docker-compose-context";
+import Output from "./output-form";
 
 const CommandParser = () => {
-	const { parseDockerCommand, generateDockerComposeFromServices } =
-		useDockerCompose();
-	const [commandInput, setcommandInput] = useState("");
+  const { parseDockerCommand, generateDockerComposeFromServices } = useDockerCompose();
+  const [commandInput, setcommandInput] = useState("");
 
-	const onSubmit = () => {
-		parseDockerCommand(commandInput);
-	};
+  const onSubmit = () => {
+    parseDockerCommand(commandInput);
+  };
 
-	return (
-		<>
-			<ToolButtons
-				first={
-					<Button onClick={onSubmit}>
-						<Cog className="mr-2 h-4 w-4" />
-						Parse
-					</Button>
-				}
-			/>
-			<MultiEditorLayout>
-				<Container>
-					<Editor
-						value={commandInput}
-						setValue={setcommandInput}
-						language={yaml()}
-					/>
-				</Container>
-				<Output />
-			</MultiEditorLayout>
-		</>
-	);
+  return (
+    <>
+      <ToolButtons
+        first={
+          <Button onClick={onSubmit}>
+            <Cog className="mr-2 h-4 w-4" />
+            Parse
+          </Button>
+        }
+      />
+      <MultiEditorLayout>
+        <Container>
+          <Editor value={commandInput} setValue={setcommandInput} language={yaml()} />
+        </Container>
+        <Output />
+      </MultiEditorLayout>
+    </>
+  );
 };
 
 export default CommandParser;

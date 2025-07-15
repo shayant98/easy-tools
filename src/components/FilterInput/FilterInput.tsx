@@ -5,8 +5,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import type { IODataFilter } from "@/types/odata-filter";
 import { comparatorOptions } from "@/utils/odata";
-import type { IFilter } from "@/app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
 import { Copy, ListEnd, MoreVertical, Trash } from "lucide-react";
 
@@ -138,10 +138,10 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
 };
 
 interface FilterInputProps {
-  filter: IFilter;
-  updateFilter: (filter: IFilter) => void;
+  filter: IODataFilter;
+  updateFilter: (filter: IODataFilter) => void;
   deleteFilter: (id: number) => void;
-  copyFilter: (filter: IFilter) => void;
+  copyFilter: (filter: IODataFilter) => void;
   disabled?: boolean;
   isOptional: boolean;
 }

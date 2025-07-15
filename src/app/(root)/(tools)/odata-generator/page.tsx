@@ -13,20 +13,11 @@ import { Switch } from "@/components/ui/switch";
 import HeaderLayout from "@/layout/header-layout";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { cn } from "@/lib/utils";
-import FilterTemplates from "@/app/(root)/(tools)/odata-generator/_components/FilterTemplates";
+import FilterTemplates from "./_components/filter-templates";
 import { buildUrl } from "@/utils/odata";
 import { Cog } from "lucide-react";
 import { useEffect, useState } from "react";
-
-export interface IFilter {
-  id: number;
-  key: string;
-  type: string;
-  comparator: string;
-  value: string[];
-  valueType: string;
-  optionalComparisons?: IFilter[];
-}
+import type { IODataFilter } from "@/types/odata-filter";
 
 const OdataGenerator = () => {
   const [baseUrl, setBaseUrl] = useState("");
@@ -39,7 +30,7 @@ const OdataGenerator = () => {
   const [orderKeyValue, setOrderKeyValue] = useState("");
   const [searchKeyValue, setsearchKeyValue] = useState("");
   const [orderDirectionValue, setOrderDirectionValue] = useState("asc");
-  const [filterValue, setfilterValue] = useState<IFilter[]>();
+  const [filterValue, setfilterValue] = useState<IODataFilter[]>();
   const [generatedUrl, setgeneratedUrl] = useState("");
   const [count, setcount] = useState(false);
   const [search, setsearch] = useState(false);
@@ -56,7 +47,7 @@ const OdataGenerator = () => {
     setfilterValue((prev) => prev?.filter((filter) => filter.id !== id));
   };
 
-  const updateFilter = (filter: IFilter) => {
+  const updateFilter = (filter: IODataFilter) => {
     setfilterValue((prev) => {
       const newFilter = prev?.map((prevFilter) => {
         if (prevFilter.id === filter.id) {
@@ -101,7 +92,7 @@ const OdataGenerator = () => {
     );
   };
 
-  const copyFilter = (filter: IFilter) => {
+  const copyFilter = (filter: IODataFilter) => {
     setfilterValue((prev) => [...(prev ?? []), { ...filter, id: prev?.length ?? 0 }]);
   };
 

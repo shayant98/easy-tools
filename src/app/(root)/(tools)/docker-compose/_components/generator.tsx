@@ -2,7 +2,7 @@
 
 import HeaderLayout from "@/layout/header-layout";
 import TabbedLayout from "@/layout/tabbed-layout";
-import { DockerComposeContextProvider } from "./DockerComposeContext";
+import { DockerComposeContextProvider } from "./docker-compose-context";
 import CommandParser from "./command-parser";
 import DockerFileGenerator from "./docker-file-generator";
 

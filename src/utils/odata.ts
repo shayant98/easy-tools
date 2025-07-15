@@ -1,11 +1,11 @@
-import type { IFilter } from "@/app/(root)/(tools)/odata-generator/page";
+import type { IODataFilter } from "@/types/odata-filter";
 import { format } from "date-fns";
 import { toast } from "sonner";
 
 // Generate OData filter string from string value
-// param filters: Array of IFilter
+// param filters: Array of IODataFilter objects
 // param optional: Optional parameter to indicate if the filter is optional
-const generateFilter = (filters: IFilter[], { optional = false }): string => {
+const generateFilter = (filters: IODataFilter[], { optional = false }): string => {
   console.log(filters);
 
   if (filters.length === 0) {
@@ -81,7 +81,7 @@ const buildUrl = (
     orderByKey,
     count = false,
     ...opt
-  }: { filters?: IFilter[]; orderByKey?: string; orderByDirection?: string; top?: number; skip?: number; count: boolean; search?: string }
+  }: { filters?: IODataFilter[]; orderByKey?: string; orderByDirection?: string; top?: number; skip?: number; count: boolean; search?: string }
 ) => {
   let paramCount = 0;
   let orderBy = "";
