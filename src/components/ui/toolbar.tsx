@@ -34,7 +34,7 @@ const ToolbarSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToolbarPrimitive.Separator
     ref={ref}
-    className={cn("mx-[10px] h-full w-[1px] bg-secondary/20", className)}
+    className={cn("mx-[10px] h-full w-px bg-secondary/20", className)}
     {...props}
   />
 ));

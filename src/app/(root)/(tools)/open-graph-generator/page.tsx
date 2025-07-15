@@ -459,7 +459,7 @@ const Page = () => {
                   <TabsContent value="facebook">
                     <div>
                       <div className="w-[524px] max-w-full cursor-pointer font-[Helvetica]">
-                        <div className="border-[1px] border-b-0 border-[#dadde1] bg-cover bg-center bg-no-repeat">
+                        <div className="border border-b-0 border-[#dadde1] bg-cover bg-center bg-no-repeat">
                           <div className="relative h-32">
                             <Image
                               className="absolute top-0 block h-full w-full object-cover"
@@ -470,7 +470,7 @@ const Page = () => {
                             />
                           </div>
                         </div>
-                        <div className="break-words border-[1px] border-[#dadde1] bg-[#f2f3f5] px-[12px] py-[10px] antialiased">
+                        <div className="break-words border border-[#dadde1] bg-[#f2f3f5] px-[12px] py-[10px] antialiased">
                           <div className="overflow-hidden truncate whitespace-nowrap text-[12px] uppercase leading-[11px] text-[#606770]">
                             {info.url}
                           </div>
@@ -488,7 +488,7 @@ const Page = () => {
                   </TabsContent>
                   <TabsContent value="twitter">
                     <div>
-                      <div className="relative w-[438px] max-w-full cursor-pointer overflow-hidden rounded-[0.85714em] border-[1px] border-[#e1e8ed] font-[Helvetica] leading-[1.3em] text-black -outline-offset-1">
+                      <div className="relative w-[438px] max-w-full cursor-pointer overflow-hidden rounded-[0.85714em] border border-[#e1e8ed] font-[Helvetica] leading-[1.3em] text-black -outline-offset-1">
                         <div className="bg-cover bg-center bg-no-repeat">
                           <div className="relative h-56 w-full">
                             <Image
@@ -508,7 +508,7 @@ const Page = () => {
                   </TabsContent>
                   {/* <TabsContent value="discord">
                     <div>
-                      <div className="grid w-[432px] max-w-full cursor-pointer items-start justify-self-start overflow-hidden rounded-[4px] border-l-[4px] border-[#202225] bg-[#2f3136] font-[Helvetica]">
+                      <div className="grid w-[432px] max-w-full cursor-pointer items-start justify-self-start overflow-hidden rounded-[4px] border-l-4 border-[#202225] bg-[#2f3136] font-[Helvetica]">
                         <div className="inline-grid grid-cols-[auto] grid-rows-[auto] overflow-hidden pt-2 pr-4 pb-4 pl-3">
                           <div
                             className="mt-2 text-xs font-normal leading-4 text-white"

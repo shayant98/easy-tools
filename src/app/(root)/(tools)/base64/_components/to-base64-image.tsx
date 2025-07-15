@@ -110,10 +110,10 @@ const ToBase64 = () => {
                     onClick={() => handleRemove(file)}
                   />
                 </div>
-                <p className="leading-2 overflow-hidden overflow-ellipsis text-sm font-medium text-slate-800 dark:text-slate-100">
+                <p className="leading-2 overflow-hidden text-ellipsis text-sm font-medium text-slate-800 dark:text-slate-100">
                   Name: {file.name}
                 </p>
-                <p className="mt-1 overflow-hidden overflow-ellipsis text-sm text-slate-500 dark:text-slate-400">
+                <p className="mt-1 overflow-hidden text-ellipsis text-sm text-slate-500 dark:text-slate-400">
                   Size: {Math.ceil(file.size / 1024)} Kb
                 </p>
 

@@ -215,7 +215,7 @@ const ReadmeGenerator = () => {
                   className="flex w-full cursor-pointer flex-wrap items-center justify-between rounded bg-secondary px-4 py-2 text-center text-xs"
                   onClick={() => handlePresetSelection(preset)}
                 >
-                  <span className="leading-7 [&:not(:first-child)]:mt-6">
+                  <span className="leading-7 not-first:mt-6">
                     {preset.title}
                   </span>
                 </div>
