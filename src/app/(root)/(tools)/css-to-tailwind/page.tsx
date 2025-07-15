@@ -1,6 +1,7 @@
 import HeaderLayout from "@/layout/header-layout";
-import { Form } from "./_components/Form";
-export const metadata = { title: "Tool | CSS to Tailwind", description: "Convert CSS to Tailwind" };
+import { Form } from "./_components/form";
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Tool | CSS to Tailwind", description: "Convert CSS to Tailwind" };
 
 const TailwindConverters = () => {
   return (

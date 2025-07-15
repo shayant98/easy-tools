@@ -1,5 +1,5 @@
 import HeaderLayout from "@/layout/header-layout";
-import TabbedLayout from "@/layout/TabbedLayout";
+import TabbedLayout from "@/layout/tabbed-layout";
 import FromBase64 from "./_components/from-base64-image";
 import FromBase64String from "./_components/from-base64-string";
 import ToBase64 from "./_components/to-base64-image";

@@ -1,7 +1,7 @@
 "use client";
 
 import HeaderLayout from "@/layout/header-layout";
-import TabbedLayout from "@/layout/TabbedLayout";
+import TabbedLayout from "@/layout/tabbed-layout";
 import { DockerComposeContextProvider } from "./DockerComposeContext";
 import CommandParser from "./command-parser";
 import DockerFileGenerator from "./docker-file-generator";

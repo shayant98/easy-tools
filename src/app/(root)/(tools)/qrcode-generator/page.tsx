@@ -1,5 +1,5 @@
 import HeaderLayout from "@/layout/header-layout";
-import TabbedLayout from "@/layout/TabbedLayout";
+import TabbedLayout from "@/layout/tabbed-layout";
 import QrDecoder from "./_components/decoder-form";
 import QrCodeGenerator from "./_components/generator-form";
 

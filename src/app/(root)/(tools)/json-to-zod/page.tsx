@@ -7,7 +7,7 @@ import Container from "@/components/Container/Container";
 import ToolButtons from "@/components/ToolButtons/ToolButtons";
 import { Button } from "@/components/ui/button";
 import HeaderLayout from "@/layout/header-layout";
-import TabbedLayout from "@/layout/TabbedLayout";
+import TabbedLayout from "@/layout/tabbed-layout";
 import { type ZodKeyMappedObject, createMappedObjectFromJson, createStringZodSchemaFromMappedObject } from "@/utils/zod";
 import { Flower } from "lucide-react";
 import { toast } from "sonner";

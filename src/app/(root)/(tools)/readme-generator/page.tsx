@@ -11,7 +11,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import presets from "@/data/markdown-presets";
 import HeaderLayout from "@/layout/header-layout";
-import TabbedLayout from "@/layout/TabbedLayout";
+import TabbedLayout from "@/layout/tabbed-layout";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { markdown } from "@codemirror/lang-markdown";
 import { Reorder, useDragControls } from "framer-motion";

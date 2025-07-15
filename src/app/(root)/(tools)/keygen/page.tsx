@@ -1,5 +1,5 @@
 import HeaderLayout from "@/layout/header-layout";
-import Keys from "@/app/(root)/(tools)/keygen/_components/Keys";
+import Keys from "./_components/Keys";
 
 /**
  * Renders the Key Generator page.

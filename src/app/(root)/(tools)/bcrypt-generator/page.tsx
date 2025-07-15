@@ -1,5 +1,5 @@
 import HeaderLayout from "@/layout/header-layout";
-import TabbedLayout from "@/layout/TabbedLayout";
+import TabbedLayout from "@/layout/tabbed-layout";
 import BcryptGenerator from "./_components/generator";
 import BcryptValidator from "./_components/validator";
 
