@@ -1,7 +1,7 @@
-import JsonToTsPage from "@/modules/JsonToTs/JsonToTsPage";
+import JsonToTsPage from "../js-to-ts/_components/JsonToTsPage";
 
 const JsonToTs = async () => {
-	return <JsonToTsPage />;
+  return <JsonToTsPage />;
 };
 
 export default JsonToTs;

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import presets from "@/data/markdown-presets";
-import BaseLayout from "@/layout/BaseLayout";
+import HeaderLayout from "@/layout/header-layout";
 import TabbedLayout from "@/layout/TabbedLayout";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { markdown } from "@codemirror/lang-markdown";
@@ -93,7 +93,7 @@ const ReadmeGenerator = () => {
   console.log("selected presets", selectedPresets);
 
   return (
-    <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease." toolId={6}>
+    <HeaderLayout title="Readme Generator" desc="Generate a readme for your project with ease." toolId={6}>
       <ToolButtons
         first={
           <div className="flex gap-1">
@@ -204,7 +204,7 @@ const ReadmeGenerator = () => {
           />
         </Container>
       </MultiEditorLayout>
-    </BaseLayout>
+    </HeaderLayout>
   );
 };
 

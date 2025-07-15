@@ -1,15 +1,15 @@
-import BaseLayout from "@/layout/BaseLayout";
-import Keys from "@/modules/keyGen/Keys";
+import HeaderLayout from "@/layout/header-layout";
+import Keys from "@/app/(root)/(tools)/keygen/_components/Keys";
 
 /**
  * Renders the Key Generator page.
  */
 const Page = () => {
-	return (
-		<BaseLayout title="Key Generator" desc="" toolId={13}>
-			<Keys />
-		</BaseLayout>
-	);
+  return (
+    <HeaderLayout title="Key Generator" desc="" toolId={13}>
+      <Keys />
+    </HeaderLayout>
+  );
 };
 
 export default Page;
