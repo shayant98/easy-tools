@@ -18,16 +18,6 @@ const DockerFileGenerator = () => {
 
   return (
     <>
-      {/* <ToolButtons
-        second={
-          <>
-
-            <Button onClick={downloadYaml}>
-              <Download className="mr-2 h-4 w-4" /> Download
-            </Button>
-          </>
-        }
-      /> */}
       <Toolbar>
         <ToolbarButton asChild>
           <Button onClick={generateDockerComposeFromServices}>

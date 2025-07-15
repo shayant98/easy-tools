@@ -1,9 +1,10 @@
-"use client";
-
+"use client";;
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@components/ui/breadcrumb";
 import { Button } from "@components/ui/button";
 import { useSaveTool } from "hooks/use-tool-save-hook";
 import { Heart } from "lucide-react";
+
+import type { JSX } from "react";
 
 const BaseLayout = ({ children, title, desc, toolId }: BaseLayoutProps) => {
   const { hasCurrentTool, saveTool, removeTool } = useSaveTool(toolId);

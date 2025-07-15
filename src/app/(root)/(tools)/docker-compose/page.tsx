@@ -1,4 +1,4 @@
-import { DockerGenerator } from "modules/DockerCompose";
+import DockerGenerator from "./_components/DockerGenerator.module";
 
 export const metadata = {
   title: "Tools | Docker Compose Generator",

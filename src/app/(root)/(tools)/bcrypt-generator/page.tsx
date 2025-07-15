@@ -1,6 +1,7 @@
 import BaseLayout from "@layout/BaseLayout";
 import TabbedLayout from "@layout/TabbedLayout";
-import { BcryptGenerator, BcryptValidator } from "modules/Bcrypt";
+import BcryptGenerator from "./_components/generator";
+import BcryptValidator from "./_components/validator";
 
 export const metadata = {
   title: "Tools | Bcrypt Generator",
@@ -9,7 +10,11 @@ export const metadata = {
 
 const UrlEncoderDecoder = () => {
   return (
-    <BaseLayout toolId={8} title="Bcrypt Generator" desc="Generate or validate BCrypt hashes">
+    <BaseLayout
+      toolId={8}
+      title="Bcrypt Generator"
+      desc="Generate or validate BCrypt hashes"
+    >
       <TabbedLayout
         defaultTab="bcrypt-generator"
         options={[

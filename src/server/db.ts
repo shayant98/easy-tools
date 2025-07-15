@@ -1,18 +1,16 @@
-// src/server/db/client.ts
 import { PrismaClient } from "@prisma/client";
-import { env } from "@env/server.mjs";
 
-declare global {
-  // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined;
-}
+import { env } from "@/env";
 
-export const prisma =
-  global.prisma ??
+const createPrismaClient = () =>
   new PrismaClient({
-    log: env.ENVIRONMENT === "development" ? ["error", "warn"] : ["error"],
+    log: env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   });
 
-if (env.ENVIRONMENT !== "production") {
-  global.prisma = prisma;
-}
+const globalForPrisma = globalThis as unknown as {
+  prisma: ReturnType<typeof createPrismaClient> | undefined;
+};
+
+export const db = globalForPrisma.prisma ?? createPrismaClient();
+
+if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
