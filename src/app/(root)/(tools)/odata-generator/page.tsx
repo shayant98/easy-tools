@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import BaseLayout from "@/layout/BaseLayout";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
-import { buildUrl } from "@utils/odata";
+import { buildUrl } from "@/utils/odata";
 import { cn } from "@/lib/utils";
 import { Cog } from "lucide-react";
 import FilterTemplates from "@/modules/OdataGenerator/Filter/FilterTemplates";

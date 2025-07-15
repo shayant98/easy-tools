@@ -6,7 +6,7 @@ import ToolButtons from "@/components/ToolButtons/ToolButtons";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
-import { toBase64 } from "@utils/formatters";
+import { toBase64 } from "@/utils/formatters";
 import { ArrowDown, Copy, Download, Eraser, XCircle } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";

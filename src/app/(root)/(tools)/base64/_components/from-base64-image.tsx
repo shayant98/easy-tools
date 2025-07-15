@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
-import { base64toFile } from "@utils/formatters";
+import { base64toFile } from "@/utils/formatters";
 import JSZip from "jszip";
 import { ArrowRight, Cog, Download, FileArchive } from "lucide-react";
 import { useState } from "react";
@@ -24,7 +24,7 @@ const FromBase64 = () => {
       return;
     }
     setgeneratedFiles([]);
-    let strings;
+    let strings = [];
     if (seperator !== "") {
       strings = input.trim().split(seperator);
     } else {

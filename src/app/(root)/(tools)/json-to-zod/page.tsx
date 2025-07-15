@@ -8,7 +8,7 @@ import ToolButtons from "@/components/ToolButtons/ToolButtons";
 import { Button } from "@/components/ui/button";
 import BaseLayout from "@/layout/BaseLayout";
 import TabbedLayout from "@/layout/TabbedLayout";
-import { type ZodKeyMappedObject, createMappedObjectFromJson, createStringZodSchemaFromMappedObject } from "@utils/zod";
+import { type ZodKeyMappedObject, createMappedObjectFromJson, createStringZodSchemaFromMappedObject } from "@/utils/zod";
 import { Flower } from "lucide-react";
 import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";

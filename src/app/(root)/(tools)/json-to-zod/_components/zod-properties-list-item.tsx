@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { type zodPropertyOption, zodPropertyOptions } from "@/data/zod-property-options";
 import { cn } from "@/lib/utils";
-import type { ZodKeyMappedObject } from "@utils/zod";
+import type { ZodKeyMappedObject } from "@/utils/zod";
 import { Reorder, useDragControls } from "framer-motion";
 import { BookOpen, GripVertical } from "lucide-react";
 import Link from "next/link";

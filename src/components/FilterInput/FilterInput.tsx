@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { comparatorOptions } from "@utils/odata";
+import { comparatorOptions } from "@/utils/odata";
 import { cn } from "@/lib/utils";
 import type { IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";

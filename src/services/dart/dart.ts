@@ -1,4 +1,4 @@
-import { capitalize } from "@utils/formatters";
+import { capitalize } from "@/utils/formatters";
 import { convertStringToCamelCase } from "@/lib/utils";
 
 /**

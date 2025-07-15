@@ -4,7 +4,7 @@ import Container from "@/components/Container/Container";
 import Editor from "@/components/Editor/Editor";
 import { json } from "@codemirror/lang-json";
 import MultiEditorLayout from "@/layout/multi-editor-layout";
-import { stringToJsonString } from "@utils/formatters";
+import { stringToJsonString } from "@/utils/formatters";
 import { useCallback, useEffect, useState } from "react";
 
 const JsToJsonPage = () => {
