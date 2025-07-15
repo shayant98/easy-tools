@@ -1,4 +1,5 @@
 "use client";
+import BaseComponent from "@/app/_components/base-component";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { useSaveTool } from "@/hooks/use-tool-save-hook";

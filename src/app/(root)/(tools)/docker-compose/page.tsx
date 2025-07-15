@@ -1,12 +1,18 @@
+import BaseComponent from "@/app/_components/base-component";
 import DockerGenerator from "./_components/DockerGenerator.module";
+import type { Metadata } from "next";
 
-export const metadata = {
-	title: "Tools | Docker Compose Generator",
-	description: "Generate docker-compose.yml files",
+export const metadata: Metadata = {
+  title: "Tools | Docker Compose Generator",
+  description: "Generate docker-compose.yml files",
 };
 
 const DockerCompose = () => {
-	return <DockerGenerator />;
+  return (
+    <BaseComponent>
+      <DockerGenerator />
+    </BaseComponent>
+  );
 };
 
 export default DockerCompose;
