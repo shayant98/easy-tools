@@ -1,12 +1,12 @@
 "use client";
 
-import Container from "@components/Container/Container";
-import { Input } from "@components/ui/Input";
-import { Badge } from "@components/ui/badge";
-import { Label } from "@components/ui/label";
-import { Textarea } from "@components/ui/textarea";
-import BaseLayout from "@layout/BaseLayout";
-import MultiEditorLayout from "@layout/multi-editor-layout";
+import Container from "@/components/Container/Container";
+import { Input } from "@/components/ui/Input";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import BaseLayout from "@/layout/BaseLayout";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 const Page = () => {
@@ -69,10 +69,10 @@ const Page = () => {
           <Container className="mb-5">
             <h4 className="mb-5 font-bold text-lg">Header</h4>
             <ul className=" rounded-lg bg-secondary text-secondary-foreground">
-              <li className="flex px-4 py-2 justify-between">
+              <li className="flex justify-between px-4 py-2">
                 <span className="font-medium">Algorithm:</span> {values?.header?.alg}
               </li>
-              <li className="flex px-4 py-2 justify-between">
+              <li className="flex justify-between px-4 py-2">
                 <span className="font-medium">Type:</span> {values?.header?.typ}
               </li>
             </ul>
@@ -86,7 +86,7 @@ const Page = () => {
                     value = new Date((value as number) * 1000).toLocaleString();
                   }
                   return (
-                    <li key={key} className="flex px-4 py-2 justify-between">
+                    <li key={key} className="flex justify-between px-4 py-2">
                       <span className="font-medium">
                         {key}:
                         {key === "iat" && (

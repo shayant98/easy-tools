@@ -1,6 +1,6 @@
-import { CheckCircleIcon, type LucideIcon, Search, Database, Globe, Webhook, Cable, Smartphone, HardDrive, BrickWall, Merge } from "lucide-react";
-import { type IconType } from "react-icons";
-import { SiApache, SiApachekafka, SiAzurefunctions, SiMicrosoftsqlserver, SiMysql, SiNginx, SiPostgresql, SiRabbitmq, SiSupabase, SiVercel } from "react-icons/si";
+import { BrickWall, Cable, CheckCircleIcon, Database, Globe, HardDrive, type LucideIcon, Merge, Search, Smartphone, Webhook } from "lucide-react";
+import type { IconType } from "react-icons";
+import { SiApache, SiApachekafka, SiMysql, SiNginx, SiPostgresql, SiRabbitmq, SiSupabase, SiVercel } from "react-icons/si";
 import { TbBrandFirebase } from "react-icons/tb";
 
 const services = [
@@ -62,17 +62,27 @@ const services = [
   {
     id: 10,
     name: "Azure - Functions",
-    icon: SiAzurefunctions,
+    icon: TbBrandFirebase,
     tags: ["serverless"],
   },
-  { id: 11, name: "Microsoft SQL", icon: SiMicrosoftsqlserver, tags: ["database"] },
+  {
+    id: 11,
+    name: "Microsoft SQL",
+    icon: TbBrandFirebase,
+    tags: ["database"],
+  },
   { id: 12, name: "MySQL", icon: SiMysql, tags: ["database"] },
   { id: 13, name: "PostgreSQL", icon: SiPostgresql, tags: ["database"] },
   { id: 14, name: "Vercel", icon: SiVercel, tags: ["platform"] },
   { id: 15, name: "Supabase", icon: SiSupabase, tags: ["BaaS"] },
   { id: 16, name: "Nginx", icon: SiNginx, tags: ["networking"] },
   { id: 17, name: "Apache", icon: SiApache, tags: ["networking"] },
-  { id: 18, name: "Apache - kafka", icon: SiApachekafka, tags: ["message queue"] },
+  {
+    id: 18,
+    name: "Apache - kafka",
+    icon: SiApachekafka,
+    tags: ["message queue"],
+  },
   { id: 19, name: "RabbitMQ", icon: SiRabbitmq, tags: ["message queue"] },
 ];
 

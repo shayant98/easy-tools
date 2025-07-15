@@ -1,30 +1,22 @@
 "use client";
 
-import JsonToTS from "json-to-ts";
-import { useCallback, useEffect, useState } from "react";
+import Container from "@/components/Container/Container";
+import Editor from "@/components/Editor/Editor";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Toolbar, ToolbarButton, ToolbarSeparator } from "@/components/ui/toolbar";
 import { json } from "@codemirror/lang-json";
-import { toast } from "sonner";
-import Editor from "@components/Editor/Editor";
-import MultiEditorLayout from "@layout/multi-editor-layout";
-import Container from "@components/Container/Container";
-import { Button } from "@components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@components/ui/popover";
-import { Label } from "@components/ui/label";
-import { Input } from "@components/ui/Input";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import BaseLayout from "@layout/BaseLayout";
+import BaseLayout from "@/layout/BaseLayout";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
+import BeautifyButton from "@/app/_components/basic-buttons/beautify-button";
+import CopyButton from "@/app/_components/basic-buttons/copy-button";
+import JsonToTS from "json-to-ts";
 import { Cog, Copy, Flower } from "lucide-react";
-import {
-  Toolbar,
-  ToolbarButton,
-  ToolbarSeparator,
-} from "@components/ui/toolbar";
-import BeautifyButton from "app/_components/basic-buttons/beautify-button";
-import CopyButton from "app/_components/basic-buttons/copy-button";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const JsonToTsPage = () => {
   const [inputArea, setinputArea] = useState("");
@@ -40,9 +32,7 @@ const JsonToTsPage = () => {
         seterror("");
         return;
       }
-      const obj: Record<string, unknown> = JSON.parse(
-        inputArea.trim(),
-      ) as Record<string, unknown>;
+      const obj: Record<string, unknown> = JSON.parse(inputArea.trim()) as Record<string, unknown>;
       const tsObj = JsonToTS(obj, { rootName: name ?? "Root" });
       setoutputArea(tsObj.join("\n\n"));
     } catch (error: unknown) {
@@ -54,14 +44,10 @@ const JsonToTsPage = () => {
 
   useEffect(() => {
     handleParsing();
-  }, [inputArea, handleParsing]);
+  }, [handleParsing]);
 
   return (
-    <BaseLayout
-      title="JSON to TypeScript"
-      desc="Convert JSON to TypeScript interfaces"
-      toolId={2}
-    >
+    <BaseLayout title="JSON to TypeScript" desc="Convert JSON to TypeScript interfaces" toolId={2}>
       <Toolbar>
         <ToolbarButton asChild>
           <BeautifyButton value={inputArea} setValue={setinputArea} />
@@ -101,20 +87,10 @@ const JsonToTsPage = () => {
       </Toolbar>
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor
-            value={inputArea}
-            setValue={setinputArea}
-            language={json()}
-            placeholder="Enter JSON here"
-          />
+          <Editor value={inputArea} setValue={setinputArea} language={json()} placeholder="Enter JSON here" />
         </Container>
         <Container>
-          <Editor
-            value={outputArea}
-            setValue={setoutputArea}
-            disabled
-            placeholder="TS will appear here"
-          />
+          <Editor value={outputArea} setValue={setoutputArea} disabled placeholder="TS will appear here" />
         </Container>
       </MultiEditorLayout>
     </BaseLayout>

@@ -4,28 +4,20 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "github-markdown-css";
-import presets from "../../../../data/markdown-presets";
-import Editor from "../../../../components/Editor/Editor";
-import { Button } from "@components/ui/button";
-import Container from "@components/Container/Container";
-import MultiEditorLayout from "@layout/multi-editor-layout";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import BaseLayout from "@layout/BaseLayout";
-import {
-  Copy,
-  DotSquare,
-  Download,
-  Edit,
-  GripVertical,
-  Trash,
-  Undo2,
-} from "lucide-react";
-import { Card, CardHeader, CardTitle } from "@components/ui/card";
-import { toast } from "sonner";
+import Container from "@/components/Container/Container";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { markdown } from "@codemirror/lang-markdown";
+import BaseLayout from "@/layout/BaseLayout";
+import TabbedLayout from "@/layout/TabbedLayout";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { Reorder, useDragControls } from "framer-motion";
-import TabbedLayout from "@layout/TabbedLayout";
-import { Separator } from "@components/ui/separator";
+import { Copy, DotSquare, Download, Edit, GripVertical, Trash, Undo2 } from "lucide-react";
+import { toast } from "sonner";
+import presets from "@/data/markdown-presets";
+import Editor from "../../../../components/Editor/Editor";
 import ProjectTreeGen from "./_components/project-tree-generator";
 
 const ReadmeGenerator = () => {
@@ -63,7 +55,7 @@ const ReadmeGenerator = () => {
   };
 
   const handleCopy = async () => {
-    if (value == "") {
+    if (value === "") {
       toast("Noting to copy!");
       return;
     }
@@ -71,10 +63,7 @@ const ReadmeGenerator = () => {
     toast.success("Copied Markdown");
   };
 
-  const handlePresetEdit = (
-    newValue: string,
-    preset?: { title: string; value: string },
-  ) => {
+  const handlePresetEdit = (newValue: string, preset?: { title: string; value: string }) => {
     if (preset === undefined) {
       return;
     }
@@ -85,7 +74,7 @@ const ReadmeGenerator = () => {
           presets.value = `\n${newValue}\n`;
         }
         return presets;
-      }),
+      })
     );
   };
 
@@ -94,7 +83,7 @@ const ReadmeGenerator = () => {
   };
 
   const handleDownload = () => {
-    if (value == "") {
+    if (value === "") {
       toast.error("Noting to download!");
       return;
     }
@@ -118,11 +107,7 @@ const ReadmeGenerator = () => {
   console.log("selected presets", selectedPresets);
 
   return (
-    <BaseLayout
-      title="Readme Generator"
-      desc="Generate a readme for your project with ease."
-      toolId={6}
-    >
+    <BaseLayout title="Readme Generator" desc="Generate a readme for your project with ease." toolId={6}>
       <ToolButtons
         first={
           <div className="flex gap-1">
@@ -148,25 +133,13 @@ const ReadmeGenerator = () => {
       <MultiEditorLayout>
         <Container className="">
           <div className="grid">
-            <h3 className="mb-3 text-lg font-medium">Selected Presets</h3>
-            <Reorder.Group
-              values={selectedPresets}
-              onReorder={setSelectedPresets}
-              className="grid gap-4"
-            >
+            <h3 className="mb-3 font-medium text-lg">Selected Presets</h3>
+            <Reorder.Group values={selectedPresets} onReorder={setSelectedPresets} className="grid gap-4">
               {selectedPresets.map((preset, i) => (
-                <Reorder.Item
-                  key={preset.title}
-                  value={preset}
-                  dragControls={controls}
-                >
+                <Reorder.Item key={preset.title} value={preset} dragControls={controls}>
                   <div className="flex justify-between rounded bg-secondary px-4 py-2 text-secondary-foreground">
                     <div className="flex items-center">
-                      <Button
-                        className="cursor-grab"
-                        variant={"ghost"}
-                        size={"icon"}
-                      >
+                      <Button className="cursor-grab" variant={"ghost"} size={"icon"}>
                         <GripVertical className="h-4 w-4" />
                       </Button>
                       <p>
@@ -187,11 +160,7 @@ const ReadmeGenerator = () => {
                         <Edit className="h-3 w-3" />
                       </Button>
 
-                      <Button
-                        variant={"destructive"}
-                        size={"icon"}
-                        onClick={() => removeselectedPreset(preset)}
-                      >
+                      <Button variant={"destructive"} size={"icon"} onClick={() => removeselectedPreset(preset)}>
                         <Trash className="h-3 w-3" />
                       </Button>
                     </div>
@@ -203,22 +172,16 @@ const ReadmeGenerator = () => {
           <Separator className="my-5" />
           <div className="hidden gap-2 md:grid md:grid-cols-4">
             {availablePresets
-              .filter((availablePresets) =>
-                selectedPresets.every(
-                  (selectedPresets) =>
-                    selectedPresets.title !== availablePresets.title,
-                ),
-              )
+              .filter((availablePresets) => selectedPresets.every((selectedPresets) => selectedPresets.title !== availablePresets.title))
               .map((preset) => (
-                <div
+                <button
+                  type="button"
                   key={preset.title}
                   className="flex w-full cursor-pointer flex-wrap items-center justify-between rounded bg-secondary px-4 py-2 text-center text-xs"
                   onClick={() => handlePresetSelection(preset)}
                 >
-                  <span className="leading-7 not-first:mt-6">
-                    {preset.title}
-                  </span>
-                </div>
+                  <span className="not-first:mt-6 leading-7">{preset.title}</span>
+                </button>
               ))}
             <ProjectTreeGen setSelectedPresets={setSelectedPresets} />
           </div>
@@ -234,9 +197,7 @@ const ReadmeGenerator = () => {
                   <Editor
                     placeholder="Enter encoded URL here"
                     value={currentlySelectedPreset?.value.trim() ?? ""}
-                    setValue={(val: string) =>
-                      handlePresetEdit(val, currentlySelectedPreset)
-                    }
+                    setValue={(val: string) => handlePresetEdit(val, currentlySelectedPreset)}
                     language={markdown()}
                   />
                 ),
@@ -245,13 +206,8 @@ const ReadmeGenerator = () => {
                 label: "Preview",
                 value: "preview",
                 child: (
-                  <ReactMarkdown
-                    className="markdown-body h-full rounded bg-secondary p-4"
-                    remarkPlugins={[remarkGfm]}
-                  >
-                    {selectedPresets
-                      .map((selectedPresets) => selectedPresets.value)
-                      .join("\n")}
+                  <ReactMarkdown className="markdown-body h-full rounded bg-secondary p-4" remarkPlugins={[remarkGfm]}>
+                    {selectedPresets.map((selectedPresets) => selectedPresets.value).join("\n")}
                   </ReactMarkdown>
                 ),
               },

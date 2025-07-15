@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import TabbedLayout from "@/layout/TabbedLayout";
 import cuid2 from "@paralleldrive/cuid2";
 import { Copy, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
-import TabbedLayout from "@layout/TabbedLayout";
 import { ulid } from "ulid";
 
 const Keys = () => {
@@ -66,7 +66,7 @@ const KeyContainer = ({ ids, setId, title }: { ids: string[]; setId: () => void;
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center  justify-between">
+        <div className="flex items-center justify-between">
           <CardTitle>{title}</CardTitle>
           <div className="flex space-x-2">
             <Button
@@ -85,13 +85,13 @@ const KeyContainer = ({ ids, setId, title }: { ids: string[]; setId: () => void;
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-4 py-4  text-center">
+        <div className="grid grid-cols-2 gap-4 py-4 text-center">
           {ids.map((_, i) => (
             <div
               key={i}
               className="cursor-pointer rounded bg-secondary py-2 text-secondary-foreground hover:bg-primary"
               onClick={async () => {
-                if (ids.at(i) == undefined) return;
+                if (ids.at(i) === undefined) return;
                 await navigator.clipboard.writeText(ids.at(i) ?? "");
                 toast.success("Copied to clipboard");
               }}

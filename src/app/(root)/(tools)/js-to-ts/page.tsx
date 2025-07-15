@@ -1,14 +1,14 @@
 "use client";
 
+import { json } from "@codemirror/lang-json";
 import JsonToTS from "json-to-ts";
 import { useCallback, useEffect, useState } from "react";
-import { json } from "@codemirror/lang-json";
 
+import Container from "@/components/Container/Container";
+import BaseLayout from "@/layout/BaseLayout";
 import { toast } from "sonner";
 import Editor from "../../../../components/Editor/Editor";
 import MultiEditorLayout from "../../../../layout/multi-editor-layout";
-import Container from "@components/Container/Container";
-import BaseLayout from "@layout/BaseLayout";
 
 const JsonToTs = () => {
   const [inputArea, setinputArea] = useState("");
@@ -20,15 +20,8 @@ const JsonToTs = () => {
       if (inputArea.trim().length < 1) {
         return;
       }
-      const jsonString = inputArea.replace(
-        /(\w+:)|(\w+ :)/g,
-        function (matchedStr) {
-          return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
-        },
-      );
-      const obj: Record<string, unknown> = JSON.parse(
-        jsonString.trim(),
-      ) as Record<string, unknown>;
+      const jsonString = inputArea.replace(/(\w+:)|(\w+ :)/g, (matchedStr) => `"${matchedStr.substring(0, matchedStr.length - 1)}":`);
+      const obj: Record<string, unknown> = JSON.parse(jsonString.trim()) as Record<string, unknown>;
 
       const tsObj = JsonToTS(obj);
       setoutputArea(tsObj.join("\n\n"));
@@ -45,27 +38,13 @@ const JsonToTs = () => {
   }, [inputArea, handleParsing]);
 
   return (
-    <BaseLayout
-      toolId={1}
-      title="JavaScript to TypeScript"
-      desc="Convert JavaScript objects to TypeScript interfaces"
-    >
+    <BaseLayout toolId={1} title="JavaScript to TypeScript" desc="Convert JavaScript objects to TypeScript interfaces">
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor
-            value={inputArea}
-            setValue={setinputArea}
-            language={json()}
-            placeholder="Enter JS here"
-          />
+          <Editor value={inputArea} setValue={setinputArea} language={json()} placeholder="Enter JS here" />
         </Container>
         <Container>
-          <Editor
-            value={outputArea}
-            setValue={setoutputArea}
-            disabled
-            placeholder="TS will appear here"
-          />
+          <Editor value={outputArea} setValue={setoutputArea} disabled placeholder="TS will appear here" />
         </Container>
       </MultiEditorLayout>
     </BaseLayout>

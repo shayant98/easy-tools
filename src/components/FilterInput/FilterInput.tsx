@@ -1,12 +1,12 @@
-import DatePicker from "@components/Datepicker/Datepicker";
-import { Button } from "@components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@components/ui/dropdown";
-import { Input } from "@components/ui/Input";
-import { Label } from "@components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@components/ui/select";
+import DatePicker from "@/components/Datepicker/Datepicker";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { comparatorOptions } from "@utils/odata";
-import { cn } from "@utils/utils";
-import { type IFilter } from "app/(root)/(tools)/odata-generator/page";
+import { cn } from "@/lib/utils";
+import type { IFilter } from "app/(root)/(tools)/odata-generator/page";
 import { parseISO } from "date-fns";
 import { Copy, ListEnd, MoreVertical, Trash } from "lucide-react";
 
@@ -18,7 +18,7 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
 
     updateFilter({ ...filter, value });
   };
-  if (filter.type == "default") {
+  if (filter.type === "default") {
     return (
       <div className="mb-5 flex w-full flex-col gap-3 ">
         <div className="mb-2 flex items-center justify-between gap-2">
@@ -80,15 +80,19 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
             </DropdownMenu>
           </div>
         </div>
-        <div className="flex w-full justify-between   ">
+        <div className="flex w-full justify-between ">
           <div className="mr-2 flex w-full items-center gap-2">
             <Input disabled={disabled} className="grow" placeholder="eg. id" value={filter.key} onChange={(e) => updateFilter({ ...filter, key: e.target.value.trim() })} />
             <Select
               disabled={disabled}
               defaultValue={filter.comparator}
               onValueChange={(v) => {
-                if (v != "between" && filter.value.length > 1) {
-                  updateFilter({ ...filter, comparator: v, value: [filter.value[0] ?? ""] });
+                if (v !== "between" && filter.value.length > 1) {
+                  updateFilter({
+                    ...filter,
+                    comparator: v,
+                    value: [filter.value[0] ?? ""],
+                  });
                   return;
                 }
 
@@ -108,15 +112,15 @@ const FilterInput = ({ filter, updateFilter, disabled, deleteFilter, copyFilter,
                 })}
               </SelectContent>
             </Select>
-            {filter.valueType == "date" ? (
+            {filter.valueType === "date" ? (
               <DatePicker date={filter.value[0] ? parseISO(filter.value[0] ?? "") : undefined} setDate={(date) => updateValue(date?.toISOString() ?? "", 0)} />
             ) : (
               <Input disabled={disabled} placeholder="eg. foo" value={filter.value[0] ?? ""} onChange={(e) => updateValue(e.target.value.trim(), 0)} />
             )}
-            {filter.comparator == "between" && (
+            {filter.comparator === "between" && (
               <>
                 <span>&</span>
-                {filter.valueType == "date" ? (
+                {filter.valueType === "date" ? (
                   <DatePicker date={filter.value[1] ? parseISO(filter.value[1] ?? "") : undefined} setDate={(date) => updateValue(date?.toISOString() ?? "", 1)} />
                 ) : (
                   <Input disabled={disabled} placeholder="eg. foo" value={filter.value[1] ?? ""} onChange={(e) => updateValue(e.target.value.trim(), 1)} />

@@ -1,5 +1,5 @@
-import BaseLayout from "@layout/BaseLayout";
-import { Form } from "modules/CssToTailwind";
+import BaseLayout from "@/layout/BaseLayout";
+import { Form } from "@/modules/CssToTailwind";
 
 export const metadata = {
   title: "Tool | CSS to Tailwind",

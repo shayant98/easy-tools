@@ -1,9 +1,9 @@
-import BaseLayout from "@layout/BaseLayout";
-import TabbedLayout from "@layout/TabbedLayout";
+import BaseLayout from "@/layout/BaseLayout";
+import TabbedLayout from "@/layout/TabbedLayout";
 import FromBase64 from "./_components/from-base64-image";
+import FromBase64String from "./_components/from-base64-string";
 import ToBase64 from "./_components/to-base64-image";
 import ToBase64String from "./_components/to-base64-string";
-import FromBase64String from "./_components/from-base64-string";
 
 export const metadata = {
   title: "Tools | Base64 converter",

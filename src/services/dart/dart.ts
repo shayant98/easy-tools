@@ -1,5 +1,5 @@
 import { capitalize } from "@utils/formatters";
-import { convertStringToCamelCase } from "@utils/utils";
+import { convertStringToCamelCase } from "@/lib/utils";
 
 /**
  * Creates a Dart class from a JSON string.
@@ -37,7 +37,12 @@ export const createDartClassFromJson = ({
     if (Object.prototype.hasOwnProperty.call(jsonMap, key)) {
       const element = jsonMap[key];
 
-      const classPropterty = generateDartClassPropertiesFromJson({ key, value: element, addJsonKey, autoCamelCase });
+      const classPropterty = generateDartClassPropertiesFromJson({
+        key,
+        value: element,
+        addJsonKey,
+        autoCamelCase,
+      });
 
       if (classPropterty.trim() !== "") {
         dartClassProperties.push(classPropterty);
@@ -51,12 +56,26 @@ export const createDartClassFromJson = ({
           if (isArrayOfObjects) {
             //If array of objects
             const className = `${key.charAt(0).toUpperCase() + key.slice(1)}`;
-            const subClass = createDartClassFromJson({ json: JSON.stringify(element[0]), className: `${className}`, autoCamelCase, addJsonKey, addConstructor });
+            const subClass = createDartClassFromJson({
+              json: JSON.stringify(element[0]),
+              className: `${className}`,
+              autoCamelCase,
+              addJsonKey,
+              addConstructor,
+            });
             dartClassProperties.push(`List<${className}> ${key};`);
             subClasses.push(subClass);
           } else {
             //If not array of objects
-            dartClassProperties.push(generateDartClassPropertiesFromJson({ key, value: element, isList: true, addJsonKey, autoCamelCase }));
+            dartClassProperties.push(
+              generateDartClassPropertiesFromJson({
+                key,
+                value: element,
+                isList: true,
+                addJsonKey,
+                autoCamelCase,
+              })
+            );
           }
         } else {
           dartClassProperties.push(`List<dynamic> ${key};`);
@@ -66,7 +85,13 @@ export const createDartClassFromJson = ({
       // if element is an object then we need to create a class for it, recursively run this function
       if (typeof element === "object" && !Array.isArray(element) && element !== null) {
         const className = `${key.charAt(0).toUpperCase() + key.slice(1)}`;
-        const subClass = createDartClassFromJson({ json: JSON.stringify(element), className: `${className}`, autoCamelCase, addJsonKey, addConstructor });
+        const subClass = createDartClassFromJson({
+          json: JSON.stringify(element),
+          className: `${className}`,
+          autoCamelCase,
+          addJsonKey,
+          addConstructor,
+        });
         dartClassProperties.push(`${addJsonKey ? `@JsonKey(name: '${key}') ` : "p"} ${className} ${key};`);
         subClasses.push(subClass);
       }
@@ -156,7 +181,7 @@ const generateDartClassPropertiesFromJson = ({
 const checkIfArrayisArrayofObjects = (arr: unknown[]) => {
   if (Array.isArray(arr)) {
     if (arr.length > 0) {
-      if (typeof arr[0] == "object") {
+      if (typeof arr[0] === "object") {
         return true;
       }
     }

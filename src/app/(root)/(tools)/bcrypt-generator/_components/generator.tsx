@@ -1,26 +1,26 @@
 "use client";
 
-import Container from "@components/Container/Container";
-import Editor from "@components/Editor/Editor";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/Input";
-import MultiEditorLayout from "@layout/multi-editor-layout";
-import { Label } from "@components/ui/label";
+import Container from "@/components/Container/Container";
+import Editor from "@/components/Editor/Editor";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import * as bcrypt from "bcryptjs";
+import { ArrowRight, Copy, Eraser } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { ArrowRight, Copy, Eraser } from "lucide-react";
 
 const BcryptGenerator = () => {
   const [inputArea, setinputArea] = useState("");
   const [rounds, setrounds] = useState("10");
   const [hash, setHash] = useState("");
   const handleGenerate = () => {
-    if (inputArea == "") {
+    if (inputArea === "") {
       return;
     }
 
-    bcrypt.hash(inputArea, parseInt(rounds), function (err, hash) {
+    bcrypt.hash(inputArea, Number.parseInt(rounds), (err, hash) => {
       console.log(err);
 
       if (err) return;
@@ -29,7 +29,7 @@ const BcryptGenerator = () => {
   };
 
   const handleCopy = async () => {
-    if (hash == "") {
+    if (hash === "") {
       toast("Noting to copy!");
       return;
     }
@@ -46,7 +46,7 @@ const BcryptGenerator = () => {
   return (
     <>
       <div className="mb-2 flex w-full justify-end">
-        <Button className="ml-4  flex items-center gap-1 rounded px-4 py-2 " onClick={handleCopy}>
+        <Button className="ml-4 flex items-center gap-1 rounded px-4 py-2 " onClick={handleCopy}>
           <Copy className="mr-2 h-4 w-4" />
           Copy
         </Button>
@@ -62,11 +62,11 @@ const BcryptGenerator = () => {
             <Input placeholder="String" value={inputArea} onChange={(e) => setinputArea(e.target.value)} />
           </div>
           <div className="flex justify-end gap-x-3 pt-3">
-            <Button variant={"ghost"} className="ml-4  flex items-center gap-1 rounded px-4 py-2 " onClick={handleClear}>
+            <Button variant={"ghost"} className="ml-4 flex items-center gap-1 rounded px-4 py-2 " onClick={handleClear}>
               <Eraser className="mr-2 h-4 w-4" />
               Clear
             </Button>
-            <Button onClick={handleGenerate} className="flex  items-center gap-1 rounded  px-4 py-2 transition duration-200 hover:scale-105 hover:shadow">
+            <Button onClick={handleGenerate} className="flex items-center gap-1 rounded px-4 py-2 transition duration-200 hover:scale-105 hover:shadow">
               <ArrowRight className="mr-2 h-4 w-4" />
               Generate
             </Button>

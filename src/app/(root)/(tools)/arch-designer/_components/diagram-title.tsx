@@ -1,11 +1,11 @@
-import { Input } from "@components/ui/Input";
-import { Button } from "@components/ui/button";
-import { cn } from "@utils/utils";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Pencil, Save, X } from "lucide-react";
 import { useState } from "react";
 import { Panel } from "reactflow";
-import { useDiagramContext } from "./diagram-context";
 import { toast } from "sonner";
+import { useDiagramContext } from "./diagram-context";
 
 const DiagramTitle = () => {
   const { title, setTitle } = useDiagramContext();
@@ -25,10 +25,10 @@ const DiagramTitle = () => {
 
   return (
     <Panel position="top-left" className="mt-50">
-      <div className="px-4 py-4 bg-muted rounded shadow-lg">
+      <div className="rounded bg-muted px-4 py-4 shadow-lg">
         <div className="flex items-center justify-evenly gap-4">
           <span
-            className={cn("text-xl font-bold", {
+            className={cn("font-bold text-xl", {
               hidden: showTitleInput,
             })}
             onDoubleClick={(e) => {
@@ -42,7 +42,7 @@ const DiagramTitle = () => {
             autoFocus
             value={currentTitle}
             onChange={(e) => setCurrentTitle(e.target.value)}
-            className={cn("text-xl font-bold ", {
+            className={cn("font-bold text-xl ", {
               hidden: !showTitleInput,
             })}
           />

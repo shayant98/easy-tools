@@ -1,14 +1,14 @@
 "use client";
 
-import Container from "@components/Container/Container";
-import Editor from "@components/Editor/Editor";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/button";
-import MultiEditorLayout from "@layout/multi-editor-layout";
+import Container from "@/components/Container/Container";
+import Editor from "@/components/Editor/Editor";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Button } from "@/components/ui/button";
+import { css } from "@codemirror/lang-css";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { TailwindConverter } from "css-to-tailwindcss";
 import { Copy } from "lucide-react";
-import { useState, useMemo, useCallback, useEffect } from "react";
-import { css } from "@codemirror/lang-css";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const CssToTailwindForm = () => {
   const [inputArea, setinputArea] = useState("");

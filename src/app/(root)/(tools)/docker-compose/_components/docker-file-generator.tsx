@@ -1,20 +1,15 @@
 "use client";
 
-import MultiEditorLayout from "@layout/multi-editor-layout";
-import Form from "./form";
-import Output from "./Output.module";
-import { useDockerCompose } from "./DockerComposeContext";
-import { Button } from "@components/ui/button";
+import { Button } from "@/components/ui/button";
+import { Toolbar, ToolbarButton, ToolbarSeparator } from "@/components/ui/toolbar";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { Cog, Download } from "lucide-react";
-import {
-  Toolbar,
-  ToolbarButton,
-  ToolbarSeparator,
-} from "@components/ui/toolbar";
+import { useDockerCompose } from "./DockerComposeContext";
+import Output from "./Output.module";
+import Form from "./form";
 
 const DockerFileGenerator = () => {
-  const { generateDockerComposeFromServices, downloadYaml } =
-    useDockerCompose();
+  const { generateDockerComposeFromServices, downloadYaml } = useDockerCompose();
 
   return (
     <>

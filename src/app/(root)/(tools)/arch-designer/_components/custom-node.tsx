@@ -1,7 +1,7 @@
-import { cn } from "@utils/utils";
-import { Handle, type NodeProps, type Position, NodeResizer, type HandleType } from "reactflow";
-import { SiAzuredevops } from "react-icons/si";
-import { services } from "@data/arch-services";
+import { services } from "@/data/arch-services";
+import { cn } from "@/lib/utils";
+import { SiFirebase } from "react-icons/si";
+import { Handle, type HandleType, type NodeProps, NodeResizer, type Position } from "reactflow";
 
 export type NodeData = {
   label: string;
@@ -15,14 +15,14 @@ export type NodeData = {
 };
 
 const CustomNode = (props: NodeProps<NodeData>) => {
-  const Icon = services.find((v) => v.id == props.data.service)?.icon;
+  const Icon = services.find((v) => v.id === props.data.service)?.icon;
 
   return (
     <>
       <NodeResizer isVisible={props.selected} minHeight={32} minWidth={112} />
 
       <div
-        className={cn("relative flex items-center justify-center px-4 min-w-28 min-h-8 h-full py-2 rounded shadow  text-secondary-foreground", {
+        className={cn("relative flex h-full min-h-8 min-w-28 items-center justify-center rounded px-4 py-2 text-secondary-foreground shadow", {
           "border-2 border-secondary-foreground": props.selected,
           "border-2 border-secondary": !props.selected,
         })}
@@ -30,13 +30,13 @@ const CustomNode = (props: NodeProps<NodeData>) => {
           background: props.data.color ?? "hsl(var(--secondary))",
         }}
       >
-        <div className="flex justify-between gap-3 items-center rounded">
-          <div className="bg-muted rounded">
-            <div className="bg-yellow-500 rounded p-1.5 flex items-center justify-center">
-              {Icon != undefined ? <Icon className="w-2 h-2" /> : <SiAzuredevops className="w-2 h-2" />}
+        <div className="flex items-center justify-between gap-3 rounded">
+          <div className="rounded bg-muted">
+            <div className="flex items-center justify-center rounded bg-yellow-500 p-1.5">
+              {Icon !== undefined ? <Icon className="h-2 w-2" /> : <SiFirebase className="h-2 w-2" />}
             </div>
           </div>
-          <p className={cn("text-xs font-bold")}>{props.data.label} </p>
+          <p className={cn("font-bold text-xs")}>{props.data.label} </p>
         </div>
       </div>
 

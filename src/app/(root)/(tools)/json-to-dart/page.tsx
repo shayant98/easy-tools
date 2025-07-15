@@ -1,26 +1,21 @@
 "use client";
 
-import Container from "@components/Container/Container";
-import Editor from "@components/Editor/Editor";
+import Container from "@/components/Container/Container";
+import Editor from "@/components/Editor/Editor";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Button } from "@/components/ui/button";
+import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from "@/components/ui/toolbar";
 import { json } from "@codemirror/lang-json";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/button";
-import BaseLayout from "@layout/BaseLayout";
-import MultiEditorLayout from "@layout/multi-editor-layout";
+import { useClipboard } from "@/hooks/use-clipboard";
+import BaseLayout from "@/layout/BaseLayout";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
+import BeautifyButton from "@/app/_components/basic-buttons/beautify-button";
+import CopyButton from "@/app/_components/basic-buttons/copy-button";
 import { Cog, Copy, Flower } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createDartClassFromJson } from "../../../../services/dart/dart";
 import { toast } from "sonner";
+import { createDartClassFromJson } from "../../../../services/dart/dart";
 import OptionsMenu from "./_components/options-menu";
-import { useClipboard } from "hooks/use-clipboard";
-import CopyButton from "app/_components/basic-buttons/copy-button";
-import {
-  Toolbar,
-  ToolbarButton,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from "@components/ui/toolbar";
-import BeautifyButton from "app/_components/basic-buttons/beautify-button";
 
 const JsonToDart = () => {
   const [jsonValue, setJsonValue] = useState("");
@@ -82,11 +77,7 @@ const JsonToDart = () => {
   }, [jsonValue]);
 
   return (
-    <BaseLayout
-      title="Json to Dart"
-      desc="Convert Json to Dart freezed classes"
-      toolId={4}
-    >
+    <BaseLayout title="Json to Dart" desc="Convert Json to Dart freezed classes" toolId={4}>
       <Toolbar>
         <ToolbarButton asChild>
           <Button onClick={() => onSubmit()}>
@@ -123,20 +114,10 @@ const JsonToDart = () => {
 
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor
-            value={jsonValue}
-            setValue={setJsonValue}
-            language={json()}
-            placeholder="Enter JSON here"
-          />
+          <Editor value={jsonValue} setValue={setJsonValue} language={json()} placeholder="Enter JSON here" />
         </Container>
         <Container>
-          <Editor
-            value={dart}
-            setValue={setDart}
-            disabled
-            placeholder="Dart will appear here"
-          />
+          <Editor value={dart} setValue={setDart} disabled placeholder="Dart will appear here" />
         </Container>
       </MultiEditorLayout>
     </BaseLayout>

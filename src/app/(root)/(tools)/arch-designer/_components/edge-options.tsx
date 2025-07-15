@@ -1,17 +1,17 @@
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@components/ui/sheet";
-import { cn } from "@utils/utils";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import ColorPicker from "@/app/_components/color-picker";
 import { MoreHorizontal, Trash2 } from "lucide-react";
-import { type Node, useReactFlow, useUpdateNodeInternals, type Edge } from "reactflow";
-import { type NodeData } from "./custom-node";
-import { Label } from "@components/ui/label";
-import { Input } from "@components/ui/Input";
-import { Button } from "@components/ui/button";
+import { type Edge, type Node, useReactFlow, useUpdateNodeInternals } from "reactflow";
 import { toast } from "sonner";
-import { Separator } from "@components/ui/separator";
-import ColorPicker from "app/_components/color-picker";
-import ServicePicker from "./service-picker";
-import HandleCreator from "./handle-creator";
+import type { NodeData } from "./custom-node";
 import { useDiagramContext } from "./diagram-context";
+import HandleCreator from "./handle-creator";
+import ServicePicker from "./service-picker";
 
 const EdgeOptions = ({ id }: { id: string }) => {
   const { showEdgeOptions, setShowEdgeOptions, setSelectedEdge } = useDiagramContext();
@@ -41,7 +41,7 @@ const EdgeOptions = ({ id }: { id: string }) => {
       open={showEdgeOptions}
       onOpenChange={(isOpen) => {
         setShowEdgeOptions(isOpen);
-        if (isOpen == false) {
+        if (isOpen === false) {
           setSelectedEdge("");
         }
       }}
@@ -52,7 +52,7 @@ const EdgeOptions = ({ id }: { id: string }) => {
           <SheetDescription>Modify edge options</SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col gap-5 mt-5 h-full">
+        <div className="mt-5 flex h-full flex-col gap-5">
           <div className="flex justify-end">
             <Button variant="destructive" onClick={handleDelete}>
               <Trash2 size={16} className="mr-2" />
@@ -60,7 +60,7 @@ const EdgeOptions = ({ id }: { id: string }) => {
             </Button>
           </div>
           <Separator className="mt-5" />
-          <div className="relative h-full overflow-scroll flex flex-col gap-5"></div>
+          <div className="relative flex h-full flex-col gap-5 overflow-scroll" />
         </div>
       </SheetContent>
     </Sheet>

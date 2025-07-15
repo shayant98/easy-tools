@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 "use client";
 
-import Container from "@components/Container/Container";
-import Dropzone from "@components/Dropzone/Dropzone";
-import MultiEditorLayout from "@layout/multi-editor-layout";
+import Container from "@/components/Container/Container";
+import Dropzone from "@/components/Dropzone/Dropzone";
+import Editor from "@/components/Editor/Editor";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
+import QrScanner from "qr-scanner"; // if installed via package and bundling with a module bundler like webpack or rollup
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import QrScanner from "qr-scanner"; // if installed via package and bundling with a module bundler like webpack or rollup
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import Editor from "@components/Editor/Editor";
 import QrCameraDialog from "./qr-camera-dialog";
 
 const QrDecoder = () => {
@@ -16,7 +16,7 @@ const QrDecoder = () => {
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
-    if (acceptedFiles[0] == undefined) return;
+    if (acceptedFiles[0] === undefined) return;
     const res = await QrScanner.scanImage(acceptedFiles[0], {
       returnDetailedScanResult: true,
     });
@@ -24,7 +24,10 @@ const QrDecoder = () => {
     setvalue(res.data);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles: 1 });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+  });
 
   return (
     <>

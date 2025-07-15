@@ -1,18 +1,18 @@
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@components/ui/sheet";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Switch } from "@/components/ui/switch";
+import ColorPicker from "@/app/_components/color-picker";
 import { Trash2 } from "lucide-react";
 import { type Node, useReactFlow } from "reactflow";
-import { type NodeData } from "./custom-node";
-import { Label } from "@components/ui/label";
-import { Input } from "@components/ui/Input";
-import { Button } from "@components/ui/button";
 import { toast } from "sonner";
-import { Separator } from "@components/ui/separator";
-import ColorPicker from "app/_components/color-picker";
-import ServicePicker from "./service-picker";
-import HandleCreator from "./handle-creator";
+import type { NodeData } from "./custom-node";
+import type { NodeParentData } from "./custom-parent-node";
 import { useDiagramContext } from "./diagram-context";
-import { Switch } from "@components/ui/switch";
-import { type NodeParentData } from "./custom-parent-node";
+import HandleCreator from "./handle-creator";
+import ServicePicker from "./service-picker";
 
 const NodeOptions = () => {
   const { showNodeOptions, setShowNodeOptions, selectedNode: node, setSelectedNode } = useDiagramContext();
@@ -74,8 +74,8 @@ const NodeOptions = () => {
           </div>
         </SheetHeader>
 
-        <div className="flex flex-col gap-5 h-full">
-          <div className="relative h-full overflow-scroll flex flex-col gap-5">
+        <div className="flex h-full flex-col gap-5">
+          <div className="relative flex h-full flex-col gap-5 overflow-scroll">
             <div className="space-y-2">
               <Label>Title</Label>
               <Input
@@ -87,14 +87,12 @@ const NodeOptions = () => {
               <Separator className="mb-10" />
 
               {node.type === "archParentNode" && (
-                <>
-                  <div className="flex flex-row items-center justify-between rounded-lg border border-muted p-3 mt-10 shadow-sm">
-                    <div className="space-y-0.5">
-                      <Label>Show Label</Label>
-                    </div>
-                    <Switch checked={(node as Node<NodeParentData>).data.showLabel} onCheckedChange={(val) => handleDataChange(val, "showLabel")} />
+                <div className="mt-10 flex flex-row items-center justify-between rounded-lg border border-muted p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <Label>Show Label</Label>
                   </div>
-                </>
+                  <Switch checked={(node as Node<NodeParentData>).data.showLabel} onCheckedChange={(val) => handleDataChange(val, "showLabel")} />
+                </div>
               )}
 
               {node.type !== "archParentNode" && (

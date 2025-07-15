@@ -1,5 +1,5 @@
-import BaseLayout from "@layout/BaseLayout";
-import Keys from "modules/keyGen/Keys";
+import BaseLayout from "@/layout/BaseLayout";
+import Keys from "@/modules/keyGen/Keys";
 
 /**
  * Renders the Key Generator page.

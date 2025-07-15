@@ -1,8 +1,8 @@
 "use client";
 
-import Container from "@components/Container/Container";
-import { Textarea } from "@components/ui/textarea";
-import MultiEditorLayout from "@layout/multi-editor-layout";
+import Container from "@/components/Container/Container";
+import { Textarea } from "@/components/ui/textarea";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { useEffect, useState } from "react";
 
 const FromBase64String = () => {
@@ -20,18 +20,10 @@ const FromBase64String = () => {
   return (
     <MultiEditorLayout>
       <Container>
-        <Textarea
-          value={input}
-          onChange={(e) => setinput(e.target.value)}
-          placeholder="Enter your base64 string here..."
-        />
+        <Textarea value={input} onChange={(e) => setinput(e.target.value)} placeholder="Enter your base64 string here..." />
       </Container>
       <Container>
-        <Textarea
-          value={output}
-          onChange={(e) => setoutput(e.target.value)}
-          placeholder="Your decoded string will appear here..."
-        />
+        <Textarea value={output} onChange={(e) => setoutput(e.target.value)} placeholder="Your decoded string will appear here..." />
       </Container>
     </MultiEditorLayout>
   );

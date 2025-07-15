@@ -1,43 +1,20 @@
-import { Input } from "@components/ui/Input";
-import {
-  AccordionItem,
-  AccordionContent,
-  AccordionTrigger,
-} from "@components/ui/accordion";
-import { Button } from "@components/ui/button";
-import {
-  Select,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-} from "@components/ui/select";
-import { Switch } from "@components/ui/switch";
-import {
-  type zodPropertyOption,
-  zodPropertyOptions,
-} from "@data/zod-property-options";
-import { cn } from "@utils/utils";
-import { type ZodKeyMappedObject } from "@utils/zod";
+import { Input } from "@/components/ui/Input";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { type zodPropertyOption, zodPropertyOptions } from "@/data/zod-property-options";
+import { cn } from "@/lib/utils";
+import type { ZodKeyMappedObject } from "@utils/zod";
 import { Reorder, useDragControls } from "framer-motion";
 import { BookOpen, GripVertical } from "lucide-react";
 import Link from "next/link";
-import { type Dispatch, type SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
-const ZodPropertiesListItem = ({
-  item,
-  setMappedObject,
-}: {
-  item: ZodKeyMappedObject;
-  setMappedObject: Dispatch<SetStateAction<ZodKeyMappedObject[]>>;
-}) => {
+const ZodPropertiesListItem = ({ item, setMappedObject }: { item: ZodKeyMappedObject; setMappedObject: Dispatch<SetStateAction<ZodKeyMappedObject[]>> }) => {
   const controls = useDragControls();
 
-  const handleOptionMessageChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string,
-    id: string,
-  ) => {
+  const handleOptionMessageChange = (e: React.ChangeEvent<HTMLInputElement>, key: string, id: string) => {
     setMappedObject((prev) => {
       const map = prev.map((i) => {
         if (i.id === id) {
@@ -54,10 +31,7 @@ const ZodPropertiesListItem = ({
 
   return (
     <Reorder.Item value={item} dragListener={false} dragControls={controls}>
-      <AccordionItem
-        value={item.id}
-        className="w-full items-center rounded bg-primary-foreground pr-4"
-      >
+      <AccordionItem value={item.id} className="w-full items-center rounded bg-primary-foreground pr-4">
         <div className="flex w-full items-center gap-2 px-4">
           <Button
             size={"sm"}
@@ -82,18 +56,13 @@ const ZodPropertiesListItem = ({
         </div>
         <AccordionContent className="flex flex-col gap-2 pl-4">
           {zodPropertyOptions.map((option) => {
-            if (option.availableFor && !option.availableFor.includes(item.type))
-              return null;
+            if (option.availableFor && !option.availableFor.includes(item.type)) return null;
             return (
-              <div
-                key={option.key}
-                className="flex flex-col gap-2 rounded border-2 border-muted p-4"
-              >
+              <div key={option.key} className="flex flex-col gap-2 rounded border-2 border-muted p-4">
                 <div className="flex justify-between">
                   <span>{option.title}</span>
                   <div className="flex items-center gap-2">
-                    {option.hasKeyValue &&
-                      ZodKeyValueInput({ item, option, setMappedObject })}
+                    {option.hasKeyValue && ZodKeyValueInput({ item, option, setMappedObject })}
                     <Switch
                       checked={item.options[option.key]?.value}
                       onCheckedChange={(v) => {
@@ -118,9 +87,7 @@ const ZodPropertiesListItem = ({
                     disabled={!item.options[option.key]?.value}
                     placeholder="Error message"
                     value={item.options[option.key]?.message}
-                    onChange={(e) =>
-                      handleOptionMessageChange(e, option.key, item.id)
-                    }
+                    onChange={(e) => handleOptionMessageChange(e, option.key, item.id)}
                     className={cn({
                       hidden: !item.options[option.key]?.value,
                     })}
@@ -146,11 +113,7 @@ const ZodKeyValueInput = ({
   option: zodPropertyOption;
   setMappedObject: Dispatch<SetStateAction<ZodKeyMappedObject[]>>;
 }) => {
-  const handleOptionsKeyValueChange = (
-    val: string,
-    key: string,
-    id: string,
-  ) => {
+  const handleOptionsKeyValueChange = (val: string, key: string, id: string) => {
     setMappedObject((prev) => {
       const map = prev.map((i) => {
         if (i.id === id) {
@@ -165,14 +128,12 @@ const ZodKeyValueInput = ({
     });
   };
 
-  if (item.type == "boolean")
+  if (item.type === "boolean")
     return (
       <Select
         disabled={!item.options[option.key]?.value}
         defaultValue={item.options[option.key]?.keyValue}
-        onValueChange={(val) =>
-          handleOptionsKeyValueChange(val, option.key, item.id)
-        }
+        onValueChange={(val) => handleOptionsKeyValueChange(val, option.key, item.id)}
       >
         <SelectTrigger
           className={cn("w-[180px]", {
@@ -194,9 +155,7 @@ const ZodKeyValueInput = ({
       placeholder="Value"
       type={item.type === "string" ? "text" : "number"}
       value={item.options[option.key]?.keyValue}
-      onChange={(e) =>
-        handleOptionsKeyValueChange(e.target.value, option.key, item.id)
-      }
+      onChange={(e) => handleOptionsKeyValueChange(e.target.value, option.key, item.id)}
       className={cn({
         hidden: !item.options[option.key]?.value,
       })}
@@ -204,24 +163,15 @@ const ZodKeyValueInput = ({
   );
 };
 
-const SelectedOptionsCounter = ({
-  options,
-}: {
-  options: Record<
-    string,
-    { value: boolean; message?: string; keyValue?: string }
-  >;
-}) => {
+const SelectedOptionsCounter = ({ options }: { options: Record<string, { value: boolean; message?: string; keyValue?: string }> }) => {
   return (
     <div className="flex items-center gap-1">
-      <span className="text-xs text-muted-foreground">Options</span>
+      <span className="text-muted-foreground text-xs">Options</span>
       {Object.keys(options).filter((val, i, arr) => {
         return options[val]?.value === true;
       }).length > 0 && (
         <div className="rounded bg-muted px-1 py-0.5">
-          <span className="text-xs text-muted-foreground">
-            {Object.keys(options).length} selected
-          </span>
+          <span className="text-muted-foreground text-xs">{Object.keys(options).length} selected</span>
         </div>
       )}
     </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@components/ui/button";
-import { Popover, PopoverTrigger, PopoverContent } from "@components/ui/popover";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, Paintbrush } from "lucide-react";
 import { useMemo } from "react";
 
@@ -37,15 +37,15 @@ const ColorPicker = ({ background, setBackground, className }: { background: str
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="gap-2 max-w-64 flex-wrap" variant={"outline"}>
+        <Button className="max-w-64 flex-wrap gap-2" variant={"outline"}>
           <div
             className="h-4 w-4 rounded"
             style={{
               background: background,
             }}
-          ></div>
+          />
           <Paintbrush className="h-4 w-4" />
-          <div className="truncate flex-1">{background ? background : "Pick a color"}</div>
+          <div className="flex-1 truncate">{background ? background : "Pick a color"}</div>
         </Button>
       </PopoverTrigger>
       <PopoverContent>
@@ -58,15 +58,31 @@ const ColorPicker = ({ background, setBackground, className }: { background: str
               Gradiant
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="solid" className="flex flex-wrap gap-1 mt-0">
+          <TabsContent value="solid" className="mt-0 flex flex-wrap gap-1">
             {solids.map((s) => (
-              <div key={s} style={{ background: s }} className="rounded-md h-6 w-6 cursor-pointer active:scale-105" onClick={() => setBackground(s)} />
+              <div
+                key={s}
+                style={{ background: s }}
+                className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
+                onClick={() => setBackground(s)}
+                onKeyDown={(e) => e.key === "Enter" && setBackground(s)}
+                role="button"
+                tabIndex={0}
+              />
             ))}
           </TabsContent>
           <TabsContent value="gradient" className="mt-0">
-            <div className="flex flex-wrap gap-1 mb-2">
+            <div className="mb-2 flex flex-wrap gap-1">
               {gradients.map((s) => (
-                <div key={s} style={{ background: s }} className="rounded-md h-6 w-6 cursor-pointer active:scale-105" onClick={() => setBackground(s)} />
+                <div
+                  key={s}
+                  style={{ background: s }}
+                  className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
+                  onClick={() => setBackground(s)}
+                  onKeyDown={(e) => e.key === "Enter" && setBackground(s)}
+                  role="button"
+                  tabIndex={0}
+                />
               ))}
             </div>
           </TabsContent>

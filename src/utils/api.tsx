@@ -10,45 +10,49 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
  */
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
-import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 
-import { type AppRouter } from "../server/api/root";
+import type { AppRouter } from "../server/api/root";
 
 const getBaseUrl = () => {
-  if (typeof window !== "undefined") return ""; // browser should use relative url
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
-  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
+	if (typeof window !== "undefined") return ""; // browser should use relative url
+	if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
+	return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
 export const api = createTRPCReact<AppRouter>({});
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-      structuralSharing: false,
-    },
-  },
+	defaultOptions: {
+		queries: {
+			staleTime: Number.POSITIVE_INFINITY,
+			structuralSharing: false,
+		},
+	},
 });
 const trpcClient = api.createClient({
-  links: [
-    loggerLink({
-      enabled: (opts) => process.env.NODE_ENV === "development" || (opts.direction === "down" && opts.result instanceof Error),
-    }),
-    httpBatchLink({
-      url: `${getBaseUrl()}/api/trpc`,
-    }),
-  ],
-  transformer: superjson,
+	links: [
+		loggerLink({
+			enabled: (opts) =>
+				process.env.NODE_ENV === "development" ||
+				(opts.direction === "down" && opts.result instanceof Error),
+		}),
+		httpBatchLink({
+			url: `${getBaseUrl()}/api/trpc`,
+			transformer: superjson,
+		}),
+	],
 });
 
 export function ClientProvider(props: { children: React.ReactNode }) {
-  return (
-    <api.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>{props.children}</QueryClientProvider>
-    </api.Provider>
-  );
+	return (
+		<api.Provider client={trpcClient} queryClient={queryClient}>
+			<QueryClientProvider client={queryClient}>
+				{props.children}
+			</QueryClientProvider>
+		</api.Provider>
+	);
 }
 
 /**

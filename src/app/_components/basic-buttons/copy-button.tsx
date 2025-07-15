@@ -1,15 +1,9 @@
-import { Button } from "@components/ui/button";
-import { cn } from "@utils/utils";
-import { useClipboard } from "hooks/use-clipboard";
+import { Button } from "@/components/ui/button";
+import { useClipboard } from "@/hooks/use-clipboard";
+import { cn } from "@/lib/utils";
 import { Copy } from "lucide-react";
 
-const CopyButton = ({
-  onClick,
-  primaryAction = false,
-}: {
-  onClick: () => string;
-  primaryAction?: boolean;
-}) => {
+const CopyButton = ({ onClick, primaryAction = false }: { onClick: () => string; primaryAction?: boolean }) => {
   const { copy } = useClipboard();
   return (
     <Button

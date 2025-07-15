@@ -1,16 +1,16 @@
 "use client";
 
+import Editor from "@/components/Editor/Editor";
 import { useState } from "react";
-import Editor from "@components/Editor/Editor";
 
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import Container from "@components/Container/Container";
-import MultiEditorLayout from "@layout/multi-editor-layout";
-import { Button } from "@components/ui/button";
-import SnippetDialog from "@components/SnippetDialog";
-import { toast } from "sonner";
+import Container from "@/components/Container/Container";
+import SnippetDialog from "@/components/SnippetDialog";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Button } from "@/components/ui/button";
+import BaseLayout from "@/layout/BaseLayout";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { ArrowLeft, ArrowRight, Copy, Eraser } from "lucide-react";
-import BaseLayout from "@layout/BaseLayout";
+import { toast } from "sonner";
 
 const UrlEncoderDecoder = () => {
   const [inputArea, setinputArea] = useState("");
@@ -27,7 +27,7 @@ const UrlEncoderDecoder = () => {
     const decodedUrl = decodeURI(url);
 
     //Join the decoded url and query
-    setinputArea(decodedUrl + "?" + decodedQuery);
+    setinputArea(`${decodedUrl}?${decodedQuery}`);
   };
   const handleEncode = () => {
     //Split url before ? and encode only the part after ?
@@ -35,15 +35,13 @@ const UrlEncoderDecoder = () => {
     const query = inputArea.split("?")[1] ?? "";
 
     //Encode the query part
-    const encodedQuery = encodeURIComponent(query).replace(/[!'()*]/g, function (c) {
-      return "%" + c.charCodeAt(0).toString(16);
-    });
+    const encodedQuery = encodeURIComponent(query).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16)}`);
 
     //Encode the url part
     const encodedUrl = encodeURI(url);
 
     //Join the encoded url and query
-    setoutputArea(encodedUrl + "?" + encodedQuery);
+    setoutputArea(`${encodedUrl}?${encodedQuery}`);
   };
   const handleClear = () => {
     setinputArea("");

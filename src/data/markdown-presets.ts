@@ -1,16 +1,16 @@
 const presets = [
-  {
-    title: "Title",
-    value: `
+	{
+		title: "Title",
+		value: `
 # Project Title
 
 A brief description of what this project does and who it's for
 
 `,
-  },
-  {
-    title: "Environment Variables",
-    value: `
+	},
+	{
+		title: "Environment Variables",
+		value: `
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
@@ -19,10 +19,10 @@ To run this project, you will need to add the following environment variables to
 
 \`ANOTHER_API_KEY\`
 `,
-  },
-  {
-    title: "Deployment",
-    value: `
+	},
+	{
+		title: "Deployment",
+		value: `
 
 ## Deployment
 
@@ -34,10 +34,10 @@ To deploy this project run
 
 
 `,
-  },
-  {
-    title: "Run Locally",
-    value: `
+	},
+	{
+		title: "Run Locally",
+		value: `
 
 ## Run Locally
 
@@ -67,10 +67,10 @@ Start the server
 
 
 `,
-  },
-  {
-    title: "API Reference",
-    value: `## API Reference
+	},
+	{
+		title: "API Reference",
+		value: `## API Reference
 
 #### Get all items
 
@@ -98,10 +98,10 @@ Takes two numbers and returns the sum.
 
 
 `,
-  },
-  {
-    title: "FAQ",
-    value: `## FAQ
+	},
+	{
+		title: "FAQ",
+		value: `## FAQ
 
 #### Question 1
 
@@ -113,10 +113,10 @@ Answer 2
 
 
 `,
-  },
-  {
-    title: "Features",
-    value: ` ## Features
+	},
+	{
+		title: "Features",
+		value: ` ## Features
 
 - Light/dark mode toggle
 - Live previews
@@ -124,11 +124,11 @@ Answer 2
 - Cross platform
 
 `,
-  },
+	},
 
-  {
-    title: "Installation",
-    value: `
+	{
+		title: "Installation",
+		value: `
     ## Installation
 
 Install my-project with npm
@@ -139,41 +139,41 @@ Install my-project with npm
 \`\`\`
 
 `,
-  },
-  {
-    title: "Screenshot",
-    value: `## Screenshots
+	},
+	{
+		title: "Screenshot",
+		value: `## Screenshots
     ![Screenshot](https://via.placeholder.com/400x300)
 
 `,
-  },
-  {
-    title: "Authors",
-    value: `
+	},
+	{
+		title: "Authors",
+		value: `
     ## Authors
      - [@yltsakcir](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
     `,
-  },
-  {
-    title: "License",
-    value: `
+	},
+	{
+		title: "License",
+		value: `
     ## License
     [MIT](https://choosealicense.com/licenses/mit/)
     `,
-  },
-  {
-    title: "Acknowledgements",
-    value: `## Acknowledgements
+	},
+	{
+		title: "Acknowledgements",
+		value: `## Acknowledgements
     - [awesome-readme](https://www.youtube.com/watch?v=dQw4w9WgXcQ)`,
-  },
+	},
 
-  {
-    title: "Support",
-    value: `## Support
+	{
+		title: "Support",
+		value: `## Support
 
     `,
-  },
+	},
 ];
 
 export default presets;

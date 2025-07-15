@@ -1,7 +1,7 @@
-import BaseLayout from "@layout/BaseLayout";
-import TabbedLayout from "@layout/TabbedLayout";
-import QrCodeGenerator from "./_components/generator-form";
+import BaseLayout from "@/layout/BaseLayout";
+import TabbedLayout from "@/layout/TabbedLayout";
 import QrDecoder from "./_components/decoder-form";
+import QrCodeGenerator from "./_components/generator-form";
 
 const QrPage = () => {
   return (

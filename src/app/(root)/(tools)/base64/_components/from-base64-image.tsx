@@ -1,17 +1,13 @@
 "use client";
 
-import Container from "@components/Container/Container";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/Input";
-import { Label } from "@components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@components/ui/popover";
-import { Textarea } from "@components/ui/textarea";
-import MultiEditorLayout from "@layout/multi-editor-layout";
+import Container from "@/components/Container/Container";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { base64toFile } from "@utils/formatters";
 import JSZip from "jszip";
 import { ArrowRight, Cog, Download, FileArchive } from "lucide-react";
@@ -24,12 +20,12 @@ const FromBase64 = () => {
   const [generatedFiles, setgeneratedFiles] = useState<File[]>([]);
 
   const handleConversion = async () => {
-    if (input == "") {
+    if (input === "") {
       return;
     }
     setgeneratedFiles([]);
     let strings;
-    if (seperator != "") {
+    if (seperator !== "") {
       strings = input.trim().split(seperator);
     } else {
       strings = [input];
@@ -93,9 +89,7 @@ const FromBase64 = () => {
               <PopoverContent align="end" className="grid gap-4">
                 <div className="space-y-2">
                   <h4 className="font-medium leading-none">Settings</h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Set options for Base64 string
-                  </p>
+                  <p className="text-slate-500 text-sm dark:text-slate-400">Set options for Base64 string</p>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="type-seperator">Seperator</Label>
@@ -121,25 +115,14 @@ const FromBase64 = () => {
       />
       <MultiEditorLayout>
         <Container>
-          <Textarea
-            value={input}
-            onChange={(e) => setinput(e.target.value)}
-            placeholder="Enter base64 string here"
-          />
+          <Textarea value={input} onChange={(e) => setinput(e.target.value)} placeholder="Enter base64 string here" />
         </Container>
         <Container className="h-full">
           <div className="grid h-full grid-cols-3 gap-2">
             {generatedFiles.map((file) => (
-              <div
-                key={`converted-file-${file.name}`}
-                className="flex flex-col justify-between gap-2 rounded bg-slate-100 p-2 text-xs leading-7 dark:bg-slate-700"
-              >
-                <p className="leading-2 overflow-hidden text-ellipsis text-sm font-medium text-slate-800 dark:text-slate-100">
-                  Name: {file.name}
-                </p>
-                <p className="mt-1 overflow-hidden text-ellipsis text-sm text-slate-500 dark:text-slate-400">
-                  Size: {Math.ceil(file.size / 1024)} Kb
-                </p>
+              <div key={`converted-file-${file.name}`} className="flex flex-col justify-between gap-2 rounded bg-slate-100 p-2 text-xs leading-7 dark:bg-slate-700">
+                <p className="overflow-hidden text-ellipsis font-medium text-slate-800 text-sm leading-2 dark:text-slate-100">Name: {file.name}</p>
+                <p className="mt-1 overflow-hidden text-ellipsis text-slate-500 text-sm dark:text-slate-400">Size: {Math.ceil(file.size / 1024)} Kb</p>
 
                 <Button>
                   <Download className="mr-2 h-4 w-4" /> Download

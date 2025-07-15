@@ -7,7 +7,7 @@ import { snippetRouter } from "./routers/snippet";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  snippet: snippetRouter,
+	snippet: snippetRouter,
 });
 
 // export type definition of API

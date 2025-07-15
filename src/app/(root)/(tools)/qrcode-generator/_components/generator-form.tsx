@@ -1,14 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import QRCode from "qrcode";
-import Image from "next/image";
-import MultiEditorLayout from "@layout/multi-editor-layout";
-import { Button } from "@components/ui/button";
-import { Textarea } from "@components/ui/textarea";
-import Container from "@components/Container/Container";
+import Container from "@/components/Container/Container";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import MultiEditorLayout from "@/layout/multi-editor-layout";
 import { Download } from "lucide-react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import QRCode from "qrcode";
+import { useCallback, useEffect, useState } from "react";
 
 const QrCodeGenerator = () => {
   const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ const QrCodeGenerator = () => {
   };
 
   const handleGenerateQrCode = useCallback(async (value: string) => {
-    if (value == "") {
+    if (value === "") {
       setqrCode(await QRCode.toDataURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
       return;
     }
@@ -53,7 +53,7 @@ const QrCodeGenerator = () => {
       </div>
       <MultiEditorLayout>
         <Container>
-          <Textarea className="h-full  " value={input} onChange={(e) => setinput(e.target.value)} placeholder="Type your message here." />
+          <Textarea className="h-full " value={input} onChange={(e) => setinput(e.target.value)} placeholder="Type your message here." />
         </Container>
         <Container>
           <div className="flex h-full flex-col items-center justify-center">

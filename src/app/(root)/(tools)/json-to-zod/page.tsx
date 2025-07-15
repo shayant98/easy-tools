@@ -1,23 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import { json } from "@codemirror/lang-json";
+import { useCallback, useEffect, useState } from "react";
 
-import Editor from "../../../../components/Editor/Editor";
-import { toast } from "sonner";
-import MultiEditorLayout from "../../../../layout/multi-editor-layout";
-import Container from "@components/Container/Container";
-import { Button } from "@components/ui/button";
-import ToolButtons from "@components/ToolButtons/ToolButtons";
+import Container from "@/components/Container/Container";
+import ToolButtons from "@/components/ToolButtons/ToolButtons";
+import { Button } from "@/components/ui/button";
+import BaseLayout from "@/layout/BaseLayout";
+import TabbedLayout from "@/layout/TabbedLayout";
+import { type ZodKeyMappedObject, createMappedObjectFromJson, createStringZodSchemaFromMappedObject } from "@utils/zod";
 import { Flower } from "lucide-react";
-import BaseLayout from "@layout/BaseLayout";
-import {
-  type ZodKeyMappedObject,
-  createMappedObjectFromJson,
-  createStringZodSchemaFromMappedObject,
-} from "@utils/zod";
+import { toast } from "sonner";
+import Editor from "../../../../components/Editor/Editor";
+import MultiEditorLayout from "../../../../layout/multi-editor-layout";
 import Options, { type ZodOptions } from "./_components/options";
-import TabbedLayout from "@layout/TabbedLayout";
 import ZodPropertiesList from "./_components/zod-properties-list";
 
 const JsonToZod = () => {
@@ -92,11 +88,7 @@ const JsonToZod = () => {
   };
 
   return (
-    <BaseLayout
-      toolId={10}
-      title="JSON to ZOD generator"
-      desc="Convert JSON to ZOD schema"
-    >
+    <BaseLayout toolId={10} title="JSON to ZOD generator" desc="Convert JSON to ZOD schema">
       <ToolButtons
         first={
           <div>
@@ -109,12 +101,7 @@ const JsonToZod = () => {
       />
       <MultiEditorLayout>
         <Container errorMessage={error}>
-          <Editor
-            placeholder="Enter JSON here"
-            value={inputArea}
-            setValue={setinputArea}
-            language={json()}
-          />
+          <Editor placeholder="Enter JSON here" value={inputArea} setValue={setinputArea} language={json()} />
         </Container>
         <Container>
           <TabbedLayout
@@ -125,12 +112,7 @@ const JsonToZod = () => {
                 label: "Schema",
                 child: (
                   <>
-                    <Editor
-                      disabled
-                      placeholder="Output"
-                      value={outputArea}
-                      setValue={setoutputArea}
-                    />
+                    <Editor disabled placeholder="Output" value={outputArea} setValue={setoutputArea} />
                   </>
                 ),
               },
@@ -139,10 +121,7 @@ const JsonToZod = () => {
                 label: "Playground",
                 child: (
                   <>
-                    <ZodPropertiesList
-                      mappedObject={mappedObject}
-                      setMappedObject={setMappedObject}
-                    />
+                    <ZodPropertiesList mappedObject={mappedObject} setMappedObject={setMappedObject} />
                   </>
                 ),
               },
