@@ -22,6 +22,7 @@ import { VscJson, VscSymbolString } from "react-icons/vsc";
 export interface IMenuItem {
   id: number;
   title: string;
+  beta?: boolean;
   subtitle: string;
   icon: IconType | LucideIcon;
   link: string;
@@ -186,6 +187,7 @@ const menuItems: IMenuItem[] = [
   },
   {
     id: 14,
+    beta: true,
     title: "Architectural Designer",
     subtitle: "Create top-level architecture diagrams",
     icon: BiLockAlt,

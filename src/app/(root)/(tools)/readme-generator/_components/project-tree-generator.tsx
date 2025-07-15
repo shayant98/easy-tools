@@ -41,6 +41,8 @@ const ProjectTreeGen = ({
     },
   ]);
 
+  const [open, setOpen] = useState(false);
+
   const addFolder = ({}) => {
     const newProject = [...project];
     newProject.push({ name: "", id: cuid2.createId() });
@@ -76,31 +78,72 @@ const ProjectTreeGen = ({
     const generateRecord = (
       folder: ProjectFolder,
       depth = 0,
-      isFile = false,
+      isFinal = false,
     ) => {
-      markdown += `${"  ".repeat(depth)}|-📁 ${folder.name}\n`;
+      markdown += `${"  ".repeat(depth)}${isFinal ? "┗ " : "┣"}📁 ${folder.name}\n`;
 
       if (folder.children) {
-        folder.children.forEach((child) => {
-          generateRecord(child, depth + 1);
+        folder.children.forEach((child, index) => {
+          generateRecord(
+            child,
+            depth + 1,
+            index === folder.children!.length - 1,
+          );
         });
       }
     };
 
-    project.forEach((folder) => {
-      generateRecord(folder);
+    project.forEach((folder, index) => {
+      generateRecord(folder, 0, index === project.length - 1);
     });
 
-    setSelectedPresets([
-      {
-        title: "Project Structure",
-        value: `
-## Project Structure
-\`\`\`
-${markdown}
-\`\`\``,
-      },
-    ]);
+    setSelectedPresets((prev) => {
+      const hasProjectStructure = prev.some(
+        (preset) => preset.title === "Project Structure",
+      );
+      if (hasProjectStructure) {
+        return prev.map((preset) => {
+          if (preset.title === "Project Structure") {
+            return {
+              ...preset,
+              onClick: () => {
+                setOpen(true);
+              },
+              value: `\n## Project Structure\n\`\`\`\n${markdown}\n\`\`\``,
+            };
+          }
+          return preset;
+        });
+      }
+
+      return [
+        ...prev,
+        {
+          title: "Project Structure",
+          onClick: () => {
+            setOpen(true);
+          },
+          value: `\n## Project Structure\n\`\`\`\n${markdown}\n\`\`\``,
+        },
+      ];
+
+      //       return [
+      //         ...prev,
+      //         {
+      //           title: "Project Structure",
+      //           onClick: () => {
+      //             setOpen(true);
+      //           },
+      //           value: `
+      // ## Project Structure
+      // \`\`\`
+      // ${markdown}
+      // \`\`\``,
+      //         },
+      //       ];
+    });
+
+    setOpen(false);
   };
 
   const removeFolder = ({
@@ -158,7 +201,7 @@ ${markdown}
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="flex w-full cursor-pointer flex-wrap items-center justify-between rounded bg-secondary px-4 py-2 text-center text-xs">
         Project Tree Generator
       </DialogTrigger>
@@ -170,9 +213,9 @@ ${markdown}
           </DialogDescription>
         </DialogHeader>
         <div className="flex justify-end">
-          <Button onClick={addFolder} variant={"outline"}>
+          <Button onClick={addFolder}>
             <PlusCircle className="h-4 w-4" />
-            Add Folder
+            Add Parent Folder
           </Button>
         </div>
 

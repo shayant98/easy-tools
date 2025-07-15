@@ -15,6 +15,7 @@ import {
   Copy,
   DotSquare,
   Download,
+  Edit,
   GripVertical,
   Trash,
   Undo2,
@@ -38,6 +39,7 @@ const ReadmeGenerator = () => {
   const [selectedPresets, setSelectedPresets] = useState<
     {
       title: string;
+      onClick?: () => void;
       value: string;
     }[]
   >([]);
@@ -113,19 +115,7 @@ const ReadmeGenerator = () => {
     }
   }, []);
 
-  // const handleUpdateOrder = (
-  //   movedPreset: {
-  //     title: string;
-  //     value: string;
-  //   },
-  //   newIndex: number
-  // ) => {
-  //   //Move the item to the new index and shift the rest
-  //   const newOrder = selectedPresets.filter((_, i) => i !== newIndex);
-  //   newOrder.splice(newIndex, 0, movedPreset);
-
-  //   setSelectedPresets(newOrder);
-  // };
+  console.log("selected presets", selectedPresets);
 
   return (
     <BaseLayout
@@ -183,13 +173,28 @@ const ReadmeGenerator = () => {
                         {i + 1}. {preset.title}
                       </p>
                     </div>
-                    <Button
-                      variant={"destructive"}
-                      size={"icon"}
-                      onClick={() => removeselectedPreset(preset)}
-                    >
-                      <Trash className="h-3 w-3" />
-                    </Button>
+                    <div className="flex justify-end gap-4">
+                      <Button
+                        variant={"ghost"}
+                        size={"icon"}
+                        onClick={() => {
+                          if (preset.onClick) {
+                            preset.onClick();
+                          }
+                          setCurrentlySelectedPreset(preset);
+                        }}
+                      >
+                        <Edit className="h-3 w-3" />
+                      </Button>
+
+                      <Button
+                        variant={"destructive"}
+                        size={"icon"}
+                        onClick={() => removeselectedPreset(preset)}
+                      >
+                        <Trash className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </div>
                 </Reorder.Item>
               ))}
